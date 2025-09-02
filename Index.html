@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maderóh | Muebles de vida</title>
+  <meta name="description" content="Maderóh: mobiliario en madera y metal hecho a medida. Diseñamos, fabricamos e instalamos con enfoque artesanal y precisión industrial.">
+  <meta property="og:title" content="Maderóh | Muebles de vida">
+  <meta property="og:description" content="Mobiliario de madera y metal hecho a medida.">
+  <meta property="og:type" content="website">
+  <style>
+    /* ====== Design tokens ====== */
+    :root{
+      --bg: #525257;           /* charcoal */
+      --card: #161718;         /* dark card */
+      --text: #f3f4f6;         /* off-white text */
+      --muted: #cbd5e1;        /* muted text */
+      --brand: #b88a57;        /* warm wood/gold accent */
+      --brand-2:#8c6239;       /* darker wood */
+      --border:#262729;
+      --radius: 16px;
+      --shadow: 0 6px 24px rgba(0,0,0,.25), 0 2px 8px rgba(0,0,0,.2);
+    }
+
+    /* ====== Base ====== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 80% -20%, rgba(184,138,87,.12), transparent 60%),
+                  radial-gradient(1000px 500px at 0% 120%, rgba(140,98,57,.10), transparent 55%),
+                  var(--bg);
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;border-radius:12px}
+
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+    /* ====== Nav ====== */
+    .nav{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(15,15,16,.6);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px}
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: linear-gradient(135deg,var(--brand),var(--brand-2));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
+    }
+    .nav-links{display:flex;gap:22px}
+    .nav-links a{color:var(--muted)}
+    .nav-links a:hover{color:var(--text)}
+    .cta{
+      padding:10px 16px;border-radius:999px;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#111;font-weight:600;border:0;cursor:pointer
+    }
+
+    /* ====== Hero ====== */
+    .hero{padding:72px 0 48px}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .eyebrow{color:var(--brand);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}
+    h1{margin:.3rem 0 1rem;font-size:clamp(2rem,4vw,3rem);line-height:1.15}
+    .lead{color:var(--muted);max-width:55ch}
+    .hero-card{
+      background:var(--card);padding:18px;border-radius:var(--radius);
+      border:1px solid var(--border);box-shadow:var(--shadow)
+    }
+
+    /* ====== Sections ====== */
+    section{padding:44px 0}
+    .section-title{font-size:1.5rem;margin:0 0 18px}
+    .grid{
+      display:grid;gap:18px;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    .card{
+      background:var(--card);border:1px solid var(--border);
+      border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden
+    }
+    .card-body{padding:16px}
+    .tag{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:#1f2022;color:var(--muted);font-size:.8rem}
+
+    /* ====== About / Value props ====== */
+    .values{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
+    .value{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    .value h3{margin:0 0 8px;font-size:1rem}
+
+    /* ====== CTA ====== */
+    .cta-band{
+      background:linear-gradient(135deg, rgba(184,138,87,.18), rgba(140,98,57,.12));
+      border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)
+    }
+
+    /* ====== Footer ====== */
+    footer{padding:34px 0;color:var(--muted);border-top:1px solid var(--border);margin-top:36px}
+
+    /* ====== Responsive ====== */
+    @media (max-width:900px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .values{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+
+    /* ====== Motion respect ====== */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none;transition:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Maderóh</span>
+      </div>
+      <div class="nav-links" role="navigation" aria-label="Principal">
+        <a href="#productos">Productos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <a class="cta" href="#contacto">Cotizar</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Muebles de vida</div>
+        <h1>Diseño en madera y metal con calidad de taller y precisión industrial.</h1>
+        <p class="lead">Fabricamos mobiliario a medida para hogares y negocios: mesas, escritorios, racks, closets y proyectos especiales. Diseños duraderos, acabados premium y entregas puntuales en CDMX.</p>
+        <div style="margin-top:16px;display:flex;gap:12px">
+          <a class="cta" href="#productos">Ver catálogo</a>
+          <a class="cta" style="background:#fff;color:#111" href="#contacto">Solicitar propuesta</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop" alt="Mesa de madera con estructura metálica en un estudio moderno">
+      </div>
+    </div>
+  </header>
+
+  <!-- Productos -->
+  <section id="productos" class="container">
+    <h2 class="section-title">Selección de productos</h2>
+    <div class="grid">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1617104668285-87df05d953b3?q=80&w=1200&auto=format&fit=crop" alt="Escritorio de altura ajustable en madera y acero">
+        <div class="card-body">
+          <span class="tag">Escritorio</span>
+          <h3>Altura ajustable</h3>
+          <p class="muted">Cubierta de encino, base de acero. Cableado integrado.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop" alt="Mesa comedor de madera sólida para 6 personas">
+        <div class="card-body">
+          <span class="tag">Comedor</span>
+          <h3>Mesa sólida</h3>
+          <p class="muted">Acabado mate, protección contra humedad y calor.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a40097?q=80&w=1200&auto=format&fit=crop" alt="Rack de TV minimalista con repisas">
+        <div class="card-body">
+          <span class="tag">Rack TV</span>
+          <h3>Minimalista</h3>
+          <p class="muted">Estructura metálica y repisas modulares.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Nosotros -->
+  <section id="nosotros" class="container">
+    <h2 class="section-title">Nosotros</h2>
+    <div class="values">
+      <div class="value">
+        <h3>Hecho a medida</h3>
+        <p>Diseños personalizados según espacio, estilo y presupuesto.</p>
+      </div>
+      <div class="value">
+        <h3>Materiales seleccionados</h3>
+        <p>Madera de calidad y estructura metálica con soldadura certificada.</p>
+      </div>
+      <div class="value">
+        <h3>Entrega puntual</h3>
+        <p>Planificación de producción y logística para cumplir fechas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contacto" class="container">
+    <div class="cta-band">
+      <h2 style="margin:0 0 6px">¿Listo para tu proyecto?</h2>
+      <p style="margin:0 0 14px;color:var(--muted)">Compártenos medidas, inspiración y ubicación. Te enviamos una propuesta en 24–48 h.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="cta" href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>
+        <a class="cta" style="background:#fff;color:#111" href="https://wa.me/5215555555555" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <small>© <span id="y"></span> Maderóh. Todos los derechos reservados.</small>
+      <small>CDMX · Hecho con madera y metal.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
