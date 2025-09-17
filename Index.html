@@ -3,18 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Maderóh | Muebles de vida</title>
-  <meta name="description" content="Maderóh: mobiliario en madera y metal hecho a medida. Diseñamos, fabricamos e instalamos con enfoque artesanal y precisión industrial.">
+  <title>Maderóh | Catálogo por categorías + Configurador</title>
+  <meta name="description" content="Maderóh: mobiliario en madera y metal hecho a medida. Catálogo por categorías y configurador realista con envío por WhatsApp." />
   <meta property="og:title" content="Maderóh | Muebles de vida">
   <meta property="og:description" content="Mobiliario de madera y metal hecho a medida.">
   <meta property="og:type" content="website">
+  <meta name="theme-color" content="#161718">
+
+  <!-- JSON-LD LocalBusiness básico -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Maderóh",
+    "description": "Mobiliario de madera y metal hecho a medida en CDMX.",
+    "address": {"@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressCountry": "MX"},
+    "areaServed": "MX",
+    "url": "https://maderoh.mx",
+    "contactPoint": [{"@type":"ContactPoint","contactType":"ventas","telephone":"+52 55 7472 9226"}]
+  }
+  </script>
+
+  <!-- Preload hero para evitar LCP alto; ajusta la ruta si cambia -->
+  <link rel="preload" as="image" href="Images/Recibidor%20Castle/Early%20American/420b92ff-3e36-4a7a-9f05-f7de5cd29c5e.jpg"" imagesrcset="images/buffetera.jpg 1x" imagesizes="(max-width: 900px) 100vw, 50vw">
 
   <style>
     /* ===== Tokens ===== */
     :root{
       --bg:#525257; --card:#161718; --text:#f3f4f6; --muted:#cbd5e1;
       --brand:#b88a57; --brand-2:#8c6239; --border:#262729;
-      --radius:16px; --shadow:0 6px 24px rgba(0,0,0,.25), 0 2px 8px rgba(0,0,0,.2);
+      --radius:16px; --radius-lg:28px;
+      --shadow:0 6px 24px rgba(0,0,0,.25), 0 2px 8px rgba(0,0,0,.2);
+      --focus: 0 0 0 3px rgba(184,138,87,.45);
     }
 
     /* ===== Base ===== */
@@ -27,61 +47,103 @@
         radial-gradient(1200px 600px at 80% -20%, rgba(184,138,87,.12), transparent 60%),
         radial-gradient(1000px 500px at 0% 120%, rgba(140,98,57,.10), transparent 55%),
         var(--bg);
+      scroll-behavior:smooth;
     }
     a{color:inherit;text-decoration:none}
-    img{display:block;border-radius:12px}
+    img{display:block;border-radius:12px;max-width:100%;height:auto}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .muted{color:var(--muted)}
+    :focus-visible{outline:none; box-shadow: var(--focus)}
 
     /* ===== Nav ===== */
-    .nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(10px);
-         background:rgba(15,15,16,.6);border-bottom:1px solid var(--border)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .nav-links{display:flex;gap:22px}
-    .nav-links a{color:var(--muted)} .nav-links a:hover{color:var(--text)}
+    /* ===== Nav ===== */
+.nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(10px);
+     background:rgba(15,15,16,.6);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+
+/* Ajustes de separación */
+.nav-links{display:flex;gap:28px;flex-wrap:wrap}   /* antes 16px */
+.nav-links > a{padding:8px 10px}                   /* más área clickeable */
+.dropdown{margin:0 6px}                            /* separa el dropdown */
+.dropbtn{padding:8px 10px}                         /* mismo padding que los links */
+.dropdown-content{margin-top:8px}                  /* baja un poco el menú */
+
     .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));
-         color:#111;font-weight:600;border:0;cursor:pointer}
+         color:#111;font-weight:700;border:0;cursor:pointer}
+
+    /* ===== Dropdown (añadido) ===== */
+    .dropdown { position: relative; display: inline-block; }
+    .dropbtn { background:none; border:none; color:var(--muted); font:inherit; cursor:pointer; padding:8px 0; }
+    .dropbtn:hover { color:var(--text); }
+    .dropdown-content {
+      display:none; position:absolute; background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius); min-width:200px; box-shadow:var(--shadow); z-index:50;
+    }
+    .dropdown-content a { display:block; padding:10px 14px; color:var(--muted); }
+    .dropdown-content a:hover { background:#1f2022; color:var(--text); }
+    .dropdown:hover .dropdown-content { display:block; }
+
+    /* ===== Page wrapper for hash routing ===== */
+    main{min-height:70vh}
+    .page{display:none;padding:44px 0}
+    .page.active{display:block}
 
     /* ===== Hero ===== */
-    .hero{padding:72px 0 48px}
+    .hero{padding:72px 0 48px; position:relative; overflow:hidden}
     .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
-    .eyebrow{color:var(--brand);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}
+    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(1200px 500px at 15% 0%, rgba(255,255,255,.06), transparent 60%);pointer-events:none}
+    .eyebrow{color:var(--brand);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
     h1{margin:.3rem 0 1rem;font-size:clamp(2rem,4vw,3rem);line-height:1.15}
     .lead{color:var(--muted);max-width:55ch}
     .hero-card{background:var(--card);padding:18px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
-    .hero-card img{width:100%;height:auto}
 
-    /* ===== Sections / cards ===== */
-    section{padding:44px 0}
-    .section-title{font-size:1.5rem;margin:0 0 18px}
+    /* ===== Components ===== */
+    .section-title{font-size:clamp(2rem, 4vw, 3rem); font-weight:800; text-align:center; margin: 40px 0 32px; letter-spacing:.02em; background: linear-gradient(90deg, var(--brand),var(--brand-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
     .grid{display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
     .card-body{padding:16px}
     .tag{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:#1f2022;color:var(--muted);font-size:.8rem}
-    /* uniform product thumbs */
     .card img{width:100%;height:220px;object-fit:cover}
 
-    /* ===== Galería (roulette, no distortion) ===== */
-    #galeria .slider{
-      position:relative;width:100%;max-width:900px;margin:0 auto;overflow:hidden;
-      border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.3);
-    }
-    #galeria .track{display:flex;transition:transform .6s ease-in-out}
-    #galeria .slide{min-width:100%;display:grid;place-items:center;padding:12px 0}
-    #galeria .slide img{
-      width:clamp(220px,32vw,420px);           /* responsive width */
-      aspect-ratio:3/2;                         /* consistent shape */
-      height:auto;object-fit:cover;object-position:center;border-radius:12px
-    }
+    /* ===== Galería (home) ===== */
+    .slider{position:relative;width:100%;max-width:900px;margin:0 auto;overflow:hidden;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+    .track{display:flex;transition:transform .6s ease-in-out}
+    .slide{min-width:100%;display:grid;place-items:center;padding:12px 0}
+    .slide img{width:clamp(220px,32vw,420px);aspect-ratio:3/2;height:auto;object-fit:cover;object-position:center;border-radius:12px}
+
+    /* ===== Configurador ===== */
+    .config-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .field{display:grid;gap:6px;margin-bottom:12px}
+    .field input,.field select{background:#0f1012;border:1px solid #222327;color:var(--text);padding:10px;border-radius:12px}
+    .preview{display:grid;place-items:center;min-height:360px;border:1px dashed #2b2c30;border-radius:14px}
+
+    /* ===== SVG preview styles (wood / metal) ===== */
+    .wood{filter: drop-shadow(0 4px 8px rgba(0,0,0,.35))}
+    .metal{filter: drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+    .handle{fill:#d1d5db}
+    .shadow{opacity:.25}
+
+    /* ===== Valores / Nosotros ===== */
+    .values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .value{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+
+    /* ===== CTA banda & sticky ===== */
+    .cta-band{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .sticky-cta{position:sticky;bottom:0;z-index:50;background:rgba(10,10,11,.92);backdrop-filter:blur(8px);border-top:1px solid #1a1b1f}
+    .sticky-wrap{max-width:1100px;margin:auto;display:flex;gap:16px;align-items:center;padding:10px 20px}
+    .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;border:none;padding:12px 18px;border-radius:14px;font-weight:900;cursor:pointer}
+    .btn.secondary{background:#1a1a1d;color:#e5e7eb;border:1px solid #2a2b30}
+
+    /* ===== Reveal ===== */
+    .reveal{opacity:0;transform:translateY(22px);filter:blur(1.5px);transition:opacity .7s ease, transform .7s ease, filter .7s ease}
+    .reveal.in{opacity:1;transform:none;filter:none}
 
     /* ===== Responsive ===== */
-    @media (max-width:900px){
-      .hero-grid{grid-template-columns:1fr}
-      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    }
-    @media (max-width:640px){
-      .grid{grid-template-columns:1fr}
-      .nav-links{display:none}
-    }
+    @media (max-width:1024px){ .config-grid{grid-template-columns:1fr} }
+    @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} .grid{grid-template-columns:repeat(2,minmax(0,1fr))} .values{grid-template-columns:1fr} }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav-links{display:none} }
 
     /* ===== Motion respect ===== */
     @media (prefers-reduced-motion: reduce){*{animation:none;transition:none}}
@@ -96,127 +158,421 @@
         <span>Maderóh</span>
       </div>
       <div class="nav-links" role="navigation" aria-label="Principal">
-        <a href="#productos">Productos</a>
-        <a href="#galeria">Galería</a>
-        <a href="#nosotros">Nosotros</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#/" data-link>Inicio</a>
+
+        <!-- Dropdown Productos (nuevo) -->
+        <div class="dropdown">
+          <button class="dropbtn">Productos ▾</button>
+          <div class="dropdown-content">
+            <a href="#/escritorios" data-link>Escritorios</a>
+            <a href="#/cajoneras" data-link>Cajoneras</a>
+            <a href="#/Buffetera" data-link>Buffetera</a>
+            <a href="#/Bancas" data-link>Bancas</a>
+            <a href="#/CentroDeTV" data-link>Centro de TV</a>
+            <a href="#/negocios" data-link>Negocios</a>
+            <a href="#/Accesorios" data-link>Accesorios</a>
+            <a href="#/CentroDeMesa" data-link>Centro de Mesa</a>
+            <a href="#/Recibidores" data-link>Recibidores</a>
+          </div>
+        </div>
+
+        <a href="#/configura" data-link>Configurar</a>
       </div>
-      <a class="cta" href="#contacto">Cotizar</a>
+      <a class="cta" id="nav-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow">Muebles de vida</div>
-        <h1>Diseño en madera y metal con calidad de taller y precisión industrial.</h1>
-        <p class="lead">Fabricamos mobiliario a medida para hogares y negocios: mesas, escritorios, racks, closets y proyectos especiales. Diseños duraderos, acabados premium y entregas puntuales en CDMX.</p>
-        <div style="margin-top:16px;display:flex;gap:12px">
-          <a class="cta" href="#productos">Ver catálogo</a>
-          <a class="cta" style="background:#fff;color:#111" href="#contacto">Solicitar propuesta</a>
+  <main id="app">
+    <!-- ===== HOME ===== -->
+    <section class="page active" data-route="/">
+      <header class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Muebles de vida</div>
+            <h1>Diseño en madera y metal con calidad de taller y precisión industrial.</h1>
+            <p class="lead">Escritorios, cajoneras, Buffetera, Bancas, CentroDeTV y soluciones para negocios. Hecho a medida en CDMX.</p>
+            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+              <a class="cta" href="#/configura" data-link>Configurar mueble</a>
+              <a class="cta" style="background:#fff;color:#111" id="hero-wa" href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <img src="images/Buffeteras/Buffetera Fernando/Early American/21a0b9ba-b390-4f30-b166-9e9cf360a95a.jpg" alt="Escritorio industrial" id="hero-img" width="900" height="600" fetchpriority="high" />
+          </div>
+        </div>
+      </header>
+
+      <section class="container reveal">
+        <h2 class="section-title">Categorías</h2>
+        <div class="grid">
+          <article class="card"><a href="#/escritorios" data-link><img src="images/Escitorios/Berenice/Ocre/4f0d2645-3616-46e5-b7c8-d4f63d0acf06.jpg" alt="Escritorios" loading="lazy" width="900" height="600"></a><div class="card-body"><span class="tag">Trabaja mejor</span><h3>Escritorios</h3><p class="muted">Estructura de acero, cubierta sólida, gestión de cables.</p></div></article>
+          <article class="card"><a href="#/cajoneras" data-link><img src="images/Hercules XL/Early American 2 Cajones/c8a3e67f-051d-4c0f-92ee-6e5697604987.jpg" alt="Cajoneras" loading="lazy" width="900" height="600"></a><div class="card-body"><span class="tag">Orden total</span><h3>Cajoneras</h3><p class="muted">Guías telescópicas, cierre suave, opciones modulares.</p></div></article>
+          <article class="card"><a href="#/Buffetera" data-link><img src="images/Buffeteras/Buffetera Fernando/Early American/21a0b9ba-b390-4f30-b166-9e9cf360a95a.jpg" alt="Buffetera" loading="lazy" width="900" height="600"></a><div class="card-body"><span class="tag">Natural y durable</span><h3>Buffetera</h3><p class="muted">Encino, nogal o parota. Sellado premium mate.</p></div></article>
+          <article class="card"><a href="#/Bancas" data-link><img src="images/Bancas/Banca Otilia/Olmo Ocre/41ed1c92-7393-4a03-9a46-0e3e02ef3e87.jpg" alt="Bancas" loading="lazy" width="900" height="600"></a><div class="card-body"><span class="tag">Ligero y fuerte</span><h3>Bancas</h3><p class="muted">Marco de acero, repisas ajustables, anclaje seguro.</p></div></article>
+          <article class="card"><a href="#/CentroDeTV" data-link><img src="images/CentroDeTV/Centro de TV Omar R/Early American/2c3e0718-45c5-4d03-91ac-1548de9840cf.jpg" alt="CentroDeTV" loading="lazy" width="900" height="600"></a><div class="card-body"><span class="tag">Tu centro social</span><h3>Centro de TV</h3><p class="muted">Puertas, cajones y nichos a medida.</p></div></article>
+          <article class="card"><a href="#/negocios" data-link><img src="images/Negocios/Mesa Restaurantera Tony_s/Olmo Dark/36d3042f-2bb7-4307-b42f-4e559a46a3f0.jpg" alt="Negocios" loading="lazy" width="900" height="600"></a><div class="card-body"><span class="tag">Comercial</span><h3>Negocios</h3><p class="muted">Mostradores, backbars, racks de exhibición y más.</p></div></article>
+        </div>
+      </section>
+
+      <section class="container reveal">
+        <h2 class="section-title">Galería</h2>
+        <div class="slider" id="slider-home">
+          <div class="track">
+            <figure class="slide"><img src="images/Buffeteras/Buffetera Fernando/Early American/21a0b9ba-b390-4f30-b166-9e9cf360a95a.jpg" alt="Cajonera Hércules Pro" loading="lazy" width="900" height="600"></figure>
+            <figure class="slide"><img src="images/Recibidor Castle/Early American/58327d2c-20ef-41ad-a267-c6064cf8e8d3.jpg"               alt="Mesa" loading="lazy" width="900" height="600"></figure>
+            <figure class="slide"><img src="images/Negocios/Rack de Ropa Modelo Gallo Azul/Pino Natural/2ae642e8-fbbb-4d75-862e-76db13cfaf7b.jpg"                alt="Rack" loading="lazy" width="900" height="600"></figure>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===== CATEGORY PAGES ===== -->
+    <section class="page" data-route="/escritorios"><div class="container"><h2 class="section-title">Escritorios</h2><div class="grid"><article class="card"><img src="images/desk.jpg" alt="Escritorio 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Clásico</span><h3>Hércules Desk</h3><p class="muted">120×50×80 cm, 3 cajones, pasacables.</p></div></article><article class="card"><img src="images/desk2.jpg" alt="Escritorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacto</span><h3>Urban</h3><p class="muted">100×50×75 cm, 1 cajón, repisa.</p></div></article><article class="card"><img src="images/desk3.jpg" alt="Escritorio 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Doble</span><h3>Studio XL</h3><p class="muted">160×70×75 cm, pedestal, canaleta.</p></div></article></div></div></section>
+
+    <section class="page" data-route="/cajoneras"><div class="container"><h2 class="section-title">Cajoneras</h2><div class="grid"><article class="card"><img src="images/CajoneraHerculesPro.jpg" alt="Cajonera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Zen</span><h3>3 Cajones</h3><p class="muted">Guías 20&quot; con cierre suave.</p></div></article><article class="card"><img src="images/CajoneraHerculesSuperDuty.jpg" alt="Cajonera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Atlas</span><h3>4 Cajones</h3><p class="muted">Bastidor reforzado 1.5&quot;.</p></div></article><article class="card"><img src="images/CajoneraHerculesSofnes.jpg" alt="Cajonera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Magna</span><h3>3+1 Archivo</h3><p class="muted">Frentes texturizados premium.</p></div></article></div></div></section>
+
+    <section class="page" data-route="/Buffetera"><div class="container"><h2 class="section-title">Buffetera</h2><div class="grid"><article class="card"><img src="images/table.jpg" alt="Tabla 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Encino</span><h3>120×50 cm</h3><p class="muted">Sellado mate, canto recto.</p></div></article><article class="card"><img src="images/table2.jpg" alt="Tabla 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nogal</span><h3>140×60 cm</h3><p class="muted">Aceite duro + UV.</p></div></article><article class="card"><img src="images/table3.jpg" alt="Tabla 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Parota</span><h3>160×70 cm</h3><p class="muted">Veta visible, sellado mate.</p></div></article></div></div></section>
+
+    <section class="page" data-route="/Bancas"><div class="container"><h2 class="section-title">Bancas</h2><div class="grid"><article class="card"><img src="images/rack.jpg" alt="Estante 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Ligero</span><h3>2 Niveles</h3><p class="muted">Marco 1&quot;, repisas 25 mm.</p></div></article><article class="card"><img src="images/rack2.jpg" alt="Estante 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Mediano</span><h3>3 Niveles</h3><p class="muted">Regatones niveladores.</p></div></article><article class="card"><img src="images/rack3.jpg" alt="Estante 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Alto</span><h3>4 Niveles</h3><p class="muted">Anclaje a muro incluido.</p></div></article></div></div></section>
+
+    <section class="page" data-route="/CentroDeTV"><div class="container"><h2 class="section-title">Centros de TV</h2><div class="grid"><article class="card"><img src="images/buffetera.jpg" alt="Buffetera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacta</span><h3>120×40×80 cm</h3><p class="muted">2 puertas, 1 cajón.</p></div></article><article class="card"><img src="images/buffetera2.jpg" alt="Buffetera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Media</span><h3>150×45×85 cm</h3><p class="muted">3 cajones, 2 nichos.</p></div></article><article class="card"><img src="images/buffetera3.jpg" alt="Buffetera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">XL</span><h3>180×45×90 cm</h3><p class="muted">Puertas de cierre suave.</p></div></article></div></div></section>
+
+    <section class="page" data-route="/negocios"><div class="container"><h2 class="section-title">Negocios</h2><div class="grid"><article class="card"><img src="images/store.jpg" alt="Mostrador 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Mostrador</span><h3>Frontal</h3><p class="muted">Panel ranurado y logo.</p></div></article><article class="card"><img src="images/store2.jpg" alt="Backbar 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Backbar</span><h3>Exhibición</h3><p class="muted">Iluminación LED opcional.</p></div></article><article class="card"><img src="images/store3.jpg" alt="Rack venta" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Rack</span><h3>Exhibidor</h3><p class="muted">Modular y apilable.</p></div></article></div></div></section>
+
+    <!-- ===== NUEVAS SECCIONES (añadidas) ===== -->
+    <section class="page" data-route="/Accesorios">
+      <div class="container">
+        <h2 class="section-title">Accesorios</h2>
+        <div class="grid">
+          <article class="card"><img src="images/Accesorios/sample1.jpg" alt="Accesorio 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nuevo</span><h3>Accesorio A</h3><p class="muted">Descripción breve.</p></div></article>
+          <article class="card"><img src="images/Accesorios/sample2.jpg" alt="Accesorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nuevo</span><h3>Accesorio B</h3><p class="muted">Descripción breve.</p></div></article>
         </div>
       </div>
-      <div class="hero-card">
-        <img src="images/desk.jpg" alt="Mesa de madera con estructura metálica en un estudio moderno">
-      </div>
-    </div>
-  </header>
+    </section>
 
-  <!-- Productos -->
-  <section id="productos" class="container">
-    <h2 class="section-title">Selección de productos</h2>
-    <div class="grid">
-      <article class="card">
-        <img src="images/CajoneraHerculesPro.jpg" alt="Cajonera Hércules Type 3">
-        <div class="card-body">
-          <span class="tag">Escritorio</span>
-          <h3>Altura ajustable</h3>
-          <p class="muted">Integración de cajones con pequeña repisa.</p>
+    <section class="page" data-route="/CentroDeMesa">
+      <div class="container">
+        <h2 class="section-title">Centro de Mesa</h2>
+        <div class="grid">
+          <article class="card"><img src="images/CentroDeMesa/sample1.jpg" alt="Centro de Mesa 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Decorativo</span><h3>Modelo 1</h3><p class="muted">Descripción breve.</p></div></article>
         </div>
-      </article>
-      <article class="card">
-        <img src="images/table.jpg" alt="Mesa comedor de madera sólida para 6 personas">
-        <div class="card-body">
-          <span class="tag">Comedor</span>
-          <h3>Mesa sólida</h3>
-          <p class="muted">Acabado mate, protección contra humedad y calor.</p>
-        </div>
-      </article>
-      <article class="card">
-        <img src="images/rack.jpg" alt="Rack de TV minimalista con repisas">
-        <div class="card-body">
-          <span class="tag">Rack TV</span>
-          <h3>Minimalista</h3>
-          <p class="muted">Estructura metálica y repisas modulares.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- Galería (auto-slide) -->
-  <section id="galeria" class="container">
-    <h2 class="section-title">Galería</h2>
-    <div class="slider">
-      <div class="track">
-        <figure class="slide"><img src="images/CajoneraHerculesPro.jpg" alt="Cajonera Hércules Type 1"></figure>
-        <figure class="slide"><img src="images/table.jpg"               alt="Mesa"></figure>
-        <figure class="slide"><img src="images/rack.jpg"                alt="Rack"></figure>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Nosotros -->
-  <section id="nosotros" class="container">
-    <h2 class="section-title">Nosotros</h2>
-    <div class="values">
-      <div class="value"><h3>Hecho a medida</h3><p>Diseños personalizados según espacio, estilo y presupuesto.</p></div>
-      <div class="value"><h3>Materiales seleccionados</h3><p>Madera de calidad y estructura metálica con soldadura certificada.</p></div>
-      <div class="value"><h3>Entrega puntual</h3><p>Planificación de producción y logística para cumplir fechas.</p></div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="contacto" class="container">
-    <div class="cta-band">
-      <h2 style="margin:0 0 6px">¿Listo para tu proyecto?</h2>
-      <p style="margin:0 0 14px;color:var(--muted)">Compártenos medidas, inspiración y ubicación. Te enviamos una propuesta en 24–48 h.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="cta" href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>
-        <a class="cta" style="background:#fff;color:#111" href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a>
+    <section class="page" data-route="/Recibidores">
+      <div class="container">
+        <h2 class="section-title">Recibidores</h2>
+        <div class="grid">
+          <article class="card"><img src="images/Recibidores/sample1.jpg" alt="Recibidor 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Entrada</span><h3>Modelo A</h3><p class="muted">Descripción breve.</p></div></article>
+        </div>
       </div>
+    </section>
+
+    <!-- ===== CONFIGURADOR ===== -->
+    <section class="page" data-route="/configura">
+      <div class="container">
+        <h2 class="section-title">Configura tu mueble</h2>
+        <div class="config-grid">
+          <form class="panel" id="cfg-form">
+            <div class="field"><label for="tipo">Tipo de mueble</label>
+              <select id="tipo">
+                <option value="escritorio" selected>Escritorio</option>
+                <option value="cajonera">Cajonera</option>
+                <option value="tabla">Tabla</option>
+                <option value="estante">Estante</option>
+                <option value="buffetera">Buffetera</option>
+                <option value="mostrador">Mostrador (negocios)</option>
+              </select>
+            </div>
+            <div class="field"><label for="largo">Largo (cm)</label><input id="largo" type="number" min="80" max="240" step="1" value="120"></div>
+            <div class="field"><label for="ancho">Ancho/Profundidad (cm)</label><input id="ancho" type="number" min="40" max="90" step="1" value="50"></div>
+            <div class="field"><label for="altura">Altura (cm)</label><input id="altura" type="number" min="60" max="120" step="1" value="80"></div>
+            <div class="field"><label for="cajones">Cajones</label><input id="cajones" type="number" min="0" max="6" step="1" value="3"></div>
+            <div class="field"><label for="madera">Madera</label>
+              <select id="madera">
+                <option value="encino" selected>Encino</option>
+                <option value="nogal">Nogal</option>
+                <option value="parota">Parota</option>
+              </select>
+            </div>
+            <div class="field"><label for="metal">Acabado metal</label>
+              <select id="metal">
+                <option value="#111" selected>Negro mate</option>
+                <option value="#f5f5f5">Blanco</option>
+                <option value="#2f3136">Grafito</option>
+              </select>
+            </div>
+            <fieldset class="field" style="border:none;padding:0">
+              <legend class="muted" style="margin-bottom:8px">Extras</legend>
+              <label><input type="checkbox" id="usb"> Puerto USB</label><br/>
+              <label><input type="checkbox" id="pasacables" checked> Pasacables</label><br/>
+              <label><input type="checkbox" id="teclado"> Porta-teclado</label>
+            </fieldset>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a class="btn" id="btn-whats" href="#" target="_blank" rel="noopener">Enviar a WhatsApp</a>
+              <button type="button" class="btn secondary" id="btn-reset">Restablecer</button>
+            </div>
+          </form>
+          <div class="panel preview">
+            <!-- Realistic SVG preview -->
+            <svg id="svg" viewBox="0 0 800 500" width="100%" height="100%" aria-label="Vista previa">
+              <defs>
+                <linearGradient id="woodEncino" x1="0" x2="1">
+                  <stop offset="0%"  stop-color="#a87b52"/>
+                  <stop offset="100%" stop-color="#815b3e"/>
+                </linearGradient>
+                <linearGradient id="woodNogal" x1="0" x2="1">
+                  <stop offset="0%"  stop-color="#7a5133"/>
+                  <stop offset="100%" stop-color="#5a3b26"/>
+                </linearGradient>
+                <linearGradient id="woodParota" x1="0" x2="1">
+                  <stop offset="0%"  stop-color="#ae6b34"/>
+                  <stop offset="100%" stop-color="#7f4a22"/>
+                </linearGradient>
+              </defs>
+              <!-- ground shadow -->
+              <ellipse class="shadow" cx="400" cy="460" rx="260" ry="24" fill="#000"/>
+
+              <!-- DESK group -->
+              <g id="g-desk" visibility="visible">
+                <rect id="desk-top"  class="wood" x="150" y="150" width="500" height="36" fill="url(#woodEncino)" rx="6"/>
+                <rect id="desk-front" class="wood" x="150" y="186" width="500" height="28" fill="#6d4f35" opacity=".85"/>
+                <rect id="leg-left"  class="metal" x="170" y="214" width="26" height="200" rx="6" fill="#111"/>
+                <rect id="leg-right" class="metal" x="604" y="214" width="26" height="200" rx="6" fill="#111"/>
+                <g id="drawer-box">
+                  <rect id="drawer" x="480" y="214" width="150" height="120" rx="8" fill="#262a2f"/>
+                  <rect class="handle" x="540" y="242" width="30" height="6" rx="3"/>
+                  <rect class="handle" x="540" y="282" width="30" height="6" rx="3"/>
+                  <rect class="handle" x="540" y="322" width="30" height="6" rx="3"/>
+                </g>
+              </g>
+
+              <!-- CABINET group -->
+              <g id="g-cabinet" visibility="hidden">
+                <rect id="cab-body" x="220" y="170" width="360" height="230" rx="10" fill="#262a2f"/>
+                <g id="cab-drawers"></g>
+              </g>
+
+              <!-- SHELF group -->
+              <g id="g-shelf" visibility="hidden">
+                <rect id="shelf-frameL" x="240" y="140" width="18" height="280" rx="6" fill="#111"/>
+                <rect id="shelf-frameR" x="542" y="140" width="18" height="280" rx="6" fill="#111"/>
+                <rect class="wood" id="sh1" x="258" y="160" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh2" x="258" y="230" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh3" x="258" y="300" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh4" x="258" y="370" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+              </g>
+
+              <!-- TABLETOP group -->
+              <g id="g-table" visibility="hidden">
+                <rect id="table-top" class="wood" x="180" y="210" width="440" height="40" fill="url(#woodEncino)" rx="8"/>
+                <rect id="table-shadow" class="shadow" x="180" y="250" width="440" height="18" fill="#000" rx="8" opacity=".25"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 404 ===== -->
+    <section class="page" data-route="/404">
+      <div class="container"><h2 class="section-title">Página no encontrada</h2><p class="muted">El enlace no existe. Vuelve a <a href="#/" data-link>Inicio</a>.</p></div>
+    </section>
+  </main>
+
+  <!-- Sticky CTA inferior global -->
+  <div class="sticky-cta">
+    <div class="sticky-wrap">
+      <div class="muted" style="text-transform:uppercase;letter-spacing:.14em;font-weight:800;font-size:.78rem">Maderóh</div>
+      <div style="flex:1"></div>
+      <a class="btn secondary" href="#/configura" data-link>Configurar</a>
+      <a class="btn" id="sticky-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
-  </section>
+  </div>
 
   <footer>
     <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
       <small>© <span id="y"></span> Maderóh. Todos los derechos reservados.</small>
       <small>CDMX · Hecho con madera y metal.</small>
     </div>
+    <noscript>
+      <div class="container" style="margin-top:10px" role="status">Para usar el configurador, habilita JavaScript.</div>
+    </noscript>
   </footer>
 
   <script>
+    // ===== Config =====
+    const WA_NUMBER = '5215574729226'; // Unificado para todos los botones
+
     // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Galería: auto-roulette; adapts to any number of slides
-    (function () {
-      const galeria = document.querySelector('#galeria');
-      const track   = galeria.querySelector('.track');
-      const slides  = Array.from(track.children);
-      let index = 0;
+    // Fallback imágenes => evita pantalla negra si falta un asset
+    const ph = 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450"><rect fill="%23161718" width="100%" height="100%"/><text x="50%" y="50%" fill="%23cbd5e1" font-size="24" dominant-baseline="middle" text-anchor="middle">Mader%C3%B3h</text></svg>';
+    document.querySelectorAll('img').forEach(img=>{ img.addEventListener('error', ()=>{ img.src = ph; }); });
 
-      function goTo(i){
-        index = (i + slides.length) % slides.length;
-        track.style.transform = `translateX(-${index * 100}%)`;
+    // Rellenar enlaces de WhatsApp unificados
+    const baseWa = `https://wa.me/${WA_NUMBER}`;
+    document.getElementById('nav-wa').href = baseWa;
+    document.getElementById('hero-wa').href = baseWa;
+    document.getElementById('sticky-wa').href = baseWa;
+
+    // Router (hash) — añadidas nuevas rutas
+    const routes = new Set(['/', '/escritorios', '/cajoneras', '/Buffetera', '/Bancas', '/CentroDeTV', '/negocios', '/Accesorios', '/CentroDeMesa', '/Recibidores', '/configura']);
+    function currentPath(){ return location.hash.replace('#','') || '/'; }
+    function route(){
+      const path = currentPath();
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      const active = document.querySelector(`.page[data-route="${path}"]`) || document.querySelector(`.page[data-route="/404"]`);
+      active.classList.add('active');
+      window.scrollTo({top:0, behavior:'auto'});
+    }
+    window.addEventListener('hashchange', route);
+    document.addEventListener('DOMContentLoaded', route);
+
+    // Galería auto-roulette (home)
+    (function sel(selector){
+      const wrap = document.querySelector(selector);
+      if(!wrap) return;
+      const track = wrap.querySelector('.track');
+      const slides = Array.from(track.children);
+      let index = 0; const intervalMs = 3000;
+      function goTo(i){ index = (i + slides.length) % slides.length; track.style.transform = `translateX(-${index * 100}%)`; }
+      let timer = setInterval(()=>goTo(index+1), intervalMs);
+      wrap.addEventListener('mouseenter', ()=>clearInterval(timer));
+      wrap.addEventListener('mouseleave', ()=>{ timer = setInterval(()=>goTo(index+1), intervalMs); });
+    })('#slider-home');
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target); } })
+    },{threshold:.18});
+    document.querySelectorAll(' .reveal').forEach(el=>io.observe(el));
+
+    // ===== Configurador (sin precio, preview realista + WhatsApp) =====
+    const $ = (id)=>document.getElementById(id);
+    const form = $('cfg-form');
+    const svg = $('svg');
+    const gDesk = document.getElementById('g-desk');
+    const gCab  = document.getElementById('g-cabinet');
+    const gShelf= document.getElementById('g-shelf');
+    const gTable= document.getElementById('g-table');
+
+    function woodId(type){ return type==='nogal'?'woodNogal' : type==='parota'?'woodParota' : 'woodEncino'; }
+
+    function updatePreview(){
+      const tipo = $('tipo').value;
+      const L = +$('largo').value, A = +$('ancho').value, H = +$('altura').value, C = +$('cajones').value;
+      const madera = $('madera').value, metal = $('metal').value;
+
+      // Mostrar grupo por tipo
+      gDesk.setAttribute('visibility', (tipo==='escritorio'||tipo==='mostrador') ? 'visible':'hidden');
+      gCab.setAttribute('visibility',  (tipo==='cajonera'||tipo==='buffetera') ? 'visible':'hidden');
+      gShelf.setAttribute('visibility',(tipo==='estante') ? 'visible':'hidden');
+      gTable.setAttribute('visibility', (tipo==='tabla') ? 'visible':'hidden');
+
+      // Escalas básicas (relación aprox. px por cm)
+      const w = Math.min(560, Math.max(280, L*4)); // ancho en px
+      const h = Math.min(240, Math.max(120, H*2.2));
+      const x = 400 - w/2;
+
+      // Escritorio / Mostrador
+      if(gDesk.getAttribute('visibility')==='visible'){
+        const top = document.getElementById('desk-top');
+        const front = document.getElementById('desk-front');
+        const legL = document.getElementById('leg-left');
+        const legR = document.getElementById('leg-right');
+        const drawer = document.getElementById('drawer');
+        // madera
+        top.setAttribute('fill', `url(#${woodId(madera)})`);
+        // medidas
+        top.setAttribute('x', x);
+        top.setAttribute('width', w);
+        front.setAttribute('x', x);
+        front.setAttribute('width', w);
+        front.setAttribute('fill', madera==='nogal'?'#5d4330': (madera==='parota'?'#6f4726':'#6d4f35'));
+        // patas
+        legL.setAttribute('x', x+20);
+        legR.setAttribute('x', x+w-46);
+        legL.setAttribute('height', Math.max(120, h-36));
+        legR.setAttribute('height', Math.max(120, h-36));
+        legL.setAttribute('fill', metal);
+        legR.setAttribute('fill', metal);
+        legL.setAttribute('y', 186);
+        legR.setAttribute('y', 186);
+        // cajones (3 por defecto, adaptar C)
+        const g = document.getElementById('drawer-box');
+        if(C<=0){ g.setAttribute('visibility','hidden'); } else {
+          g.setAttribute('visibility','visible');
+          drawer.setAttribute('height', Math.min(160, 30*C + 30));
+          drawer.setAttribute('y', 214);
+          drawer.setAttribute('x', x + w - 170);
+          // handles re-colocados
+          g.querySelectorAll('.handle').forEach((hnd,i)=>{
+            hnd.setAttribute('x', x + w - 110);
+            hnd.setAttribute('y', 242 + i*40);
+            hnd.setAttribute('opacity', i>=C ? '0' : '1');
+          });
+        }
       }
-      const intervalMs = 3000;
-      let timer = setInterval(() => goTo(index + 1), intervalMs);
-      galeria.addEventListener('mouseenter', () => clearInterval(timer));
-      galeria.addEventListener('mouseleave', () => {
-        timer = setInterval(() => goTo(index + 1), intervalMs);
-      });
-    })();
+
+      // Cajonera / Buffetera
+      if(gCab.getAttribute('visibility')==='visible'){
+        const body = document.getElementById('cab-body');
+        const drawersG = document.getElementById('cab-drawers');
+        const W = Math.min(420, Math.max(260, L*3));
+        const X = 400 - W/2;
+        const Hcab = Math.min(260, Math.max(160, H*2));
+        const Y = 220 - (Hcab/2);
+        body.setAttribute('x', X);
+        body.setAttribute('y', Y);
+        body.setAttribute('width', W);
+        body.setAttribute('height', Hcab);
+        // Redibujar cajones
+        drawersG.innerHTML = '';
+        const gap = 10; const dH = Math.max(24, (Hcab - (gap*(C+1)))/Math.max(C,1));
+        for(let i=0;i<C;i++){
+          const yy = Y + gap + i*(dH+gap);
+          const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+          r.setAttribute('x', X+10); r.setAttribute('y', yy); r.setAttribute('width', W-20); r.setAttribute('height', dH); r.setAttribute('rx','6'); r.setAttribute('fill','#30353b');
+          const h = document.createElementNS('http://www.w3.org/2000/svg','rect');
+          h.setAttribute('x', X + W/2 - 18); h.setAttribute('y', yy + dH/2 - 3); h.setAttribute('width','36'); h.setAttribute('height','6'); h.setAttribute('rx','3'); h.setAttribute('class','handle');
+          drawersG.appendChild(r); drawersG.appendChild(h);
+        }
+      }
+
+      // Estante
+      if(gShelf.getAttribute('visibility')==='visible'){
+        ['sh1','sh2','sh3','sh4'].forEach((id,i)=>{
+          const sh = document.getElementById(id);
+          sh.setAttribute('width', Math.min(360, Math.max(240, L*3)));
+          sh.setAttribute('fill', `url(#${woodId(madera)})`);
+        });
+        document.getElementById('shelf-frameL').setAttribute('fill', metal);
+        document.getElementById('shelf-frameR').setAttribute('fill', metal);
+      }
+
+      // Tabla
+      if(gTable.getAttribute('visibility')==='visible'){
+        const t = document.getElementById('table-top');
+        const s = document.getElementById('table-shadow');
+        const W = Math.min(520, Math.max(260, L*3.6));
+        const X = 400 - W/2; t.setAttribute('x', X); t.setAttribute('width', W); s.setAttribute('x', X); s.setAttribute('width', W);
+        t.setAttribute('fill', `url(#${woodId(madera)})`);
+      }
+
+      // Construir WhatsApp link (sin precio)
+      const usb = $('usb').checked, pasa = $('pasacables').checked, tec = $('teclado').checked;
+      const msg = encodeURIComponent(`Hola Maderóh, quiero un ${tipo}: ${L}x${A}x${H} cm, ${C} cajones, madera ${madera}, metal ${metal}, extras: ${usb?'USB ':''}${pasa?'Pasacables ':''}${tec?'Porta-teclado ':''}`.trim());
+      $('btn-whats').href = `${baseWa}?text=${msg}`;
+    }
+
+    if(form){
+      form.addEventListener('input', updatePreview);
+      $('btn-reset').addEventListener('click', ()=>{ form.reset(); updatePreview(); });
+      document.addEventListener('DOMContentLoaded', updatePreview);
+      updatePreview();
+    }
   </script>
 </body>
 </html>
