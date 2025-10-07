@@ -24,6 +24,26 @@
   }
   </script>
 
+  <!-- JSON-LD PrivacyPolicy (NUEVO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "PrivacyPolicy",
+    "name": "Aviso de Privacidad de Maderóh",
+    "url": "https://maderoh.mx/#/aviso-privacidad",
+    "dateModified": "2025-10-07",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Maderóh",
+      "url": "https://maderoh.mx",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://maderoh.mx/logo.png"
+      }
+    }
+  }
+  </script>
+
   <!-- Preload hero para evitar LCP alto; ajusta la ruta si cambia -->
   <link rel="preload" as="image" href="Images/Recibidor%20Castle/Early%20American/420b92ff-3e36-4a7a-9f05-f7de5cd29c5e.jpg"" imagesrcset="images/buffetera.jpg 1x" imagesizes="(max-width: 900px) 100vw, 50vw">
 
@@ -56,23 +76,22 @@
     :focus-visible{outline:none; box-shadow: var(--focus)}
 
     /* ===== Nav ===== */
-    /* ===== Nav ===== */
 .nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(10px);
      background:rgba(15,15,16,.6);border-bottom:1px solid var(--border)}
 .nav-inner{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800}
 
 /* Ajustes de separación */
-.nav-links{display:flex;gap:28px;flex-wrap:wrap}   /* antes 16px */
-.nav-links > a{padding:8px 10px}                   /* más área clickeable */
-.dropdown{margin:0 6px}                            /* separa el dropdown */
-.dropbtn{padding:8px 10px}                         /* mismo padding que los links */
-.dropdown-content{margin-top:8px}                  /* baja un poco el menú */
+.nav-links{display:flex;gap:28px;flex-wrap:wrap}
+.nav-links > a{padding:8px 10px}
+.dropdown{margin:0 6px}
+.dropbtn{padding:8px 10px}
+.dropdown-content{margin-top:8px}
 
     .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));
          color:#111;font-weight:700;border:0;cursor:pointer}
 
-    /* ===== Dropdown (añadido) ===== */
+    /* ===== Dropdown ===== */
     .dropdown { position: relative; display: inline-block; }
     .dropbtn { background:none; border:none; color:var(--muted); font:inherit; cursor:pointer; padding:8px 0; }
     .dropbtn:hover { color:var(--text); }
@@ -119,7 +138,7 @@
     .field input,.field select{background:#0f1012;border:1px solid #222327;color:var(--text);padding:10px;border-radius:12px}
     .preview{display:grid;place-items:center;min-height:360px;border:1px dashed #2b2c30;border-radius:14px}
 
-    /* ===== SVG preview styles (wood / metal) ===== */
+    /* ===== SVG preview styles ===== */
     .wood{filter: drop-shadow(0 4px 8px rgba(0,0,0,.35))}
     .metal{filter: drop-shadow(0 2px 4px rgba(0,0,0,.35))}
     .handle{fill:#d1d5db}
@@ -147,6 +166,35 @@
 
     /* ===== Motion respect ===== */
     @media (prefers-reduced-motion: reduce){*{animation:none;transition:none}}
+
+    /* ===== Social (NUEVO) ===== */
+    .social{display:flex;gap:14px;align-items:center}
+    .social a{color:var(--muted);display:inline-flex;line-height:0;opacity:.9}
+    .social a:hover{color:var(--text);opacity:1;transform:translateY(-1px)}
+
+    /* ===== Footer Policies (NUEVO) ===== */
+    .footer-policies{
+      display:grid;
+      grid-template-columns: 1.2fr 1fr 1.2fr;
+      gap:24px;
+      align-items:start;
+      margin:8px 0 12px;
+    }
+    .footer-policies h4{
+      margin:0 0 8px;
+      letter-spacing:.04em;
+      font-weight:800;
+      font-size:.9rem;
+    }
+    .footer-policies ul{list-style:none;padding:0;margin:0}
+    .footer-policies li{margin:6px 0}
+    .footer-policies a{color:var(--muted)}
+    .footer-policies a:hover{color:var(--text);text-decoration:underline}
+    .pay-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .pay-icon{width:48px;height:16px;color:#e5e7eb}
+    .pay-icon.wide{width:72px}
+    @media (max-width:900px){.footer-policies{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.footer-policies{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -160,7 +208,7 @@
       <div class="nav-links" role="navigation" aria-label="Principal">
         <a href="#/" data-link>Inicio</a>
 
-        <!-- Dropdown Productos (nuevo) -->
+        <!-- Dropdown Productos -->
         <div class="dropdown">
           <button class="dropbtn">Productos ▾</button>
           <div class="dropdown-content">
@@ -178,6 +226,29 @@
 
         <a href="#/configura" data-link>Configurar</a>
       </div>
+
+      <!-- Social (NAV) -->
+      <div class="social" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
+            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
+
       <a class="cta" id="nav-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </nav>
@@ -229,15 +300,13 @@
     <!-- ===== CATEGORY PAGES ===== -->
     <section class="page" data-route="/escritorios"><div class="container"><h2 class="section-title">Escritorios</h2><div class="grid"><article class="card"><img src="images/desk.jpg" alt="Escritorio 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Clásico</span><h3>Hércules Desk</h3><p class="muted">120×50×80 cm, 3 cajones, pasacables.</p></div></article><article class="card"><img src="images/desk2.jpg" alt="Escritorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacto</span><h3>Urban</h3><p class="muted">100×50×75 cm, 1 cajón, repisa.</p></div></article><article class="card"><img src="images/desk3.jpg" alt="Escritorio 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Doble</span><h3>Studio XL</h3><p class="muted">160×70×75 cm, pedestal, canaleta.</p></div></article></div></div></section>
 
-    <section class="page" data-route="/cajoneras"><div class="container"><h2 class="section-title">Cajoneras</h2><div class="grid"><article class="card"><img src="images/Hercules XL/Early American 2 Cajones/c8a3e67f-051d-4c0f-92ee-6e5697604987.jpg" alt="Cajonera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Zen</span><h3>Cajoenra Magna</h3><p class="muted">Guías 20&quot; con cierre suave.</p></div></article><article class="card"><img src="images/Hercules XL/Nogal Americano 1 Cajon/b1d6c8d0-9891-4f40-a543-2740c2f71f49.jpg" alt="Cajonera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Atlas</span><h3>Cajonera Atlas</h3><p class="muted">Bastidor reforzado 1.5&quot;.</p></div></article><article class="card"><img src="images/CajoneraHerculesSofnes.jpg" alt="Cajonera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Magna</span><h3>3+1 Archivo</h3><p class="muted">Frentes texturizados premium.</p></div></article></div></div></section>
+    <section class="page" data-route="/cajoneras"><div class="container"><h2 class="section-title">Cajoneras</h2><div class="grid"><article class="card"><img src="images/Hercules XL/Early American 2 Cajones/c8a3e67f-051d-4c0f-92ee-6e5697604987.jpg" alt="Cajonera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Zen</span><h3>Cajonera Magna</h3><p class="muted">Guías 20&quot; con cierre suave.</p></div></article><article class="card"><img src="images/Hercules XL/Nogal Americano 1 Cajon/b1d6c8d0-9891-4f40-a543-2740c2f71f49.jpg" alt="Cajonera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Atlas</span><h3>Cajonera Atlas</h3><p class="muted">Bastidor reforzado 1.5&quot;.</p></div></article><article class="card"><img src="images/CajoneraHerculesSofnes.jpg" alt="Cajonera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Magna</span><h3>3+1 Archivo</h3><p class="muted">Frentes texturizados premium.</p></div></article></div></div></section>
 
     <section class="page" data-route="/Buffetera"><div class="container"><h2 class="section-title">Buffetera</h2><div class="grid"><article class="card"><img src="images/table.jpg" alt="Tabla 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Encino</span><h3>120×50 cm</h3><p class="muted">Sellado mate, canto recto.</p></div></article><article class="card"><img src="images/table2.jpg" alt="Tabla 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nogal</span><h3>140×60 cm</h3><p class="muted">Aceite duro + UV.</p></div></article><article class="card"><img src="images/table3.jpg" alt="Tabla 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Parota</span><h3>160×70 cm</h3><p class="muted">Veta visible, sellado mate.</p></div></article></div></div></section>
 
     <section class="page" data-route="/Bancas"><div class="container"><h2 class="section-title">Bancas</h2><div class="grid"><article class="card"><img src="images/rack.jpg" alt="Estante 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Ligero</span><h3>2 Niveles</h3><p class="muted">Marco 1&quot;, repisas 25 mm.</p></div></article><article class="card"><img src="images/rack2.jpg" alt="Estante 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Mediano</span><h3>3 Niveles</h3><p class="muted">Regatones niveladores.</p></div></article><article class="card"><img src="images/rack3.jpg" alt="Estante 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Alto</span><h3>4 Niveles</h3><p class="muted">Anclaje a muro incluido.</p></div></article></div></div></section>
 
     <section class="page" data-route="/CentroDeTV"><div class="container"><h2 class="section-title">Centros de TV</h2><div class="grid"><article class="card"><img src="images/buffetera.jpg" alt="Buffetera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacta</span><h3>120×40×80 cm</h3><p class="muted">2 puertas, 1 cajón.</p></div></article><article class="card"><img src="images/buffetera2.jpg" alt="Buffetera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Media</span><h3>150×45×85 cm</h3><p class="muted">3 cajones, 2 nichos.</p></div></article><article class="card"><img src="images/buffetera3.jpg" alt="Buffetera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">XL</span><h3>180×45×90 cm</h3><p class="muted">Puertas de cierre suave.</p></div></article></div></div></section>
-
-    <section class="page" data-route="/negocios"><div class="container"><h2 class="section-title">Negocios</h2><div class="grid"><article class="card"><img src="images/store.jpg" alt="Mostrador 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Mostrador</span><h3>Frontal</h3><p class="muted">Panel ranurado y logo.</p></div></article><article class="card"><img src="images/store2.jpg" alt="Backbar 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Backbar</span><h3>Exhibición</h3><p class="muted">Iluminación LED opcional.</p></div></article><article class="card"><img src="images/store3.jpg" alt="Rack venta" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Rack</span><h3>Exhibidor</h3><p class="muted">Modular y apilable.</p></div></article></div></div></section>
 
     <!-- ===== NUEVAS SECCIONES (añadidas) ===== -->
     <section class="page" data-route="/Accesorios">
@@ -268,111 +337,180 @@
       </div>
     </section>
 
-    <!-- ===== CONFIGURADOR ===== -->
-    <section class="page" data-route="/configura">
+    <!-- ===== AVISO DE PRIVACIDAD (completo) ===== -->
+    <section class="page" data-route="/aviso-privacidad">
       <div class="container">
-        <h2 class="section-title">Configura tu mueble</h2>
-        <div class="config-grid">
-          <form class="panel" id="cfg-form">
-            <div class="field"><label for="tipo">Tipo de mueble</label>
-              <select id="tipo">
-                <option value="escritorio" selected>Escritorio</option>
-                <option value="cajonera">Cajonera</option>
-                <option value="tabla">Tabla</option>
-                <option value="estante">Estante</option>
-                <option value="buffetera">Buffetera</option>
-                <option value="mostrador">Mostrador (negocios)</option>
-              </select>
-            </div>
-            <div class="field"><label for="largo">Largo (cm)</label><input id="largo" type="number" min="80" max="240" step="1" value="120"></div>
-            <div class="field"><label for="ancho">Ancho/Profundidad (cm)</label><input id="ancho" type="number" min="40" max="90" step="1" value="50"></div>
-            <div class="field"><label for="altura">Altura (cm)</label><input id="altura" type="number" min="60" max="120" step="1" value="80"></div>
-            <div class="field"><label for="cajones">Cajones</label><input id="cajones" type="number" min="0" max="6" step="1" value="3"></div>
-            <div class="field"><label for="madera">Madera</label>
-              <select id="madera">
-                <option value="encino" selected>Encino</option>
-                <option value="nogal">Nogal</option>
-                <option value="parota">Parota</option>
-              </select>
-            </div>
-            <div class="field"><label for="metal">Acabado metal</label>
-              <select id="metal">
-                <option value="#111" selected>Negro mate</option>
-                <option value="#f5f5f5">Blanco</option>
-                <option value="#2f3136">Grafito</option>
-              </select>
-            </div>
-            <fieldset class="field" style="border:none;padding:0">
-              <legend class="muted" style="margin-bottom:8px">Extras</legend>
-              <label><input type="checkbox" id="usb"> Puerto USB</label><br/>
-              <label><input type="checkbox" id="pasacables" checked> Pasacables</label><br/>
-              <label><input type="checkbox" id="teclado"> Porta-teclado</label>
-            </fieldset>
-            <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <a class="btn" id="btn-whats" href="#" target="_blank" rel="noopener">Enviar a WhatsApp</a>
-              <button type="button" class="btn secondary" id="btn-reset">Restablecer</button>
-            </div>
-          </form>
-          <div class="panel preview">
-            <!-- Realistic SVG preview -->
-            <svg id="svg" viewBox="0 0 800 500" width="100%" height="100%" aria-label="Vista previa">
-              <defs>
-                <linearGradient id="woodEncino" x1="0" x2="1">
-                  <stop offset="0%"  stop-color="#a87b52"/>
-                  <stop offset="100%" stop-color="#815b3e"/>
-                </linearGradient>
-                <linearGradient id="woodNogal" x1="0" x2="1">
-                  <stop offset="0%"  stop-color="#7a5133"/>
-                  <stop offset="100%" stop-color="#5a3b26"/>
-                </linearGradient>
-                <linearGradient id="woodParota" x1="0" x2="1">
-                  <stop offset="0%"  stop-color="#ae6b34"/>
-                  <stop offset="100%" stop-color="#7f4a22"/>
-                </linearGradient>
-              </defs>
-              <!-- ground shadow -->
-              <ellipse class="shadow" cx="400" cy="460" rx="260" ry="24" fill="#000"/>
 
-              <!-- DESK group -->
-              <g id="g-desk" visibility="visible">
-                <rect id="desk-top"  class="wood" x="150" y="150" width="500" height="36" fill="url(#woodEncino)" rx="6"/>
-                <rect id="desk-front" class="wood" x="150" y="186" width="500" height="28" fill="#6d4f35" opacity=".85"/>
-                <rect id="leg-left"  class="metal" x="170" y="214" width="26" height="200" rx="6" fill="#111"/>
-                <rect id="leg-right" class="metal" x="604" y="214" width="26" height="200" rx="6" fill="#111"/>
-                <g id="drawer-box">
-                  <rect id="drawer" x="480" y="214" width="150" height="120" rx="8" fill="#262a2f"/>
-                  <rect class="handle" x="540" y="242" width="30" height="6" rx="3"/>
-                  <rect class="handle" x="540" y="282" width="30" height="6" rx="3"/>
-                  <rect class="handle" x="540" y="322" width="30" height="6" rx="3"/>
-                </g>
-              </g>
+        <!-- Estilos scoped para esta sección -->
+        <style>
+          .privacy .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:24px}
+          .privacy h1{font-size:clamp(1.8rem,3.2vw,2.2rem);line-height:1.2;margin:.2rem 0 1rem}
+          .privacy h2{font-size:clamp(1.1rem,2vw,1.35rem);margin:1.6rem 0 .6rem;color:var(--brand)}
+          .privacy h3{font-size:1rem;margin:1.2rem 0 .4rem}
+          .privacy p,.privacy li{color:var(--text)}
+          .privacy .muted{color:var(--muted)}
+          .privacy .pill{display:inline-block;background:rgba(184,138,87,.12);border:1px solid rgba(184,138,87,.35);color:var(--text);padding:.18rem .6rem;border-radius:999px;font-size:.85rem}
+          .privacy a{color:#9fe0cf}
+          .privacy .grid{display:grid;gap:12px}
+          .privacy .two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+          .privacy .box{background:#111418;border:1px solid #262a33;border-radius:12px;padding:16px}
+          .privacy .foot{margin-top:32px;border-top:1px dashed #2a2f38;padding-top:16px}
+          .privacy .small{font-size:.92rem}
+          .privacy ul{padding-left:1.1rem}
+          .privacy .badge{font-weight:700}
+          .privacy code{background:#0f1217;border:1px solid #1e2330;border-radius:6px;padding:2px 6px}
+          @media (max-width:640px){ .privacy .card{padding:18px} }
+        </style>
 
-              <!-- CABINET group -->
-              <g id="g-cabinet" visibility="hidden">
-                <rect id="cab-body" x="220" y="170" width="360" height="230" rx="10" fill="#262a2f"/>
-                <g id="cab-drawers"></g>
-              </g>
+        <div class="privacy">
+          <div class="card" role="document">
+            <div class="pill">Última actualización: 07 de octubre de 2025</div>
+            <h1>Aviso de Privacidad</h1>
+            <p>
+              Este Aviso de Privacidad se emite conforme a la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong> y su Reglamento. Al usar este sitio o proporcionarnos datos, usted acepta las prácticas aquí descritas.
+            </p>
 
-              <!-- SHELF group -->
-              <g id="g-shelf" visibility="hidden">
-                <rect id="shelf-frameL" x="240" y="140" width="18" height="280" rx="6" fill="#111"/>
-                <rect id="shelf-frameR" x="542" y="140" width="18" height="280" rx="6" fill="#111"/>
-                <rect class="wood" id="sh1" x="258" y="160" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
-                <rect class="wood" id="sh2" x="258" y="230" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
-                <rect class="wood" id="sh3" x="258" y="300" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
-                <rect class="wood" id="sh4" x="258" y="370" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
-              </g>
+            <h2>1) Identidad y domicilio del responsable</h2>
+            <p>
+              <strong>Maderóh</strong>, (el “Responsable”), con domicilio en <em>Ciudad de México, México</em>, es responsable del tratamiento de sus datos personales.
+              Puede contactarnos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> o vía WhatsApp en
+              <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">+52 1 55 7472 9226</a>.
+            </p>
 
-              <!-- TABLETOP group -->
-              <g id="g-table" visibility="hidden">
-                <rect id="table-top" class="wood" x="180" y="210" width="440" height="40" fill="url(#woodEncino)" rx="8"/>
-                <rect id="table-shadow" class="shadow" x="180" y="250" width="440" height="18" fill="#000" rx="8" opacity=".25"/>
-              </g>
-            </svg>
+            <h2>2) Datos personales que recabamos</h2>
+            <div class="grid two">
+              <div class="box">
+                <h3>Datos de identificación y contacto</h3>
+                <ul>
+                  <li>Nombre y apellidos</li>
+                  <li>Correo electrónico</li>
+                  <li>Teléfono</li>
+                  <li>Dirección de entrega y facturación (si aplica)</li>
+                  <li>Usuario/red social de contacto (si nos escribe por Instagram/Facebook/TikTok)</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h3>Datos técnicos y de navegación</h3>
+                <ul>
+                  <li>Cookies, identificadores anónimos, dirección IP</li>
+                  <li>Información de dispositivo y navegador</li>
+                  <li>Páginas visitadas, tiempo de permanencia</li>
+                </ul>
+              </div>
+            </div>
+            <p class="muted small">Nota: No solicitamos datos sensibles. Si en algún momento fuera necesario, lo haremos con aviso y consentimiento explícito.</p>
+
+            <h2>3) Finalidades del tratamiento</h2>
+            <div class="grid two">
+              <div class="box">
+                <h3>Finalidades necesarias</h3>
+                <ul>
+                  <li>Atender solicitudes de información, cotizaciones y soporte.</li>
+                  <li>Gestionar pedidos, fabricación, entrega e instalación.</li>
+                  <li>Facturación y cuestiones fiscales/contables.</li>
+                  <li>Prevención de fraudes y seguridad.</li>
+                  <li>Cumplimiento de obligaciones legales.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h3>Finalidades adicionales (consentimiento)</h3>
+                <ul>
+                  <li>Envío de promociones, noticias y novedades.</li>
+                  <li>Encuestas de satisfacción y mejora del servicio.</li>
+                  <li>Publicidad personalizada en plataformas de Meta/Google.</li>
+                </ul>
+                <p class="small muted">Usted puede <strong>negar o revocar</strong> su consentimiento para estas finalidades sin afectar las necesarias.</p>
+              </div>
+            </div>
+
+            <h2>4) Fundamento y medidas de seguridad</h2>
+            <p>
+              Tratamos sus datos con base en los artículos 6, 8, 10 y demás aplicables de la LFPDPPP. Adoptamos medidas <em>administrativas, técnicas y físicas</em> razonables para protegerlos contra daño, pérdida, alteración, destrucción o uso/ acceso no autorizado.
+            </p>
+
+            <h2>5) Transferencias y encargados</h2>
+            <p>
+              Podemos compartir datos con <span class="badge">encargados</span> que nos prestan servicios para cumplir las finalidades: mensajería/paquetería, pasarelas de pago, contabilidad, alojamiento web/hosting, CRM, métricas y publicidad digital. Dichos terceros tratarán sus datos siguiendo nuestras instrucciones y salvaguardas.
+            </p>
+            <p>
+              No realizamos <strong>transferencias</strong> que requieran su consentimiento, salvo las legalmente permitidas u ordenadas. En caso de realizar transferencias distintas, solicitaremos su autorización previa.
+            </p>
+
+            <h2>6) Derechos ARCO y revocación del consentimiento</h2>
+            <p>
+              Usted puede ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición</strong> (ARCO), así como <strong>revocar</strong> su consentimiento, enviando un correo a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> con el asunto <em>“Derechos ARCO”</em> y:
+            </p>
+            <ul>
+              <li>Nombre completo y medio para comunicarle la respuesta.</li>
+              <li>Descripción clara del derecho que desea ejercer y los datos a los que se refiere.</li>
+              <li>Copia de su identificación (INE o pasaporte). Si actúa por representante, anexar poder simple e identificación.</li>
+            </ul>
+            <p class="small muted">Le responderemos en los plazos previstos por la Ley y, de ser procedente, haremos efectivo el derecho dentro de los términos aplicables.</p>
+
+            <h2>7) Cookies y tecnologías similares</h2>
+            <p>
+              Usamos cookies propias y de terceros para recordar sus preferencias, mejorar el desempeño del sitio y generar estadísticas. Puede ajustar su navegador para rechazarlas o borrar las existentes. Algunas funciones podrían verse limitadas.
+            </p>
+            <ul>
+              <li><strong>Esenciales:</strong> funcionamiento básico del sitio (no requieren consentimiento).</li>
+              <li><strong>Analíticas:</strong> medición de tráfico y rendimiento.</li>
+              <li><strong>Publicidad:</strong> personalización de anuncios en plataformas externas.</li>
+            </ul>
+
+            <h2>8) Servicios de terceros</h2>
+            <ul>
+              <li><strong>Hosting/CDN:</strong> p. ej., Netlify u otro proveedor de infraestructura.</li>
+              <li><strong>Métricas:</strong> p. ej., Google Analytics/Tag Manager.</li>
+              <li><strong>Mensajería:</strong> WhatsApp Business API o enlaces <code>wa.me</code>.</li>
+              <li><strong>Redes sociales:</strong> Instagram, Facebook, TikTok (widgets o enlaces externos).</li>
+              <li><strong>Pagos:</strong> si aplica, pasarela (agregue el nombre aquí).</li>
+            </ul>
+            <p class="small muted">Estos servicios pueden usar sus propias cookies y operar bajo sus políticas. Revise sus avisos en sus respectivos sitios.</p>
+
+            <h2>9) Menores de edad</h2>
+            <p>
+              Nuestros servicios no están dirigidos a menores de 18 años. No recabamos intencionalmente datos de menores. Si un padre/madre o tutor detecta un envío de datos, puede solicitar su eliminación mediante los medios ARCO.
+            </p>
+
+            <h2>10) Conservación de datos</h2>
+            <p>
+              Conservaremos los datos durante el tiempo necesario para cumplir las finalidades descritas y conforme a los plazos legales aplicables. Posteriormente, serán suprimidos o anonimizados de manera segura.
+            </p>
+
+            <h2>11) Cambios al Aviso de Privacidad</h2>
+            <p>
+              Podemos actualizar este Aviso para reflejar cambios en prácticas o requisitos legales. Publicaremos la versión vigente en esta misma página indicando la fecha de última actualización.
+            </p>
+
+            <div class="foot small muted">
+              <p>Para cualquier duda sobre este Aviso o el tratamiento de sus datos personales, contáctenos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>.</p>
+            </div>
           </div>
-        </div>
+
+          
       </div>
     </section>
+
+    <!-- ===== OTRAS PÁGINAS INTERNAS (placeholders) ===== -->
+    <section class="page" data-route="/compra-segura"><div class="container">
+      <h2 class="section-title">Compra segura</h2>
+      <p class="muted">Contenido en preparación.</p>
+    </div></section>
+
+    <section class="page" data-route="/faq"><div class="container">
+      <h2 class="section-title">Preguntas frecuentes</h2>
+      <p class="muted">Contenido en preparación.</p>
+    </div></section>
+
+    <section class="page" data-route="/envio"><div class="container">
+      <h2 class="section-title">Servicio de envío</h2>
+      <p class="muted">Contenido en preparación.</p>
+    </div></section>
+
+    <section class="page" data-route="/promociones"><div class="container">
+      <h2 class="section-title">Términos de promociones</h2>
+      <p class="muted">Contenido en preparación.</p>
+    </div></section>
 
     <!-- ===== 404 ===== -->
     <section class="page" data-route="/404">
@@ -391,13 +529,88 @@
   </div>
 
   <footer>
-    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center">
       <small>© <span id="y"></span> Maderóh. Todos los derechos reservados.</small>
       <small>CDMX · Hecho con madera y metal.</small>
+
+      <!-- Social (FOOTER) -->
+      <div class="social" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
+            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
     </div>
     <noscript>
       <div class="container" style="margin-top:10px" role="status">Para usar el configurador, habilita JavaScript.</div>
     </noscript>
+
+    <!-- ===== BLOQUE POLÍTICAS / FACTURACIÓN / PAGOS (NUEVO) ===== -->
+    <hr style="border:0;border-top:1px solid var(--border);margin:16px 0">
+
+    <div class="container footer-policies">
+      <div class="policies-block">
+        <h4>POLÍTICAS DE COMPRA</h4>
+        <ul>
+          <li><a href="#/aviso-privacidad" data-link>Aviso de privacidad</a></li>
+          <li><a href="#/compra-segura" data-link>Compra segura</a></li>
+          <li><a href="#/faq" data-link>Preguntas frecuentes</a></li>
+          <li><a href="#/envio" data-link>Servicio de envío</a></li>
+          <li><a href="#/promociones" data-link>Términos de promociones</a></li>
+        </ul>
+      </div>
+
+      <div class="policies-block">
+        <h4>FACTURACIÓN<br>ELECTRÓNICA</h4>
+        <p class="muted" style="margin:.4rem 0 8px">
+          Solicítala al momento de tu compra o dentro de los 7 días naturales con tu RFC y datos fiscales.
+        </p>
+        <a class="btn secondary" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quisiera%20solicitar%20mi%20factura%20electr%C3%B3nica." target="_blank" rel="noopener">
+          Solicitar por WhatsApp
+        </a>
+      </div>
+
+      <div class="policies-block">
+        <h4>FORMAS DE PAGO</h4>
+        <div class="pay-logos" aria-label="Métodos de pago">
+          <!-- VISA -->
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true">
+            <rect width="48" height="16" rx="3" fill="#ffffff20"/>
+            <text x="9" y="11" font-size="9" fill="currentColor" font-weight="800">VISA</text>
+          </svg>
+          <!-- MasterCard -->
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true">
+            <rect width="48" height="16" rx="3" fill="#ffffff20"/>
+            <circle cx="20" cy="8" r="5" fill="#EB001B" opacity=".9"></circle>
+            <circle cx="28" cy="8" r="5" fill="#F79E1B" opacity=".9"></circle>
+          </svg>
+          <!-- PayPal -->
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true">
+            <rect width="48" height="16" rx="3" fill="#ffffff20"/>
+            <text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">PayPal</text>
+          </svg>
+          <!-- Mercado Pago -->
+          <svg viewBox="0 0 72 16" class="pay-icon wide" aria-hidden="true">
+            <rect width="72" height="16" rx="3" fill="#ffffff20"/>
+            <text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">mercado pago</text>
+          </svg>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <script>
@@ -407,7 +620,7 @@
     // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Fallback imágenes => evita pantalla negra si falta un asset
+    // Fallback imágenes
     const ph = 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450"><rect fill="%23161718" width="100%" height="100%"/><text x="50%" y="50%" fill="%23cbd5e1" font-size="24" dominant-baseline="middle" text-anchor="middle">Mader%C3%B3h</text></svg>';
     document.querySelectorAll('img').forEach(img=>{ img.addEventListener('error', ()=>{ img.src = ph; }); });
 
@@ -417,8 +630,8 @@
     document.getElementById('hero-wa').href = baseWa;
     document.getElementById('sticky-wa').href = baseWa;
 
-    // Router (hash) — añadidas nuevas rutas
-    const routes = new Set(['/', '/escritorios', '/cajoneras', '/Buffetera', '/Bancas', '/CentroDeTV', '/negocios', '/Accesorios', '/CentroDeMesa', '/Recibidores', '/configura']);
+    // Router (hash) — incluye nuevas rutas
+    const routes = new Set(['/', '/escritorios', '/cajoneras', '/Buffetera', '/Bancas', '/CentroDeTV', '/negocios', '/Accesorios', '/CentroDeMesa', '/Recibidores', '/configura', '/aviso-privacidad', '/compra-segura', '/faq', '/envio', '/promociones']);
     function currentPath(){ return location.hash.replace('#','') || '/'; }
     function route(){
       const path = currentPath();
@@ -449,7 +662,7 @@
     },{threshold:.18});
     document.querySelectorAll(' .reveal').forEach(el=>io.observe(el));
 
-    // ===== Configurador (sin precio, preview realista + WhatsApp) =====
+    // ===== Configurador =====
     const $ = (id)=>document.getElementById(id);
     const form = $('cfg-form');
     const svg = $('svg');
@@ -471,8 +684,8 @@
       gShelf.setAttribute('visibility',(tipo==='estante') ? 'visible':'hidden');
       gTable.setAttribute('visibility', (tipo==='tabla') ? 'visible':'hidden');
 
-      // Escalas básicas (relación aprox. px por cm)
-      const w = Math.min(560, Math.max(280, L*4)); // ancho en px
+      // Escalas básicas
+      const w = Math.min(560, Math.max(280, L*4));
       const h = Math.min(240, Math.max(120, H*2.2));
       const x = 400 - w/2;
 
@@ -483,31 +696,20 @@
         const legL = document.getElementById('leg-left');
         const legR = document.getElementById('leg-right');
         const drawer = document.getElementById('drawer');
-        // madera
         top.setAttribute('fill', `url(#${woodId(madera)})`);
-        // medidas
-        top.setAttribute('x', x);
-        top.setAttribute('width', w);
-        front.setAttribute('x', x);
-        front.setAttribute('width', w);
+        top.setAttribute('x', x); top.setAttribute('width', w);
+        front.setAttribute('x', x); front.setAttribute('width', w);
         front.setAttribute('fill', madera==='nogal'?'#5d4330': (madera==='parota'?'#6f4726':'#6d4f35'));
-        // patas
-        legL.setAttribute('x', x+20);
-        legR.setAttribute('x', x+w-46);
-        legL.setAttribute('height', Math.max(120, h-36));
-        legR.setAttribute('height', Math.max(120, h-36));
-        legL.setAttribute('fill', metal);
-        legR.setAttribute('fill', metal);
-        legL.setAttribute('y', 186);
-        legR.setAttribute('y', 186);
-        // cajones (3 por defecto, adaptar C)
+        legL.setAttribute('x', x+20); legR.setAttribute('x', x+w-46);
+        legL.setAttribute('height', Math.max(120, h-36)); legR.setAttribute('height', Math.max(120, h-36));
+        legL.setAttribute('fill', metal); legR.setAttribute('fill', metal);
+        legL.setAttribute('y', 186); legR.setAttribute('y', 186);
         const g = document.getElementById('drawer-box');
         if(C<=0){ g.setAttribute('visibility','hidden'); } else {
           g.setAttribute('visibility','visible');
           drawer.setAttribute('height', Math.min(160, 30*C + 30));
           drawer.setAttribute('y', 214);
           drawer.setAttribute('x', x + w - 170);
-          // handles re-colocados
           g.querySelectorAll('.handle').forEach((hnd,i)=>{
             hnd.setAttribute('x', x + w - 110);
             hnd.setAttribute('y', 242 + i*40);
@@ -524,19 +726,19 @@
         const X = 400 - W/2;
         const Hcab = Math.min(260, Math.max(160, H*2));
         const Y = 220 - (Hcab/2);
-        body.setAttribute('x', X);
-        body.setAttribute('y', Y);
-        body.setAttribute('width', W);
-        body.setAttribute('height', Hcab);
-        // Redibujar cajones
+        body.setAttribute('x', X); body.setAttribute('y', Y);
+        body.setAttribute('width', W); body.setAttribute('height', Hcab);
         drawersG.innerHTML = '';
         const gap = 10; const dH = Math.max(24, (Hcab - (gap*(C+1)))/Math.max(C,1));
         for(let i=0;i<C;i++){
           const yy = Y + gap + i*(dH+gap);
           const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
-          r.setAttribute('x', X+10); r.setAttribute('y', yy); r.setAttribute('width', W-20); r.setAttribute('height', dH); r.setAttribute('rx','6'); r.setAttribute('fill','#30353b');
+          r.setAttribute('x', X+10); r.setAttribute('y', yy);
+          r.setAttribute('width', W-20); r.setAttribute('height', dH);
+          r.setAttribute('rx','6'); r.setAttribute('fill','#30353b');
           const h = document.createElementNS('http://www.w3.org/2000/svg','rect');
-          h.setAttribute('x', X + W/2 - 18); h.setAttribute('y', yy + dH/2 - 3); h.setAttribute('width','36'); h.setAttribute('height','6'); h.setAttribute('rx','3'); h.setAttribute('class','handle');
+          h.setAttribute('x', X + W/2 - 18); h.setAttribute('y', yy + dH/2 - 3);
+          h.setAttribute('width','36'); h.setAttribute('height','6'); h.setAttribute('rx','3'); h.setAttribute('class','handle');
           drawersG.appendChild(r); drawersG.appendChild(h);
         }
       }
@@ -557,11 +759,12 @@
         const t = document.getElementById('table-top');
         const s = document.getElementById('table-shadow');
         const W = Math.min(520, Math.max(260, L*3.6));
-        const X = 400 - W/2; t.setAttribute('x', X); t.setAttribute('width', W); s.setAttribute('x', X); s.setAttribute('width', W);
+        const X = 400 - W/2; t.setAttribute('x', X); t.setAttribute('width', W);
+        s.setAttribute('x', X); s.setAttribute('width', W);
         t.setAttribute('fill', `url(#${woodId(madera)})`);
       }
 
-      // Construir WhatsApp link (sin precio)
+      // WhatsApp link
       const usb = $('usb').checked, pasa = $('pasacables').checked, tec = $('teclado').checked;
       const msg = encodeURIComponent(`Hola Maderóh, quiero un ${tipo}: ${L}x${A}x${H} cm, ${C} cajones, madera ${madera}, metal ${metal}, extras: ${usb?'USB ':''}${pasa?'Pasacables ':''}${tec?'Porta-teclado ':''}`.trim());
       $('btn-whats').href = `${baseWa}?text=${msg}`;
