@@ -9,43 +9,87 @@
   <meta property="og:description" content="Mobiliario de madera y metal hecho a medida.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#161718">
+  <link rel="canonical" href="https://maderoh.mx" />
 
-  <!-- JSON-LD LocalBusiness básico -->
+  <!-- JSON-LD LocalBusiness -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Maderóh",
-    "description": "Mobiliario de madera y metal hecho a medida en CDMX.",
-    "address": {"@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressCountry": "MX"},
-    "areaServed": "MX",
-    "url": "https://maderoh.mx",
-    "contactPoint": [{"@type":"ContactPoint","contactType":"ventas","telephone":"+52 55 7472 9226"}]
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"Maderóh",
+    "description":"Mobiliario de madera y metal hecho a medida en CDMX.",
+    "address":{"@type":"PostalAddress","addressLocality":"Ciudad de México","addressCountry":"MX"},
+    "areaServed":"MX",
+    "url":"https://maderoh.mx",
+    "contactPoint":[{"@type":"ContactPoint","contactType":"ventas","telephone":"+52 55 7472 9226"}]
   }
   </script>
 
-  <!-- JSON-LD PrivacyPolicy (NUEVO) -->
+  <!-- JSON-LD PrivacyPolicy -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "PrivacyPolicy",
-    "name": "Aviso de Privacidad de Maderóh",
-    "url": "https://maderoh.mx/#/aviso-privacidad",
-    "dateModified": "2025-10-07",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Maderóh",
-      "url": "https://maderoh.mx",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://maderoh.mx/logo.png"
-      }
+    "@context":"https://schema.org",
+    "@type":"PrivacyPolicy",
+    "name":"Aviso de Privacidad de Maderóh",
+    "url":"https://maderoh.mx/#/aviso-privacidad",
+    "dateModified":"2025-10-07",
+    "publisher":{"@type":"Organization","name":"Maderóh","url":"https://maderoh.mx","logo":{"@type":"ImageObject","url":"https://maderoh.mx/logo.png"}}
+  }
+  </script>
+
+  <!-- JSON-LD FAQ (Compra Segura) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"¿Qué formas de pago aceptan?","acceptedAnswer":{"@type":"Answer","text":"Tarjeta de crédito/débito, transferencia y plataformas como PayPal/Mercado Pago."}},
+      {"@type":"Question","name":"¿Mis datos de tarjeta están seguros?","acceptedAnswer":{"@type":"Answer","text":"El cobro se procesa mediante pasarelas certificadas TLS/PCI DSS. Maderóh no almacena datos de tarjeta."}},
+      {"@type":"Question","name":"¿Cómo solicito factura?","acceptedAnswer":{"@type":"Answer","text":"Solicítala al momento de la compra o dentro de 7 días enviando tu RFC y datos a WhatsApp o a contacto@maderoh.mx."}},
+      {"@type":"Question","name":"¿Qué pasa si mi pedido llega con un detalle?","acceptedAnswer":{"@type":"Answer","text":"Se repara o reemplaza la pieza afectada dentro de la garantía de fabricación."}}
+    ]
+  }
+  </script>
+
+  <!-- Preload hero -->
+  <link rel="preload" as="image" href="Images/Recibidor%20Castle/Early%20American/420b92ff-3e36-4a7a-9f05-f7de5cd29c5e.jpg" imagesrcset="images/buffetera.jpg 1x" imagesizes="(max-width: 900px) 100vw, 50vw">
+
+  <!-- Google tag (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    // GA4 básico
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    // Desactivar page_view automático (SPA)
+    gtag('config', 'G-XXXXXXXXXX', { send_page_view: false });
+
+    // SPA por hash: page_view virtual
+    function sendVirtualPageview() {
+      const path = location.hash.replace('#','') || '/';
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: location.href,
+        page_path: path
+      });
     }
-  }
-  </script>
+    window.addEventListener('hashchange', sendVirtualPageview);
+    document.addEventListener('DOMContentLoaded', sendVirtualPageview);
 
-  <!-- Preload hero para evitar LCP alto; ajusta la ruta si cambia -->
-  <link rel="preload" as="image" href="Images/Recibidor%20Castle/Early%20American/420b92ff-3e36-4a7a-9f05-f7de5cd29c5e.jpg"" imagesrcset="images/buffetera.jpg 1x" imagesizes="(max-width: 900px) 100vw, 50vw">
+    // Tracking de clics útiles
+    function trackClick(selector, eventName, getLabel){
+      document.addEventListener('click', (e)=>{
+        const a = e.target.closest(selector);
+        if(!a) return;
+        const label = getLabel ? getLabel(a) : (a.textContent || a.href || '').trim();
+        gtag('event', eventName, { label });
+      });
+    }
+    // WhatsApp, CTA Configurar y redes
+    trackClick('a[href^="https://wa.me"]','click_whatsapp',(a)=>a.href);
+    trackClick('a[data-link][href="#/configura"]','click_configurar');
+    trackClick('.social a','click_social',(a)=>a.getAttribute('aria-label') || a.href);
+  </script>
 
   <style>
     /* ===== Tokens ===== */
@@ -57,7 +101,6 @@
       --focus: 0 0 0 3px rgba(184,138,87,.45);
     }
 
-    /* ===== Base ===== */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -75,40 +118,31 @@
     .muted{color:var(--muted)}
     :focus-visible{outline:none; box-shadow: var(--focus)}
 
-    /* ===== Nav ===== */
-.nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(10px);
-     background:rgba(15,15,16,.6);border-bottom:1px solid var(--border)}
-.nav-inner{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    /* Nav */
+    .nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(10px);background:rgba(15,15,16,.6);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .nav-links{display:flex;gap:28px;flex-wrap:wrap}
+    .nav-links > a{padding:8px 10px}
+    .dropdown{margin:0 6px}
+    .dropbtn{padding:8px 10px}
+    .dropdown-content{margin-top:8px}
+    .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;font-weight:700;border:0;cursor:pointer}
 
-/* Ajustes de separación */
-.nav-links{display:flex;gap:28px;flex-wrap:wrap}
-.nav-links > a{padding:8px 10px}
-.dropdown{margin:0 6px}
-.dropbtn{padding:8px 10px}
-.dropdown-content{margin-top:8px}
-
-    .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));
-         color:#111;font-weight:700;border:0;cursor:pointer}
-
-    /* ===== Dropdown ===== */
     .dropdown { position: relative; display: inline-block; }
     .dropbtn { background:none; border:none; color:var(--muted); font:inherit; cursor:pointer; padding:8px 0; }
     .dropbtn:hover { color:var(--text); }
-    .dropdown-content {
-      display:none; position:absolute; background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius); min-width:200px; box-shadow:var(--shadow); z-index:50;
-    }
+    .dropdown-content { display:none; position:absolute; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); min-width:200px; box-shadow:var(--shadow); z-index:50; }
     .dropdown-content a { display:block; padding:10px 14px; color:var(--muted); }
     .dropdown-content a:hover { background:#1f2022; color:var(--text); }
     .dropdown:hover .dropdown-content { display:block; }
 
-    /* ===== Page wrapper for hash routing ===== */
+    /* Page wrapper */
     main{min-height:70vh}
     .page{display:none;padding:44px 0}
     .page.active{display:block}
 
-    /* ===== Hero ===== */
+    /* Hero */
     .hero{padding:72px 0 48px; position:relative; overflow:hidden}
     .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
     .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(1200px 500px at 15% 0%, rgba(255,255,255,.06), transparent 60%);pointer-events:none}
@@ -117,7 +151,7 @@
     .lead{color:var(--muted);max-width:55ch}
     .hero-card{background:var(--card);padding:18px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
 
-    /* ===== Components ===== */
+    /* Components */
     .section-title{font-size:clamp(2rem, 4vw, 3rem); font-weight:800; text-align:center; margin: 40px 0 32px; letter-spacing:.02em; background: linear-gradient(90deg, var(--brand),var(--brand-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
     .grid{display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
@@ -125,67 +159,48 @@
     .tag{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:#1f2022;color:var(--muted);font-size:.8rem}
     .card img{width:100%;height:220px;object-fit:cover}
 
-    /* ===== Galería (home) ===== */
+    /* Gallery */
     .slider{position:relative;width:100%;max-width:900px;margin:0 auto;overflow:hidden;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
     .track{display:flex;transition:transform .6s ease-in-out}
     .slide{min-width:100%;display:grid;place-items:center;padding:12px 0}
     .slide img{width:clamp(220px,32vw,420px);aspect-ratio:3/2;height:auto;object-fit:cover;object-position:center;border-radius:12px}
 
-    /* ===== Configurador ===== */
+    /* Configurador */
     .config-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
     .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
     .field{display:grid;gap:6px;margin-bottom:12px}
     .field input,.field select{background:#0f1012;border:1px solid #222327;color:var(--text);padding:10px;border-radius:12px}
     .preview{display:grid;place-items:center;min-height:360px;border:1px dashed #2b2c30;border-radius:14px}
 
-    /* ===== SVG preview styles ===== */
+    /* SVG preview styles */
     .wood{filter: drop-shadow(0 4px 8px rgba(0,0,0,.35))}
     .metal{filter: drop-shadow(0 2px 4px rgba(0,0,0,.35))}
     .handle{fill:#d1d5db}
     .shadow{opacity:.25}
 
-    /* ===== Valores / Nosotros ===== */
+    /* Values */
     .values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
     .value{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
 
-    /* ===== CTA banda & sticky ===== */
+    /* CTA & sticky */
     .cta-band{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
     .sticky-cta{position:sticky;bottom:0;z-index:50;background:rgba(10,10,11,.92);backdrop-filter:blur(8px);border-top:1px solid #1a1b1f}
     .sticky-wrap{max-width:1100px;margin:auto;display:flex;gap:16px;align-items:center;padding:10px 20px}
     .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;border:none;padding:12px 18px;border-radius:14px;font-weight:900;cursor:pointer}
     .btn.secondary{background:#1a1a1d;color:#e5e7eb;border:1px solid #2a2b30}
 
-    /* ===== Reveal ===== */
+    /* Reveal */
     .reveal{opacity:0;transform:translateY(22px);filter:blur(1.5px);transition:opacity .7s ease, transform .7s ease, filter .7s ease}
     .reveal.in{opacity:1;transform:none;filter:none}
 
-    /* ===== Responsive ===== */
-    @media (max-width:1024px){ .config-grid{grid-template-columns:1fr} }
-    @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} .grid{grid-template-columns:repeat(2,minmax(0,1fr))} .values{grid-template-columns:1fr} }
-    @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav-links{display:none} }
-
-    /* ===== Motion respect ===== */
-    @media (prefers-reduced-motion: reduce){*{animation:none;transition:none}}
-
-    /* ===== Social (NUEVO) ===== */
+    /* Social */
     .social{display:flex;gap:14px;align-items:center}
     .social a{color:var(--muted);display:inline-flex;line-height:0;opacity:.9}
     .social a:hover{color:var(--text);opacity:1;transform:translateY(-1px)}
 
-    /* ===== Footer Policies (NUEVO) ===== */
-    .footer-policies{
-      display:grid;
-      grid-template-columns: 1.2fr 1fr 1.2fr;
-      gap:24px;
-      align-items:start;
-      margin:8px 0 12px;
-    }
-    .footer-policies h4{
-      margin:0 0 8px;
-      letter-spacing:.04em;
-      font-weight:800;
-      font-size:.9rem;
-    }
+    /* Footer */
+    .footer-policies{display:grid;grid-template-columns: 1.2fr 1fr 1.2fr;gap:24px;align-items:start;margin:8px 0 12px}
+    .footer-policies h4{margin:0 0 8px;letter-spacing:.04em;font-weight:800;font-size:.9rem}
     .footer-policies ul{list-style:none;padding:0;margin:0}
     .footer-policies li{margin:6px 0}
     .footer-policies a{color:var(--muted)}
@@ -193,8 +208,13 @@
     .pay-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
     .pay-icon{width:48px;height:16px;color:#e5e7eb}
     .pay-icon.wide{width:72px}
-    @media (max-width:900px){.footer-policies{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){.footer-policies{grid-template-columns:1fr}}
+
+    /* Responsive */
+    @media (max-width:1024px){ .config-grid{grid-template-columns:1fr} }
+    @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} .grid{grid-template-columns:repeat(2,minmax(0,1fr))} .values{grid-template-columns:1fr} .footer-policies{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav-links{display:none} .footer-policies{grid-template-columns:1fr} }
+
+    @media (prefers-reduced-motion: reduce){*{animation:none;transition:none}}
   </style>
 </head>
 <body>
@@ -205,10 +225,9 @@
         <div class="logo" aria-hidden="true" style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)"></div>
         <span>Maderóh</span>
       </div>
+
       <div class="nav-links" role="navigation" aria-label="Principal">
         <a href="#/" data-link>Inicio</a>
-
-        <!-- Dropdown Productos -->
         <div class="dropdown">
           <button class="dropbtn">Productos ▾</button>
           <div class="dropdown-content">
@@ -223,29 +242,19 @@
             <a href="#/Recibidores" data-link>Recibidores</a>
           </div>
         </div>
-
         <a href="#/configura" data-link>Configurar</a>
       </div>
 
       <!-- Social (NAV) -->
       <div class="social" aria-label="Redes sociales">
-        <a href="https://www.instagram.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
-          </svg>
+        <a href="https://www.instagram.com/maderoh_mx/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
         </a>
         <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
-            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/></svg>
         </a>
         <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/></svg>
         </a>
       </div>
 
@@ -254,7 +263,7 @@
   </nav>
 
   <main id="app">
-    <!-- ===== HOME ===== -->
+    <!-- HOME -->
     <section class="page active" data-route="/">
       <header class="hero">
         <div class="container hero-grid">
@@ -290,14 +299,14 @@
         <div class="slider" id="slider-home">
           <div class="track">
             <figure class="slide"><img src="images/Buffeteras/Buffetera Fernando/Early American/21a0b9ba-b390-4f30-b166-9e9cf360a95a.jpg" alt="Cajonera Hércules Pro" loading="lazy" width="900" height="600"></figure>
-            <figure class="slide"><img src="images/Recibidor Castle/Early American/58327d2c-20ef-41ad-a267-c6064cf8e8d3.jpg"               alt="Mesa" loading="lazy" width="900" height="600"></figure>
-            <figure class="slide"><img src="images/Escritorio/Berenice XL/Olmo/cef58c9c-753b-469c-ab18-7126bd5f936c.jpg"                alt="Rack" loading="lazy" width="900" height="600"></figure>
+            <figure class="slide"><img src="images/Recibidor Castle/Early American/58327d2c-20ef-41ad-a267-c6064cf8e8d3.jpg" alt="Mesa" loading="lazy" width="900" height="600"></figure>
+            <figure class="slide"><img src="images/Escritorio/Berenice XL/Olmo/cef58c9c-753b-469c-ab18-7126bd5f936c.jpg" alt="Rack" loading="lazy" width="900" height="600"></figure>
           </div>
         </div>
       </section>
     </section>
 
-    <!-- ===== CATEGORY PAGES ===== -->
+    <!-- CATEGORY PAGES -->
     <section class="page" data-route="/escritorios"><div class="container"><h2 class="section-title">Escritorios</h2><div class="grid"><article class="card"><img src="images/desk.jpg" alt="Escritorio 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Clásico</span><h3>Hércules Desk</h3><p class="muted">120×50×80 cm, 3 cajones, pasacables.</p></div></article><article class="card"><img src="images/desk2.jpg" alt="Escritorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacto</span><h3>Urban</h3><p class="muted">100×50×75 cm, 1 cajón, repisa.</p></div></article><article class="card"><img src="images/desk3.jpg" alt="Escritorio 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Doble</span><h3>Studio XL</h3><p class="muted">160×70×75 cm, pedestal, canaleta.</p></div></article></div></div></section>
 
     <section class="page" data-route="/cajoneras"><div class="container"><h2 class="section-title">Cajoneras</h2><div class="grid"><article class="card"><img src="images/Hercules XL/Early American 2 Cajones/c8a3e67f-051d-4c0f-92ee-6e5697604987.jpg" alt="Cajonera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Zen</span><h3>Cajonera Magna</h3><p class="muted">Guías 20&quot; con cierre suave.</p></div></article><article class="card"><img src="images/Hercules XL/Nogal Americano 1 Cajon/b1d6c8d0-9891-4f40-a543-2740c2f71f49.jpg" alt="Cajonera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Atlas</span><h3>Cajonera Atlas</h3><p class="muted">Bastidor reforzado 1.5&quot;.</p></div></article><article class="card"><img src="images/CajoneraHerculesSofnes.jpg" alt="Cajonera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Magna</span><h3>3+1 Archivo</h3><p class="muted">Frentes texturizados premium.</p></div></article></div></div></section>
@@ -308,7 +317,7 @@
 
     <section class="page" data-route="/CentroDeTV"><div class="container"><h2 class="section-title">Centros de TV</h2><div class="grid"><article class="card"><img src="images/buffetera.jpg" alt="Buffetera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacta</span><h3>120×40×80 cm</h3><p class="muted">2 puertas, 1 cajón.</p></div></article><article class="card"><img src="images/buffetera2.jpg" alt="Buffetera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Media</span><h3>150×45×85 cm</h3><p class="muted">3 cajones, 2 nichos.</p></div></article><article class="card"><img src="images/buffetera3.jpg" alt="Buffetera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">XL</span><h3>180×45×90 cm</h3><p class="muted">Puertas de cierre suave.</p></div></article></div></div></section>
 
-    <!-- ===== NUEVAS SECCIONES (añadidas) ===== -->
+    <!-- NUEVAS SECCIONES -->
     <section class="page" data-route="/Accesorios">
       <div class="container">
         <h2 class="section-title">Accesorios</h2>
@@ -337,11 +346,9 @@
       </div>
     </section>
 
-    <!-- ===== AVISO DE PRIVACIDAD (completo) ===== -->
+    <!-- AVISO DE PRIVACIDAD -->
     <section class="page" data-route="/aviso-privacidad">
       <div class="container">
-
-        <!-- Estilos scoped para esta sección -->
         <style>
           .privacy .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:24px}
           .privacy h1{font-size:clamp(1.8rem,3.2vw,2.2rem);line-height:1.2;margin:.2rem 0 1rem}
@@ -366,156 +373,340 @@
           <div class="card" role="document">
             <div class="pill">Última actualización: 07 de octubre de 2025</div>
             <h1>Aviso de Privacidad</h1>
-            <p>
-              Este Aviso de Privacidad se emite conforme a la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong> y su Reglamento. Al usar este sitio o proporcionarnos datos, usted acepta las prácticas aquí descritas.
-            </p>
+            <p>Este Aviso de Privacidad se emite conforme a la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong> y su Reglamento. Al usar este sitio o proporcionarnos datos, usted acepta las prácticas aquí descritas.</p>
 
             <h2>1) Identidad y domicilio del responsable</h2>
-            <p>
-              <strong>Maderóh</strong>, (el “Responsable”), con domicilio en <em>Ciudad de México, México</em>, es responsable del tratamiento de sus datos personales.
-              Puede contactarnos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> o vía WhatsApp en
-              <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">+52 1 55 7472 9226</a>.
-            </p>
+            <p><strong>Maderóh</strong>, (el “Responsable”), con domicilio en <em>Ciudad de México, México</em>, es responsable del tratamiento de sus datos personales. Puede contactarnos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> o vía WhatsApp en <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">+52 1 55 7472 9226</a>.</p>
 
             <h2>2) Datos personales que recabamos</h2>
             <div class="grid two">
-              <div class="box">
-                <h3>Datos de identificación y contacto</h3>
-                <ul>
-                  <li>Nombre y apellidos</li>
-                  <li>Correo electrónico</li>
-                  <li>Teléfono</li>
-                  <li>Dirección de entrega y facturación (si aplica)</li>
-                  <li>Usuario/red social de contacto (si nos escribe por Instagram/Facebook/TikTok)</li>
-                </ul>
-              </div>
-              <div class="box">
-                <h3>Datos técnicos y de navegación</h3>
-                <ul>
-                  <li>Cookies, identificadores anónimos, dirección IP</li>
-                  <li>Información de dispositivo y navegador</li>
-                  <li>Páginas visitadas, tiempo de permanencia</li>
-                </ul>
-              </div>
+              <div class="box"><h3>Datos de identificación y contacto</h3><ul><li>Nombre y apellidos</li><li>Correo electrónico</li><li>Teléfono</li><li>Dirección de entrega y facturación (si aplica)</li><li>Usuario/red social de contacto (si nos escribe por Instagram/Facebook/TikTok)</li></ul></div>
+              <div class="box"><h3>Datos técnicos y de navegación</h3><ul><li>Cookies, identificadores anónimos, dirección IP</li><li>Información de dispositivo y navegador</li><li>Páginas visitadas, tiempo de permanencia</li></ul></div>
             </div>
             <p class="muted small">Nota: No solicitamos datos sensibles. Si en algún momento fuera necesario, lo haremos con aviso y consentimiento explícito.</p>
 
             <h2>3) Finalidades del tratamiento</h2>
             <div class="grid two">
-              <div class="box">
-                <h3>Finalidades necesarias</h3>
-                <ul>
-                  <li>Atender solicitudes de información, cotizaciones y soporte.</li>
-                  <li>Gestionar pedidos, fabricación, entrega e instalación.</li>
-                  <li>Facturación y cuestiones fiscales/contables.</li>
-                  <li>Prevención de fraudes y seguridad.</li>
-                  <li>Cumplimiento de obligaciones legales.</li>
-                </ul>
-              </div>
-              <div class="box">
-                <h3>Finalidades adicionales (consentimiento)</h3>
-                <ul>
-                  <li>Envío de promociones, noticias y novedades.</li>
-                  <li>Encuestas de satisfacción y mejora del servicio.</li>
-                  <li>Publicidad personalizada en plataformas de Meta/Google.</li>
-                </ul>
-                <p class="small muted">Usted puede <strong>negar o revocar</strong> su consentimiento para estas finalidades sin afectar las necesarias.</p>
-              </div>
+              <div class="box"><h3>Finalidades necesarias</h3><ul><li>Atender solicitudes de información, cotizaciones y soporte.</li><li>Gestionar pedidos, fabricación, entrega e instalación.</li><li>Facturación y cuestiones fiscales/contables.</li><li>Prevención de fraudes y seguridad.</li><li>Cumplimiento de obligaciones legales.</li></ul></div>
+              <div class="box"><h3>Finalidades adicionales (consentimiento)</h3><ul><li>Envío de promociones, noticias y novedades.</li><li>Encuestas de satisfacción y mejora del servicio.</li><li>Publicidad personalizada en plataformas de Meta/Google.</li></ul><p class="small muted">Usted puede <strong>negar o revocar</strong> su consentimiento para estas finalidades sin afectar las necesarias.</p></div>
             </div>
 
             <h2>4) Fundamento y medidas de seguridad</h2>
-            <p>
-              Tratamos sus datos con base en los artículos 6, 8, 10 y demás aplicables de la LFPDPPP. Adoptamos medidas <em>administrativas, técnicas y físicas</em> razonables para protegerlos contra daño, pérdida, alteración, destrucción o uso/ acceso no autorizado.
-            </p>
+            <p>Tratamos sus datos con base en los artículos 6, 8, 10 y demás aplicables de la LFPDPPP. Adoptamos medidas <em>administrativas, técnicas y físicas</em> razonables para protegerlos contra daño, pérdida, alteración, destrucción o uso/acceso no autorizado.</p>
 
             <h2>5) Transferencias y encargados</h2>
-            <p>
-              Podemos compartir datos con <span class="badge">encargados</span> que nos prestan servicios para cumplir las finalidades: mensajería/paquetería, pasarelas de pago, contabilidad, alojamiento web/hosting, CRM, métricas y publicidad digital. Dichos terceros tratarán sus datos siguiendo nuestras instrucciones y salvaguardas.
-            </p>
-            <p>
-              No realizamos <strong>transferencias</strong> que requieran su consentimiento, salvo las legalmente permitidas u ordenadas. En caso de realizar transferencias distintas, solicitaremos su autorización previa.
-            </p>
+            <p>Podemos compartir datos con <span class="badge">encargados</span> que nos prestan servicios para cumplir las finalidades: mensajería/paquetería, pasarelas de pago, contabilidad, alojamiento web/hosting, CRM, métricas y publicidad digital. Dichos terceros tratarán sus datos siguiendo nuestras instrucciones y salvaguardas.</p>
+            <p>No realizamos <strong>transferencias</strong> que requieran su consentimiento, salvo las legalmente permitidas u ordenadas. En caso de realizar transferencias distintas, solicitaremos su autorización previa.</p>
 
             <h2>6) Derechos ARCO y revocación del consentimiento</h2>
-            <p>
-              Usted puede ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición</strong> (ARCO), así como <strong>revocar</strong> su consentimiento, enviando un correo a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> con el asunto <em>“Derechos ARCO”</em> y:
-            </p>
-            <ul>
-              <li>Nombre completo y medio para comunicarle la respuesta.</li>
-              <li>Descripción clara del derecho que desea ejercer y los datos a los que se refiere.</li>
-              <li>Copia de su identificación (INE o pasaporte). Si actúa por representante, anexar poder simple e identificación.</li>
-            </ul>
+            <p>Usted puede ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición</strong> (ARCO), así como <strong>revocar</strong> su consentimiento, enviando un correo a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> con el asunto <em>“Derechos ARCO”</em> y:</p>
+            <ul><li>Nombre completo y medio para comunicarle la respuesta.</li><li>Descripción clara del derecho que desea ejercer y los datos a los que se refiere.</li><li>Copia de su identificación (INE o pasaporte). Si actúa por representante, anexar poder simple e identificación.</li></ul>
             <p class="small muted">Le responderemos en los plazos previstos por la Ley y, de ser procedente, haremos efectivo el derecho dentro de los términos aplicables.</p>
 
             <h2>7) Cookies y tecnologías similares</h2>
-            <p>
-              Usamos cookies propias y de terceros para recordar sus preferencias, mejorar el desempeño del sitio y generar estadísticas. Puede ajustar su navegador para rechazarlas o borrar las existentes. Algunas funciones podrían verse limitadas.
-            </p>
-            <ul>
-              <li><strong>Esenciales:</strong> funcionamiento básico del sitio (no requieren consentimiento).</li>
-              <li><strong>Analíticas:</strong> medición de tráfico y rendimiento.</li>
-              <li><strong>Publicidad:</strong> personalización de anuncios en plataformas externas.</li>
-            </ul>
+            <p>Usamos cookies propias y de terceros para recordar sus preferencias, mejorar el desempeño del sitio y generar estadísticas. Puede ajustar su navegador para rechazarlas o borrar las existentes. Algunas funciones podrían verse limitadas.</p>
+            <ul><li><strong>Esenciales:</strong> funcionamiento básico del sitio (no requieren consentimiento).</li><li><strong>Analíticas:</strong> medición de tráfico y rendimiento.</li><li><strong>Publicidad:</strong> personalización de anuncios en plataformas externas.</li></ul>
 
             <h2>8) Servicios de terceros</h2>
-            <ul>
-              <li><strong>Hosting/CDN:</strong> p. ej., Netlify u otro proveedor de infraestructura.</li>
-              <li><strong>Métricas:</strong> p. ej., Google Analytics/Tag Manager.</li>
-              <li><strong>Mensajería:</strong> WhatsApp Business API o enlaces <code>wa.me</code>.</li>
-              <li><strong>Redes sociales:</strong> Instagram, Facebook, TikTok (widgets o enlaces externos).</li>
-              <li><strong>Pagos:</strong> si aplica, pasarela (agregue el nombre aquí).</li>
-            </ul>
+            <ul><li><strong>Hosting/CDN:</strong> p. ej., Netlify u otro proveedor de infraestructura.</li><li><strong>Métricas:</strong> p. ej., Google Analytics/Tag Manager.</li><li><strong>Mensajería:</strong> WhatsApp Business API o enlaces <code>wa.me</code>.</li><li><strong>Redes sociales:</strong> Instagram, Facebook, TikTok.</li><li><strong>Pagos:</strong> si aplica, pasarela (agregar nombre).</li></ul>
             <p class="small muted">Estos servicios pueden usar sus propias cookies y operar bajo sus políticas. Revise sus avisos en sus respectivos sitios.</p>
 
-            <h2>9) Menores de edad</h2>
-            <p>
-              Nuestros servicios no están dirigidos a menores de 18 años. No recabamos intencionalmente datos de menores. Si un padre/madre o tutor detecta un envío de datos, puede solicitar su eliminación mediante los medios ARCO.
-            </p>
+            <h2>9) Menores de edad</h2><p>Nuestros servicios no están dirigidos a menores de 18 años. No recabamos intencionalmente datos de menores. Si un padre/madre o tutor detecta un envío de datos, puede solicitar su eliminación mediante los medios ARCO.</p>
+            <h2>10) Conservación de datos</h2><p>Conservaremos los datos durante el tiempo necesario para cumplir las finalidades descritas y conforme a los plazos legales aplicables. Posteriormente, serán suprimidos o anonimizados de manera segura.</p>
+            <h2>11) Cambios al Aviso de Privacidad</h2><p>Podemos actualizar este Aviso para reflejar cambios en prácticas o requisitos legales. Publicaremos la versión vigente en esta misma página indicando la fecha de última actualización.</p>
 
-            <h2>10) Conservación de datos</h2>
-            <p>
-              Conservaremos los datos durante el tiempo necesario para cumplir las finalidades descritas y conforme a los plazos legales aplicables. Posteriormente, serán suprimidos o anonimizados de manera segura.
-            </p>
-
-            <h2>11) Cambios al Aviso de Privacidad</h2>
-            <p>
-              Podemos actualizar este Aviso para reflejar cambios en prácticas o requisitos legales. Publicaremos la versión vigente en esta misma página indicando la fecha de última actualización.
-            </p>
-
-            <div class="foot small muted">
-              <p>Para cualquier duda sobre este Aviso o el tratamiento de sus datos personales, contáctenos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>.</p>
-            </div>
+            <div class="foot small muted"><p>Para cualquier duda sobre este Aviso o el tratamiento de sus datos personales, contáctenos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>.</p></div>
           </div>
 
-          
+          <section class="card" aria-labelledby="atajos">
+            <h2 id="atajos">¿Cómo enlazarlo desde tu sitio?</h2>
+            <ol>
+              <li>Esta sección ya vive en <code>#/aviso-privacidad</code>.</li>
+              <li>El link del footer ya apunta aquí.</li>
+              <li>Puedes actualizar domicilio/correo dentro del texto anterior.</li>
+            </ol>
+          </section>
+        </div>
       </div>
     </section>
 
-    <!-- ===== OTRAS PÁGINAS INTERNAS (placeholders) ===== -->
-    <section class="page" data-route="/compra-segura"><div class="container">
-      <h2 class="section-title">Compra segura</h2>
-      <p class="muted">Contenido en preparación.</p>
-    </div></section>
+    <!-- COMPRA SEGURA -->
+    <section class="page" data-route="/compra-segura">
+      <div class="container">
+        <style>
+          .secure .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:20px}
+          .secure h1{font-size:clamp(1.6rem,3vw,2.1rem);margin:.3rem 0 1rem}
+          .secure h2{font-size:clamp(1.1rem,2vw,1.35rem);margin:1.3rem 0 .6rem;color:var(--brand)}
+          .secure p,.secure li{color:var(--text)}
+          .secure .muted{color:var(--muted)}
+          .secure .grid{display:grid;gap:16px}
+          .secure .two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+          .secure .three{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+          .secure .box{background:#111418;border:1px solid #262a33;border-radius:12px;padding:16px}
+          .secure .kpi{display:flex;gap:12px;align-items:flex-start}
+          .secure .kpi svg{flex:0 0 22px}
+          .secure .steps{counter-reset:step}
+          .secure .step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px dashed #2a2f38}
+          .secure .step:first-child{border-top:none}
+          .secure .step .num{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;font-weight:800}
+          .secure .badges{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+          .secure .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid #2a2f38;border-radius:999px;padding:6px 10px;background:#101216}
+          .secure .pay-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+          .secure .pay-icon{width:48px;height:16px;color:#e5e7eb}
+          .secure .pay-icon.wide{width:72px}
+          .secure .accordion{border-top:1px solid #2a2f38;border-bottom:1px solid #2a2f38;border-radius:12px;overflow:hidden}
+          .secure .acc-item{border-top:1px solid #2a2f38}
+          .secure .acc-item:first-child{border-top:none}
+          .secure .acc-btn{width:100%;text-align:left;background:#111418;border:none;color:var(--text);padding:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+          .secure .acc-btn:hover{background:#141820}
+          .secure .acc-btn svg{transition:transform .2s ease}
+          .secure .acc-panel{max-height:0;overflow:hidden;transition:max-height .25s ease;background:#0f1217;padding:0 16px}
+          .secure .acc-panel.open{padding:12px 16px 16px}
+          .secure .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+          .secure .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;border:none;padding:12px 18px;border-radius:14px;font-weight:900;cursor:pointer}
+          .secure .btn.secondary{background:#1a1a1d;color:#e5e7eb;border:1px solid #2a2b30}
+          @media (max-width:640px){ .secure .card{padding:16px} }
+        </style>
 
-    <section class="page" data-route="/faq"><div class="container">
-      <h2 class="section-title">Preguntas frecuentes</h2>
-      <p class="muted">Contenido en preparación.</p>
-    </div></section>
+        <div class="secure">
+          <div class="card">
+            <h1>Compra segura en Maderóh</h1>
+            <p class="muted">Protegemos tus datos, tus pagos y tu pedido de punta a punta. Aquí te explicamos cómo.</p>
 
-    <section class="page" data-route="/envio"><div class="container">
-      <h2 class="section-title">Servicio de envío</h2>
-      <p class="muted">Contenido en preparación.</p>
-    </div></section>
+            <div class="grid two">
+              <div class="box kpi">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div>
+                  <h2>Pagos protegidos</h2>
+                  <p>Procesamos pagos mediante pasarelas certificadas (TLS/PCI DSS). No almacenamos tu tarjeta en nuestros servidores.</p>
+                  <div class="pay-logos" aria-label="Métodos de pago">
+                    <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="9" y="11" font-size="9" fill="currentColor" font-weight="800">VISA</text></svg>
+                    <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><circle cx="20" cy="8" r="5" fill="#EB001B" opacity=".9"></circle><circle cx="28" cy="8" r="5" fill="#F79E1B" opacity=".9"></circle></svg>
+                    <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">PayPal</text></svg>
+                    <svg viewBox="0 0 72 16" class="pay-icon wide" aria-hidden="true"><rect width="72" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">mercado pago</text></svg>
+                  </div>
+                </div>
+              </div>
 
-    <section class="page" data-route="/promociones"><div class="container">
-      <h2 class="section-title">Términos de promociones</h2>
-      <p class="muted">Contenido en preparación.</p>
-    </div></section>
+              <div class="box kpi">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 10v-2a5 5 0 0 1 10 0v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <div>
+                  <h2>Datos personales</h2>
+                  <p>Tu información se trata conforme a nuestro <a href="#/aviso-privacidad" data-link>Aviso de Privacidad</a>. Usamos medidas administrativas, técnicas y físicas para protegerla.</p>
+                  <div class="badges"><span class="badge">🔒 TLS</span><span class="badge">🧾 Facturación</span><span class="badge">🧰 Control de calidad</span></div>
+                </div>
+              </div>
+            </div>
 
-    <!-- ===== 404 ===== -->
-    <section class="page" data-route="/404">
-      <div class="container"><h2 class="section-title">Página no encontrada</h2><p class="muted">El enlace no existe. Vuelve a <a href="#/" data-link>Inicio</a>.</p></div>
+            <div class="box" style="margin-top:12px">
+              <h2>¿Cómo se realiza tu compra?</h2>
+              <div class="steps">
+                <div class="step"><div class="num">1</div><div><strong>Configuración/cotización.</strong> Diseña tu mueble en <a href="#/configura" data-link>Configurar</a> o escríbenos a WhatsApp.</div></div>
+                <div class="step"><div class="num">2</div><div><strong>Orden y anticipo.</strong> Confirmas medidas y acabados. Se solicita anticipo para iniciar fabricación.</div></div>
+                <div class="step"><div class="num">3</div><div><strong>Fabricación y control de calidad.</strong> Taller propio en CDMX. Te mantenemos al tanto con fotos/avances.</div></div>
+                <div class="step"><div class="num">4</div><div><strong>Entrega e instalación.</strong> Coordinamos día y ventana de horario. Liquidación al entregar.</div></div>
+              </div>
+              <div class="cta-row">
+                <a class="btn" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quiero%20cotizar%20mi%20mueble." target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+                <a class="btn secondary" href="#/faq" data-link>Ver preguntas frecuentes</a>
+              </div>
+            </div>
+
+            <div class="grid three" style="margin-top:12px">
+              <div class="box"><h3>Garantía</h3><p>Cubre defectos de fabricación y herrajes. No aplica por uso indebido, golpes o humedad extrema.</p></div>
+              <div class="box"><h3>Cambios/Devoluciones</h3><p>Al ser piezas a medida, aplican correcciones por garantía. Ajustes estéticos pueden cotizarse.</p></div>
+              <div class="box"><h3>Envíos CDMX y zona metropolitana</h3><p>Programamos entrega con personal propio. Cotizamos otras ciudades bajo solicitud.</p></div>
+            </div>
+
+            <div class="accordion" style="margin-top:16px">
+              <div class="acc-item"><button class="acc-btn" type="button">¿Qué formas de pago aceptan?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Aceptamos tarjeta (crédito/débito), transferencia y plataformas como PayPal/Mercado Pago.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Mis datos de tarjeta están seguros?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>El cobro se procesa mediante pasarelas certificadas (TLS/PCI DSS). No almacenamos datos de tarjeta.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Cómo solicito factura?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Pídela al momento de tu compra o dentro de 7 días naturales enviando RFC y datos a <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a> o a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Qué pasa si llega con un detalle?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Lo reparamos o reemplazamos la pieza afectada dentro de la garantía de fabricación.</p></div></div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function(){
+            const root = document.currentScript.closest('[data-route="/compra-segura"]');
+            const items = root.querySelectorAll('.acc-item');
+            items.forEach(it=>{
+              const btn = it.querySelector('.acc-btn');
+              const panel = it.querySelector('.acc-panel');
+              btn.addEventListener('click', ()=>{
+                const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+                root.querySelectorAll('.acc-panel').forEach(p=>{ p.style.maxHeight = null; p.classList.remove('open'); });
+                root.querySelectorAll('.acc-btn svg').forEach(svg=>{ svg.style.transform = 'rotate(0deg)'; });
+                if(!open){
+                  panel.style.maxHeight = panel.scrollHeight + 'px';
+                  panel.classList.add('open');
+                  btn.querySelector('svg').style.transform = 'rotate(45deg)';
+                }
+              });
+            });
+          })();
+        </script>
+      </div>
     </section>
+
+    <!-- FAQ COMPLETA -->
+    <section class="page" data-route="/faq">
+      <div class="container">
+        <style>
+          .faq .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:20px}
+          .faq h1{font-size:clamp(1.6rem,3vw,2.1rem);margin:.3rem 0 1rem}
+          .faq p,.faq li{color:var(--text)}
+          .faq .muted{color:var(--muted)}
+          .faq .accordion{border:1px solid #2a2f38;border-radius:14px;overflow:hidden}
+          .faq .acc-item{border-top:1px solid #2a2f38}
+          .faq .acc-item:first-child{border-top:none}
+          .faq .acc-btn{width:100%;text-align:left;background:#111418;border:none;color:var(--text);padding:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+          .faq .acc-btn:hover{background:#141820}
+          .faq .acc-btn svg{transition:transform .2s ease}
+          .faq .acc-panel{max-height:0;overflow:hidden;transition:max-height .25s ease;background:#0f1217;padding:0 16px}
+          .faq .acc-panel.open{padding:12px 16px 16px}
+          .faq .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+          .faq .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;border:none;padding:12px 18px;border-radius:14px;font-weight:900;cursor:pointer}
+          .faq .btn.secondary{background:#1a1a1d;color:#e5e7eb;border:1px solid #2a2b30}
+          @media (max-width:640px){ .faq .card{padding:16px} }
+        </style>
+
+        <div class="faq">
+          <div class="card">
+            <h1>Preguntas frecuentes</h1>
+            <p class="muted">Resolvemos las dudas más comunes sobre medidas, pagos, entregas y garantía.</p>
+
+            <div class="accordion" id="faq-acc">
+              <div class="acc-item"><button class="acc-btn" type="button">¿Qué formas de pago aceptan?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Aceptamos <strong>tarjeta de crédito/débito</strong>, <strong>transferencia</strong> y plataformas como <strong>PayPal/Mercado Pago</strong>. Si requieres factura, compártenos tu RFC al confirmar el pedido.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Mis datos de tarjeta están seguros?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Procesamos los cobros con <strong>pasarelas certificadas (TLS/PCI DSS)</strong>. No almacenamos datos de tarjeta en nuestros servidores. Consulta <a href="#/compra-segura" data-link>Compra Segura</a> para más detalles.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Cómo solicito mi factura?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Envíanos tu RFC y datos fiscales al momento de tu compra o dentro de <strong>7 días naturales</strong> a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> o vía <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a>.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Cuál es el tiempo de fabricación y entrega?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>El tiempo típico es de <strong>2 a 4 semanas</strong> según diseño y carga del taller. Te mantenemos al tanto con avances y coordinamos la instalación/entrega en CDMX y zona metropolitana.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Realizan muebles a medida o personalizados?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Sí. Puedes usar el <a href="#/configura" data-link>Configurador</a> para una base y, si necesitas algo especial, lo ajustamos en <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a> (medidas, acabados, accesorios).</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Qué cubre la garantía?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Cubre <strong>defectos de fabricación y herrajes</strong>. No aplica por golpes, humedad extrema o mal uso. Si llega con un detalle, lo reparamos o reemplazamos la pieza afectada.</p></div></div>
+              <div class="acc-item"><button class="acc-btn" type="button">¿Hacen envíos fuera de CDMX?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="acc-panel"><p>Sí, cotizamos envío a otras ciudades bajo solicitud. Escríbenos por <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a> con tu colonia/C.P. y modelo.</p></div></div>
+            </div>
+
+            <div class="cta-row">
+              <a class="btn" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20tengo%20una%20duda%20sobre%20un%20mueble." target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+              <a class="btn secondary" href="#/compra-segura" data-link>Ver compra segura</a>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function(){
+            const root = document.currentScript.closest('[data-route="/faq"]');
+            const items = root.querySelectorAll('.acc-item');
+            items.forEach(it=>{
+              const btn = it.querySelector('.acc-btn');
+              const panel = it.querySelector('.acc-panel');
+              btn.addEventListener('click', ()=>{
+                const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+                root.querySelectorAll('.acc-panel').forEach(p=>{ p.style.maxHeight = null; p.classList.remove('open'); });
+                root.querySelectorAll('.acc-btn svg').forEach(svg=>{ svg.style.transform = 'rotate(0deg)'; });
+                if(!open){
+                  panel.style.maxHeight = panel.scrollHeight + 'px';
+                  panel.classList.add('open');
+                  btn.querySelector('svg').style.transform = 'rotate(45deg)';
+                }
+              });
+            });
+          })();
+        </script>
+      </div>
+    </section>
+
+    <!-- CONFIGURADOR -->
+    <section class="page" data-route="/configura">
+      <div class="container">
+        <h2 class="section-title">Configura tu mueble</h2>
+        <div class="config-grid">
+          <form class="panel" id="cfg-form">
+            <div class="field"><label for="tipo">Tipo de mueble</label>
+              <select id="tipo">
+                <option value="escritorio" selected>Escritorio</option>
+                <option value="cajonera">Cajonera</option>
+                <option value="tabla">Tabla</option>
+                <option value="estante">Estante</option>
+                <option value="buffetera">Buffetera</option>
+                <option value="mostrador">Mostrador (negocios)</option>
+              </select>
+            </div>
+            <div class="field"><label for="largo">Largo (cm)</label><input id="largo" type="number" min="80" max="240" step="1" value="120"></div>
+            <div class="field"><label for="ancho">Ancho/Profundidad (cm)</label><input id="ancho" type="number" min="40" max="90" step="1" value="50"></div>
+            <div class="field"><label for="altura">Altura (cm)</label><input id="altura" type="number" min="60" max="120" step="1" value="80"></div>
+            <div class="field"><label for="cajones">Cajones</label><input id="cajones" type="number" min="0" max="6" step="1" value="3"></div>
+            <div class="field"><label for="madera">Madera</label>
+              <select id="madera">
+                <option value="encino" selected>Encino</option>
+                <option value="nogal">Nogal</option>
+                <option value="parota">Parota</option>
+              </select>
+            </div>
+            <div class="field"><label for="metal">Acabado metal</label>
+              <select id="metal">
+                <option value="#111" selected>Negro mate</option>
+                <option value="#f5f5f5">Blanco</option>
+                <option value="#2f3136">Grafito</option>
+              </select>
+            </div>
+            <fieldset class="field" style="border:none;padding:0">
+              <legend class="muted" style="margin-bottom:8px">Extras</legend>
+              <label><input type="checkbox" id="usb"> Puerto USB</label><br/>
+              <label><input type="checkbox" id="pasacables" checked> Pasacables</label><br/>
+              <label><input type="checkbox" id="teclado"> Porta-teclado</label>
+            </fieldset>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a class="btn" id="btn-whats" href="#" target="_blank" rel="noopener">Enviar a WhatsApp</a>
+              <button type="button" class="btn secondary" id="btn-reset">Restablecer</button>
+            </div>
+          </form>
+          <div class="panel preview">
+            <!-- SVG preview -->
+            <svg id="svg" viewBox="0 0 800 500" width="100%" height="100%" aria-label="Vista previa">
+              <defs>
+                <linearGradient id="woodEncino" x1="0" x2="1"><stop offset="0%" stop-color="#a87b52"/><stop offset="100%" stop-color="#815b3e"/></linearGradient>
+                <linearGradient id="woodNogal" x1="0" x2="1"><stop offset="0%" stop-color="#7a5133"/><stop offset="100%" stop-color="#5a3b26"/></linearGradient>
+                <linearGradient id="woodParota" x1="0" x2="1"><stop offset="0%" stop-color="#ae6b34"/><stop offset="100%" stop-color="#7f4a22"/></linearGradient>
+              </defs>
+              <ellipse class="shadow" cx="400" cy="460" rx="260" ry="24" fill="#000"/>
+              <g id="g-desk" visibility="visible">
+                <rect id="desk-top" class="wood" x="150" y="150" width="500" height="36" fill="url(#woodEncino)" rx="6"/>
+                <rect id="desk-front" class="wood" x="150" y="186" width="500" height="28" fill="#6d4f35" opacity=".85"/>
+                <rect id="leg-left" class="metal" x="170" y="214" width="26" height="200" rx="6" fill="#111"/>
+                <rect id="leg-right" class="metal" x="604" y="214" width="26" height="200" rx="6" fill="#111"/>
+                <g id="drawer-box">
+                  <rect id="drawer" x="480" y="214" width="150" height="120" rx="8" fill="#262a2f"/>
+                  <rect class="handle" x="540" y="242" width="30" height="6" rx="3"/>
+                  <rect class="handle" x="540" y="282" width="30" height="6" rx="3"/>
+                  <rect class="handle" x="540" y="322" width="30" height="6" rx="3"/>
+                </g>
+              </g>
+              <g id="g-cabinet" visibility="hidden">
+                <rect id="cab-body" x="220" y="170" width="360" height="230" rx="10" fill="#262a2f"/>
+                <g id="cab-drawers"></g>
+              </g>
+              <g id="g-shelf" visibility="hidden">
+                <rect id="shelf-frameL" x="240" y="140" width="18" height="280" rx="6" fill="#111"/>
+                <rect id="shelf-frameR" x="542" y="140" width="18" height="280" rx="6" fill="#111"/>
+                <rect class="wood" id="sh1" x="258" y="160" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh2" x="258" y="230" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh3" x="258" y="300" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh4" x="258" y="370" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+              </g>
+              <g id="g-table" visibility="hidden">
+                <rect id="table-top" class="wood" x="180" y="210" width="440" height="40" fill="url(#woodEncino)" rx="8"/>
+                <rect id="table-shadow" class="shadow" x="180" y="250" width="440" height="18" fill="#000" rx="8" opacity=".25"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 404 -->
+    <section class="page" data-route="/404"><div class="container"><h2 class="section-title">Página no encontrada</h2><p class="muted">El enlace no existe. Vuelve a <a href="#/" data-link>Inicio</a>.</p></div></section>
   </main>
 
   <!-- Sticky CTA inferior global -->
@@ -532,36 +723,14 @@
     <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center">
       <small>© <span id="y"></span> Maderóh. Todos los derechos reservados.</small>
       <small>CDMX · Hecho con madera y metal.</small>
-
-      <!-- Social (FOOTER) -->
       <div class="social" aria-label="Redes sociales">
-        <a href="https://www.instagram.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
-          </svg>
-        </a>
-        <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
-            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-        </a>
-        <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
-          </svg>
-        </a>
+        <a href="https://www.instagram.com/maderoh_mx/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/></svg></a>
       </div>
     </div>
-    <noscript>
-      <div class="container" style="margin-top:10px" role="status">Para usar el configurador, habilita JavaScript.</div>
-    </noscript>
-
-    <!-- ===== BLOQUE POLÍTICAS / FACTURACIÓN / PAGOS (NUEVO) ===== -->
+    <noscript><div class="container" style="margin-top:10px" role="status">Para usar el configurador, habilita JavaScript.</div></noscript>
     <hr style="border:0;border-top:1px solid var(--border);margin:16px 0">
-
     <div class="container footer-policies">
       <div class="policies-block">
         <h4>POLÍTICAS DE COMPRA</h4>
@@ -573,41 +742,18 @@
           <li><a href="#/promociones" data-link>Términos de promociones</a></li>
         </ul>
       </div>
-
       <div class="policies-block">
         <h4>FACTURACIÓN<br>ELECTRÓNICA</h4>
-        <p class="muted" style="margin:.4rem 0 8px">
-          Solicítala al momento de tu compra o dentro de los 7 días naturales con tu RFC y datos fiscales.
-        </p>
-        <a class="btn secondary" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quisiera%20solicitar%20mi%20factura%20electr%C3%B3nica." target="_blank" rel="noopener">
-          Solicitar por WhatsApp
-        </a>
+        <p class="muted" style="margin:.4rem 0 8px">Solicítala al momento de tu compra o dentro de los 7 días naturales con tu RFC y datos fiscales.</p>
+        <a class="btn secondary" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quisiera%20solicitar%20mi%20factura%20electr%C3%B3nica." target="_blank" rel="noopener">Solicitar por WhatsApp</a>
       </div>
-
       <div class="policies-block">
         <h4>FORMAS DE PAGO</h4>
         <div class="pay-logos" aria-label="Métodos de pago">
-          <!-- VISA -->
-          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true">
-            <rect width="48" height="16" rx="3" fill="#ffffff20"/>
-            <text x="9" y="11" font-size="9" fill="currentColor" font-weight="800">VISA</text>
-          </svg>
-          <!-- MasterCard -->
-          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true">
-            <rect width="48" height="16" rx="3" fill="#ffffff20"/>
-            <circle cx="20" cy="8" r="5" fill="#EB001B" opacity=".9"></circle>
-            <circle cx="28" cy="8" r="5" fill="#F79E1B" opacity=".9"></circle>
-          </svg>
-          <!-- PayPal -->
-          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true">
-            <rect width="48" height="16" rx="3" fill="#ffffff20"/>
-            <text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">PayPal</text>
-          </svg>
-          <!-- Mercado Pago -->
-          <svg viewBox="0 0 72 16" class="pay-icon wide" aria-hidden="true">
-            <rect width="72" height="16" rx="3" fill="#ffffff20"/>
-            <text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">mercado pago</text>
-          </svg>
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="9" y="11" font-size="9" fill="currentColor" font-weight="800">VISA</text></svg>
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><circle cx="20" cy="8" r="5" fill="#EB001B" opacity=".9"></circle><circle cx="28" cy="8" r="5" fill="#F79E1B" opacity=".9"></circle></svg>
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">PayPal</text></svg>
+          <svg viewBox="0 0 72 16" class="pay-icon wide" aria-hidden="true"><rect width="72" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">mercado pago</text></svg>
         </div>
       </div>
     </div>
@@ -615,7 +761,7 @@
 
   <script>
     // ===== Config =====
-    const WA_NUMBER = '5215574729226'; // Unificado para todos los botones
+    const WA_NUMBER = '5215574729226'; // Unificado
 
     // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
@@ -624,13 +770,13 @@
     const ph = 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450"><rect fill="%23161718" width="100%" height="100%"/><text x="50%" y="50%" fill="%23cbd5e1" font-size="24" dominant-baseline="middle" text-anchor="middle">Mader%C3%B3h</text></svg>';
     document.querySelectorAll('img').forEach(img=>{ img.addEventListener('error', ()=>{ img.src = ph; }); });
 
-    // Rellenar enlaces de WhatsApp unificados
+    // Enlaces de WhatsApp
     const baseWa = `https://wa.me/${WA_NUMBER}`;
     document.getElementById('nav-wa').href = baseWa;
     document.getElementById('hero-wa').href = baseWa;
     document.getElementById('sticky-wa').href = baseWa;
 
-    // Router (hash) — incluye nuevas rutas
+    // Router (hash) — nuevas rutas incluidas
     const routes = new Set(['/', '/escritorios', '/cajoneras', '/Buffetera', '/Bancas', '/CentroDeTV', '/negocios', '/Accesorios', '/CentroDeMesa', '/Recibidores', '/configura', '/aviso-privacidad', '/compra-segura', '/faq', '/envio', '/promociones']);
     function currentPath(){ return location.hash.replace('#','') || '/'; }
     function route(){
@@ -643,7 +789,7 @@
     window.addEventListener('hashchange', route);
     document.addEventListener('DOMContentLoaded', route);
 
-    // Galería auto-roulette (home)
+    // Galería auto-roulette
     (function sel(selector){
       const wrap = document.querySelector(selector);
       if(!wrap) return;
@@ -660,12 +806,11 @@
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target); } })
     },{threshold:.18});
-    document.querySelectorAll(' .reveal').forEach(el=>io.observe(el));
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
     // ===== Configurador =====
     const $ = (id)=>document.getElementById(id);
     const form = $('cfg-form');
-    const svg = $('svg');
     const gDesk = document.getElementById('g-desk');
     const gCab  = document.getElementById('g-cabinet');
     const gShelf= document.getElementById('g-shelf');
@@ -678,18 +823,16 @@
       const L = +$('largo').value, A = +$('ancho').value, H = +$('altura').value, C = +$('cajones').value;
       const madera = $('madera').value, metal = $('metal').value;
 
-      // Mostrar grupo por tipo
+      // Visibilidad por tipo
       gDesk.setAttribute('visibility', (tipo==='escritorio'||tipo==='mostrador') ? 'visible':'hidden');
       gCab.setAttribute('visibility',  (tipo==='cajonera'||tipo==='buffetera') ? 'visible':'hidden');
       gShelf.setAttribute('visibility',(tipo==='estante') ? 'visible':'hidden');
       gTable.setAttribute('visibility', (tipo==='tabla') ? 'visible':'hidden');
 
-      // Escalas básicas
       const w = Math.min(560, Math.max(280, L*4));
       const h = Math.min(240, Math.max(120, H*2.2));
       const x = 400 - w/2;
 
-      // Escritorio / Mostrador
       if(gDesk.getAttribute('visibility')==='visible'){
         const top = document.getElementById('desk-top');
         const front = document.getElementById('desk-front');
@@ -718,7 +861,6 @@
         }
       }
 
-      // Cajonera / Buffetera
       if(gCab.getAttribute('visibility')==='visible'){
         const body = document.getElementById('cab-body');
         const drawersG = document.getElementById('cab-drawers');
@@ -743,9 +885,8 @@
         }
       }
 
-      // Estante
       if(gShelf.getAttribute('visibility')==='visible'){
-        ['sh1','sh2','sh3','sh4'].forEach((id,i)=>{
+        ['sh1','sh2','sh3','sh4'].forEach((id)=>{
           const sh = document.getElementById(id);
           sh.setAttribute('width', Math.min(360, Math.max(240, L*3)));
           sh.setAttribute('fill', `url(#${woodId(madera)})`);
@@ -754,7 +895,6 @@
         document.getElementById('shelf-frameR').setAttribute('fill', metal);
       }
 
-      // Tabla
       if(gTable.getAttribute('visibility')==='visible'){
         const t = document.getElementById('table-top');
         const s = document.getElementById('table-shadow');
