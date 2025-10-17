@@ -205,7 +205,7 @@
     }
   </style>
 </head>
-<body>
+<>
   <!-- Nav -->
   <nav class="nav">
     <div class="container nav-inner">
@@ -1096,5 +1096,27 @@
       });
     })();
   </script>
+ <script type="module">
+  // Importa los módulos desde el CDN de Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+  // Configuración de tu app Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyC0C6AohQvZwXmKgsF08ucLfzjNkdru",
+    authDomain: "maderohweb.firebaseapp.com",
+    projectId: "maderohweb",
+    storageBucket: "maderohweb.firebasestorage.app",
+    messagingSenderId: "867213298937",
+    appId: "1:867213298937:web:71aef163224e9dcb6bb6628"
+  };
+
+  // Inicializa Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  console.log("✅ Firebase conectado correctamente");
+</script>
+
 </body>
 </html>
