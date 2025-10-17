@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Maderóh | Catálogo por categorías + Configurador</title>
+  <title>Maderóh | Muebles de madera y metal a medida</title>
   <meta name="description" content="Maderóh: mobiliario en madera y metal hecho a medida. Catálogo por categorías y configurador realista con envío por WhatsApp." />
   <meta property="og:title" content="Maderóh | Muebles de vida">
   <meta property="og:description" content="Mobiliario de madera y metal hecho a medida.">
@@ -25,41 +25,22 @@
   }
   </script>
 
-  <!-- JSON-LD PrivacyPolicy -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "PrivacyPolicy",
-    "name": "Aviso de Privacidad de Maderóh",
-    "url": "https://maderoh.mx/#/aviso-privacidad",
-    "dateModified": "2025-10-07",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Maderóh",
-      "url": "https://maderoh.mx",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://maderoh.mx/logo.png"
-      }
-    }
-  }
-  </script>
-
-  <!-- JSON-LD FAQ (Compra Segura) -->
+  <!-- JSON-LD FAQ (SEO) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {"@type":"Question","name":"¿Qué formas de pago aceptan?","acceptedAnswer":{"@type":"Answer","text":"Tarjeta de crédito/débito, transferencia y plataformas como PayPal/Mercado Pago."}},
-      {"@type":"Question","name":"¿Mis datos de tarjeta están seguros?","acceptedAnswer":{"@type":"Answer","text":"El cobro se procesa mediante pasarelas certificadas TLS/PCI DSS. Maderóh no almacena datos de tarjeta."}},
-      {"@type":"Question","name":"¿Cómo solicito factura?","acceptedAnswer":{"@type":"Answer","text":"Solicítala al momento de la compra o dentro de 7 días enviando tu RFC y datos a WhatsApp o a contacto@maderoh.mx."}},
-      {"@type":"Question","name":"¿Qué pasa si mi pedido llega con un detalle?","acceptedAnswer":{"@type":"Answer","text":"Se repara o reemplaza la pieza afectada dentro de la garantía de fabricación."}}
+      {"@type":"Question","name":"¿Cuánto tarda la fabricación de mi mueble?","acceptedAnswer":{"@type":"Answer","text":"El tiempo promedio es de 15 a 25 días hábiles tras el anticipo, sujeto a complejidad y volumen."}},
+      {"@type":"Question","name":"¿Puedo personalizar medidas o materiales?","acceptedAnswer":{"@type":"Answer","text":"Sí, fabricamos bajo pedido con medidas, maderas, colores y acabados personalizados."}},
+      {"@type":"Question","name":"¿Qué garantía tienen los productos?","acceptedAnswer":{"@type":"Answer","text":"12 meses por defectos de fabricación y estructura metálica. No cubre mal uso ni humedad extrema."}},
+      {"@type":"Question","name":"¿Cómo dar mantenimiento a mis muebles?","acceptedAnswer":{"@type":"Answer","text":"Paño seco o ligeramente húmedo; evitar solventes/abrasivos. Cera natural recomendada cada 6 meses."}},
+      {"@type":"Question","name":"¿Puedo cancelar o modificar mi pedido?","acceptedAnswer":{"@type":"Answer","text":"Al ser personalizado, no es reembolsable una vez iniciada la producción. Modificaciones menores dentro de 3 días."}}
     ]
   }
   </script>
 
-  <!-- Preload hero (ajusta si cambia la ruta) -->
+  <!-- Preload hero -->
   <link rel="preload" as="image" href="Images/Recibidor%20Castle/Early%20American/420b92ff-3e36-4a7a-9f05-f7de5cd29c5e.jpg" imagesrcset="images/buffetera.jpg 1x" imagesizes="(max-width: 900px) 100vw, 50vw">
 
   <style>
@@ -75,56 +56,65 @@
     /* ===== Base ===== */
     *{box-sizing:border-box}
     html,body{height:100%}
-    body {
-  margin:0;
-  line-height:1.6;
-  color:var(--text);
-  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  background:
-    url("images/hojas-jungla.jpg") center/cover no-repeat fixed,
-    radial-gradient(1200px 600px at 80% -20%, rgba(184,138,87,.12), transparent 60%),
-    radial-gradient(1000px 500px at 0% 120%, rgba(209, 129, 49, 0.1), transparent 55%),
-    var(--bg);
-  background-attachment: fixed;
-  scroll-behavior:smooth;
-}
+    body{
+      margin:0; line-height:1.6; color:var(--text);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(1200px 600px at 80% -20%, rgba(184,138,87,.12), transparent 60%),
+        radial-gradient(1000px 500px at 0% 120%, rgba(140,98,57,.10), transparent 55%),
+        var(--bg);
+      scroll-behavior:smooth;
+    }
     a{color:inherit;text-decoration:none}
     img{display:block;border-radius:12px;max-width:100%;height:auto}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
     .muted{color:var(--muted)}
     :focus-visible{outline:none; box-shadow: var(--focus)}
 
-    /* ===== Nav ===== */
-    .nav{position:sticky;top:0;z-index:40;backdrop-filter:saturate(180%) blur(10px);
-         background:rgba(15,15,16,.6);border-bottom:1px solid var(--border)}
-    .nav-inner{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-    .nav-links{display:flex;gap:28px;flex-wrap:wrap}
-    .nav-links > a{padding:8px 10px}
-    .dropdown{margin:0 6px}
-    .dropbtn{padding:8px 10px}
-    .dropdown-content{margin-top:8px}
-    .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-2));
-         color:#111;font-weight:700;border:0;cursor:pointer}
-
-    /* Dropdown */
-    .dropdown { position: relative; display: inline-block; }
-    .dropbtn { background:none; border:none; color:var(--muted); font:inherit; cursor:pointer; padding:8px 0; }
-    .dropbtn:hover { color:var(--text); }
-    .dropdown-content {
-      display:none; position:absolute; background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius); min-width:200px; box-shadow:var(--shadow); z-index:50;
+    /* ===== NAV (estilo captura) ===== */
+    .nav{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:#232427;
+      border-bottom:1px solid #2c2d31;
     }
-    .dropdown-content a { display:block; padding:10px 14px; color:var(--muted); }
-    .dropdown-content a:hover { background:#1f2022; color:var(--text); }
+    .nav-inner{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand img{width:112px;height:36px;object-fit:contain;display:block;border-radius:8px}
+    .brand:focus-visible{outline:none; box-shadow:0 0 0 3px rgba(184,138,87,.45); border-radius:10px}
+
+    .nav-links{display:flex;gap:28px;flex-wrap:wrap;align-items:center}
+    .nav-links > a{padding:8px 10px;color:#e5e7eb}
+    .nav-links > a:hover{color:#fff}
+
+    .dropdown { position: relative; display: inline-block; }
+    .dropbtn { background:none; border:none; color:#e5e7eb; font:inherit; cursor:pointer; padding:8px 10px }
+    .dropbtn:hover { color:#fff }
+    .dropdown-content {
+      display:none; position:absolute; background:#1c1d20; border:1px solid #2a2b2f;
+      border-radius:12px; min-width:220px; box-shadow:0 10px 30px rgba(0,0,0,.35); z-index:50; margin-top:8px
+    }
+    .dropdown-content a { display:block; padding:10px 14px; color:#cbd5e1 }
+    .dropdown-content a:hover { background:#222327; color:#fff }
     .dropdown:hover .dropdown-content { display:block; }
 
-    /* Page wrapper */
+    .social{display:flex;gap:12px;align-items:center;margin-right:8px}
+    .social a{color:#cbd5e1;display:inline-flex;line-height:0;opacity:.95}
+    .social a:hover{color:#fff;opacity:1;transform:translateY(-1px)}
+
+    .cta-wa{
+      padding:10px 16px; border-radius:999px;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#111; font-weight:800; border:0; cursor:pointer; display:inline-flex; align-items:center; gap:8px
+    }
+    .cta-wa:hover{filter:brightness(1.05)}
+    .cta-wa:focus-visible{outline:none; box-shadow:0 0 0 3px rgba(184,138,87,.45)}
+
+    /* ===== Wrapper / components ===== */
     main{min-height:70vh}
     .page{display:none;padding:44px 0}
     .page.active{display:block}
 
-    /* Hero */
     .hero{padding:72px 0 48px; position:relative; overflow:hidden}
     .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
     .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(1200px 500px at 15% 0%, rgba(255,255,255,.06), transparent 60%);pointer-events:none}
@@ -133,7 +123,6 @@
     .lead{color:var(--muted);max-width:55ch}
     .hero-card{background:var(--card);padding:18px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
 
-    /* Components */
     .section-title{font-size:clamp(2rem, 4vw, 3rem); font-weight:800; text-align:center; margin: 40px 0 32px; letter-spacing:.02em; background: linear-gradient(90deg, var(--brand),var(--brand-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
     .grid{display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
@@ -141,7 +130,6 @@
     .tag{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:#1f2022;color:var(--muted);font-size:.8rem}
     .card img{width:100%;height:220px;object-fit:cover}
 
-    /* Gallery */
     .slider{position:relative;width:100%;max-width:900px;margin:0 auto;overflow:hidden;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
     .track{display:flex;transition:transform .6s ease-in-out}
     .slide{min-width:100%;display:grid;place-items:center;padding:12px 0}
@@ -151,10 +139,8 @@
     .config-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
     .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
     .field{display:grid;gap:6px;margin-bottom:12px}
-    .field input,.field select{background:#0f1012;border:1px solid #222327;color:var(--text);padding:10px;border-radius:12px}
+    .field input,.field select, .field textarea{background:#0f1012;border:1px solid #222327;color:var(--text);padding:10px;border-radius:12px}
     .preview{display:grid;place-items:center;min-height:360px;border:1px dashed #2b2c30;border-radius:14px}
-
-    /* SVG preview styles */
     .wood{filter: drop-shadow(0 4px 8px rgba(0,0,0,.35))}
     .metal{filter: drop-shadow(0 2px 4px rgba(0,0,0,.35))}
     .handle{fill:#d1d5db}
@@ -164,12 +150,13 @@
     .values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
     .value{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
 
-   /* CTA banda & sticky */
+    /* CTA banda & sticky */
     .cta-band{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
     .sticky-cta{position:sticky;bottom:0;z-index:50;background:rgba(10,10,11,.92);backdrop-filter:blur(8px);border-top:1px solid #1a1b1f}
     .sticky-wrap{max-width:1100px;margin:auto;display:flex;gap:16px;align-items:center;padding:10px 20px}
     .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;border:none;padding:12px 18px;border-radius:14px;font-weight:900;cursor:pointer}
     .btn.secondary{background:#1a1a1d;color:#e5e7eb;border:1px solid #2a2b30}
+
     /* Reveal */
     .reveal{opacity:0;transform:translateY(22px);filter:blur(1.5px);transition:opacity .7s ease, transform .7s ease, filter .7s ease}
     .reveal.in{opacity:1;transform:none;filter:none}
@@ -178,44 +165,56 @@
     @media (max-width:1024px){ .config-grid{grid-template-columns:1fr} }
     @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} .grid{grid-template-columns:repeat(2,minmax(0,1fr))} .values{grid-template-columns:1fr} }
     @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav-links{display:none} }
-
-    /* Motion respect */
     @media (prefers-reduced-motion: reduce){*{animation:none;transition:none}}
 
-    /* Social */
-    .social{display:flex;gap:14px;align-items:center}
-    .social a{color:var(--muted);display:inline-flex;line-height:0;opacity:.9}
-    .social a:hover{color:var(--text);opacity:1;transform:translateY(-1px)}
-
-    /* Footer Policies */
+    /* Footer */
+    footer{border-top:1px solid #2a2b30; background:#1c1d20; color:#e5e7eb}
+    .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center;padding:16px 0}
+    .footer-top .social a{color:#cbd5e1}
+    .footer-top .social a:hover{color:#fff}
     .footer-policies{display:grid;grid-template-columns: 1.2fr 1fr 1.2fr;gap:24px;align-items:start;margin:8px 0 12px}
     .footer-policies h4{margin:0 0 8px;letter-spacing:.04em;font-weight:800;font-size:.9rem}
+    .footer-policies p,.footer-policies li,.footer-policies a{color:#cbd5e1}
     .footer-policies ul{list-style:none;padding:0;margin:0}
     .footer-policies li{margin:6px 0}
-    .footer-policies a{color:var(--muted)}
-    .footer-policies a:hover{color:var(--text);text-decoration:underline}
-    .pay-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .footer-policies a:hover{color:#fff;text-decoration:underline}
+    .pay-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
     .pay-icon{width:48px;height:16px;color:#e5e7eb}
     .pay-icon.wide{width:72px}
     @media (max-width:900px){.footer-policies{grid-template-columns:1fr 1fr}}
     @media (max-width:640px){.footer-policies{grid-template-columns:1fr}}
 
-    /* Lightweight details/summary styling */
-    details{background:#111418;border:1px solid #262a33;border-radius:12px;padding:12px}
-    details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:700;list-style:none}
-    summary::-webkit-details-marker{display:none}
-    details[open]{background:#0f1217}
+    /* FAQ accordion */
+    .faq-acc{border-top:1px solid #2a2f38;border-bottom:1px solid #2a2f38;border-radius:12px;overflow:hidden}
+    .faq-item{border-top:1px solid #2a2f38}
+    .faq-item:first-child{border-top:none}
+    .faq-btn{width:100%;text-align:left;background:#111418;border:none;color:var(--text);padding:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+    .faq-btn:hover{background:#141820}
+    .faq-btn svg{transition:transform .2s ease}
+    .faq-panel{max-height:0;overflow:hidden;transition:max-height .25s ease;background:#0f1217;padding:0 16px}
+    .faq-panel.open{padding:12px 16px 16px}
+
+    /* Negocios form tweaks */
+    #form-negocios input,#form-negocios select,#form-negocios textarea{
+      background:#0f1012;border:1px solid #222327;color:var(--text);padding:10px;border-radius:12px;width:100%
+    }
+    #form-negocios textarea{resize:vertical}
+    #form-negocios .error{border-color:#b45309; box-shadow:0 0 0 3px rgba(180,83,9,.25)}
+    @media (max-width:900px){
+      [data-route="/negocios"] .grid{grid-template-columns:1fr !important}
+    }
   </style>
 </head>
 <body>
   <!-- Nav -->
   <nav class="nav">
     <div class="container nav-inner">
-   <a class="brand" href="#/" data-link aria-label="Ir al inicio">
-  <img src="Images/Logo Maderóh.jpg" alt="Maderóh" width="120" height="auto" style="display:block;max-height:42px">
-</a>
+      <!-- LOGO botón de inicio -->
+      <a href="#/" data-link class="brand" aria-label="Inicio Maderóh">
+        <img src="Images/Logo%20Maderóh.jpg" alt="Maderóh">
+      </a>
 
+      <!-- Menú -->
       <div class="nav-links" role="navigation" aria-label="Principal">
         <a href="#/" data-link>Inicio</a>
         <!-- Dropdown Productos -->
@@ -233,32 +232,35 @@
             <a href="#/Recibidores" data-link>Recibidores</a>
           </div>
         </div>
-        <a href="#/configura" data-link>Configurar</a>
+        <!-- Cambio solicitado -->
+        <a href="#/configura" data-link>Crea tu mueble</a>
       </div>
 
-      <!-- Social (NAV) -->
-      <div class="social" aria-label="Redes sociales">
-        <a href="https://www.instagram.com/maderoh_mx/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
-          </svg>
-        </a>
-        <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
-            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-        </a>
-        <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
-          </svg>
-        </a>
-      </div>
+      <!-- Redes + WhatsApp -->
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="social" aria-label="Redes sociales">
+          <a href="https://www.instagram.com/maderoh_mx/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
+              <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
 
-      <a class="cta" id="nav-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="cta-wa" id="nav-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
     </div>
   </nav>
 
@@ -299,17 +301,16 @@
         <div class="slider" id="slider-home">
           <div class="track">
             <figure class="slide"><img src="images/Buffeteras/Buffetera Fernando/Early American/21a0b9ba-b390-4f30-b166-9e9cf360a95a.jpg" alt="Cajonera Hércules Pro" loading="lazy" width="900" height="600"></figure>
-            <figure class="slide"><img src="images/Recibidor Castle/Early American/58327d2c-20ef-41ad-a267-c6064cf8e8d3.jpg" alt="Mesa" loading="lazy" width="900" height="600"></figure>
-            <figure class="slide"><img src="images/Escritorio/Berenice XL/Olmo/cef58c9c-753b-469c-ab18-7126bd5f936c.jpg" alt="Rack" loading="lazy" width="900" height="600"></figure>
+            <figure class="slide"><img src="images/Recibidor Castle/Early American/58327d2c-20ef-41ad-a267-c6064cf8e8d3.jpg"               alt="Mesa" loading="lazy" width="900" height="600"></figure>
+            <figure class="slide"><img src="images/Escritorio/Berenice XL/Olmo/cef58c9c-753b-469c-ab18-7126bd5f936c.jpg"                alt="Rack" loading="lazy" width="900" height="600"></figure>
           </div>
         </div>
       </section>
     </section>
-
     <!-- ===== CATEGORY PAGES ===== -->
     <section class="page" data-route="/escritorios"><div class="container"><h2 class="section-title">Escritorios</h2><div class="grid"><article class="card"><img src="images/desk.jpg" alt="Escritorio 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Clásico</span><h3>Hércules Desk</h3><p class="muted">120×50×80 cm, 3 cajones, pasacables.</p></div></article><article class="card"><img src="images/desk2.jpg" alt="Escritorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacto</span><h3>Urban</h3><p class="muted">100×50×75 cm, 1 cajón, repisa.</p></div></article><article class="card"><img src="images/desk3.jpg" alt="Escritorio 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Doble</span><h3>Studio XL</h3><p class="muted">160×70×75 cm, pedestal, canaleta.</p></div></article></div></div></section>
 
-    <section class="page" data-route="/cajoneras"><div class="container"><h2 class="section-title">Cajoneras</h2><div class="grid"><article class="card"><img src="images/Hercules XL/Early American 2 Cajones/c8a3e67f-051d-4c0f-92ee-6e5697604987.jpg" alt="Cajonera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Zen</span><h3>Cajonera Magna</h3><p class="muted">Guías 20&quot; con cierre suave.</p></div></article><article class="card"><img src="images/Hercules XL/Nogal Americano 1 Cajon/b1d6c8d0-9891-4f40-a543-2740c2f71f49.jpg" alt="Cajonera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Atlas</span><h3>Cajonera Atlas</h3><p class="muted">Bastidor reforzado 1.5&quot;.</p></div></article><article class="card"><img src="images/CajoneraHerculesSofnes.jpg" alt="Cajonera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Magna</span><h3>3+1 Archivo</h3><p class="muted">Frentes texturizados premium.</p></div></article></div></div></section>
+    <section class="page" data-route="/cajoneras"><div class="container"><h2 class="section-title">Cajoneras</h2><div class="grid"><article class="card"><img src="images/CajoneraHerculesPro.jpg" alt="Cajonera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Zen</span><h3>3 Cajones</h3><p class="muted">Guías 20&quot; con cierre suave.</p></div></article><article class="card"><img src="images/CajoneraHerculesSuperDuty.jpg" alt="Cajonera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Atlas</span><h3>4 Cajones</h3><p class="muted">Bastidor reforzado 1.5&quot;.</p></div></article><article class="card"><img src="images/CajoneraHerculesSofnes.jpg" alt="Cajonera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Magna</span><h3>3+1 Archivo</h3><p class="muted">Frentes texturizados premium.</p></div></article></div></div></section>
 
     <section class="page" data-route="/Buffetera"><div class="container"><h2 class="section-title">Buffetera</h2><div class="grid"><article class="card"><img src="images/table.jpg" alt="Tabla 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Encino</span><h3>120×50 cm</h3><p class="muted">Sellado mate, canto recto.</p></div></article><article class="card"><img src="images/table2.jpg" alt="Tabla 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nogal</span><h3>140×60 cm</h3><p class="muted">Aceite duro + UV.</p></div></article><article class="card"><img src="images/table3.jpg" alt="Tabla 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Parota</span><h3>160×70 cm</h3><p class="muted">Veta visible, sellado mate.</p></div></article></div></div></section>
 
@@ -346,389 +347,128 @@
       </div>
     </section>
 
-    <!-- ===== AVISO DE PRIVACIDAD ===== -->
-    <section class="page" data-route="/aviso-privacidad">
+    <!-- ===== NEGOCIOS (con formulario) ===== -->
+    <section class="page" data-route="/negocios">
       <div class="container">
-        <style>
-          .privacy .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:24px}
-          .privacy h1{font-size:clamp(1.8rem,3.2vw,2.2rem);line-height:1.2;margin:.2rem 0 1rem}
-          .privacy h2{font-size:clamp(1.1rem,2vw,1.35rem);margin:1.6rem 0 .6rem;color:var(--brand)}
-          .privacy h3{font-size:1rem;margin:1.2rem 0 .4rem}
-          .privacy p,.privacy li{color:var(--text)}
-          .privacy .muted{color:var(--muted)}
-          .privacy .pill{display:inline-block;background:rgba(184,138,87,.12);border:1px solid rgba(184,138,87,.35);color:var(--text);padding:.18rem .6rem;border-radius:999px;font-size:.85rem}
-          .privacy a{color:#9fe0cf}
-          .privacy .grid{display:grid;gap:12px}
-          .privacy .two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-          .privacy .box{background:#111418;border:1px solid #262a33;border-radius:12px;padding:16px}
-          .privacy .foot{margin-top:32px;border-top:1px dashed #2a2f38;padding-top:16px}
-          .privacy .small{font-size:.92rem}
-          .privacy ul{padding-left:1.1rem}
-          .privacy .badge{font-weight:700}
-          .privacy code{background:#0f1217;border:1px solid #1e2330;border-radius:6px;padding:2px 6px}
-          @media (max-width:640px){ .privacy .card{padding:18px} }
-        </style>
+        <h2 class="section-title">Negocios</h2>
 
-        <div class="privacy">
-          <div class="card" role="document">
-            <div class="pill">Última actualización: 07 de octubre de 2025</div>
-            <h1>Aviso de Privacidad</h1>
-            <p>Este Aviso de Privacidad se emite conforme a la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong> y su Reglamento. Al usar este sitio o proporcionarnos datos, usted acepta las prácticas aquí descritas.</p>
+        <div class="panel" style="margin-bottom:16px">
+          <p class="muted">
+            Diseñamos y fabricamos mobiliario comercial a la medida: <strong>mostradores, backbars, racks de exhibición, mesas altas</strong> y más.
+            Cuéntanos sobre tu proyecto y un asesor te contactará.
+          </p>
+        </div>
 
-            <h2>1) Identidad y domicilio del responsable</h2>
-            <p><strong>Maderóh</strong>, (el “Responsable”), con domicilio en <em>Ciudad de México, México</em>, es responsable del tratamiento de sus datos personales. Puede contactarnos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> o vía WhatsApp en <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">+52 1 55 7472 9226</a>.</p>
-
-            <h2>2) Datos personales que recabamos</h2>
-            <div class="grid two">
-              <div class="box">
-                <h3>Datos de identificación y contacto</h3>
-                <ul>
-                  <li>Nombre y apellidos</li><li>Correo electrónico</li><li>Teléfono</li><li>Dirección de entrega y facturación (si aplica)</li><li>Usuario/red social de contacto (si nos escribe por Instagram/Facebook/TikTok)</li>
-                </ul>
-              </div>
-              <div class="box">
-                <h3>Datos técnicos y de navegación</h3>
-                <ul>
-                  <li>Cookies, identificadores anónimos, dirección IP</li><li>Información de dispositivo y navegador</li><li>Páginas visitadas, tiempo de permanencia</li>
-                </ul>
-              </div>
-            </div>
-            <p class="muted small">Nota: No solicitamos datos sensibles. Si en algún momento fuera necesario, lo haremos con aviso y consentimiento explícito.</p>
-
-            <h2>3) Finalidades del tratamiento</h2>
-            <div class="grid two">
-              <div class="box">
-                <h3>Finalidades necesarias</h3>
-                <ul>
-                  <li>Atender solicitudes de información, cotizaciones y soporte.</li>
-                  <li>Gestionar pedidos, fabricación, entrega e instalación.</li>
-                  <li>Facturación y cuestiones fiscales/contables.</li>
-                  <li>Prevención de fraudes y seguridad.</li>
-                  <li>Cumplimiento de obligaciones legales.</li>
-                </ul>
-              </div>
-              <div class="box">
-                <h3>Finalidades adicionales (consentimiento)</h3>
-                <ul>
-                  <li>Envío de promociones, noticias y novedades.</li>
-                  <li>Encuestas de satisfacción y mejora del servicio.</li>
-                  <li>Publicidad personalizada en plataformas de Meta/Google.</li>
-                </ul>
-                <p class="small muted">Usted puede <strong>negar o revocar</strong> su consentimiento para estas finalidades sin afectar las necesarias.</p>
-              </div>
-            </div>
-
-            <h2>4) Fundamento y medidas de seguridad</h2>
-            <p>Tratamos sus datos con base en los artículos 6, 8, 10 y demás aplicables de la LFPDPPP. Adoptamos medidas <em>administrativas, técnicas y físicas</em> razonables para protegerlos contra daño, pérdida, alteración, destrucción o uso/acceso no autorizado.</p>
-
-            <h2>5) Transferencias y encargados</h2>
-            <p>Podemos compartir datos con <span class="badge">encargados</span> que nos prestan servicios para cumplir las finalidades: mensajería/paquetería, pasarelas de pago, contabilidad, alojamiento web/hosting, CRM, métricas y publicidad digital. Dichos terceros tratarán sus datos siguiendo nuestras instrucciones y salvaguardas.</p>
-            <p>No realizamos <strong>transferencias</strong> que requieran su consentimiento, salvo las legalmente permitidas u ordenadas. En caso de realizar transferencias distintas, solicitaremos su autorización previa.</p>
-
-            <h2>6) Derechos ARCO y revocación del consentimiento</h2>
-            <p>Usted puede ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición</strong> (ARCO), así como <strong>revocar</strong> su consentimiento, enviando un correo a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> con el asunto <em>“Derechos ARCO”</em> y:</p>
-            <ul>
-              <li>Nombre completo y medio para comunicarle la respuesta.</li>
-              <li>Descripción clara del derecho que desea ejercer y los datos a los que se refiere.</li>
-              <li>Copia de su identificación (INE o pasaporte). Si actúa por representante, anexar poder simple e identificación.</li>
-            </ul>
-            <p class="small muted">Le responderemos en los plazos previstos por la Ley y, de ser procedente, haremos efectivo el derecho dentro de los términos aplicables.</p>
-
-            <h2>7) Cookies y tecnologías similares</h2>
-            <p>Usamos cookies propias y de terceros para recordar sus preferencias, mejorar el desempeño del sitio y generar estadísticas. Puede ajustar su navegador para rechazarlas o borrar las existentes. Algunas funciones podrían verse limitadas.</p>
-            <ul>
-              <li><strong>Esenciales:</strong> funcionamiento básico del sitio (no requieren consentimiento).</li>
-              <li><strong>Analíticas:</strong> medición de tráfico y rendimiento.</li>
-              <li><strong>Publicidad:</strong> personalización de anuncios en plataformas externas.</li>
-            </ul>
-
-            <h2>8) Servicios de terceros</h2>
-            <ul>
-              <li><strong>Hosting/CDN:</strong> p. ej., Netlify u otro proveedor de infraestructura.</li>
-              <li><strong>Métricas:</strong> p. ej., Google Analytics/Tag Manager.</li>
-              <li><strong>Mensajería:</strong> WhatsApp Business API o enlaces <code>wa.me</code>.</li>
-              <li><strong>Redes sociales:</strong> Instagram, Facebook, TikTok.</li>
-              <li><strong>Pagos:</strong> si aplica, pasarela (agregar nombre).</li>
-            </ul>
-            <p class="small muted">Estos servicios pueden usar sus propias cookies y operar bajo sus políticas. Revise sus avisos en sus respectivos sitios.</p>
-
-            <h2>9) Menores de edad</h2>
-            <p>Nuestros servicios no están dirigidos a menores de 18 años. No recabamos intencionalmente datos de menores. Si un padre/madre o tutor detecta un envío de datos, puede solicitar su eliminación mediante los medios ARCO.</p>
-
-            <h2>10) Conservación de datos</h2>
-            <p>Conservaremos los datos durante el tiempo necesario para cumplir las finalidades descritas y conforme a los plazos legales aplicables. Posteriormente, serán suprimidos o anonimizados de manera segura.</p>
-
-            <h2>11) Cambios al Aviso de Privacidad</h2>
-            <p>Podemos actualizar este Aviso para reflejar cambios en prácticas o requisitos legales. Publicaremos la versión vigente en esta misma página indicando la fecha de última actualización.</p>
-
-            <div class="foot small muted">
-              <p>Para cualquier duda sobre este Aviso o el tratamiento de sus datos personales, contáctenos en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>.</p>
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <div class="card" style="overflow:hidden">
+            <img src="images/Negocios/Mesa Restaurantera Tony_s/Olmo Dark/36d3042f-2bb7-4307-b42f-4e559a46a3f0.jpg" alt="Mesa restaurantera" loading="lazy" width="900" height="600" style="height:280px;object-fit:cover">
+            <div class="card-body">
+              <span class="tag">Comercial</span>
+              <h3 style="margin:.2rem 0 .4rem">Proyectos a medida</h3>
+              <p class="muted">Acero, maderas sólidas o chapa, acabados de alto desempeño para retail y hospitalidad.</p>
             </div>
           </div>
 
-          <section class="card" aria-labelledby="atajos">
-            <h2 id="atajos">¿Cómo enlazarlo desde tu sitio?</h2>
-            <ol>
-              <li>Esta sección ya vive en <code>#/aviso-privacidad</code>.</li>
-              <li>El link del footer ya apunta aquí.</li>
-              <li>Puedes actualizar domicilio/correo dentro del texto anterior.</li>
-            </ol>
-          </section>
-        </div>
-      </div>
-    </section>
+          <!-- FORMULARIO -->
+          <form id="form-negocios" class="panel" novalidate>
+            <h3 style="margin:0 0 12px">Cuéntanos tu proyecto</h3>
 
-    <!-- ===== COMPRA SEGURA ===== -->
-    <section class="page" data-route="/compra-segura">
-      <div class="container">
-        <style>
-          .secure .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:20px}
-          .secure h1{font-size:clamp(1.6rem,3vw,2.1rem);margin:.3rem 0 1rem}
-          .secure h2{font-size:clamp(1.1rem,2vw,1.35rem);margin:1.3rem 0 .6rem;color:var(--brand)}
-          .secure p,.secure li{color:var(--text)}
-          .secure .muted{color:var(--muted)}
-          .secure .grid{display:grid;gap:16px}
-          .secure .two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-          .secure .three{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-          .secure .box{background:#111418;border:1px solid #262a33;border-radius:12px;padding:16px}
-          .secure .kpi{display:flex;gap:12px;align-items:flex-start}
-          .secure .kpi svg{flex:0 0 22px}
-          .secure .steps{counter-reset:step}
-          .secure .step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px dashed #2a2f38}
-          .secure .step:first-child{border-top:none}
-          .secure .step .num{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;font-weight:800}
-          .secure .badges{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-          .secure .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid #2a2f38;border-radius:999px;padding:6px 10px;background:#101216}
-          .secure .pay-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-          .secure .pay-icon{width:48px;height:16px;color:#e5e7eb}
-          .secure .pay-icon.wide{width:72px}
-          .secure .accordion{border-top:1px solid #2a2f38;border-bottom:1px solid #2a2f38;border-radius:12px;overflow:hidden}
-          .secure .acc-item{border-top:1px solid #2a2f38}
-          .secure .acc-item:first-child{border-top:none}
-          .secure .acc-btn{width:100%;text-align:left;background:#111418;border:none;color:var(--text);padding:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-          .secure .acc-btn:hover{background:#141820}
-          .secure .acc-btn svg{transition:transform .2s ease}
-          .secure .acc-panel{max-height:0;overflow:hidden;transition:max-height .25s ease;background:#0f1217;padding:0 16px}
-          .secure .acc-panel.open{padding:12px 16px 16px}
-          .secure .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-          .secure .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;border:none;padding:12px 18px;border-radius:14px;font-weight:900;cursor:pointer}
-          .secure .btn.secondary{background:#1a1a1d;color:#e5e7eb;border:1px solid #2a2b30}
-          @media (max-width:640px){ .secure .card{padding:16px} }
-        </style>
+            <div class="field">
+              <label for="neg-empresa">Empresa / Negocio *</label>
+              <input id="neg-empresa" name="empresa" type="text" required placeholder="Ej. Café Roble SA de CV">
+            </div>
 
-        <div class="secure">
-          <div class="card">
-            <h1>Compra segura en Maderóh</h1>
-            <p class="muted">Protegemos tus datos, tus pagos y tu pedido de punta a punta. Aquí te explicamos cómo.</p>
-
-            <div class="grid two">
-              <div class="box kpi">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" stroke="currentColor" stroke-width="1.6"/>
-                  <path d="M9.5 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <div>
-                  <h2>Pagos protegidos</h2>
-                  <p>Procesamos pagos mediante pasarelas certificadas (TLS/PCI DSS). No almacenamos tu tarjeta en nuestros servidores.</p>
-                  <div class="pay-logos" aria-label="Métodos de pago">
-                    <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="9" y="11" font-size="9" fill="currentColor" font-weight="800">VISA</text></svg>
-                    <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><circle cx="20" cy="8" r="5" fill="#EB001B" opacity=".9"></circle><circle cx="28" cy="8" r="5" fill="#F79E1B" opacity=".9"></circle></svg>
-                    <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">PayPal</text></svg>
-                    <svg viewBox="0 0 72 16" class="pay-icon wide" aria-hidden="true"><rect width="72" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">mercado pago</text></svg>
-                  </div>
-                </div>
+            <div class="field" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div>
+                <label for="neg-contacto">Contacto *</label>
+                <input id="neg-contacto" name="contacto" type="text" required placeholder="Nombre y apellido">
               </div>
-
-              <div class="box kpi">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="3" y="6" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/>
-                  <path d="M7 10v-2a5 5 0 0 1 10 0v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                </svg>
-                <div>
-                  <h2>Datos personales</h2>
-                  <p>Tu información se trata conforme a nuestro <a href="#/aviso-privacidad" data-link>Aviso de Privacidad</a>. Usamos medidas administrativas, técnicas y físicas para protegerla.</p>
-                  <div class="badges">
-                    <span class="badge">🔒 TLS</span>
-                    <span class="badge">🧾 Facturación</span>
-                    <span class="badge">🧰 Control de calidad</span>
-                  </div>
-                </div>
+              <div>
+                <label for="neg-telefono">Teléfono *</label>
+                <input id="neg-telefono" name="telefono" type="tel" required placeholder="+52 55 0000 0000" inputmode="tel">
               </div>
             </div>
 
-            <div class="box" style="margin-top:12px">
-              <h2>¿Cómo se realiza tu compra?</h2>
-              <div class="steps">
-                <div class="step"><div class="num">1</div><div><strong>Configuración/cotización.</strong> Diseña tu mueble en <a href="#/configura" data-link>Configurar</a> o escríbenos a WhatsApp.</div></div>
-                <div class="step"><div class="num">2</div><div><strong>Orden y anticipo.</strong> Confirmas medidas y acabados. Se solicita anticipo para iniciar fabricación.</div></div>
-                <div class="step"><div class="num">3</div><div><strong>Fabricación y control de calidad.</strong> Taller propio en CDMX. Te mantenemos al tanto con fotos/avances.</div></div>
-                <div class="step"><div class="num">4</div><div><strong>Entrega e instalación.</strong> Coordinamos día y ventana de horario. Liquidación al entregar.</div></div>
+            <div class="field" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div>
+                <label for="neg-email">Correo *</label>
+                <input id="neg-email" name="email" type="email" required placeholder="contacto@empresa.com">
               </div>
-              <div class="cta-row">
-                <a class="btn" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quiero%20cotizar%20mi%20mueble." target="_blank" rel="noopener">Cotizar por WhatsApp</a>
-                <a class="btn secondary" href="#/faq" data-link>Ver preguntas frecuentes</a>
+              <div>
+                <label for="neg-ubicacion">Ubicación de entrega *</label>
+                <input id="neg-ubicacion" name="ubicacion" type="text" required placeholder="Colonia, Alcaldía / Ciudad">
               </div>
             </div>
 
-            <div class="grid three" style="margin-top:12px">
-              <div class="box"><h3>Garantía</h3><p>Cubre defectos de fabricación y herrajes. No aplica por uso indebido, golpes o humedad extrema.</p></div>
-              <div class="box"><h3>Cambios/Devoluciones</h3><p>Al ser piezas a medida, aplican correcciones por garantía. Ajustes estéticos pueden cotizarse.</p></div>
-              <div class="box"><h3>Envíos CDMX y zona metropolitana</h3><p>Programamos entrega con personal propio. Cotizamos otras ciudades bajo solicitud.</p></div>
+            <div class="field">
+              <label for="neg-tipo">Tipo de proyecto *</label>
+              <select id="neg-tipo" name="tipo" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option>Mostrador / Barra</option>
+                <option>Backbar / Almacenaje</option>
+                <option>Mesas / Bancos</option>
+                <option>Racks / Exhibición</option>
+                <option>Otro (describir)</option>
+              </select>
             </div>
 
-            <div class="accordion" style="margin-top:16px">
-              <div class="acc-item">
-                <button class="acc-btn" type="button">¿Qué formas de pago aceptan?
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </button>
-                <div class="acc-panel"><p>Aceptamos tarjeta (crédito/débito), transferencia y plataformas como PayPal/Mercado Pago.</p></div>
+            <div class="field" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div>
+                <label for="neg-material">Preferencia de materiales</label>
+                <select id="neg-material" name="material">
+                  <option value="" selected>Indistinto</option>
+                  <option>Madera (encino/nogal/parota)</option>
+                  <option>Metal (acero pintado)</option>
+                  <option>Mixto (madera + metal)</option>
+                  <option>Otro</option>
+                </select>
               </div>
-              <div class="acc-item">
-                <button class="acc-btn" type="button">¿Mis datos de tarjeta están seguros?
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </button>
-                <div class="acc-panel"><p>El cobro se procesa mediante pasarelas certificadas (TLS/PCI DSS). No almacenamos datos de tarjeta.</p></div>
-              </div>
-              <div class="acc-item">
-                <button class="acc-btn" type="button">¿Cómo solicito factura?
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </button>
-                <div class="acc-panel"><p>Pídela al momento de tu compra o dentro de 7 días naturales enviando RFC y datos a <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a> o a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>.</p></div>
-              </div>
-              <div class="acc-item">
-                <button class="acc-btn" type="button">¿Qué pasa si llega con un detalle?
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </button>
-                <div class="acc-panel"><p>Lo reparamos o reemplazamos la pieza afectada dentro de la garantía de fabricación.</p></div>
+              <div>
+                <label for="neg-presupuesto">Presupuesto estimado</label>
+                <select id="neg-presupuesto" name="presupuesto">
+                  <option value="" selected>Definir con asesor</option>
+                  <option>$10,000 – $25,000 MXN</option>
+                  <option>$25,000 – $60,000 MXN</option>
+                  <option>$60,000 – $120,000 MXN</option>
+                  <option>$120,000 MXN o más</option>
+                </select>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- JS acordeón (aislado a esta sección) -->
-        <script>
-          (function(){
-            const root = document.currentScript.closest('[data-route="/compra-segura"]');
-            const items = root.querySelectorAll('.acc-item');
-            items.forEach(it=>{
-              const btn = it.querySelector('.acc-btn');
-              const panel = it.querySelector('.acc-panel');
-              btn.addEventListener('click', ()=>{
-                const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
-                root.querySelectorAll('.acc-panel').forEach(p=>{ p.style.maxHeight = null; p.classList.remove('open'); });
-                root.querySelectorAll('.acc-btn svg').forEach(svg=>{ svg.style.transform = 'rotate(0deg)'; });
-                if(!open){
-                  panel.style.maxHeight = panel.scrollHeight + 'px';
-                  panel.classList.add('open');
-                  btn.querySelector('svg').style.transform = 'rotate(45deg)';
-                }
-              });
-            });
-          })();
-        </script>
-      </div>
-    </section>
+            <div class="field" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div>
+                <label for="neg-fecha">Fecha objetivo</label>
+                <input id="neg-fecha" name="fecha" type="date">
+              </div>
+              <div>
+                <label for="neg-dimensiones">Dimensiones aproximadas</label>
+                <input id="neg-dimensiones" name="dimensiones" type="text" placeholder="Ej. 200×60×100 cm">
+              </div>
+            </div>
 
-    <!-- ===== PREGUNTAS FRECUENTES (COMPLETO Y LIGERO) ===== -->
-    <section class="page" data-route="/faq">
-      <div class="container">
-        <h2 class="section-title">Preguntas frecuentes</h2>
-        <div class="card" style="padding:16px">
-          <details>
-            <summary>¿Cómo pido una cotización?</summary>
-            <p>Desde <a href="#/configura" data-link>Configurar</a> llena medidas y extras, y envía por WhatsApp. También puedes escribirnos directo a <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">+52 1 55 7472 9226</a>.</p>
-          </details>
-          <details>
-            <summary>¿Cuáles son los tiempos de fabricación?</summary>
-            <p>Normalmente <strong>10–20 días hábiles</strong> según complejidad y carga de taller. Te compartimos avances con fotos.</p>
-          </details>
-          <details>
-            <summary>¿Qué garantía tienen?</summary>
-            <p><strong>12 meses</strong> por defectos de fabricación y herrajes. No cubre golpes, humedad extrema o uso indebido.</p>
-          </details>
-          <details>
-            <summary>¿Puedo pedir cambios después de ordenar?</summary>
-            <p>Si el corte aún no inicia, sí. Una vez en producción, podría implicar <em>costos adicionales</em> y ajustes al tiempo.</p>
-          </details>
-          <details>
-            <summary>¿Entregan e instalan?</summary>
-            <p>Sí, en CDMX y ZM. Coordinamos fecha y ventana de horario. Para otras ciudades, cotizamos envío bajo solicitud.</p>
-          </details>
-          <details>
-            <summary>¿Facturan?</summary>
-            <p>Sí. Solicítala al momento de tu compra o dentro de 7 días enviando RFC/datos a <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> o WhatsApp.</p>
-          </details>
-          <details>
-            <summary>¿Qué métodos de pago aceptan?</summary>
-            <p>Tarjeta (crédito/débito), transferencia y plataformas como PayPal/Mercado Pago.</p>
-          </details>
-          <details>
-            <summary>¿Hacen medidas especiales o diseños personalizados?</summary>
-            <p>Sí. Podemos adaptar medidas, maderas y acabados metálicos según tu espacio y uso.</p>
-          </details>
-        </div>
-      </div>
-    </section>
+            <div class="field">
+              <label for="neg-notas">Notas / Especificaciones</label>
+              <textarea id="neg-notas" name="notas" rows="4" placeholder="Cuéntanos detalles, volumen de piezas, acabados, etc."></textarea>
+            </div>
 
-    <!-- ===== SERVICIO DE ENVÍO (COMPLETO Y LIGERO) ===== -->
-    <section class="page" data-route="/envio">
-      <div class="container">
-        <h2 class="section-title">Servicio de envío</h2>
-        <div class="card" style="padding:16px">
-          <h3>Alcance</h3>
-          <ul>
-            <li><strong>CDMX y zona metropolitana:</strong> entrega con personal propio e instalación básica.</li>
-            <li><strong>Resto de la República:</strong> envío por paquetería especializada, cotización bajo solicitud.</li>
-          </ul>
+            <div class="field" style="display:flex;gap:10px;align-items:flex-start">
+              <input id="neg-consent" type="checkbox" required>
+              <label for="neg-consent" class="muted">
+                Acepto el uso de mis datos conforme al
+                <a href="#/aviso-privacidad" data-link> Aviso de Privacidad</a>.
+              </label>
+            </div>
 
-          <h3>Costos y tiempos</h3>
-          <ul>
-            <li>El costo depende de <em>medidas/peso</em> y ubicación. Se detalla en tu cotización.</li>
-            <li>Tiempo estimado = fabricación (<em>10–20 días hábiles</em>) + logística de entrega.</li>
-          </ul>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button type="submit" class="btn">Enviar por WhatsApp</button>
+              <button type="button" id="neg-mail" class="btn secondary">Enviar por correo</button>
+            </div>
 
-          <h3>Entrega</h3>
-          <ul>
-            <li>Coordinamos fecha, rango horario y acceso (elevador/estacionamiento).</li>
-            <li>Requiere presencia de un adulto para revisión y firma de conformidad.</li>
-          </ul>
-
-          <h3>Instalación</h3>
-          <ul>
-            <li>Incluye armado básico y nivelación cuando aplique.</li>
-            <li>Fijaciones a muro se realizan solo si el material lo permite y con autorización del cliente.</li>
-          </ul>
-
-          <h3>Reprogramaciones y accesos</h3>
-          <ul>
-            <li>Reprogramar con al menos 24 h. Intentos adicionales pueden generar costo.</li>
-            <li>Si el acceso es restringido (escaleras estrechas, muros), indícalo para prever maniobras.</li>
-          </ul>
-
-          <div style="margin-top:10px">
-            <a class="btn" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quiero%20cotizar%20env%C3%ADo%20para%20mi%20pedido." target="_blank" rel="noopener">Cotizar envío</a>
-            <a class="btn secondary" href="#/compra-segura" data-link>Ver compra segura</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== TÉRMINOS DE PROMOCIONES (COMPLETO Y LIGERO) ===== -->
-    <section class="page" data-route="/promociones">
-      <div class="container">
-        <h2 class="section-title">Términos de promociones</h2>
-        <div class="card" style="padding:16px">
-          <ul>
-            <li><strong>Vigencia:</strong> cada promoción indica fecha de inicio y fin, o hasta agotar existencias.</li>
-            <li><strong>No acumulable:</strong> las promociones no se combinan entre sí ni con otros cupones, salvo que se indique lo contrario.</li>
-            <li><strong>Alcance:</strong> aplican sobre productos, medidas o acabados específicos según se publique.</li>
-            <li><strong>Disponibilidad:</strong> sujeta a inventario de materiales y capacidad del taller.</li>
-            <li><strong>Cupones:</strong> deben ingresarse al momento de solicitar la cotización/orden. No aplican retroactivamente.</li>
-            <li><strong>Cancelaciones/devoluciones:</strong> al ser piezas a medida, no hay devoluciones por cambio de opinión. Se respetan garantías por fabricación.</li>
-            <li><strong>Errores tipográficos:</strong> si existiera un error evidente en precio o condiciones, se informará y podrá anularse la orden sin penalización.</li>
-            <li><strong>Fraude/uso indebido:</strong> Maderóh puede invalidar la promoción si detecta abuso o incumplimiento de términos.</li>
-          </ul>
-          <p class="muted" style="margin-top:8px">Dudas: <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a> o <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a>.</p>
+            <p class="muted" style="margin:.6rem 0 0;font-size:.9rem">
+              También puedes escribirnos directo: <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a>
+              · <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>
+            </p>
+          </form>
         </div>
       </div>
     </section>
@@ -783,13 +523,16 @@
             <svg id="svg" viewBox="0 0 800 500" width="100%" height="100%" aria-label="Vista previa">
               <defs>
                 <linearGradient id="woodEncino" x1="0" x2="1">
-                  <stop offset="0%"  stop-color="#a87b52"/><stop offset="100%" stop-color="#815b3e"/>
+                  <stop offset="0%"  stop-color="#a87b52"/>
+                  <stop offset="100%" stop-color="#815b3e"/>
                 </linearGradient>
                 <linearGradient id="woodNogal" x1="0" x2="1">
-                  <stop offset="0%"  stop-color="#7a5133"/><stop offset="100%" stop-color="#5a3b26"/>
+                  <stop offset="0%"  stop-color="#7a5133"/>
+                  <stop offset="100%" stop-color="#5a3b26"/>
                 </linearGradient>
                 <linearGradient id="woodParota" x1="0" x2="1">
-                  <stop offset="0%"  stop-color="#ae6b34"/><stop offset="100%" stop-color="#7f4a22"/>
+                  <stop offset="0%"  stop-color="#ae6b34"/>
+                  <stop offset="100%" stop-color="#7f4a22"/>
                 </linearGradient>
               </defs>
               <ellipse class="shadow" cx="400" cy="460" rx="260" ry="24" fill="#000"/>
@@ -814,140 +557,544 @@
               <!-- SHELF group -->
               <g id="g-shelf" visibility="hidden">
                 <rect id="shelf-frameL" x="240" y="140" width="18" height="280" rx="6" fill="#111"/>
-                <rect id="shelf-frameR" x="542" y="140" width="18" height="280" rx="
-                                <rect id="shelf-frameR" x="542" y="140" width="18" height="280" rx="6" fill="#111"/>
-                <rect id="shelf-board1" x="258" y="160" width="284" height="18" fill="url(#woodEncino)" rx="6"/>
-                <rect id="shelf-board2" x="258" y="260" width="284" height="18" fill="url(#woodEncino)" rx="6"/>
-                <rect id="shelf-board3" x="258" y="360" width="284" height="18" fill="url(#woodEncino)" rx="6"/>
+                <rect id="shelf-frameR" x="542" y="140" width="18" height="280" rx="6" fill="#111"/>
+                <rect class="wood" id="sh1" x="258" y="160" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh2" x="258" y="230" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh3" x="258" y="300" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+                <rect class="wood" id="sh4" x="258" y="370" width="284" height="16" fill="url(#woodEncino)" rx="4"/>
+              </g>
+              <!-- TABLETOP group -->
+              <g id="g-table" visibility="hidden">
+                <rect id="table-top" class="wood" x="180" y="210" width="440" height="40" fill="url(#woodEncino)" rx="8"/>
+                <rect id="table-shadow" class="shadow" x="180" y="250" width="440" height="18" fill="#000" rx="8" opacity=".25"/>
               </g>
             </svg>
           </div>
         </div>
       </div>
     </section>
+    <!-- ===== PREGUNTAS FRECUENTES (acordeón) ===== -->
+    <section class="page" data-route="/faq">
+      <div class="container">
+        <h2 class="section-title">Preguntas frecuentes</h2>
+        <div class="faq-acc" id="faq-acc">
+          <div class="faq-item">
+            <button class="faq-btn" type="button">¿Cuánto tarda la fabricación de mi mueble?
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-panel"><p class="muted">El tiempo promedio de producción es de <strong>15 a 25 días hábiles</strong> tras el anticipo. Puede variar según complejidad y volumen.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" type="button">¿Puedo personalizar medidas o materiales?
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-panel"><p class="muted">Sí. Fabricamos bajo pedido. Puedes elegir <strong>medidas, maderas, colores y acabados</strong>. El configurador te ayuda a definir opciones.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" type="button">¿Qué garantía tienen los productos?
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-panel"><p class="muted"><strong>12 meses</strong> por defectos de fabricación y estructura metálica. No cubre daños por mal uso ni humedad extrema.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" type="button">¿Cómo dar mantenimiento a mis muebles?
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-panel"><p class="muted">Paño seco o ligeramente húmedo; evita solventes/abrasivos. Recomendamos <strong>cera natural cada 6 meses</strong>.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" type="button">¿Puedo cancelar o modificar mi pedido?
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-panel"><p class="muted">Al ser personalizado, no es reembolsable una vez iniciada la producción. <strong>Modificaciones menores</strong> se evalúan dentro de los primeros 3 días.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- ===== SERVICIO DE ENVÍO ===== -->
+    <section class="page" data-route="/envio">
+      <div class="container">
+        <h2 class="section-title">Servicio de envío</h2>
+        <div class="panel">
+          <p class="muted">En Maderóh realizamos envíos en toda la República Mexicana a través de transportistas de confianza y paqueterías certificadas.</p>
+          <h3>Áreas de cobertura</h3>
+          <ul class="muted">
+            <li><strong>CDMX y Área Metropolitana:</strong> entrega directa por parte de nuestro equipo.</li>
+            <li><strong>Interior de la República:</strong> envío mediante transportistas especializados en muebles.</li>
+          </ul>
+          <h3>Tiempos de entrega</h3>
+          <p class="muted">Promedio de <strong>2 a 5 días hábiles</strong> dentro de CDMX y hasta <strong>10 días hábiles</strong> al resto del país, tras concluir la fabricación.</p>
+          <h3>Costos</h3>
+          <p class="muted">Dependen del volumen, peso y destino. Te cotizamos el monto exacto junto con la confirmación de tu pedido.</p>
+          <h3>Recepción y entrega</h3>
+          <ul class="muted">
+            <li>Verifica accesos y dimensiones para la entrega.</li>
+            <li>Entregas en planta baja o zonas accesibles salvo acuerdo previo.</li>
+            <li>Reporta daños visibles dentro de las primeras 24 horas.</li>
+          </ul>
+          <h3>Reexpediciones o devoluciones</h3>
+          <p class="muted">Si la entrega falla por causas ajenas (ausencia, dirección incorrecta), el reenvío corre por cuenta del cliente. Productos personalizados no son reembolsables.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TÉRMINOS DE PROMOCIONES ===== -->
+    <section class="page" data-route="/promociones">
+      <div class="container">
+        <h2 class="section-title">Términos de promociones</h2>
+        <div class="panel">
+          <p class="muted">Las promociones y descuentos de Maderóh se rigen por los siguientes términos. Al participar, aceptas estas condiciones.</p>
+          <h3>Vigencia</h3>
+          <p class="muted">Cada promoción indica su vigencia. Maderóh puede modificarla o cancelarla sin previo aviso.</p>
+          <h3>Aplicabilidad</h3>
+          <ul class="muted">
+            <li>No acumulables salvo indicación explícita.</li>
+            <li>Aplican a pedidos confirmados durante la vigencia.</li>
+            <li>No aplica a compras ya facturadas ni en curso.</li>
+          </ul>
+          <h3>Restricciones</h3>
+          <ul class="muted">
+            <li>No aplican sobre envío/instalación ni servicios adicionales.</li>
+            <li>Descuento calculado sobre subtotal antes de impuestos.</li>
+            <li>Promoción inválida ante uso indebido o errores evidentes.</li>
+          </ul>
+          <h3>Errores tipográficos o técnicos</h3>
+          <p class="muted">Ante errores en precio o condiciones, se corrige y se notifica antes de procesar el pedido.</p>
+          <h3>Jurisdicción</h3>
+          <p class="muted">Controversias se resuelven conforme a las leyes aplicables en la <strong>Ciudad de México</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== AVISO DE PRIVACIDAD (resumen) ===== -->
+    <section class="page" data-route="/aviso-privacidad">
+      <div class="container">
+        <div class="panel">
+          <h2 class="section-title">Aviso de Privacidad</h2>
+          <p>Tratamos tus datos conforme a la LFPDPPP. Finalidades: atender solicitudes, gestionar pedidos, facturación y calidad. Puedes ejercer derechos ARCO en <a href="mailto:contacto@maderoh.mx">contacto@maderoh.mx</a>.</p>
+          <ul class="muted">
+            <li>Datos: identificación/contacto, técnicos de navegación.</li>
+            <li>Finalidades adicionales (consentimiento): promociones, encuestas, publicidad personalizada.</li>
+            <li>Seguridad: medidas administrativas, técnicas y físicas.</li>
+            <li>Transferencias: solo las permitidas por ley o con tu consentimiento.</li>
+          </ul>
+          <p>Consulta el texto completo solicitándolo por correo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMPRA SEGURA (resumen con acordeón) ===== -->
+    <section class="page" data-route="/compra-segura">
+      <div class="container">
+        <div class="panel">
+          <h2 class="section-title">Compra segura</h2>
+          <div class="faq-acc" id="acc-secure">
+            <div class="faq-item">
+              <button class="faq-btn" type="button">Pagos protegidos (TLS/PCI DSS)
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="faq-panel"><p class="muted">Cobramos mediante pasarelas certificadas. No almacenamos datos de tarjeta.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-btn" type="button">Datos personales
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="faq-panel"><p class="muted">Tratamos tus datos conforme al <a href="#/aviso-privacidad" data-link>Aviso de Privacidad</a>.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-btn" type="button">Proceso de compra
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="faq-panel"><p class="muted">1) Configuración, 2) Anticipo, 3) Fabricación y control de calidad, 4) Entrega e instalación.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 404 ===== -->
+    <section class="page" data-route="/404">
+      <div class="container"><h2 class="section-title">Página no encontrada</h2><p class="muted">El enlace no existe. Vuelve a <a href="#/" data-link>Inicio</a>.</p></div>
+    </section>
   </main>
 
+  <!-- Sticky CTA inferior global -->
+  <div class="sticky-cta">
+    <div class="sticky-wrap">
+      <div class="muted" style="text-transform:uppercase;letter-spacing:.14em;font-weight:800;font-size:.78rem">Maderóh</div>
+      <div style="flex:1"></div>
+      <a class="btn secondary" href="#/configura" data-link>Configurar</a>
+      <a class="btn" id="sticky-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
-  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center">
-    <small>© <span id="y"></span> Maderóh. Todos los derechos reservados.</small>
-    <small>CDMX · Hecho con madera y metal.</small>
+    <div class="container footer-top">
+      <small>© <span id="y"></span> Maderóh. Todos los derechos reservados.</small>
+      <small>CDMX · Hecho con madera y metal.</small>
 
-    <!-- Social (FOOTER) -->
-    <div class="social" aria-label="Redes sociales">
-      <a href="https://www.instagram.com/maderoh_mx/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
-          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-          <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
-        </svg>
-      </a>
-      <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
-          <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-      </a>
-      <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
-        </svg>
-      </a>
+      <div class="social" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/maderoh_mx/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2L17 12h-3v-1.2A1.8 1.8 0 0 1 15.8 9H17V8h-2z" fill="currentColor"/>
+            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@maderoh_mx" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
     </div>
-  </div>
-  <noscript>
-    <div class="container" style="margin-top:10px" role="status">Para usar el configurador, habilita JavaScript.</div>
-  </noscript>
 
-  <hr style="border:0;border-top:1px solid var(--border);margin:16px 0">
+    <hr style="border:0;border-top:1px solid #2a2b30;margin:0">
 
-<!-- BLOQUE POLÍTICAS / FACTURACIÓN / PAGOS -->
-<div class="container footer-policies">
-  <div class="policies-block">
-    <h4>POLÍTICAS DE COMPRA</h4>
-    <ul>
-      <li><a href="#/aviso-privacidad" data-link>Aviso de privacidad</a></li>
-      <li><a href="#/compra-segura" data-link>Compra segura</a></li>
-      <li><a href="#/faq" data-link>Preguntas frecuentes</a></li>
-      <li><a href="#/envio" data-link>Servicio de envío</a></li>
-      <li><a href="#/promociones" data-link>Términos de promociones</a></li>
-    </ul>
-  </div>
+    <div class="container footer-policies" role="navigation" aria-label="Información legal y ayuda">
+      <div class="policies-block">
+        <h4>POLÍTICAS DE COMPRA</h4>
+        <ul>
+          <li><a href="#/faq" data-link>Preguntas frecuentes</a></li>
+          <li><a href="#/envio" data-link>Servicio de envío</a></li>
+          <li><a href="#/promociones" data-link>Términos de promociones</a></li>
+        </ul>
+      </div>
 
-  <div class="policies-block">
-    <h4>FACTURACIÓN<br>ELECTRÓNICA</h4>
-    <p class="muted" style="margin:.4rem 0 8px">
-      Solicítala al momento de tu compra o dentro de los 7 días naturales con tu RFC y datos fiscales.
-    </p>
-    <a class="btn secondary" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quisiera%20solicitar%20mi%20factura%20electr%C3%B3nica." target="_blank" rel="noopener">
-      Solicitar por WhatsApp
-    </a>
-  </div>
+      <div class="policies-block">
+        <h4>FACTURACIÓN<br>ELECTRÓNICA</h4>
+        <p style="margin:.4rem 0 8px">
+          Solicítala al momento de tu compra o dentro de los 7 días naturales con tu RFC y datos fiscales.
+        </p>
+        <a class="btn secondary" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quisiera%20solicitar%20mi%20factura%20electr%C3%B3nica."
+           target="_blank" rel="noopener">
+          Solicitar por WhatsApp
+        </a>
+      </div>
 
-  <div class="policies-block">
-    <h4>FORMAS DE PAGO</h4>
-    <div class="pay-logos" aria-label="Métodos de pago">
-      <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="9" y="11" font-size="9" fill="currentColor" font-weight="800">VISA</text></svg>
-      <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><circle cx="20" cy="8" r="5" fill="#EB001B" opacity=".9"></circle><circle cx="28" cy="8" r="5" fill="#F79E1B" opacity=".9"></circle></svg>
-      <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">PayPal</text></svg>
-      <svg viewBox="0 0 72 16" class="pay-icon wide" aria-hidden="true"><rect width="72" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">mercado pago</text></svg>
+      <div class="policies-block">
+        <h4>FORMAS DE PAGO</h4>
+        <div class="pay-logos" aria-label="Métodos de pago">
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="9" y="11" font-size="9" fill="currentColor" font-weight="800">VISA</text></svg>
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><circle cx="20" cy="8" r="5" fill="#EB001B" opacity=".9"></circle><circle cx="28" cy="8" r="5" fill="#F79E1B" opacity=".9"></circle></svg>
+          <svg viewBox="0 0 48 16" class="pay-icon" aria-hidden="true"><rect width="48" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">PayPal</text></svg>
+          <svg viewBox="0 0 72 16" class="pay-icon wide" aria-hidden="true"><rect width="72" height="16" rx="3" fill="#ffffff20"/><text x="6" y="11" font-size="8" fill="currentColor" font-weight="700">mercado pago</text></svg>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-  <!-- ===== JS PRINCIPAL ===== -->
+    <noscript>
+      <div class="container" style="margin:10px 0" role="status">
+        Para usar el configurador, habilita JavaScript.
+      </div>
+    </noscript>
+  </footer>
   <script>
-    // Router simple (hash-based)
-    const pages = document.querySelectorAll('.page');
-    function showPage(route){
-      pages.forEach(p => p.classList.toggle('active', p.dataset.route === route));
-      window.scrollTo({ top:0, behavior:'smooth' });
-    }
-    window.addEventListener('hashchange', () => showPage(location.hash.replace('#','')));
-    if(!location.hash) location.hash = '/';
-    else showPage(location.hash.replace('#',''));
+    // ===== Config global =====
+    const WA_NUMBER = '5215574729226';
+    const baseWa = `https://wa.me/${WA_NUMBER}`;
 
-    // WhatsApp links dinámicos
-    const waLinks = document.querySelectorAll('#nav-wa, #hero-wa, #btn-whats');
-    waLinks.forEach(el=>{
-      el.href = 'https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quiero%20cotizar%20un%20mueble.';
-    });
+    // Año dinámico en footer
+    const ySpan = document.getElementById('y');
+    if (ySpan) ySpan.textContent = new Date().getFullYear();
 
-    // Configurador (envía mensaje)
-    const form = document.getElementById('cfg-form');
-    const svg = document.getElementById('svg');
-    const resetBtn = document.getElementById('btn-reset');
-    const btnWhats = document.getElementById('btn-whats');
-
-    form.addEventListener('input', updatePreview);
-    resetBtn.addEventListener('click', ()=>form.reset());
-    btnWhats.addEventListener('click', ()=>{
-      const tipo = form.tipo.value;
-      const largo = form.largo.value;
-      const ancho = form.ancho.value;
-      const altura = form.altura.value;
-      const madera = form.madera.value;
-      const metal = form.metal.value;
-      const cajones = form.cajones.value;
-      const extras = ['usb','pasacables','teclado'].filter(id=>form[id].checked).join(', ');
-      const msg = `Hola Maderóh, quiero cotizar un ${tipo} de ${largo}×${ancho}×${altura} cm, madera ${madera}, estructura ${metal}, ${cajones} cajones, extras: ${extras || 'ninguno'}.`;
-      btnWhats.href = `https://wa.me/5215574729226?text=${encodeURIComponent(msg)}`;
-    });
-
-    function updatePreview(){
-      const madera = form.madera.value;
-      const colorMetal = form.metal.value;
-      svg.querySelectorAll('.metal').forEach(el=>el.setAttribute('fill', colorMetal));
-      svg.querySelectorAll('.wood').forEach(el=>el.setAttribute('fill', `url(#wood${madera.charAt(0).toUpperCase()+madera.slice(1)})`));
-    }
-
-    // Animaciones "reveal"
-    const observer = new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){ entry.target.classList.add('in'); observer.unobserve(entry.target); }
+    // Fallback imágenes
+    (function addImageFallback(){
+      const ph = 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450"><rect fill="%23161718" width="100%" height="100%"/><text x="50%" y="50%" fill="%23cbd5e1" font-size="24" dominant-baseline="middle" text-anchor="middle">Mader%C3%B3h</text></svg>';
+      document.querySelectorAll('img').forEach(img=>{
+        img.addEventListener('error', ()=>{ img.src = ph; });
       });
-    }, {threshold:.2});
-    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    })();
+
+    // WhatsApp links
+    (function fillWhatsAppLinks(){
+      ['nav-wa','hero-wa','sticky-wa','btn-whats'].forEach(id=>{
+        const el = document.getElementById(id);
+        if (el) el.href = baseWa;
+      });
+    })();
+
+    // ===== Router (hash) =====
+    const routes = new Set([
+      '/', '/escritorios', '/cajoneras', '/Buffetera', '/Bancas', '/CentroDeTV', '/negocios',
+      '/Accesorios', '/CentroDeMesa', '/Recibidores',
+      '/configura',
+      '/faq', '/envio', '/promociones',
+      '/aviso-privacidad', '/compra-segura'
+    ]);
+    function currentPath(){ return location.hash.replace('#','') || '/'; }
+    function route(){
+      const path = currentPath();
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      const active =
+        document.querySelector(`.page[data-route="${path}"]`) ||
+        document.querySelector(`.page[data-route="/404"]`);
+      if (active) active.classList.add('active');
+      window.scrollTo({top:0, behavior:'auto'});
+    }
+    window.addEventListener('hashchange', route);
+    document.addEventListener('DOMContentLoaded', route);
+
+    // ===== Galería auto-roulette (home) =====
+    (function autoSlider(selector){
+      const wrap = document.querySelector(selector);
+      if(!wrap) return;
+      const track = wrap.querySelector('.track');
+      const slides = Array.from(track.children);
+      let index = 0; const intervalMs = 3000;
+      function goTo(i){ index = (i + slides.length) % slides.length; track.style.transform = `translateX(-${index * 100}%)`; }
+      let timer = setInterval(()=>goTo(index+1), intervalMs);
+      wrap.addEventListener('mouseenter', ()=>clearInterval(timer));
+      wrap.addEventListener('mouseleave', ()=>{ timer = setInterval(()=>goTo(index+1), intervalMs); });
+    })('#slider-home');
+
+    // ===== Reveal on scroll =====
+    (function revealOnScroll(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target); } })
+      },{threshold:.18});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
+
+    // ===== Configurador =====
+    (function configurador(){
+      const $ = (id)=>document.getElementById(id);
+      const form = $('cfg-form');
+      if(!form) return;
+
+      const gDesk = document.getElementById('g-desk');
+      const gCab  = document.getElementById('g-cabinet');
+      const gShelf= document.getElementById('g-shelf');
+      const gTable= document.getElementById('g-table');
+
+      function woodId(type){ return type==='nogal'?'woodNogal' : type==='parota'?'woodParota' : 'woodEncino'; }
+
+      function updatePreview(){
+        const tipo = $('tipo').value;
+        const L = +$('largo').value, A = +$('ancho').value, H = +$('altura').value, C = +$('cajones').value;
+        const madera = $('madera').value, metal = $('metal').value;
+
+        // Mostrar grupo por tipo
+        if (gDesk)   gDesk.setAttribute('visibility', (tipo==='escritorio'||tipo==='mostrador') ? 'visible':'hidden');
+        if (gCab)    gCab .setAttribute('visibility',  (tipo==='cajonera'||tipo==='buffetera') ? 'visible':'hidden');
+        if (gShelf)  gShelf.setAttribute('visibility',(tipo==='estante') ? 'visible':'hidden');
+        if (gTable)  gTable.setAttribute('visibility', (tipo==='tabla') ? 'visible':'hidden');
+
+        // Escala
+        const w = Math.min(560, Math.max(280, L*4));
+        const h = Math.min(240, Math.max(120, H*2.2));
+        const x = 400 - w/2;
+
+        // Escritorio / Mostrador
+        if (gDesk && gDesk.getAttribute('visibility')==='visible'){
+          const top = document.getElementById('desk-top');
+          const front = document.getElementById('desk-front');
+          const legL = document.getElementById('leg-left');
+          const legR = document.getElementById('leg-right');
+          const drawer = document.getElementById('drawer');
+          const g = document.getElementById('drawer-box');
+          if (top){ top.setAttribute('fill', `url(#${woodId(madera)})`); top.setAttribute('x', x); top.setAttribute('width', w); }
+          if (front){
+            front.setAttribute('x', x); front.setAttribute('width', w);
+            front.setAttribute('fill', madera==='nogal'?'#5d4330': (madera==='parota'?'#6f4726':'#6d4f35'));
+          }
+          if (legL){ legL.setAttribute('x', x+20); legL.setAttribute('height', Math.max(120, h-36)); legL.setAttribute('y',186); legL.setAttribute('fill', metal); }
+          if (legR){ legR.setAttribute('x', x+w-46); legR.setAttribute('height', Math.max(120, h-36)); legR.setAttribute('y',186); legR.setAttribute('fill', metal); }
+          if (g && drawer){
+            if(C<=0){ g.setAttribute('visibility','hidden'); }
+            else{
+              g.setAttribute('visibility','visible');
+              drawer.setAttribute('height', Math.min(160, 30*C + 30));
+              drawer.setAttribute('y', 214);
+              drawer.setAttribute('x', x + w - 170);
+              g.querySelectorAll('.handle').forEach((hnd,i)=>{
+                hnd.setAttribute('x', x + w - 110);
+                hnd.setAttribute('y', 242 + i*40);
+                hnd.setAttribute('opacity', i>=C ? '0' : '1');
+              });
+            }
+          }
+        }
+
+        // Cajonera / Buffetera
+        if (gCab && gCab.getAttribute('visibility')==='visible'){
+          const body = document.getElementById('cab-body');
+          const drawersG = document.getElementById('cab-drawers');
+          const W = Math.min(420, Math.max(260, L*3));
+          const X = 400 - W/2;
+          const Hcab = Math.min(260, Math.max(160, H*2));
+          const Y = 220 - (Hcab/2);
+          if (body){ body.setAttribute('x', X); body.setAttribute('y', Y); body.setAttribute('width', W); body.setAttribute('height', Hcab); }
+          if (drawersG){
+            drawersG.innerHTML = '';
+            const gap = 10; const dH = Math.max(24, (Hcab - (gap*(C+1)))/Math.max(C,1));
+            for(let i=0;i<C;i++){
+              const yy = Y + gap + i*(dH+gap);
+              const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+              r.setAttribute('x', X+10); r.setAttribute('y', yy); r.setAttribute('width', W-20); r.setAttribute('height', dH); r.setAttribute('rx','6'); r.setAttribute('fill','#30353b');
+              const hRect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+              hRect.setAttribute('x', X + W/2 - 18); hRect.setAttribute('y', yy + dH/2 - 3); hRect.setAttribute('width','36'); hRect.setAttribute('height','6'); hRect.setAttribute('rx','3'); hRect.setAttribute('class','handle');
+              drawersG.appendChild(r); drawersG.appendChild(hRect);
+            }
+          }
+        }
+
+        // Estante
+        if (gShelf && gShelf.getAttribute('visibility')==='visible'){
+          ['sh1','sh2','sh3','sh4'].forEach((id)=>{
+            const sh = document.getElementById(id);
+            if (sh){
+              sh.setAttribute('width', Math.min(360, Math.max(240, L*3)));
+              sh.setAttribute('fill', `url(#${woodId(madera)})`);
+            }
+          });
+          const frameL = document.getElementById('shelf-frameL');
+          const frameR = document.getElementById('shelf-frameR');
+          if (frameL) frameL.setAttribute('fill', metal);
+          if (frameR) frameR.setAttribute('fill', metal);
+        }
+
+        // Tabla
+        if (gTable && gTable.getAttribute('visibility')==='visible'){
+          const t = document.getElementById('table-top');
+          const s = document.getElementById('table-shadow');
+          const W = Math.min(520, Math.max(260, L*3.6));
+          const X = 400 - W/2;
+          if (t){ t.setAttribute('x', X); t.setAttribute('width', W); t.setAttribute('fill', `url(#${woodId(madera)})`); }
+          if (s){ s.setAttribute('x', X); s.setAttribute('width', W); }
+        }
+
+        // WhatsApp msg
+        const usb = document.getElementById('usb')?.checked;
+        const pasa = document.getElementById('pasacables')?.checked;
+        const tec = document.getElementById('teclado')?.checked;
+        const msg = encodeURIComponent(
+          `Hola Maderóh, quiero un ${tipo}: ${L}x${A}x${H} cm, ${C} cajones, madera ${madera}, metal ${metal}, extras: ${usb?'USB ':''}${pasa?'Pasacables ':''}${tec?'Porta-teclado ':''}`.trim()
+        );
+        const btnWhats = document.getElementById('btn-whats');
+        if (btnWhats) btnWhats.href = `${baseWa}?text=${msg}`;
+      }
+
+      form.addEventListener('input', updatePreview);
+      const resetBtn = document.getElementById('btn-reset');
+      if (resetBtn) resetBtn.addEventListener('click', ()=>{ form.reset(); updatePreview(); });
+      document.addEventListener('DOMContentLoaded', updatePreview);
+      updatePreview();
+    })();
+
+    // ===== Formulario Negocios: validación + envío =====
+    (function negociosForm(){
+      const f = document.getElementById('form-negocios');
+      if(!f) return;
+      const q = (sel)=>f.querySelector(sel);
+      const req = ['#neg-empresa','#neg-contacto','#neg-telefono','#neg-email','#neg-ubicacion','#neg-tipo','#neg-consent'];
+
+      function validate(){
+        let ok = true;
+        req.forEach(sel=>{
+          const el = q(sel); if(!el) return;
+          let valid = true;
+          if(el.type === 'checkbox'){ valid = el.checked; }
+          else if(el.tagName === 'SELECT'){ valid = !!el.value; }
+          else { valid = el.value.trim().length > 0; }
+
+          if(el.id === 'neg-email' && valid){ valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()); }
+          if(el.id === 'neg-telefono' && valid){ valid = /[0-9+\s-]{8,}/.test(el.value.trim()); }
+
+          el.classList.toggle('error', !valid);
+          ok = ok && valid;
+        });
+        return ok;
+      }
+
+      function buildMessage(){
+        const get = id => (q('#'+id)?.value || '').trim();
+        const lines = [
+          `*Solicitud NEGOCIOS*`,
+          `Empresa: ${get('neg-empresa')}`,
+          `Contacto: ${get('neg-contacto')}`,
+          `Tel: ${get('neg-telefono')}`,
+          `Email: ${get('neg-email')}`,
+          `Ubicación: ${get('neg-ubicacion')}`,
+          `Tipo: ${get('neg-tipo') || '—'}`,
+          `Materiales: ${get('neg-material') || '—'}`,
+          `Presupuesto: ${get('neg-presupuesto') || '—'}`,
+          `Fecha objetivo: ${get('neg-fecha') || '—'}`,
+          `Dimensiones: ${get('neg-dimensiones') || '—'}`,
+          `Notas: ${get('neg-notas') || '—'}`
+        ];
+        return lines.join('\n');
+      }
+
+      f.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        if(!validate()){
+          const firstError = f.querySelector('.error'); if(firstError) firstError.focus();
+          return;
+        }
+        const msg = encodeURIComponent(buildMessage());
+        window.open(`${baseWa}?text=${msg}`, '_blank', 'noopener');
+      });
+
+      const mailBtn = document.getElementById('neg-mail');
+      if(mailBtn){
+        mailBtn.addEventListener('click', ()=>{
+          if(!validate()){
+            const firstError = f.querySelector('.error'); if(firstError) firstError.focus();
+            return;
+          }
+          const subject = encodeURIComponent('Solicitud de proyecto (Negocios) - Maderóh');
+          const body = encodeURIComponent(buildMessage());
+          window.location.href = `mailto:contacto@maderoh.mx?subject=${subject}&body=${body}`;
+        });
+      }
+    })();
+
+    // ===== Acordeones (FAQ y Compra Segura) =====
+    (function makeAccordion(rootId){
+      const root = document.getElementById(rootId);
+      if(!root) return;
+      root.querySelectorAll('.faq-item').forEach(item=>{
+        const btn = item.querySelector('.faq-btn');
+        const panel = item.querySelector('.faq-panel');
+        btn.addEventListener('click', ()=>{
+          const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+          root.querySelectorAll('.faq-panel').forEach(p=>{ p.style.maxHeight = null; p.classList.remove('open'); });
+          root.querySelectorAll('.faq-btn svg').forEach(svg=>{ svg.style.transform = 'rotate(0deg)'; });
+          if(!open){
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('open');
+            btn.querySelector('svg').style.transform = 'rotate(45deg)';
+          }
+        });
+      });
+    })('faq-acc');
+    (function(){ // compra segura
+      const root = document.getElementById('acc-secure');
+      if(!root) return;
+      root.querySelectorAll('.faq-item').forEach(item=>{
+        const btn = item.querySelector('.faq-btn');
+        const panel = item.querySelector('.faq-panel');
+        btn.addEventListener('click', ()=>{
+          const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+          root.querySelectorAll('.faq-panel').forEach(p=>{ p.style.maxHeight = null; p.classList.remove('open'); });
+          root.querySelectorAll('.faq-btn svg').forEach(svg=>{ svg.style.transform = 'rotate(0deg)'; });
+          if(!open){
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('open');
+            btn.querySelector('svg').style.transform = 'rotate(45deg)';
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
