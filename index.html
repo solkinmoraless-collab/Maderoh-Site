@@ -203,6 +203,23 @@
     @media (max-width:900px){
       [data-route="/negocios"] .grid{grid-template-columns:1fr !important}
     }
+    /* Botón WhatsApp dentro de cards */
+.card-body .wa-item {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-weight: 800;
+  border: 1px solid #2a2b30;
+  background: linear-gradient(135deg,var(--brand),var(--brand-2));
+  color: #111;
+  cursor: pointer;
+}
+.card-body .wa-item:hover { filter: brightness(1.05); }
+.card-body .wa-item svg { width: 16px; height: 16px; }
+
   </style>
 </head>
   <!-- Nav -->
@@ -235,6 +252,8 @@
         <a href="#/configura" data-link>Crea tu mueble</a>
         <!-- Maderóh Academy -->
          <a href="#/Academy" data-link>Maderóh Academy</a>
+         <!-- Maderóh en Vivo -->
+         <a href="#/VideoVivo" data-link>En Vivo</a>
       </div>
 
       <!-- Redes + WhatsApp -->
@@ -258,11 +277,15 @@
               <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
             </svg>
           </a>
-            <a href="https://www.youtube.com/@Carpieherreros" target="_blank" rel="noopener" aria-label="Yotube">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
-            </svg>
-          </a>
+            <a href="https://www.youtube.com/@Carpieherreros" target="_blank" rel="noopener" aria-label="YouTube">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <!-- Caja de YouTube -->
+    <rect x="3" y="7" width="18" height="10" rx="4"
+          stroke="currentColor" stroke-width="1.5"/>
+    <!-- Triángulo (play) -->
+    <path d="M11 10.5v3l3-1.5-3-1.5z" fill="currentColor"/>
+  </svg>
+</a>
         </div>
 
         <a class="cta-wa" id="nav-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
@@ -282,6 +305,7 @@
             <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
               <a class="cta" href="#/configura" data-link>Configurar mueble</a>
               <a class="cta" href="#/Academy" data-link>Configurar mueble</a>
+              <a class="cta" href="#/VideoVivo" data-link>En Vivo</a>
               <a class="cta" style="background:#fff;color:#111" id="hero-wa" href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
             </div>
           </div>
@@ -340,6 +364,52 @@ Una buffetera que destaca por su presencia, textura y calidad artesanal, ideal p
 Ideal para áreas comunes, recibidores o terrazas, ofrece resistencia, ligereza y elegancia artesanal.</p></div></article><article class="card"><img src="Images/Bancas/Banca Otilia/Olmo Ocre/41ed1c92-7393-4a03-9a46-0e3e02ef3e87.jpg" alt="Estante 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Banca</span><h3>Mini Otilia</h3><p class="muted">Equilibrio entre diseño rústico y modernidad.
 Madera con acabado cálido y vetas visibles, sobre una estructura de acero pintado 
 Perfecta para interiores y exteriores protegidos.
+<section class="page" data-route="/en-vivo">
+  <div class="container">
+    <h2 class="section-title">Estamos en vivo</h2>
+
+    <div class="panel" id="live-status" style="margin-bottom:16px">
+      <p class="muted" id="live-msg">Revisa nuestras transmisiones en tus redes favoritas:</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <!-- YouTube Live (sí permite embed) -->
+      <article class="card">
+        <div class="card-body">
+          <span class="tag">YouTube</span>
+          <h3>Míranos en YouTube Live</h3>
+          <p class="muted">Si estamos en vivo, se verá aquí el reproductor.</p>
+        </div>
+        <!-- Sustituye CHANNEL_ID por tu canal -->
+        <div style="aspect-ratio:16/9; background:#0f1012">
+          <iframe
+            id="yt-live-frame"
+            width="100%" height="100%"
+            src="https://www.youtube.com/embed/live_stream?channel=CHANNEL_ID&autoplay=1&modestbranding=1&rel=0"
+            title="YouTube Live" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
+          </iframe>
+        </div>
+      </article>
+
+      <!-- TikTok / Instagram / Facebook: abrir app/página -->
+      <article class="card">
+        <div class="card-body">
+          <span class="tag">Redes</span>
+          <h3>Otras plataformas</h3>
+          <p class="muted">Abrimos directamente tu app para que nos veas en vivo.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
+            <a class="btn" href="https://www.tiktok.com/@maderoh_mx/live" target="_blank" rel="noopener">TikTok Live</a>
+            <a class="btn" href="https://www.instagram.com/maderoh_mx/" target="_blank" rel="noopener">Instagram</a>
+            <a class="btn" href="https://www.facebook.com/maderoh_mx" target="_blank" rel="noopener">Facebook</a>
+            <a class="btn secondary" href="https://www.youtube.com/@TU_USUARIO_YT/live" target="_blank" rel="noopener">YouTube Live (link)</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
 </p></div></article><article class="card"><img src="Images/Bancas/Banca David/Olmo/95afb18b-4595-4967-ab83-80f2c3697587.jpg" alt="Estante 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Banca</span><h3>David</h3><p class="muted">Funcionalidad y estilo en movimiento.
 Diseño modular con ruedas, ideal para talleres, recibidores o espacios dinámicos.
@@ -353,7 +423,7 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
         <h2 class="section-title">Accesorios</h2>
         <div class="grid">
           <article class="card"><img src="Images/CentroDeTV/Centro TV Said/" alt="Accesorio 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nuevo</span><h3>Accesorio A</h3><p class="muted">Descripción breve.</p></div></article>
-          <article class="card"><img src="images/Accesorios/sample2.jpg" alt="Accesorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nuevo</span><h3>Accesorio B</h3><p class="muted">Descripción breve.</p></div></article>
+          <article class="card"><img src="Images/Accesorios/" alt="Accesorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Nuevo</span><h3>Accesorio B</h3><p class="muted">Descripción breve.</p></div></article>
         </div>
       </div>
     </section>
@@ -446,7 +516,7 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
                 <label for="neg-material">Preferencia de materiales</label>
                 <select id="neg-material" name="material">
                   <option value="" selected>Indistinto</option>
-                  <option>Madera (encino/nogal/parota)</option>
+                  <option>Madera (pino/encino/nogal/parota/otra)</option>
                   <option>Metal (acero pintado)</option>
                   <option>Mixto (madera + metal)</option>
                   <option>Otro</option>
@@ -516,6 +586,7 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
                 <option value="estante">Estante</option>
                 <option value="buffetera">Buffetera</option>
                 <option value="mostrador">Mostrador (negocios)</option>
+                <option value="mostrador">otro</option>
               </select>
             </div>
             <div class="field"><label for="largo">Largo (cm)</label><input id="largo" type="number" min="80" max="240" step="1" value="120"></div>
@@ -524,9 +595,10 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
             <div class="field"><label for="cajones">Cajones</label><input id="cajones" type="number" min="0" max="6" step="1" value="3"></div>
             <div class="field"><label for="madera">Madera</label>
               <select id="madera">
-                <option value="encino" selected>Encino</option>
+                <option value="encino" selected>Pino</option>
                 <option value="nogal">Nogal</option>
                 <option value="parota">Parota</option>
+                 <option value="parota">Otra</option>
               </select>
             </div>
             <div class="field"><label for="metal">Acabado metal</label>
@@ -534,6 +606,7 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
                 <option value="#111" selected>Negro mate</option>
                 <option value="#f5f5f5">Blanco</option>
                 <option value="#2f3136">Grafito</option>
+                <option value="#2f3136">Otro/option>
               </select>
             </div>
             <fieldset class="field" style="border:none;padding:0">
@@ -755,6 +828,7 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
       <div style="flex:1"></div>
       <a class="btn secondary" href="#/configura" data-link>Configurar</a>
       <a class="btn secondary" href="#/Academy" data-link>Academy</a>
+      <a class="btn secondary" href="#/VideoVivo" data-link>En Vivo</a>
       <a class="btn" id="sticky-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
@@ -784,11 +858,15 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
             <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
           </svg>
            </a>
-        <a href="https://www.youtube.com/@Carpieherreros" target="_blank" rel="noopener" aria-label="Youtube>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14.5 3c.7 1.8 2.3 3.2 4.3 3.5v2.6c-1.6-.1-3-.6-4.3-1.5v6.5a5.5 5.5 0 1 1-3.4-5v2.8a2.6 2.6 0 1 0 1.7 2.4V3h1.7z" fill="currentColor"/>
-          </svg>
-        </a>
+        <a href="https://www.youtube.com/@Carpieherreros" target="_blank" rel="noopener" aria-label="YouTube">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <!-- Caja de YouTube -->
+    <rect x="3" y="7" width="18" height="10" rx="4"
+          stroke="currentColor" stroke-width="1.5"/>
+    <!-- Triángulo (play) -->
+    <path d="M11 10.5v3l3-1.5-3-1.5z" fill="currentColor"/>
+  </svg>
+</a>
       </div>
     </div>
 
@@ -866,15 +944,64 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
       '/aviso-privacidad', '/compra-segura'
     ]);
     function currentPath(){ return location.hash.replace('#','') || '/'; }
-    function route(){
-      const path = currentPath();
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      const active =
-        document.querySelector(`.page[data-route="${path}"]`) ||
-        document.querySelector(`.page[data-route="/404"]`);
-      if (active) active.classList.add('active');
-      window.scrollTo({top:0, behavior:'auto'});
-    }
+   function route(){
+  const path = currentPath();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const active =
+    document.querySelector(`.page[data-route="${path}"]`) ||
+    document.querySelector(`.page[data-route="/404"]`);
+  if (active) active.classList.add('active');
+  window.scrollTo({top:0, behavior:'auto'});
+
+function enhanceCards(){
+  if (typeof baseWa ===  '/', '/escritorios', '/cajoneras', '/Buffetera', '/Bancas', '/CentroDeTV', '/negocios',
+      '/Accesorios', '/CentroDeMesa', '/Recibidores',
+      '/configura',
+      '/faq', '/envio', '/promociones',
+      '/aviso-privacidad', '/compra-segura') return;
+
+  const path = (typeof currentPath === 'function')
+    ? currentPath()
+    : (location.hash.replace('#','') || '/');
+
+  // ⛔ Si no es una subpágina de catálogo, no hacemos nada
+  if (!catalogRoutes.has(path)) {
+    // Limpieza opcional por si ya se agregaron botones en otra navegación
+    document.querySelectorAll('.card-body .btn[data-wa-btn]').forEach(b=>b.remove());
+    return;
+  }
+
+  const page = document.querySelector(`.page[data-route="${path}"]`);
+  if (!page) return;
+
+  const category =
+    page.querySelector('h2.section-title')?.textContent.trim() || 'catálogo';
+
+  page.querySelectorAll('.card').forEach(card=>{
+    if (card.dataset.waDone === '8') return; // evita duplicados
+
+    const body  = card.querySelector('.card-body');
+    const title = card.querySelector('h3')?.textContent?.trim();
+    if (!body || !title) return;
+
+    const a = document.createElement('a');
+    a.className = 'btn';
+    a.setAttribute('data-wa-btn','8'); // para poder limpiarlos si cambias de ruta
+    a.target   = '_blank';
+    a.rel      = 'noopener';
+    a.href     = `${baseWa}?text=${encodeURIComponent(
+      `Hola Maderóh, me interesa el modelo "${title}" de ${category}.`
+    )}`;
+    a.textContent = 'Cotizar por WhatsApp';
+
+    body.appendChild(a);
+    card.dataset.waDone = '8';
+  });
+}
+
+ 
+}
+
     window.addEventListener('hashchange', route);
     document.addEventListener('DOMContentLoaded', route);
 
@@ -1130,6 +1257,7 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
         });
       });
     })();
+    
   </script>
   <script>
 /* Retraso al cerrar el menú de Productos */
@@ -1150,6 +1278,42 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   });
 });
 </script>
+<script>
+function enhanceCards(){
+  if (typeof baseWa === 'undefined') return;
+
+  const page = document.querySelector('.page.active');
+  if (!page) return;
+
+  const category =
+    page.querySelector('h2.section-title')?.textContent.trim() ||
+    location.hash.replace('#/','') || 'catálogo';
+
+  page.querySelectorAll('.card').forEach(card=>{
+    if (card.dataset.waDone === '1') return; // evita duplicados
+
+    const body  = card.querySelector('.card-body');
+    const title = card.querySelector('h3')?.textContent?.trim();
+    if (!body || !title) return;
+
+    const a = document.createElement('a');
+    a.className = 'btn';              // usa tu estilo de botón existente
+    a.target   = '_blank';
+    a.rel      = 'noopener';
+    a.href     = `${baseWa}?text=${encodeURIComponent(
+      `Hola Maderóh, me interesa el modelo "${title}" de ${category}.`
+    )}`;
+    a.textContent = 'Cotizar por WhatsApp';
+
+    body.appendChild(a);
+    card.dataset.waDone = '1';
+  });
+}
+
+// Lánzalo una vez al cargar
+document.addEventListener('DOMContentLoaded', enhanceCards);
+</script>
+
 
  <script type="module">
   // Importa los módulos desde el CDN de Firebase
@@ -1171,6 +1335,23 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   const db = getFirestore(app);
 
   console.log("✅ Firebase conectado correctamente");
+</script>
+<script>
+  // Cámbialo manualmente a true cuando estén Live
+  const IS_LIVE_NOW = true; 
+
+  const liveMsg = document.getElementById('live-msg');
+  if (liveMsg) {
+    liveMsg.textContent = IS_LIVE_NOW
+      ? '🔴 Ahora mismo estamos transmitiendo en vivo. Elige tu plataforma:'
+      : 'No estamos en vivo por ahora. Vuelve pronto o activa las notificaciones en nuestras redes.';
+  }
+
+  // Si no están live, puedes ocultar el iframe para que no quede vacío
+  if (!IS_LIVE_NOW) {
+    const yt = document.getElementById('yt-live-frame');
+    if (yt) yt.style.display = 'none';
+  }
 </script>
 
 </body>
