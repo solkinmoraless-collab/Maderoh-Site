@@ -203,7 +203,8 @@
     @media (max-width:900px){
       [data-route="/negocios"] .grid{grid-template-columns:1fr !important}
     }
-    /* Botón WhatsApp dentro de cards */
+  <style>
+  /* Botón WhatsApp dentro de cards */
 .card-body .wa-item {
   margin-top: 10px;
   display: inline-flex;
@@ -343,7 +344,7 @@
 Estructura metálica soldada, cubierta de madera natural, tres cajones y pasacables para un espacio ordenado y productivo.
 Hecho a mano en México con estilo industrial y durabilidad real.</p></div></article><article class="card"><img src="Images/Escritorio/Berenice/Ocre/45f7a1aa-7891-4813-9cbe-1a3caead12c8.jpg" alt="Escritorio 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Escritorio</span><h3>Berenice</h3><p class="muted">Diseño industrial y minimalista para espacios modernos.
 Incluye un cajón y repisa funcional, combinando madera natural y acero en perfecta armonía.
-Compacto, resistente y hecho artesanalmente.</p></div></article><article class="card"><img src="Images/Escritorio/Cesar XL/Early American/646209a0-5e8a-4521-9264-963a58352a88.jpg" alt="Escritorio 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Escritorio</span><h3> Cesar XL</h3><p class="muted">Presencia robusta y diseño profesional.
+Compacto, resistente y hecho artesanalmente.</p></div></article><article class="card"><img src="Images/Escritorio/Cesar XL/Ocre/Cesar XL_Ocre.jpg" alt="Escritorio 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Escritorio</span><h3> Cesar XL</h3><p class="muted">Presencia robusta y diseño profesional.
 Estructura metálica en “X”, acabado flameado, pedestal y canaleta integrados.
 El equilibrio perfecto entre estética, orden y potencia visual.</p></div></article></div></div></section>
 
@@ -415,7 +416,9 @@ Perfecta para interiores y exteriores protegidos.
 Diseño modular con ruedas, ideal para talleres, recibidores o espacios dinámicos.
 Combina tablas de madera sólida con base metálica reforzada.</p></div></article></div></div></section>
 
-    <section class="page" data-route="/CentroDeTV"><div class="container"><h2 class="section-title">Centros de TV</h2><div class="grid"><article class="card"><img src="images/buffetera.jpg" alt="Buffetera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Compacta</span><h3>120×40×80 cm</h3><p class="muted">2 puertas, 1 cajón.</p></div></article><article class="card"><img src="images/buffetera2.jpg" alt="Buffetera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Media</span><h3>150×45×85 cm</h3><p class="muted">3 cajones, 2 nichos.</p></div></article><article class="card"><img src="images/buffetera3.jpg" alt="Buffetera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">XL</span><h3>180×45×90 cm</h3><p class="muted">Puertas de cierre suave.</p></div></article></div></div></section>
+    <section class="page" data-route="/CentroDeTV"><div class="container"><h2 class="section-title">Centros de TV</h2><div class="grid"><article class="card"><img src="images/CentroDeTV/Centro de TV Omar R/Early American/2c3e0718-45c5-4d03-91ac-1548de9840cf.jpg" alt="Buffetera 1" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Centros de TV</span><h3>Omar</h3><p class="muted">Diseño robusto y elegante con estructura metálica negra y cubiertas de madera natural barnizada. Este centro de entretenimiento combina funcionalidad y estética contemporánea, ideal para televisores grandes y espacios modernos.
+Las puertas inferiores ofrecen amplio almacenamiento oculto para mantener un orden visual impecable, mientras que la parte superior destaca por sus vetas naturales y acabado cálido.</p></div></article><article class="card"><img src="images/CentroDeTV/Centro TV Said/Early American/dcc66f0b-3cd9-44b8-bf87-e2b101aadaed.jpg" alt="Buffetera 2" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">Centros de TV</span><h3>Said</h3><p class="muted">Estructura minimalista en acero negro con superficies de madera sólida y acabado brillante. Perfecta como banca decorativa, mesa auxiliar o consola para recibidor, este diseño transmite la esencia del mobiliario industrial hecho a mano.
+Su forma alargada y líneas limpias aportan amplitud y modernidad a cualquier espacio.</p></div></article><article class="card"><img src="images/buffetera3.jpg" alt="Buffetera 3" loading="lazy" width="900" height="600"><div class="card-body"><span class="tag">XL</span><h3>180×45×90 cm</h3><p class="muted">Puertas de cierre suave.</p></div></article></div></div></section>
 
     <!-- ===== NUEVAS SECCIONES ===== -->
     <section class="page" data-route="/Accesorios">
@@ -595,18 +598,18 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
             <div class="field"><label for="cajones">Cajones</label><input id="cajones" type="number" min="0" max="6" step="1" value="3"></div>
             <div class="field"><label for="madera">Madera</label>
               <select id="madera">
-                <option value="encino" selected>Pino</option>
+                <option value="Pino" selected>Pino</option>
                 <option value="nogal">Nogal</option>
                 <option value="parota">Parota</option>
-                 <option value="parota">Otra</option>
+                 <option value="otra">Otra</option>
               </select>
             </div>
             <div class="field"><label for="metal">Acabado metal</label>
               <select id="metal">
-                <option value="#111" selected>Negro mate</option>
-                <option value="#f5f5f5">Blanco</option>
-                <option value="#2f3136">Grafito</option>
-                <option value="#2f3136">Otro/option>
+                <option value="Negro Mate" selected>Negro mate</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Grafito">Grafito</option>
+                <option value="Color a elegir">Otro/option>
               </select>
             </div>
             <fieldset class="field" style="border:none;padding:0">
@@ -954,6 +957,7 @@ Combina tablas de madera sólida con base metálica reforzada.</p></div></articl
   window.scrollTo({top:0, behavior:'auto'});
 
 function enhanceCards(){
+
   if (typeof baseWa ===  '/', '/escritorios', '/cajoneras', '/Buffetera', '/Bancas', '/CentroDeTV', '/negocios',
       '/Accesorios', '/CentroDeMesa', '/Recibidores',
       '/configura',
@@ -990,7 +994,7 @@ function enhanceCards(){
     a.target   = '_blank';
     a.rel      = 'noopener';
     a.href     = `${baseWa}?text=${encodeURIComponent(
-      `Hola Maderóh, me interesa el modelo "${title}" de ${category}.`
+      `Hola Maderóh, me interesa el modelo "${title}" de ${category}. con las siguientes acracteristicas`
     )}`;
     a.textContent = 'Cotizar por WhatsApp';
 
