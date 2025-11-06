@@ -203,6 +203,57 @@
     @media (max-width:900px){
       [data-route="/negocios"] .grid{grid-template-columns:1fr !important}
     }
+    /* === Patch móvil v2 (Maderóh) === */
+html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+
+/* Evita saltos feos en títulos y botones largos */
+h1 { font-size: clamp(1.6rem, 5.2vw, 2.6rem); line-height: 1.25; }
+.lead { font-size: clamp(.95rem, 3.2vw, 1.05rem); }
+
+/* Hero: que el grid colapse limpio sin “apretar” textos */
+@media (max-width: 900px){
+  .hero-grid { grid-template-columns: 1fr !important; gap: 20px; }
+  .container { padding-left: 14px; padding-right: 14px; }
+  .hero-card { padding: 12px; }
+  .hero-card img { width: 100%; height: auto; object-fit: cover; }
+}
+
+/* Botonera del hero: acomodo estable y sin desbordar */
+@media (max-width: 640px){
+  .hero .cta, .hero .btn, .cta-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: .95rem;
+    max-width: 100%;
+    white-space: nowrap;      /* evita cortes raros */
+  }
+  .hero .lead { margin-right: 2px; }
+}
+
+/* Barra sticky: que no empuje ni desborde; deslizable si no cabe */
+.sticky-cta { overflow: hidden; }
+.sticky-wrap {
+  gap: 10px;
+  padding: 10px 14px;
+  overflow-x: auto;               /* scroll horizontal suave si no cabe */
+  -webkit-overflow-scrolling: touch;
+}
+.sticky-wrap .btn {
+  flex: 0 0 auto;                 /* no se estiran raro */
+  padding: 10px 14px;
+  font-size: .95rem;
+  white-space: nowrap;
+}
+
+/* Tarjetas y grillas: evita columnas estrechas imposibles */
+@media (max-width: 900px){ .grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 640px){ .grid { grid-template-columns: 1fr; } }
+
+/* iFrames/imagenes huérfanas que causan scroll horizontal */
+iframe, .slider, .track, .slide img { max-width: 100%; }
+
   <style>
   /* Botón WhatsApp dentro de cards */
 .card-body .wa-item {
@@ -305,7 +356,7 @@
             <p class="lead">Escritorios, cajoneras, Buffetera, Bancas, CentroDeTV y soluciones para negocios. Hecho a medida en CDMX.</p>
             <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
               <a class="cta" href="#/configura" data-link>Configurar mueble</a>
-              <a class="cta" href="#/Academy" data-link>Configurar mueble</a>
+              <a class="cta" href="#/Academy" data-link>Academy</a>
               <a class="cta" href="#/VideoVivo" data-link>En Vivo</a>
               <a class="cta" style="background:#fff;color:#111" id="hero-wa" href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
             </div>
@@ -567,7 +618,7 @@ Su forma alargada y líneas limpias aportan amplitud y modernidad a cualquier es
             </div>
 
             <p class="muted" style="margin:.6rem 0 0;font-size:.9rem">
-              También puedes escribirnos directo: <a href="https://wa.me/5215577265340" target="_blank" rel="noopener">WhatsApp</a>
+              También puedes escribirnos directo: <a href="https://wa.me/5215574729226" target="_blank" rel="noopener">WhatsApp</a>
               · <a href="mailto:maderoh.mx@gmail.com">maderoh.mx@gmail.com</a>
             </p>
           </form>
@@ -890,7 +941,7 @@ Su forma alargada y líneas limpias aportan amplitud y modernidad a cualquier es
         <p style="margin:.4rem 0 8px">
           Solicítala al momento de tu compra o dentro de los 7 días naturales con tu RFC y datos fiscales.
         </p>
-        <a class="btn secondary" href="https://wa.me/5215577265340?text=Hola%20Mader%C3%B3h,%20quisiera%20solicitar%20mi%20factura%20electr%C3%B3nica."
+        <a class="btn secondary" href="https://wa.me/5215574729226?text=Hola%20Mader%C3%B3h,%20quisiera%20solicitar%20mi%20factura%20electr%C3%B3nica."
            target="_blank" rel="noopener">
           Solicitar por WhatsApp
         </a>
@@ -915,7 +966,7 @@ Su forma alargada y líneas limpias aportan amplitud y modernidad a cualquier es
   </footer>
   <script>
     // ===== Config global =====
-    const WA_NUMBER = '5215577265340';
+    const WA_NUMBER = '5215574729226';
     const baseWa = `https://wa.me/${WA_NUMBER}`;
 
     // Año dinámico en footer
@@ -1357,6 +1408,251 @@ document.addEventListener('DOMContentLoaded', enhanceCards);
     if (yt) yt.style.display = 'none';
   }
 </script>
+<!-- ===================== MADERÓH | PILOTO CHAT+VOZ SIN BACKEND ===================== -->
+<!-- FAB flotante: Chat, WhatsApp y Llamar -->
+<div id="maderoh-fab">
+  <button id="fab-chat" title="Chat con Maderóh">💬</button>
+  <a id="fab-wa" href="https://api.whatsapp.com/send?phone=5215574729226&text=Hola%20Mader%C3%B3h,%20quiero%20una%20cotizaci%C3%B3n." target="_blank" title="WhatsApp">🟢</a>
+  <a id="fab-tel" href="tel:+525574729226" title="Llamar">📞</a>
+</div>
+
+<!-- Panel de chat -->
+<div id="maderoh-panel" hidden>
+  <header>
+    <strong>Maderóh Asistente (Piloto)</strong>
+    <div>
+      <button id="btn-voice" title="Hablar / Detener">🎤</button>
+      <button id="btn-close" title="Cerrar">✖</button>
+    </div>
+  </header>
+
+  <div id="maderoh-stream" aria-live="polite"></div>
+
+  <form id="maderoh-form" autocomplete="off">
+    <input id="maderoh-input" placeholder="Escribe o toca 🎤 para hablar…" />
+    <button>Enviar</button>
+  </form>
+</div>
+
+<!-- Estilos mínimos -->
+<style>
+  #maderoh-fab{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:9999}
+  #maderoh-fab button,#maderoh-fab a{
+    display:grid;place-items:center;width:56px;height:56px;border-radius:999px;background:#161718;color:#fff;
+    border:0;cursor:pointer;font-size:22px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.2)
+  }
+  #maderoh-fab button:hover,#maderoh-fab a:hover{transform:translateY(-1px)}
+  #maderoh-panel{position:fixed;right:84px;bottom:16px;width:360px;max-height:72vh;background:#fff;color:#111;
+    border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;overflow:hidden;z-index:9999}
+  #maderoh-panel header{display:flex;align-items:center;justify-content:space-between;background:#161718;color:#fff;padding:10px 12px}
+  #maderoh-panel header button{background:transparent;border:0;color:#fff;cursor:pointer;font-size:18px}
+  #maderoh-stream{padding:12px;overflow:auto;flex:1}
+  #maderoh-form{display:flex;gap:8px;padding:10px;border-top:1px solid #eee}
+  #maderoh-input{flex:1;padding:10px 12px;border-radius:12px;border:1px solid #ddd}
+  .bubble{padding:10px 12px;border-radius:12px;margin:8px 0;max-width:85%;line-height:1.35;white-space:pre-line}
+  .user{background:#e9f0ff;margin-left:auto}
+  .bot{background:#f6f6f6;margin-right:auto}
+</style>
+
+<!-- Lógica del chatbot con voz (STT/TTS) y NLG cálido -->
+<script>
+/* ===== Config ===== */
+const WHATSAPP_NUM = '5215574729226'; // ← CAMBIA a tu número en formato internacional (sin +)
+const NEGOCIO = 'Maderóh';
+const CIUDAD_BASE = 'CDMX';
+
+/* ===== FAQs simples: si contiene X, responde Y ===== */
+const FAQS = [
+  {k:/horario|abren|cierran/i, a:'Atendemos Lun–Sáb 9:00–19:00. Podemos agendar visita o videollamada.'},
+  {k:/entrega|env[ií]o|tiempo/i, a:'Tiempos típicos: 10–20 días hábiles según diseño y agenda de producción.'},
+  {k:/material|madera|metal|acero/i, a:'Trabajamos maderas sólidas y estructura de acero con acabados al horno.'},
+  {k:/pago|anticipo|factura/i, a:'Aceptamos transferencia SPEI o tarjeta. Anticipo 50%, saldo contra entrega. Facturamos.'},
+  {k:/garant|soporte|repar/i, a:'Garantía de fabricación de 12 meses. Soporte por WhatsApp y correo.'},
+];
+
+/* ===== Estado del flujo de cotización ===== */
+let state = { step:'idle', datos:{ producto:null, alto:null, ancho:null, fondo:null, material:null, acabado:null, ciudad:null } };
+
+/* ===== Referencias UI ===== */
+const $fabChat = document.getElementById('fab-chat');
+const $panel = document.getElementById('maderoh-panel');
+const $stream = document.getElementById('maderoh-stream');
+const $form = document.getElementById('maderoh-form');
+const $input = document.getElementById('maderoh-input');
+const $btnClose = document.getElementById('btn-close');
+const $btnVoice = document.getElementById('btn-voice');
+const $fabWa = document.getElementById('fab-wa');
+
+/* ===== NLG (tono más humano) ===== */
+const NLG = {
+  typingMin: 250, typingMax: 700,
+  pick: arr => arr[Math.floor(Math.random()*arr.length)],
+  greet(){ return this.pick([`¡Hola! Soy el asistente de ${NEGOCIO}.`,`¡Qué gusto saludarte! Soy tu asistente en ${NEGOCIO}.`,`¡Bienvenido(a) a ${NEGOCIO}! Estoy aquí para ayudarte.`]);},
+  offerHelp(){ return this.pick([`¿En qué puedo apoyarte hoy?`,`Cuéntame, ¿qué tienes en mente?`,`Dime y lo revisamos juntos.`]);},
+  askProducto(){ return this.pick([`¿Qué mueble estás buscando? (ej. escritorio, mesa, repisa)`,`Para empezar, ¿qué pieza necesitas?`,`Perfecto, ¿qué tipo de mueble tienes en mente?`]);},
+  askMedida(which){ const map={alto:'ALTURA (cm)',ancho:'ANCHO (cm)',fondo:'FONDO (cm)'}; 
+    return this.pick([`¿Me confirmas ${map[which]}?`,`¿Cuál sería ${map[which]} aproximada?`,`¿Qué ${map[which]} te funcionaría mejor?`]);},
+  confirmDato(label, val){ return this.pick([`Perfecto, ${label}: ${val}.`,`Genial, anotado ${label}: ${val}.`,`Súper, ${label} registrado: ${val}.`]);},
+  askMaterial(){ return this.pick([`¿Material principal? (madera sólida/aglomerado + metal)`,`¿Qué materiales prefieres? Puedo sugerirte combinaciones.`,`¿Lo imaginas en madera y estructura de metal?`]);},
+  askAcabado(){ return this.pick([`¿Qué acabado te gustaría? (natural, nogal, negro, blanco, etc.)`,`¿Tienes algún acabado en mente (nogal, encino, negro mate…)?`,`¿Prefieres tonos naturales o un acabado pintado?`]);},
+  askCiudad(){ return this.pick([`¿En qué ciudad sería la entrega?`,`Para calcular envío, ¿qué ciudad nos compartes?`,`¿A qué ciudad lo enviaríamos?`]);},
+  resumen(d){
+    const intro = this.pick([`Te dejo un resumen para confirmar:`,`Excelente, revisemos lo capturado:`,`Esto es lo que tengo hasta ahora:`]);
+    return `${intro}
+• ${d.producto}
+• ${d.alto}×${d.ancho}×${d.fondo} cm
+• ${d.material}
+• Acabado: ${d.acabado}
+• Entrega: ${d.ciudad}
+
+¿Lo envío a WhatsApp para cotización formal? (sí/no)`;
+  },
+  fallback(){ return this.pick([`Puedo ayudarte a cotizar (di “cotizar”) o resolver dudas de materiales, tiempos y garantía.`,
+                                `Si quieres cotizar, dime “cotizar” y te pido medidas paso a paso.`,
+                                `¿Te ayudo con una cotización rápida? Solo di “cotizar”.`]);},
+  faqAnswer(text){ const tail=this.pick([` Si necesitas más detalle, con gusto te explico.`,` ¿Te suena bien?`,` Si quieres, lo ajustamos a tu proyecto.`]); return text+tail; }
+};
+
+/* ===== Utilidades ===== */
+function bubble(text,who='bot'){ const d=document.createElement('div'); d.className='bubble '+who; d.textContent=text; $stream.appendChild(d); $stream.scrollTop=$stream.scrollHeight; return d; }
+
+/* “Escribiendo…” + TTS */
+async function bot(text, speak=true){
+  const typingMs = NLG.typingMin + Math.random()*(NLG.typingMax - NLG.typingMin);
+  const node = bubble('Escribiendo…','bot');
+  await new Promise(r=>setTimeout(r, typingMs));
+  node.textContent = text;
+  if(speak) tts(text);
+}
+function user(t){ bubble(t,'user'); }
+
+/* Números de texto */
+function numberFrom(s){
+  const m = s.match(/(\d+([.,]\d+)?)/);
+  return m ? Math.round(parseFloat(m[1].replace(',','.'))) : null;
+}
+
+/* ===== TTS (texto a voz) ===== */
+function tts(text){
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang='es-MX'; u.rate=1; u.pitch=1;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }catch(_){}
+}
+
+/* ===== STT (voz a texto) ===== */
+let rec=null, listening=false;
+if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  rec = new SR(); rec.lang='es-MX'; rec.continuous=false; rec.interimResults=false;
+  rec.onresult = (e)=>{ const t = e.results[0][0].transcript; $input.value=t; $form.dispatchEvent(new Event('submit')); };
+  rec.onend = ()=>{ listening=false; $btnVoice.textContent='🎤'; };
+}
+$btnVoice.onclick = ()=>{
+  if(!rec){ alert('Tu navegador no soporta reconocimiento de voz. Puedes escribir 🙂'); return; }
+  if(!listening){ listening=true; $btnVoice.textContent='⏹️'; rec.start(); } else { rec.stop(); }
+};
+
+/* ===== Eventos UI ===== */
+$fabChat.onclick = ()=>{
+  $panel.hidden=!$panel.hidden;
+  if(!$panel.hidden && $stream.children.length===0){
+    bot(`${NLG.greet()} ${NLG.offerHelp()}`); 
+    state.step='producto';
+  }
+};
+$btnClose.onclick = ()=>{ $panel.hidden=true; };
+
+$form.addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const txt = $input.value.trim();
+  if(!txt) return;
+  user(txt);
+  $input.value='';
+  handleUser(txt);
+});
+
+/* ===== Lógica del flujo ===== */
+function handleUser(txt){
+  // Comandos rápidos
+  if(/(cotiz|precio|cu[aá]nto)/i.test(txt) && state.step==='idle'){ state.step='producto'; bot(NLG.askProducto()); return; }
+
+  // FAQs
+  for(const f of FAQS){ if(f.k.test(txt)){ bot(NLG.faqAnswer(f.a)); return; } }
+
+  // Flujo de cotización
+  switch(state.step){
+    case 'producto':
+      state.datos.producto = txt;
+      state.step='medidas_alto';
+      bot(NLG.askMedida('alto'));
+      break;
+
+    case 'medidas_alto': {
+      const n = numberFrom(txt);
+      if(!n){ bot(NLG.askMedida('alto')); break; }
+      state.datos.alto=n; state.step='medidas_ancho';
+      bot(NLG.confirmDato('ALTURA', `${n} cm`)+' '+NLG.askMedida('ancho'));
+      break;
+    }
+
+    case 'medidas_ancho': {
+      const n = numberFrom(txt);
+      if(!n){ bot(NLG.askMedida('ancho')); break; }
+      state.datos.ancho=n; state.step='medidas_fondo';
+      bot(NLG.confirmDato('ANCHO', `${n} cm`)+' '+NLG.askMedida('fondo'));
+      break;
+    }
+
+    case 'medidas_fondo': {
+      const n = numberFrom(txt);
+      if(!n){ bot(NLG.askMedida('fondo')); break; }
+      state.datos.fondo=n; state.step='material';
+      bot(NLG.confirmDato('FONDO', `${n} cm`)+' '+NLG.askMaterial());
+      break;
+    }
+
+    case 'material':
+      state.datos.material = txt;
+      state.step='acabado';
+      bot(NLG.askAcabado());
+      break;
+
+    case 'acabado':
+      state.datos.acabado = txt;
+      state.step='ciudad';
+      bot(NLG.askCiudad());
+      break;
+
+    case 'ciudad':
+      state.datos.ciudad = txt || CIUDAD_BASE;
+      state.step='resumen';
+      bot(NLG.resumen(state.datos));
+      break;
+
+    case 'resumen':
+      if(/^s[ií]/i.test(txt)){
+        const d = state.datos;
+        const msg = `Hola ${NEGOCIO}, quiero cotización: ${d.producto}, ${d.alto}x${d.ancho}x${d.fondo} cm, ${d.material}, acabado ${d.acabado}, entrega en ${d.ciudad}.`;
+        const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUM}&text=${encodeURIComponent(msg)}`;
+        bot('Listo. Abriendo WhatsApp…', false);
+        window.open(url,'_blank');
+        state = { step:'idle', datos:{ producto:null, alto:null, ancho:null, fondo:null, material:null, acabado:null, ciudad:null } };
+      } else {
+        bot('Sin problema. ¿Deseas cambiar algún dato o ver otra opción?');
+        state.step='idle';
+      }
+      break;
+
+    default:
+      if(/(cotiz|precio)/i.test(txt)){ state.step='producto'; bot(NLG.askProducto()); }
+      else bot(NLG.fallback());
+  }
+}
+</script>
+<!-- ===================== /MADERÓH | PILOTO CHAT+VOZ SIN BACKEND ===================== -->
 
 </body>
 </html>
