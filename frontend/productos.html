@@ -1,30 +1,41 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 
 <head>
 
     <meta charset="UTF-8">
+
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
+
     <meta
         name="description"
         content="Explora el catálogo Maderóh. Escritorios, mesas, bancas, almacenamiento, centros de TV, recámaras y mobiliario para negocios."
     >
 
-    <meta name="robots" content="index, follow">
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
 
     <title>
         Productos | Maderóh
     </title>
 
+
     <link
         rel="stylesheet"
         href="css/styles.css"
     >
+
 
     <link
         rel="stylesheet"
@@ -44,6 +55,7 @@
 <header class="site-header">
 
     <div class="nav-container">
+
 
         <a
             href="index.html"
@@ -75,6 +87,7 @@
                 Inicio
             </a>
 
+
             <a
                 href="productos.html"
                 class="active"
@@ -82,9 +95,11 @@
                 Productos
             </a>
 
+
             <a href="personaliza.html">
                 Personaliza
             </a>
+
 
             <a
                 href="#contacto"
@@ -105,7 +120,7 @@
 
 
 <!-- =====================================================
-     HERO CATÁLOGO
+     HERO
 ===================================================== -->
 
 <section class="catalog-hero">
@@ -114,11 +129,13 @@
         CATÁLOGO MADERÓH
     </span>
 
+
     <h1>
         Diseñado para
         <br>
         espacios reales.
     </h1>
+
 
     <p>
         Explora nuestra colección de mobiliario para hogar,
@@ -154,9 +171,11 @@
 
     <div class="catalog-featured-content">
 
+
         <span class="product-badge">
             DESTACADO
         </span>
+
 
         <span
             class="product-type"
@@ -165,9 +184,11 @@
             PRODUCTO
         </span>
 
+
         <h2 id="featured-product-name">
             Cargando...
         </h2>
+
 
         <p
             class="featured-description"
@@ -176,7 +197,9 @@
             Cargando información del producto.
         </p>
 
+
         <div class="featured-specs">
+
 
             <div>
 
@@ -184,11 +207,14 @@
                     MEDIDAS
                 </span>
 
-                <strong id="featured-product-size">
+                <strong
+                    id="featured-product-size"
+                >
                     Consultar
                 </strong>
 
             </div>
+
 
             <div>
 
@@ -196,11 +222,14 @@
                     ACABADO
                 </span>
 
-                <strong id="featured-product-finish">
+                <strong
+                    id="featured-product-finish"
+                >
                     Consultar
                 </strong>
 
             </div>
+
 
             <div>
 
@@ -208,15 +237,20 @@
                     PRECIO
                 </span>
 
-                <strong id="featured-product-price">
+                <strong
+                    id="featured-product-price"
+                >
                     Cotizar
                 </strong>
 
             </div>
 
+
         </div>
 
+
         <div class="featured-actions">
+
 
             <button
                 class="btn btn-primary"
@@ -227,12 +261,14 @@
                 Cotizar por WhatsApp
             </button>
 
+
             <a
                 href="personaliza.html"
                 class="btn btn-secondary"
             >
                 Personalizar
             </a>
+
 
         </div>
 
@@ -241,11 +277,13 @@
 </section>
 
 
+
 <!-- =====================================================
      BUSCADOR Y FILTROS
 ===================================================== -->
 
 <section class="catalog-tools">
+
 
     <div class="catalog-tools-header">
 
@@ -254,6 +292,7 @@
             <span class="eyebrow">
                 COLECCIÓN
             </span>
+
 
             <h2>
                 Todos los productos
@@ -265,9 +304,12 @@
 
 
 
-    <!-- BUSCADOR -->
+    <!-- =================================================
+         BUSCADOR
+    ================================================== -->
 
     <div class="catalog-search">
+
 
         <label
             for="product-search"
@@ -275,6 +317,7 @@
         >
             Buscar productos
         </label>
+
 
         <input
             type="search"
@@ -284,16 +327,20 @@
             maxlength="80"
         >
 
+
     </div>
 
 
 
-    <!-- FILTROS -->
+    <!-- =================================================
+         FILTROS
+    ================================================== -->
 
     <div
         class="catalog-filters"
         aria-label="Filtrar productos"
     >
+
 
         <button
             class="filter-btn active"
@@ -366,6 +413,7 @@
             Negocios
         </button>
 
+
     </div>
 
 </section>
@@ -378,17 +426,6 @@
 
 <section class="professional-products">
 
-    <!--
-    IMPORTANTE:
-
-    Ya NO escribimos los productos manualmente aquí.
-
-    catalogo.js consulta:
-
-    /.netlify/functions/products
-
-    y genera automáticamente las tarjetas.
-    -->
 
     <div
         class="professional-products-grid"
@@ -396,12 +433,6 @@
         aria-live="polite"
     >
 
-        <!--
-        Mensaje inicial.
-
-        catalogo.js lo sustituirá automáticamente
-        cuando reciba los productos.
-        -->
 
         <div class="catalog-loading">
 
@@ -409,11 +440,13 @@
                 MADERÓH
             </span>
 
+
             <p>
                 Cargando productos...
             </p>
 
         </div>
+
 
     </div>
 
@@ -423,9 +456,6 @@
 
 <!-- =====================================================
      SIN RESULTADOS
-
-     JavaScript podrá mostrarlo cuando ningún producto
-     coincida con la búsqueda o filtros.
 ===================================================== -->
 
 <section
@@ -438,13 +468,16 @@
         SIN RESULTADOS
     </span>
 
+
     <h2>
         No encontramos ese producto.
     </h2>
 
+
     <p>
         Podemos diseñarlo especialmente para ti.
     </p>
+
 
     <a
         href="personaliza.html"
@@ -458,22 +491,26 @@
 
 
 <!-- =====================================================
-     MADERÓH PARA NEGOCIOS
+     NEGOCIOS
 ===================================================== -->
 
 <section class="business-project-banner">
 
+
     <div class="business-project-content">
+
 
         <span class="eyebrow eyebrow-light">
             MADERÓH PARA NEGOCIOS
         </span>
+
 
         <h2>
             ¿Necesitas más
             <br>
             que un mueble?
         </h2>
+
 
         <p>
             Podemos desarrollar el mobiliario completo
@@ -490,6 +527,7 @@
             Cotizar proyecto completo
         </a>
 
+
     </div>
 
 </section>
@@ -497,19 +535,22 @@
 
 
 <!-- =====================================================
-     PROYECTO PERSONALIZADO
+     PERSONALIZADO
 ===================================================== -->
 
 <section class="catalog-custom-cta">
+
 
     <span class="eyebrow">
         HECHO A TU MEDIDA
     </span>
 
+
     <h2>
         ¿No encontraste exactamente
         lo que necesitas?
     </h2>
+
 
     <p>
         Cuéntanos tu idea, define medidas,
@@ -525,6 +566,7 @@
         Personalizar proyecto
     </a>
 
+
 </section>
 
 
@@ -538,20 +580,25 @@
     id="contacto"
 >
 
+
     <div>
+
 
         <span class="eyebrow eyebrow-light">
             ¿TIENES DUDAS?
         </span>
 
+
         <h2>
             Hablemos de tu proyecto.
         </h2>
+
 
         <p>
             Escríbenos y te ayudamos a elegir
             la mejor opción.
         </p>
+
 
     </div>
 
@@ -563,6 +610,7 @@
     >
         Contactar por WhatsApp
     </a>
+
 
 </section>
 
@@ -581,6 +629,7 @@
     aria-hidden="true"
 >
 
+
     <div
         class="product-modal-backdrop"
         id="modal-backdrop"
@@ -596,7 +645,9 @@
     >
 
 
-        <!-- CERRAR -->
+        <!-- =============================================
+             CERRAR
+        ============================================== -->
 
         <button
             class="modal-close"
@@ -609,24 +660,44 @@
 
 
 
-        <!-- IMAGEN -->
+        <!-- =============================================
+             GALERÍA
+        ============================================== -->
 
-        <div
-            class="modal-product-image"
-            id="modal-product-image"
-        >
+        <div class="modal-gallery">
 
-            <span id="modal-image-name">
-                MADERÓH
-            </span>
+
+            <div
+                class="modal-product-image"
+                id="modal-product-image"
+            >
+
+                <span id="modal-image-name">
+                    MADERÓH
+                </span>
+
+            </div>
+
+
+            <div
+                class="modal-gallery-thumbnails"
+                id="modal-gallery-thumbnails"
+                hidden
+                aria-label="Galería del producto"
+            >
+            </div>
+
 
         </div>
 
 
 
-        <!-- INFORMACIÓN -->
+        <!-- =============================================
+             INFORMACIÓN
+        ============================================== -->
 
         <div class="modal-product-information">
+
 
             <span
                 class="product-type"
@@ -636,7 +707,9 @@
             </span>
 
 
-            <h2 id="modal-product-name">
+            <h2
+                id="modal-product-name"
+            >
                 Producto
             </h2>
 
@@ -651,13 +724,16 @@
 
             <div class="featured-specs">
 
+
                 <div>
 
                     <span>
                         MEDIDAS
                     </span>
 
-                    <strong id="modal-product-size">
+                    <strong
+                        id="modal-product-size"
+                    >
                         Por definir
                     </strong>
 
@@ -670,17 +746,21 @@
                         PRECIO
                     </span>
 
-                    <strong id="modal-product-price">
+                    <strong
+                        id="modal-product-price"
+                    >
                         Cotizar
                     </strong>
 
                 </div>
+
 
             </div>
 
 
 
             <div class="featured-actions">
+
 
                 <button
                     type="button"
@@ -698,9 +778,12 @@
                     Personalizar
                 </a>
 
+
             </div>
 
+
         </div>
+
 
     </div>
 
@@ -724,66 +807,85 @@
 
 
 <!-- =====================================================
-     FOOTER COMERCIAL / LEGAL
+     FOOTER
 ===================================================== -->
 
 <footer class="commercial-footer">
 
+
     <div class="commercial-footer-main">
 
 
-        <!-- MARCA -->
+
+        <!-- =============================================
+             MARCA
+        ============================================== -->
 
         <div class="footer-brand-column">
+
 
             <strong class="footer-logo">
                 MADERÓH
             </strong>
+
 
             <p>
                 Diseño y fabricación de mobiliario
                 para hogar y negocios.
             </p>
 
+
             <span>
                 CDMX · Hecho con madera y metal.
             </span>
+
 
         </div>
 
 
 
-        <!-- POLÍTICAS -->
+        <!-- =============================================
+             POLÍTICAS
+        ============================================== -->
 
         <div class="footer-column">
+
 
             <h3>
                 POLÍTICAS DE COMPRA
             </h3>
 
+
             <a href="#">
                 Preguntas frecuentes
             </a>
+
 
             <a href="#">
                 Servicio de envío
             </a>
 
+
             <a href="#">
                 Términos de promociones
             </a>
+
 
         </div>
 
 
 
-        <!-- FACTURACIÓN -->
+        <!-- =============================================
+             FACTURACIÓN
+        ============================================== -->
 
         <div class="footer-column">
+
 
             <h3>
                 FACTURACIÓN ELECTRÓNICA
             </h3>
+
 
             <p>
                 Solicítala al momento de tu compra
@@ -791,13 +893,17 @@
                 con tu RFC y datos fiscales.
             </p>
 
+
         </div>
 
 
 
-        <!-- PAGOS -->
+        <!-- =============================================
+             FORMAS DE PAGO
+        ============================================== -->
 
         <div class="footer-column">
+
 
             <h3>
                 FORMAS DE PAGO
@@ -806,25 +912,32 @@
 
             <div class="payment-methods">
 
+
                 <span>
                     VISA
                 </span>
+
 
                 <span>
                     Mastercard
                 </span>
 
+
                 <span>
                     PayPal
                 </span>
+
 
                 <span>
                     Mercado Pago
                 </span>
 
+
             </div>
 
+
         </div>
+
 
     </div>
 
@@ -832,17 +945,23 @@
 
     <div class="commercial-footer-bottom">
 
+
         <p>
+
             ©
             <span id="current-year"></span>
             Maderóh. Todos los derechos reservados.
+
         </p>
+
 
         <p>
             CDMX · Hecho con madera y metal.
         </p>
 
+
     </div>
+
 
 </footer>
 
@@ -850,11 +969,6 @@
 
 <!-- =====================================================
      JAVASCRIPT
-
-     El orden importa:
-     1. Analytics
-     2. Funciones generales
-     3. Catálogo dinámico
 ===================================================== -->
 
 <script src="js/analytics.js"></script>

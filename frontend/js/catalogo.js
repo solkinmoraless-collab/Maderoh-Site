@@ -15,6 +15,10 @@ const PRODUCTS_ENDPOINT =
     "/.netlify/functions/products";
 
 
+const PRODUCT_IMAGES_ENDPOINT =
+    "/.netlify/functions/product-images";
+
+
 /* =========================================================
    ESTADO
 ========================================================= */
@@ -94,16 +98,20 @@ async function cargarProductos() {
             await fetch(
                 PRODUCTS_ENDPOINT,
                 {
+
                     method:
                         "GET",
 
                     headers: {
+
                         "Accept":
                             "application/json"
+
                     },
 
                     cache:
                         "no-store"
+
                 }
             );
 
@@ -297,13 +305,9 @@ function renderizarProductoDestacado() {
     }
 
 
-    seccion.hidden = false;
+    seccion.hidden =
+        false;
 
-
-    /*
-     * Primero buscamos un producto
-     * marcado como destacado.
-     */
 
     let producto =
         productosActuales.find(
@@ -317,11 +321,6 @@ function renderizarProductoDestacado() {
         );
 
 
-    /*
-     * Si no existe ninguno destacado,
-     * usamos el primer producto activo.
-     */
-
     if (!producto) {
 
         producto =
@@ -329,10 +328,6 @@ function renderizarProductoDestacado() {
 
     }
 
-
-    /* =====================================================
-       INFORMACIÓN
-    ===================================================== */
 
     cambiarTexto(
         "featured-product-category",
@@ -377,17 +372,15 @@ function renderizarProductoDestacado() {
     );
 
 
-    /* =====================================================
-       IMAGEN
-    ===================================================== */
-
     const contenedorImagen =
         document.getElementById(
             "featured-product-image"
         );
 
 
-    if (contenedorImagen) {
+    if (
+        contenedorImagen
+    ) {
 
         const imagen =
             normalizarURLImagen(
@@ -400,7 +393,9 @@ function renderizarProductoDestacado() {
             contenedorImagen.innerHTML = `
 
                 <img
-                    src="${escaparAtributo(imagen)}"
+                    src="${escaparAtributo(
+                        imagen
+                    )}"
                     alt="${escaparHTML(
                         producto.nombre ||
                         "Producto Maderóh"
@@ -422,10 +417,12 @@ function renderizarProductoDestacado() {
             contenedorImagen.innerHTML = `
 
                 <span id="featured-image-name">
+
                     ${escaparHTML(
                         producto.nombre ||
                         "MADERÓH"
                     )}
+
                 </span>
 
             `;
@@ -440,22 +437,15 @@ function renderizarProductoDestacado() {
     }
 
 
-    /* =====================================================
-       WHATSAPP
-    ===================================================== */
-
     const botonWhatsApp =
         document.getElementById(
             "featured-product-whatsapp"
         );
 
 
-    if (botonWhatsApp) {
-
-        /*
-         * Clonamos el botón para evitar
-         * listeners duplicados.
-         */
+    if (
+        botonWhatsApp
+    ) {
 
         const nuevoBoton =
             botonWhatsApp.cloneNode(
@@ -498,7 +488,8 @@ function ocultarProductoDestacado() {
 
     if (seccion) {
 
-        seccion.hidden = true;
+        seccion.hidden =
+            true;
 
     }
 
@@ -528,7 +519,8 @@ function renderizarCatalogo() {
 
                 const categoria =
                     String(
-                        producto.categoria || ""
+                        producto.categoria ||
+                        ""
                     );
 
 
@@ -546,19 +538,22 @@ function renderizarCatalogo() {
                     normalizarTexto(
 
                         String(
-                            producto.nombre || ""
+                            producto.nombre ||
+                            ""
                         )
 
                         + " " +
 
                         String(
-                            producto.categoriaNombre || ""
+                            producto.categoriaNombre ||
+                            ""
                         )
 
                         + " " +
 
                         String(
-                            producto.descripcion || ""
+                            producto.descripcion ||
+                            ""
                         )
 
                     );
@@ -590,16 +585,23 @@ function renderizarCatalogo() {
         productosFiltrados.length === 0
     ) {
 
-        grid.innerHTML = "";
+        grid.innerHTML =
+            "";
 
-        mostrarSinResultados(true);
+
+        mostrarSinResultados(
+            true
+        );
+
 
         return;
 
     }
 
 
-    mostrarSinResultados(false);
+    mostrarSinResultados(
+        false
+    );
 
 
     grid.innerHTML =
@@ -635,11 +637,13 @@ function crearTarjeta(
 ) {
 
     const numero =
-        String(indice + 1)
-            .padStart(
-                2,
-                "0"
-            );
+        String(
+            indice + 1
+        )
+        .padStart(
+            2,
+            "0"
+        );
 
 
     const precio =
@@ -702,7 +706,9 @@ function crearTarjeta(
 
         `
         <img
-            src="${escaparAtributo(imagen)}"
+            src="${escaparAtributo(
+                imagen
+            )}"
             alt="${nombre}"
             class="catalog-product-photo"
             loading="lazy"
@@ -717,9 +723,11 @@ function crearTarjeta(
             class="catalog-product-placeholder"
             aria-hidden="true"
         >
+
             <span>
                 MADERÓH
             </span>
+
         </div>
         `;
 
@@ -930,7 +938,7 @@ function iniciarBuscador() {
 
 
 /* =========================================================
-   CATEGORÍA DESDE URL
+   FILTRO DESDE URL
 ========================================================= */
 
 function aplicarFiltroURL() {
@@ -954,7 +962,9 @@ function aplicarFiltroURL() {
 
     const boton =
         document.querySelector(
-            `.catalog-filters [data-filter="${CSS.escape(categoria)}"]`
+            `.catalog-filters [data-filter="${CSS.escape(
+                categoria
+            )}"]`
         );
 
 
@@ -1065,7 +1075,9 @@ function iniciarBotonesProductos() {
    BUSCAR PRODUCTO
 ========================================================= */
 
-function buscarProducto(id) {
+function buscarProducto(
+    id
+) {
 
     return productosActuales.find(
         function (producto) {
@@ -1074,7 +1086,9 @@ function buscarProducto(id) {
                 String(
                     producto.id
                 ) ===
-                String(id)
+                String(
+                    id
+                )
             );
 
         }
@@ -1084,7 +1098,7 @@ function buscarProducto(id) {
 
 
 /* =========================================================
-   MODAL
+   INICIAR MODAL
 ========================================================= */
 
 function iniciarModal() {
@@ -1172,7 +1186,9 @@ function iniciarModal() {
    ABRIR MODAL
 ========================================================= */
 
-function abrirModal(producto) {
+async function abrirModal(
+    producto
+) {
 
     const modal =
         document.getElementById(
@@ -1230,6 +1246,9 @@ function abrirModal(producto) {
     );
 
 
+    limpiarMiniaturasModal();
+
+
     modal.classList.add(
         "active"
     );
@@ -1245,11 +1264,16 @@ function abrirModal(producto) {
         "modal-open"
     );
 
+
+    await cargarGaleriaProducto(
+        producto
+    );
+
 }
 
 
 /* =========================================================
-   IMAGEN MODAL
+   IMAGEN MODAL INICIAL
 ========================================================= */
 
 function actualizarImagenModal(
@@ -1278,7 +1302,9 @@ function actualizarImagenModal(
         contenedor.innerHTML = `
 
             <img
-                src="${escaparAtributo(imagen)}"
+                src="${escaparAtributo(
+                    imagen
+                )}"
                 alt="${escaparHTML(
                     producto.nombre ||
                     "Producto Maderóh"
@@ -1307,13 +1333,504 @@ function actualizarImagenModal(
     contenedor.innerHTML = `
 
         <span id="modal-image-name">
+
             ${escaparHTML(
                 producto.nombre ||
                 "MADERÓH"
             )}
+
         </span>
 
     `;
+
+}
+
+
+/* =========================================================
+   CARGAR GALERÍA
+========================================================= */
+
+async function cargarGaleriaProducto(
+    producto
+) {
+
+    if (
+        !producto ||
+        !producto.id
+    ) {
+
+        return;
+
+    }
+
+
+    const productId =
+        String(
+            producto.id
+        );
+
+
+    try {
+
+        const respuesta =
+            await fetch(
+
+                PRODUCT_IMAGES_ENDPOINT
+                +
+                "?productId="
+                +
+                encodeURIComponent(
+                    productId
+                ),
+
+                {
+
+                    method:
+                        "GET",
+
+                    headers: {
+
+                        "Accept":
+                            "application/json"
+
+                    },
+
+                    cache:
+                        "no-store"
+
+                }
+
+            );
+
+
+        if (!respuesta.ok) {
+
+            throw new Error(
+                `HTTP ${respuesta.status}`
+            );
+
+        }
+
+
+        const resultado =
+            await respuesta.json();
+
+
+        /*
+         * Si mientras cargaba la galería
+         * el usuario abrió otro producto
+         * o cerró el modal, detenemos.
+         */
+
+        if (
+            !productoModalActual ||
+            String(
+                productoModalActual.id
+            ) !==
+            productId
+        ) {
+
+            return;
+
+        }
+
+
+        const imagenes =
+            construirGaleriaProducto(
+                producto,
+                resultado
+            );
+
+
+        if (
+            imagenes.length === 0
+        ) {
+
+            limpiarMiniaturasModal();
+
+            return;
+
+        }
+
+
+        mostrarImagenGaleria(
+            imagenes[0],
+            producto
+        );
+
+
+        renderizarMiniaturasModal(
+            imagenes,
+            producto
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Maderóh galería:",
+            error
+        );
+
+
+        /*
+         * No rompemos Vista rápida.
+         * La imagen principal ya quedó visible.
+         */
+
+        limpiarMiniaturasModal();
+
+    }
+
+}
+
+
+/* =========================================================
+   CONSTRUIR GALERÍA
+========================================================= */
+
+function construirGaleriaProducto(
+    producto,
+    resultado
+) {
+
+    const imagenes =
+        [];
+
+
+    const urlsUsadas =
+        new Set();
+
+
+    function agregarImagen(
+        url,
+        alt = ""
+    ) {
+
+        const urlNormalizada =
+            normalizarURLImagen(
+                url
+            );
+
+
+        if (
+            !urlNormalizada
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            urlsUsadas.has(
+                urlNormalizada
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        urlsUsadas.add(
+            urlNormalizada
+        );
+
+
+        imagenes.push({
+
+            url:
+                urlNormalizada,
+
+            alt:
+                alt ||
+                producto.nombre ||
+                "Producto Maderóh"
+
+        });
+
+    }
+
+
+    /*
+     * Imagen principal primero.
+     */
+
+    agregarImagen(
+
+        resultado &&
+        resultado.imagenPrincipal
+
+            ? resultado.imagenPrincipal
+
+            : producto.imagen,
+
+        producto.nombre
+
+    );
+
+
+    /*
+     * Resto de fotografías.
+     */
+
+    if (
+        resultado &&
+        Array.isArray(
+            resultado.imagenes
+        )
+    ) {
+
+        resultado.imagenes.forEach(
+            function (imagen) {
+
+                if (!imagen) {
+                    return;
+                }
+
+
+                agregarImagen(
+                    imagen.url,
+                    imagen.alt
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+     * Respaldo.
+     */
+
+    agregarImagen(
+        producto.imagen,
+        producto.nombre
+    );
+
+
+    return imagenes;
+
+}
+
+
+/* =========================================================
+   MOSTRAR IMAGEN DE GALERÍA
+========================================================= */
+
+function mostrarImagenGaleria(
+    imagen,
+    producto
+) {
+
+    const contenedor =
+        document.getElementById(
+            "modal-product-image"
+        );
+
+
+    if (
+        !contenedor ||
+        !imagen ||
+        !imagen.url
+    ) {
+
+        return;
+
+    }
+
+
+    contenedor.innerHTML = `
+
+        <img
+            src="${escaparAtributo(
+                imagen.url
+            )}"
+            alt="${escaparHTML(
+                imagen.alt ||
+                producto.nombre ||
+                "Producto Maderóh"
+            )}"
+            class="modal-product-photo"
+        >
+
+    `;
+
+
+    contenedor.classList.add(
+        "has-image"
+    );
+
+}
+
+
+/* =========================================================
+   MINIATURAS
+========================================================= */
+
+function renderizarMiniaturasModal(
+    imagenes,
+    producto
+) {
+
+    const contenedor =
+        document.getElementById(
+            "modal-gallery-thumbnails"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    if (
+        imagenes.length <= 1
+    ) {
+
+        limpiarMiniaturasModal();
+
+        return;
+
+    }
+
+
+    contenedor.innerHTML =
+        imagenes
+            .map(
+                function (
+                    imagen,
+                    indice
+                ) {
+
+                    return `
+
+                        <button
+                            type="button"
+                            class="
+                                modal-gallery-thumbnail
+                                ${
+                                    indice === 0
+                                        ? "active"
+                                        : ""
+                                }
+                            "
+                            data-gallery-index="${indice}"
+                            aria-label="Ver imagen ${indice + 1}"
+                        >
+
+                            <img
+                                src="${escaparAtributo(
+                                    imagen.url
+                                )}"
+                                alt="${escaparHTML(
+                                    imagen.alt ||
+                                    producto.nombre ||
+                                    "Producto Maderóh"
+                                )}"
+                                loading="lazy"
+                            >
+
+                        </button>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    contenedor.hidden =
+        false;
+
+
+    contenedor
+        .querySelectorAll(
+            ".modal-gallery-thumbnail"
+        )
+        .forEach(
+            function (boton) {
+
+                boton.addEventListener(
+                    "click",
+                    function () {
+
+                        const indice =
+                            Number(
+                                boton.dataset.galleryIndex
+                            );
+
+
+                        const imagen =
+                            imagenes[
+                                indice
+                            ];
+
+
+                        if (!imagen) {
+                            return;
+                        }
+
+
+                        mostrarImagenGaleria(
+                            imagen,
+                            producto
+                        );
+
+
+                        contenedor
+                            .querySelectorAll(
+                                ".modal-gallery-thumbnail"
+                            )
+                            .forEach(
+                                function (item) {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        boton.classList.add(
+                            "active"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   LIMPIAR MINIATURAS
+========================================================= */
+
+function limpiarMiniaturasModal() {
+
+    const contenedor =
+        document.getElementById(
+            "modal-gallery-thumbnails"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    contenedor.innerHTML =
+        "";
+
+
+    contenedor.hidden =
+        true;
 
 }
 
@@ -1351,6 +1868,9 @@ function cerrarModal() {
     );
 
 
+    limpiarMiniaturasModal();
+
+
     productoModalActual =
         null;
 
@@ -1379,7 +1899,9 @@ function abrirWhatsAppProducto(
 
         `Acabado: ${producto.acabado || "Consultar"}`,
 
-        `Precio mostrado: ${formatearPrecio(producto.precio)}`,
+        `Precio mostrado: ${formatearPrecio(
+            producto.precio
+        )}`,
 
         "",
 
@@ -1443,7 +1965,9 @@ function mostrarSinResultados(
    PRECIO
 ========================================================= */
 
-function formatearPrecio(precio) {
+function formatearPrecio(
+    precio
+) {
 
     if (
         precio === null ||
@@ -1457,11 +1981,15 @@ function formatearPrecio(precio) {
 
 
     const numero =
-        Number(precio);
+        Number(
+            precio
+        );
 
 
     if (
-        !Number.isFinite(numero)
+        !Number.isFinite(
+            numero
+        )
     ) {
 
         return "Cotizar";
@@ -1484,7 +2012,9 @@ function formatearPrecio(precio) {
 
         }
     )
-    .format(numero);
+    .format(
+        numero
+    );
 
 }
 
@@ -1493,7 +2023,9 @@ function formatearPrecio(precio) {
    URL DE IMAGEN
 ========================================================= */
 
-function normalizarURLImagen(url) {
+function normalizarURLImagen(
+    url
+) {
 
     if (!url) {
         return "";
@@ -1501,8 +2033,10 @@ function normalizarURLImagen(url) {
 
 
     const valor =
-        String(url)
-            .trim();
+        String(
+            url
+        )
+        .trim();
 
 
     if (
@@ -1531,10 +2065,13 @@ function normalizarURLImagen(url) {
    NORMALIZAR TEXTO
 ========================================================= */
 
-function normalizarTexto(texto) {
+function normalizarTexto(
+    texto
+) {
 
     return String(
-        texto || ""
+        texto ||
+        ""
     )
     .normalize(
         "NFD"
@@ -1552,15 +2089,19 @@ function normalizarTexto(texto) {
    SEGURIDAD HTML
 ========================================================= */
 
-function escaparHTML(valor) {
+function escaparHTML(
+    valor
+) {
 
     return String(
+
         valor === null ||
         valor === undefined
 
-        ? ""
+            ? ""
 
-        : valor
+            : valor
+
     )
     .replace(
         /&/g,
@@ -1586,7 +2127,9 @@ function escaparHTML(valor) {
 }
 
 
-function escaparAtributo(valor) {
+function escaparAtributo(
+    valor
+) {
 
     return escaparHTML(
         valor
@@ -1613,12 +2156,13 @@ function cambiarTexto(
     if (elemento) {
 
         elemento.textContent =
+
             texto === null ||
             texto === undefined
 
-            ? ""
+                ? ""
 
-            : texto;
+                : texto;
 
     }
 
