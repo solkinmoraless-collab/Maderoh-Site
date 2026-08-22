@@ -1,27 +1,40 @@
 "use strict";
 
+
 /* =========================================================
-   MADERÓH - CONEXIÓN PRIVADA A SUPABASE
+   MADERÓH
+   CONEXIÓN PRIVADA A SUPABASE
 ========================================================= */
+
 
 const {
     createClient
-} = require("@supabase/supabase-js");
+} = require(
+    "@supabase/supabase-js"
+);
 
 
 /* =========================================================
-   VARIABLES DE ENTORNO
+   VARIABLES PRIVADAS
 ========================================================= */
 
 const SUPABASE_URL =
     process.env.SUPABASE_URL;
+
 
 const SUPABASE_SECRET_KEY =
     process.env.SUPABASE_SECRET_KEY;
 
 
 /* =========================================================
-   VALIDACIÓN
+   CLIENTE
+========================================================= */
+
+let supabaseAdmin = null;
+
+
+/* =========================================================
+   VALIDAR CONFIGURACIÓN
 ========================================================= */
 
 function validarConfiguracion() {
@@ -33,6 +46,7 @@ function validarConfiguracion() {
         );
 
     }
+
 
     if (!SUPABASE_SECRET_KEY) {
 
@@ -46,25 +60,22 @@ function validarConfiguracion() {
 
 
 /* =========================================================
-   CLIENTE SUPABASE
+   CLIENTE ADMINISTRATIVO
 ========================================================= */
 
-let clienteSupabase = null;
-
-
-function obtenerSupabase() {
+function getSupabaseAdmin() {
 
     validarConfiguracion();
 
 
-    if (clienteSupabase) {
+    if (supabaseAdmin) {
 
-        return clienteSupabase;
+        return supabaseAdmin;
 
     }
 
 
-    clienteSupabase =
+    supabaseAdmin =
         createClient(
             SUPABASE_URL,
             SUPABASE_SECRET_KEY,
@@ -87,7 +98,21 @@ function obtenerSupabase() {
         );
 
 
-    return clienteSupabase;
+    return supabaseAdmin;
+
+}
+
+
+/* =========================================================
+   COMPATIBILIDAD
+
+   products.js y analytics.js actualmente utilizan
+   obtenerSupabase().
+========================================================= */
+
+function obtenerSupabase() {
+
+    return getSupabaseAdmin();
 
 }
 
@@ -97,6 +122,8 @@ function obtenerSupabase() {
 ========================================================= */
 
 module.exports = {
+
+    getSupabaseAdmin,
 
     obtenerSupabase
 

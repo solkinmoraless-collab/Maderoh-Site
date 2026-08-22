@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
+    <title>Administración | Maderóh</title>
+
+    <link
+        rel="stylesheet"
+        href="./admin.css"
+    >
+</head>
+
+<body>
+
+    <!-- =====================================================
+         LOGIN
+    ====================================================== -->
+
+    <main
+        id="loginView"
+        class="login-view"
+    >
+
+        <section class="login-card">
+
+            <div class="brand">
+                MADERÓH
+            </div>
+
+            <div class="login-heading">
+
+                <span class="eyebrow">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>
+                    Acceso privado
+                </h1>
+
+                <p>
+                    Ingresa con una cuenta autorizada para
+                    administrar Maderóh.
+                </p>
+
+            </div>
+
+            <form
+                id="loginForm"
+                class="login-form"
+                autocomplete="on"
+            >
+
+                <div class="field">
+
+                    <label for="email">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label for="password">
+                        Contraseña
+                    </label>
+
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+                <div
+                    id="loginMessage"
+                    class="message"
+                    aria-live="polite"
+                ></div>
+
+                <button
+                    id="loginButton"
+                    class="primary-button"
+                    type="submit"
+                >
+                    Ingresar
+                </button>
+
+            </form>
+
+            <p class="security-note">
+                Área exclusiva para propietarios y
+                administradores autorizados.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         PANEL ADMINISTRATIVO
+    ====================================================== -->
+
+    <main
+        id="adminView"
+        class="admin-view"
+        hidden
+    >
+
+        <header class="admin-header">
+
+            <div>
+
+                <div class="brand">
+                    MADERÓH
+                </div>
+
+                <span class="eyebrow">
+                    PANEL ADMINISTRATIVO
+                </span>
+
+            </div>
+
+            <div class="admin-user">
+
+                <div>
+
+                    <strong id="adminEmail">
+                        Administrador
+                    </strong>
+
+                    <span id="adminRole">
+                        Propietario
+                    </span>
+
+                </div>
+
+                <button
+                    id="logoutButton"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Cerrar sesión
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard">
+
+            <div class="dashboard-heading">
+
+                <span class="eyebrow">
+                    MADERÓH
+                </span>
+
+                <h1>
+                    Administración
+                </h1>
+
+                <p>
+                    Gestiona el catálogo y la información
+                    publicada en la página web.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <article class="dashboard-card">
+
+                    <span class="card-number">
+                        01
+                    </span>
+
+                    <h2>
+                        Productos
+                    </h2>
+
+                    <p>
+                        Agrega, modifica, publica o retira
+                        productos del catálogo.
+                    </p>
+
+                    <button
+                        class="card-button"
+                        type="button"
+                        data-section="products"
+                    >
+                        Administrar productos
+                    </button>
+
+                </article>
+
+
+                <article class="dashboard-card muted">
+
+                    <span class="card-number">
+                        02
+                    </span>
+
+                    <h2>
+                        Cotizaciones
+                    </h2>
+
+                    <p>
+                        Consulta las solicitudes recibidas
+                        desde la página web.
+                    </p>
+
+                    <span class="coming-soon">
+                        Próximamente
+                    </span>
+
+                </article>
+
+
+                <article class="dashboard-card muted">
+
+                    <span class="card-number">
+                        03
+                    </span>
+
+                    <h2>
+                        Analítica
+                    </h2>
+
+                    <p>
+                        Consulta actividad y comportamiento
+                        de los visitantes.
+                    </p>
+
+                    <span class="coming-soon">
+                        Próximamente
+                    </span>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="./admin.js"></script>
+
+</body>
+</html>
