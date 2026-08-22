@@ -2,162 +2,24 @@
 
 
 /* =========================================================
-   PRODUCTOS TEMPORALES
+   MADERÓH
+   CATÁLOGO PÚBLICO
 ========================================================= */
 
-const PRODUCTOS_LOCALES = [
 
-    {
-        id: 1,
-        nombre: "César XL",
-        categoria: "escritorios",
-        categoriaNombre: "Escritorio",
-        precio: 8500,
-        medidas: "Consultar medidas",
-        acabado: "Madera y metal",
-        descripcion: "Escritorio industrial de gran formato."
-    },
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
 
-    {
-        id: 2,
-        nombre: "Berenice",
-        categoria: "escritorios",
-        categoriaNombre: "Escritorio",
-        precio: 5799,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Escritorio compacto para hogar u oficina."
-    },
-
-    {
-        id: 3,
-        nombre: "Berenice XL",
-        categoria: "escritorios",
-        categoriaNombre: "Escritorio",
-        precio: 7800,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Versión de gran formato del escritorio Berenice."
-    },
-
-    {
-        id: 4,
-        nombre: "Banca Otilia",
-        categoria: "bancas",
-        categoriaNombre: "Banca",
-        precio: 3000,
-        medidas: "Aprox. 120 cm",
-        acabado: "Personalizable",
-        descripcion: "Banca industrial para hogar o negocio."
-    },
-
-    {
-        id: 5,
-        nombre: "Banca David",
-        categoria: "bancas",
-        categoriaNombre: "Banca",
-        precio: 2500,
-        medidas: "Consultar medidas",
-        acabado: "Madera natural",
-        descripcion: "Banca de madera con estructura metálica."
-    },
-
-    {
-        id: 6,
-        nombre: "Banca Grande Cafetería",
-        categoria: "negocios",
-        categoriaNombre: "Cafetería",
-        precio: 21500,
-        medidas: "Según proyecto",
-        acabado: "Personalizable",
-        descripcion: "Banca de gran formato para espacios comerciales."
-    },
-
-    {
-        id: 7,
-        nombre: "Cajonera Said",
-        categoria: "almacenamiento",
-        categoriaNombre: "Almacenamiento",
-        precio: 5500,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Cajonera funcional de estilo industrial."
-    },
-
-    {
-        id: 8,
-        nombre: "Mesa Brasil",
-        categoria: "mesas",
-        categoriaNombre: "Mesa",
-        precio: 12500,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Mesa robusta para comedor o proyecto comercial."
-    },
-
-    {
-        id: 9,
-        nombre: "Centro de TV Omar Reygadas",
-        categoria: "entretenimiento",
-        categoriaNombre: "Centro de TV",
-        precio: 16500,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Centro de TV con almacenamiento integrado."
-    },
-
-    {
-        id: 10,
-        nombre: "Centro de TV Said",
-        categoria: "entretenimiento",
-        categoriaNombre: "Centro de TV",
-        precio: 5000,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Centro de TV ligero y funcional."
-    },
-
-    {
-        id: 11,
-        nombre: "Centro de TV Santa Fe",
-        categoria: "entretenimiento",
-        categoriaNombre: "Centro de TV",
-        precio: 18500,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Centro de TV de gran formato."
-    },
-
-    {
-        id: 12,
-        nombre: "Litera Jean Paul",
-        categoria: "recamara",
-        categoriaNombre: "Recámara",
-        precio: 14500,
-        medidas: "Consultar medidas",
-        acabado: "Personalizable",
-        descripcion: "Litera industrial de alta resistencia."
-    },
-
-    {
-        id: 13,
-        nombre: "Barra Sicarú",
-        categoria: "negocios",
-        categoriaNombre: "Cafetería",
-        precio: 30000,
-        medidas: "Según proyecto",
-        acabado: "Personalizable",
-        descripcion: "Barra para cafeterías y espacios comerciales."
-    }
-
-];
+const PRODUCTS_ENDPOINT =
+    "/.netlify/functions/products";
 
 
 /* =========================================================
    ESTADO
 ========================================================= */
 
-let productosActuales = [...PRODUCTOS_LOCALES];
+let productosActuales = [];
 
 let filtroActual = "all";
 
@@ -181,10 +43,10 @@ document.addEventListener(
 
 
 /* =========================================================
-   INICIAR
+   INICIAR CATÁLOGO
 ========================================================= */
 
-function iniciarCatalogo() {
+async function iniciarCatalogo() {
 
     const grid =
         document.getElementById(
@@ -195,7 +57,7 @@ function iniciarCatalogo() {
     if (!grid) {
 
         console.error(
-            "No existe #product-grid"
+            "Maderóh: No existe #product-grid."
         );
 
         return;
@@ -211,7 +73,194 @@ function iniciarCatalogo() {
 
     aplicarFiltroURL();
 
-    renderizarCatalogo();
+
+    await cargarProductos();
+
+}
+
+
+/* =========================================================
+   CARGAR PRODUCTOS DESDE NETLIFY / SUPABASE
+========================================================= */
+
+async function cargarProductos() {
+
+    mostrarCargando();
+
+
+    try {
+
+        const respuesta =
+            await fetch(
+                PRODUCTS_ENDPOINT,
+                {
+                    method:
+                        "GET",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    },
+
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        if (!respuesta.ok) {
+
+            throw new Error(
+                `HTTP ${respuesta.status}`
+            );
+
+        }
+
+
+        const resultado =
+            await respuesta.json();
+
+
+        if (
+            !resultado ||
+            !Array.isArray(
+                resultado.productos
+            )
+        ) {
+
+            throw new Error(
+                "Respuesta de catálogo inválida."
+            );
+
+        }
+
+
+        productosActuales =
+            resultado.productos.filter(
+                function (producto) {
+
+                    return (
+                        producto &&
+                        producto.activo !== false
+                    );
+
+                }
+            );
+
+
+        renderizarCatalogo();
+
+
+    } catch (error) {
+
+        console.error(
+            "Maderóh catálogo:",
+            error
+        );
+
+
+        productosActuales = [];
+
+
+        mostrarErrorCatalogo();
+
+    }
+
+}
+
+
+/* =========================================================
+   ESTADO CARGANDO
+========================================================= */
+
+function mostrarCargando() {
+
+    const grid =
+        document.getElementById(
+            "product-grid"
+        );
+
+
+    if (!grid) {
+        return;
+    }
+
+
+    grid.innerHTML = `
+
+        <div class="catalog-loading">
+
+            <span>
+                MADERÓH
+            </span>
+
+            <p>
+                Cargando productos...
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ERROR CATÁLOGO
+========================================================= */
+
+function mostrarErrorCatalogo() {
+
+    const grid =
+        document.getElementById(
+            "product-grid"
+        );
+
+
+    if (!grid) {
+        return;
+    }
+
+
+    grid.innerHTML = `
+
+        <div class="catalog-loading">
+
+            <span>
+                MADERÓH
+            </span>
+
+            <p>
+                No fue posible cargar el catálogo.
+            </p>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="retry-products"
+            >
+                Intentar nuevamente
+            </button>
+
+        </div>
+
+    `;
+
+
+    const boton =
+        document.getElementById(
+            "retry-products"
+        );
+
+
+    if (boton) {
+
+        boton.addEventListener(
+            "click",
+            cargarProductos
+        );
+
+    }
 
 }
 
@@ -237,23 +286,41 @@ function renderizarCatalogo() {
         productosActuales.filter(
             function (producto) {
 
+                const categoria =
+                    String(
+                        producto.categoria || ""
+                    );
+
+
                 const coincideCategoria =
 
                     filtroActual === "all"
 
                     ||
 
-                    producto.categoria ===
+                    categoria ===
                     filtroActual;
 
 
                 const textoProducto =
                     normalizarTexto(
-                        producto.nombre +
-                        " " +
-                        producto.categoriaNombre +
-                        " " +
-                        producto.descripcion
+
+                        String(
+                            producto.nombre || ""
+                        )
+
+                        + " " +
+
+                        String(
+                            producto.categoriaNombre || ""
+                        )
+
+                        + " " +
+
+                        String(
+                            producto.descripcion || ""
+                        )
+
                     );
 
 
@@ -319,7 +386,7 @@ function renderizarCatalogo() {
 
 
 /* =========================================================
-   TARJETA
+   CREAR TARJETA
 ========================================================= */
 
 function crearTarjeta(
@@ -348,6 +415,75 @@ function crearTarjeta(
         ) + 1;
 
 
+    const id =
+        escaparHTML(
+            producto.id
+        );
+
+
+    const nombre =
+        escaparHTML(
+            producto.nombre ||
+            "Producto Maderóh"
+        );
+
+
+    const categoria =
+        escaparHTML(
+            producto.categoria ||
+            ""
+        );
+
+
+    const categoriaNombre =
+        escaparHTML(
+            producto.categoriaNombre ||
+            "Producto"
+        );
+
+
+    const descripcion =
+        escaparHTML(
+            producto.descripcion ||
+            ""
+        );
+
+
+    const imagen =
+        normalizarURLImagen(
+            producto.imagen
+        );
+
+
+    const contenidoImagen =
+        imagen
+
+        ?
+
+        `
+        <img
+            src="${escaparAtributo(imagen)}"
+            alt="${nombre}"
+            class="catalog-product-photo"
+            loading="lazy"
+            decoding="async"
+        >
+        `
+
+        :
+
+        `
+        <div
+            class="catalog-product-placeholder"
+            aria-hidden="true"
+        >
+            <span>
+                MADERÓH
+            </span>
+        </div>
+        `;
+
+
     return `
 
         <article
@@ -361,6 +497,9 @@ function crearTarjeta(
                 "
             >
 
+                ${contenidoImagen}
+
+
                 <span
                     class="product-number"
                 >
@@ -369,7 +508,7 @@ function crearTarjeta(
 
 
                 ${
-                    producto.categoria ===
+                    categoria ===
                     "negocios"
 
                     ?
@@ -395,7 +534,7 @@ function crearTarjeta(
                     <button
                         type="button"
                         class="quick-view-dynamic"
-                        data-id="${producto.id}"
+                        data-id="${id}"
                     >
                         Vista rápida
                     </button>
@@ -412,7 +551,7 @@ function crearTarjeta(
                 <span
                     class="product-type"
                 >
-                    ${producto.categoriaNombre}
+                    ${categoriaNombre}
                 </span>
 
 
@@ -421,7 +560,7 @@ function crearTarjeta(
                 >
 
                     <h3>
-                        ${producto.nombre}
+                        ${nombre}
                     </h3>
 
                     <span>
@@ -432,7 +571,7 @@ function crearTarjeta(
 
 
                 <p>
-                    ${producto.descripcion}
+                    ${descripcion}
                 </p>
 
 
@@ -442,16 +581,18 @@ function crearTarjeta(
                         product-text-whatsapp
                         dynamic-whatsapp
                     "
-                    data-id="${producto.id}"
+                    data-id="${id}"
                 >
+
                     ${
-                        producto.categoria ===
+                        categoria ===
                         "negocios"
 
                         ? "Cotizar proyecto →"
 
                         : "Cotizar →"
                     }
+
                 </button>
 
             </div>
@@ -573,7 +714,7 @@ function aplicarFiltroURL() {
 
     const boton =
         document.querySelector(
-            `.catalog-filters [data-filter="${categoria}"]`
+            `.catalog-filters [data-filter="${CSS.escape(categoria)}"]`
         );
 
 
@@ -690,8 +831,10 @@ function buscarProducto(id) {
         function (producto) {
 
             return (
-                producto.id ===
-                Number(id)
+                String(
+                    producto.id
+                ) ===
+                String(id)
             );
 
         }
@@ -808,25 +951,29 @@ function abrirModal(producto) {
 
     cambiarTexto(
         "modal-product-category",
-        producto.categoriaNombre
+        producto.categoriaNombre ||
+        "Producto"
     );
 
 
     cambiarTexto(
         "modal-product-name",
-        producto.nombre
+        producto.nombre ||
+        "Producto Maderóh"
     );
 
 
     cambiarTexto(
         "modal-product-description",
-        producto.descripcion
+        producto.descripcion ||
+        ""
     );
 
 
     cambiarTexto(
         "modal-product-size",
-        producto.medidas
+        producto.medidas ||
+        "Consultar"
     );
 
 
@@ -838,9 +985,8 @@ function abrirModal(producto) {
     );
 
 
-    cambiarTexto(
-        "modal-image-name",
-        producto.nombre
+    actualizarImagenModal(
+        producto
     );
 
 
@@ -858,6 +1004,68 @@ function abrirModal(producto) {
     document.body.classList.add(
         "modal-open"
     );
+
+}
+
+
+/* =========================================================
+   IMAGEN MODAL
+========================================================= */
+
+function actualizarImagenModal(
+    producto
+) {
+
+    const contenedor =
+        document.getElementById(
+            "modal-product-image"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    const imagen =
+        normalizarURLImagen(
+            producto.imagen
+        );
+
+
+    if (imagen) {
+
+        contenedor.innerHTML = `
+
+            <img
+                src="${escaparAtributo(imagen)}"
+                alt="${escaparHTML(producto.nombre || "Producto Maderóh")}"
+                class="modal-product-photo"
+            >
+
+        `;
+
+        contenedor.classList.add(
+            "has-image"
+        );
+
+        return;
+
+    }
+
+
+    contenedor.classList.remove(
+        "has-image"
+    );
+
+
+    contenedor.innerHTML = `
+
+        <span id="modal-image-name">
+            ${escaparHTML(producto.nombre || "MADERÓH")}
+        </span>
+
+    `;
 
 }
 
@@ -915,13 +1123,13 @@ function abrirWhatsAppProducto(
 
         "",
 
-        `Producto: ${producto.nombre}`,
+        `Producto: ${producto.nombre || ""}`,
 
-        `Categoría: ${producto.categoriaNombre}`,
+        `Categoría: ${producto.categoriaNombre || ""}`,
 
-        `Medidas: ${producto.medidas}`,
+        `Medidas: ${producto.medidas || "Consultar"}`,
 
-        `Acabado: ${producto.acabado}`,
+        `Acabado: ${producto.acabado || "Consultar"}`,
 
         `Precio mostrado: ${formatearPrecio(producto.precio)}`,
 
@@ -989,6 +1197,30 @@ function mostrarSinResultados(
 
 function formatearPrecio(precio) {
 
+    if (
+        precio === null ||
+        precio === undefined ||
+        precio === ""
+    ) {
+
+        return "Cotizar";
+
+    }
+
+
+    const numero =
+        Number(precio);
+
+
+    if (
+        !Number.isFinite(numero)
+    ) {
+
+        return "Cotizar";
+
+    }
+
+
     return new Intl.NumberFormat(
         "es-MX",
         {
@@ -1004,9 +1236,45 @@ function formatearPrecio(precio) {
 
         }
     )
-    .format(
-        Number(precio)
-    );
+    .format(numero);
+
+}
+
+
+/* =========================================================
+   URL DE IMAGEN
+========================================================= */
+
+function normalizarURLImagen(url) {
+
+    if (!url) {
+        return "";
+    }
+
+
+    const valor =
+        String(url)
+            .trim();
+
+
+    if (
+        valor.startsWith(
+            "https://"
+        )
+
+        ||
+
+        valor.startsWith(
+            "http://"
+        )
+    ) {
+
+        return valor;
+
+    }
+
+
+    return "";
 
 }
 
@@ -1032,6 +1300,57 @@ function normalizarTexto(texto) {
 }
 
 
+/* =========================================================
+   SEGURIDAD HTML
+========================================================= */
+
+function escaparHTML(valor) {
+
+    return String(
+        valor === null ||
+        valor === undefined
+
+        ? ""
+
+        : valor
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+function escaparAtributo(valor) {
+
+    return escaparHTML(
+        valor
+    );
+
+}
+
+
+/* =========================================================
+   CAMBIAR TEXTO
+========================================================= */
+
 function cambiarTexto(
     id,
     texto
@@ -1044,7 +1363,12 @@ function cambiarTexto(
     if (elemento) {
 
         elemento.textContent =
-            texto;
+            texto === null ||
+            texto === undefined
+
+            ? ""
+
+            : texto;
 
     }
 

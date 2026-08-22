@@ -3465,3 +3465,86 @@ span {
     }
 
 }
+/* =========================================================
+   IMÁGENES REALES DEL CATÁLOGO
+========================================================= */
+
+.catalog-product-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.catalog-product-photo {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition:
+        transform 0.5s ease,
+        filter 0.5s ease;
+}
+
+.catalog-product-card:hover
+.catalog-product-photo {
+    transform: scale(1.035);
+}
+
+.catalog-product-placeholder {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+.catalog-product-placeholder span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    opacity: 0.45;
+}
+
+.catalog-product-image
+.product-number,
+.catalog-product-image
+.business-label,
+.catalog-product-image
+.product-hover-actions {
+    z-index: 2;
+}
+
+
+/* =========================================================
+   IMAGEN REAL - MODAL
+========================================================= */
+
+.modal-product-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-product-photo {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+.modal-product-image.has-image {
+    padding: 0;
+}
