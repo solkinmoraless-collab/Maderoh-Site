@@ -42,7 +42,10 @@ function renderizarFooter() {
 
     contenedor.innerHTML = `
 
-        <footer class="commercial-footer">
+        <footer
+            class="commercial-footer"
+            aria-label="Pie de página de Maderóh"
+        >
 
 
             <div class="commercial-footer-main">
@@ -88,22 +91,33 @@ function renderizarFooter() {
                     </h3>
 
 
-                    <a href="index.html">
+                    <a
+                        href="index.html"
+                        data-footer-page="index.html"
+                    >
                         Inicio
                     </a>
 
 
-                    <a href="productos.html">
+                    <a
+                        href="productos.html"
+                        data-footer-page="productos.html"
+                    >
                         Productos
                     </a>
 
 
-                    <a href="personaliza.html">
+                    <a
+                        href="personaliza.html"
+                        data-footer-page="personaliza.html"
+                    >
                         Personaliza
                     </a>
 
 
-                    <a href="personaliza.html#configurador-section">
+                    <a
+                        href="personaliza.html#configurador-section"
+                    >
                         Cotizar proyecto
                     </a>
 
@@ -131,17 +145,26 @@ function renderizarFooter() {
                     </a>
 
 
-                    <a href="preguntas-frecuentes.html">
+                    <a
+                        href="preguntas-frecuentes.html"
+                        data-footer-page="preguntas-frecuentes.html"
+                    >
                         Preguntas frecuentes
                     </a>
 
 
-                    <a href="envios.html">
+                    <a
+                        href="envios.html"
+                        data-footer-page="envios.html"
+                    >
                         Envíos y entregas
                     </a>
 
 
-                    <a href="facturacion.html">
+                    <a
+                        href="facturacion.html"
+                        data-footer-page="facturacion.html"
+                    >
                         Facturación
                     </a>
 
@@ -160,12 +183,18 @@ function renderizarFooter() {
                     </h3>
 
 
-                    <a href="aviso-privacidad.html">
+                    <a
+                        href="aviso-privacidad.html"
+                        data-footer-page="aviso-privacidad.html"
+                    >
                         Aviso de privacidad
                     </a>
 
 
-                    <a href="terminos-condiciones.html">
+                    <a
+                        href="terminos-condiciones.html"
+                        data-footer-page="terminos-condiciones.html"
+                    >
                         Términos y condiciones
                     </a>
 
@@ -184,7 +213,10 @@ function renderizarFooter() {
                     </h3>
 
 
-                    <div class="payment-methods">
+                    <div
+                        class="payment-methods"
+                        aria-label="Métodos de pago"
+                    >
 
                         <span>
                             VISA
@@ -209,12 +241,79 @@ function renderizarFooter() {
 
 
                     <p class="footer-payment-note">
-                        Las condiciones de pago pueden variar
-                        según el tipo y alcance del proyecto.
+                        Las opciones y condiciones de pago
+                        pueden variar según el producto,
+                        tipo y alcance del proyecto.
                     </p>
 
                 </div>
 
+
+            </div>
+
+
+
+            <!-- =========================================
+                 INFORMACIÓN COMPLEMENTARIA
+            ========================================== -->
+
+            <div class="commercial-footer-secondary">
+
+                <div>
+
+                    <strong>
+                        PROYECTOS PERSONALIZADOS
+                    </strong>
+
+                    <p>
+                        Fabricamos mobiliario a medida para
+                        hogares, oficinas, cafeterías
+                        y espacios comerciales.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        COTIZACIONES
+                    </strong>
+
+                    <p>
+                        Puedes enviarnos las características
+                        de tu proyecto desde nuestro configurador.
+                    </p>
+
+                    <a
+                        href="personaliza.html#configurador-section"
+                        class="footer-secondary-link"
+                    >
+                        Iniciar cotización →
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        PRIVACIDAD
+                    </strong>
+
+                    <p>
+                        Consulta cómo tratamos la información
+                        proporcionada mediante nuestros formularios.
+                    </p>
+
+                    <a
+                        href="aviso-privacidad.html"
+                        class="footer-secondary-link"
+                    >
+                        Ver Aviso de Privacidad →
+                    </a>
+
+                </div>
 
             </div>
 
@@ -236,6 +335,28 @@ function renderizarFooter() {
                 </p>
 
 
+                <nav
+                    class="footer-bottom-links"
+                    aria-label="Enlaces legales"
+                >
+
+                    <a href="aviso-privacidad.html">
+                        Privacidad
+                    </a>
+
+
+                    <a href="terminos-condiciones.html">
+                        Términos
+                    </a>
+
+
+                    <a href="facturacion.html">
+                        Facturación
+                    </a>
+
+                </nav>
+
+
                 <p>
                     Diseño · Madera · Metal
                 </p>
@@ -252,6 +373,8 @@ function renderizarFooter() {
     actualizarAnoFooter();
 
     inicializarWhatsAppFooter();
+
+    marcarPaginaActualFooter();
 
 }
 
@@ -306,9 +429,12 @@ function inicializarWhatsAppFooter() {
                 "click",
                 function (evento) {
 
+                    evento.preventDefault();
+
+
                     /*
-                     * main.js ya contiene la configuración
-                     * general de WhatsApp de Maderóh.
+                     * main.js contiene la configuración
+                     * central de WhatsApp de Maderóh.
                      */
 
                     if (
@@ -316,28 +442,102 @@ function inicializarWhatsAppFooter() {
                         "function"
                     ) {
 
+                        console.error(
+                            "Maderóh: crearWhatsAppURL no está disponible."
+                        );
+
                         return;
 
                     }
-
-
-                    evento.preventDefault();
 
 
                     const mensaje =
                         "Hola, quiero recibir información sobre los productos y servicios de Maderóh.";
 
 
-                    window.open(
+                    const url =
                         crearWhatsAppURL(
                             mensaje
-                        ),
+                        );
+
+
+                    window.open(
+                        url,
                         "_blank",
                         "noopener,noreferrer"
                     );
 
                 }
             );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PÁGINA ACTUAL
+========================================================= */
+
+function marcarPaginaActualFooter() {
+
+    const ruta =
+        window.location.pathname;
+
+
+    let paginaActual =
+        ruta
+            .split("/")
+            .pop();
+
+
+    /*
+     * Cuando la ruta termina en "/",
+     * consideramos index.html como la página actual.
+     */
+
+    if (
+        !paginaActual
+    ) {
+
+        paginaActual =
+            "index.html";
+
+    }
+
+
+    const enlaces =
+        document.querySelectorAll(
+            "#site-footer [data-footer-page]"
+        );
+
+
+    enlaces.forEach(
+        function (enlace) {
+
+            const pagina =
+                enlace.getAttribute(
+                    "data-footer-page"
+                );
+
+
+            if (
+                pagina ===
+                paginaActual
+            ) {
+
+                enlace.setAttribute(
+                    "aria-current",
+                    "page"
+                );
+
+
+                enlace.classList.add(
+                    "footer-current-link"
+                );
+
+            }
 
         }
     );

@@ -5215,3 +5215,274 @@ span {
     }
 
 }
+/* =========================================================
+   MADERÓH
+   PREGUNTAS FRECUENTES
+========================================================= */
+
+.faq-intro {
+    padding:
+        70px 0
+        40px;
+}
+
+
+.faq-intro h2 {
+    max-width:
+        720px;
+
+    margin:
+        14px 0
+        20px;
+
+    font-size:
+        clamp(
+            2rem,
+            4vw,
+            3.5rem
+        );
+
+    line-height:
+        1.05;
+}
+
+
+.faq-intro p {
+    max-width:
+        720px;
+
+    margin:
+        0;
+
+    line-height:
+        1.75;
+
+    opacity:
+        0.75;
+}
+
+
+/* =========================================================
+   FAQ SECTION
+========================================================= */
+
+.faq-section {
+    padding:
+        30px 0
+        100px;
+}
+
+
+.faq-category {
+    padding:
+        55px 0;
+
+    border-top:
+        1px solid
+        var(--border);
+}
+
+
+.faq-category-heading {
+    display:
+        grid;
+
+    grid-template-columns:
+        70px
+        minmax(0, 1fr);
+
+    gap:
+        30px;
+
+    margin-bottom:
+        32px;
+}
+
+
+.faq-category-heading h2 {
+    margin:
+        10px 0
+        0;
+
+    font-size:
+        clamp(
+            1.7rem,
+            3vw,
+            2.6rem
+        );
+}
+
+
+/* =========================================================
+   ACORDEÓN
+========================================================= */
+
+.faq-list {
+    margin-left:
+        100px;
+}
+
+
+.faq-item {
+    border-bottom:
+        1px solid
+        var(--border);
+}
+
+
+.faq-item:first-child {
+    border-top:
+        1px solid
+        var(--border);
+}
+
+
+.faq-item summary {
+    position:
+        relative;
+
+    padding:
+        25px 50px
+        25px 0;
+
+    cursor:
+        pointer;
+
+    list-style:
+        none;
+
+    font-size:
+        1.08rem;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.45;
+}
+
+
+.faq-item summary::-webkit-details-marker {
+    display:
+        none;
+}
+
+
+.faq-item summary::after {
+    content:
+        "+";
+
+    position:
+        absolute;
+
+    right:
+        5px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        var(--business-accent);
+
+    font-size:
+        1.6rem;
+
+    font-weight:
+        300;
+}
+
+
+.faq-item[open] summary::after {
+    content:
+        "−";
+}
+
+
+.faq-answer {
+    max-width:
+        760px;
+
+    padding:
+        0 50px
+        28px 0;
+}
+
+
+.faq-answer p {
+    margin:
+        0 0
+        14px;
+
+    line-height:
+        1.75;
+
+    opacity:
+        0.76;
+}
+
+
+/* =========================================================
+   RESPONSIVE FAQ
+========================================================= */
+
+@media (
+    max-width:
+        700px
+) {
+
+    .faq-intro {
+        padding:
+            50px 0
+            25px;
+    }
+
+
+    .faq-section {
+        padding-bottom:
+            70px;
+    }
+
+
+    .faq-category {
+        padding:
+            40px 0;
+    }
+
+
+    .faq-category-heading {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            10px;
+
+        margin-bottom:
+            24px;
+    }
+
+
+    .faq-list {
+        margin-left:
+            0;
+    }
+
+
+    .faq-item summary {
+        padding:
+            22px 42px
+            22px 0;
+
+        font-size:
+            1rem;
+    }
+
+
+    .faq-answer {
+        padding-right:
+            15px;
+    }
+
+}
