@@ -4340,3 +4340,10 @@ span {
     }
 
 }
+.modal-gallery-arrow {
+    pointer-events: auto !important;
+}
+
+.modal-product-photo {
+    pointer-events: none;
+}

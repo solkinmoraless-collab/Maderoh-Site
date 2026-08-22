@@ -699,6 +699,7 @@
                     class="modal-gallery-arrow modal-gallery-arrow-prev"
                     id="modal-gallery-prev"
                     aria-label="Imagen anterior"
+                    onclick="event.preventDefault(); event.stopPropagation(); cambiarImagenGaleria(-1);"
                     hidden
                 >
                     ‹
@@ -714,6 +715,7 @@
                     class="modal-gallery-arrow modal-gallery-arrow-next"
                     id="modal-gallery-next"
                     aria-label="Imagen siguiente"
+                    onclick="event.preventDefault(); event.stopPropagation(); cambiarImagenGaleria(1);"
                     hidden
                 >
                     ›
