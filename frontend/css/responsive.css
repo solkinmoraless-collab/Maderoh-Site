@@ -1,0 +1,156 @@
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .configurator-section {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .configurator-info {
+        position: static;
+    }
+
+}
+
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media (max-width: 768px) {
+
+    .nav-container {
+        min-height: 64px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        position: absolute;
+
+        top: 64px;
+        left: 0;
+
+        width: 100%;
+
+        padding: 25px 4%;
+
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 20px;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+
+    .main-nav a {
+        width: 100%;
+    }
+
+    .main-nav .btn-cotizar {
+        width: auto;
+    }
+
+
+    .hero {
+        min-height: 75vh;
+    }
+
+    .hero-content {
+        padding: 60px 0;
+    }
+
+
+    .section,
+    .page-header,
+    .products-section,
+    .configurator-section {
+        padding: 60px 0;
+    }
+
+
+    .category-grid,
+    .products-grid,
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .dimensions-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .configurator-form {
+        padding: 22px;
+    }
+
+
+    .cta-section {
+        padding: 55px 5%;
+
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .site-footer {
+        grid-template-columns: 1fr;
+    }
+
+    .copyright {
+        text-align: left;
+    }
+
+
+    .whatsapp-floating {
+        right: 15px;
+        bottom: 15px;
+
+        padding: 11px 15px;
+
+        font-size: 0.85rem;
+    }
+
+}
+
+
+/* ========================================
+   CELULAR PEQUEÑO
+======================================== */
+
+@media (max-width: 480px) {
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+}

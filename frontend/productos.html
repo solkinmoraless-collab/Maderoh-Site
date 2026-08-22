@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Explora el catálogo Maderóh. Escritorios, mesas, bancas, almacenamiento, centros de TV, recámaras y mobiliario para negocios."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <title>
+        Productos | Maderóh
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/styles.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/responsive.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="nav-container">
+
+        <a
+            href="index.html"
+            class="logo"
+            aria-label="Maderóh - Inicio"
+        >
+            MADERÓH
+        </a>
+
+
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+
+        <nav
+            class="main-nav"
+            id="main-nav"
+            aria-label="Navegación principal"
+        >
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a
+                href="productos.html"
+                class="active"
+            >
+                Productos
+            </a>
+
+            <a href="personaliza.html">
+                Personaliza
+            </a>
+
+            <a
+                href="#contacto"
+                class="btn-cotizar"
+            >
+                Cotizar
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =====================================================
+     HERO CATÁLOGO
+===================================================== -->
+
+<section class="catalog-hero">
+
+    <span class="eyebrow">
+        CATÁLOGO MADERÓH
+    </span>
+
+    <h1>
+        Diseñado para
+        <br>
+        espacios reales.
+    </h1>
+
+    <p>
+        Explora nuestra colección de mobiliario para hogar,
+        oficina y espacios comerciales. Si necesitas medidas,
+        acabados o características diferentes, podemos
+        personalizar tu proyecto.
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCTO DESTACADO
+     
+     Más adelante también lo conectaremos a la base de datos.
+===================================================== -->
+
+<section class="catalog-featured">
+
+    <div class="product-placeholder-large">
+
+        <span>
+            Berenice XL
+        </span>
+
+    </div>
+
+
+    <div class="catalog-featured-content">
+
+        <span class="product-badge">
+            DESTACADO
+        </span>
+
+        <span class="product-type">
+            ESCRITORIO
+        </span>
+
+        <h2>
+            Berenice XL
+        </h2>
+
+
+        <p class="featured-description">
+            Escritorio de gran formato pensado para espacios
+            de trabajo amplios. Disponible con acabados
+            y medidas personalizables.
+        </p>
+
+
+        <div class="featured-specs">
+
+            <div>
+
+                <span>
+                    MEDIDAS
+                </span>
+
+                <strong>
+                    Personalizables
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    ACABADO
+                </span>
+
+                <strong>
+                    A elegir
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    ESTRUCTURA
+                </span>
+
+                <strong>
+                    Metal
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="featured-actions">
+
+            <button
+                class="btn btn-primary product-whatsapp"
+                type="button"
+                data-product="Berenice XL"
+                data-size="Medidas personalizables"
+                data-finish="Acabado personalizable"
+                data-track="producto_destacado_whatsapp"
+            >
+                Cotizar por WhatsApp
+            </button>
+
+
+            <a
+                href="personaliza.html"
+                class="btn btn-secondary"
+            >
+                Personalizar
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     BUSCADOR Y FILTROS
+===================================================== -->
+
+<section class="catalog-tools">
+
+    <div class="catalog-tools-header">
+
+        <div>
+
+            <span class="eyebrow">
+                COLECCIÓN
+            </span>
+
+            <h2>
+                Todos los productos
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BUSCADOR -->
+
+    <div class="catalog-search">
+
+        <label
+            for="product-search"
+            class="sr-only"
+        >
+            Buscar productos
+        </label>
+
+        <input
+            type="search"
+            id="product-search"
+            placeholder="Buscar escritorio, mesa, banca..."
+            autocomplete="off"
+            maxlength="80"
+        >
+
+    </div>
+
+
+
+    <!-- FILTROS -->
+
+    <div
+        class="catalog-filters"
+        aria-label="Filtrar productos"
+    >
+
+        <button
+            class="filter-btn active"
+            type="button"
+            data-filter="all"
+        >
+            Todos
+        </button>
+
+
+        <button
+            class="filter-btn"
+            type="button"
+            data-filter="escritorios"
+        >
+            Escritorios
+        </button>
+
+
+        <button
+            class="filter-btn"
+            type="button"
+            data-filter="mesas"
+        >
+            Mesas
+        </button>
+
+
+        <button
+            class="filter-btn"
+            type="button"
+            data-filter="bancas"
+        >
+            Bancas
+        </button>
+
+
+        <button
+            class="filter-btn"
+            type="button"
+            data-filter="almacenamiento"
+        >
+            Almacenamiento
+        </button>
+
+
+        <button
+            class="filter-btn"
+            type="button"
+            data-filter="entretenimiento"
+        >
+            Centros de TV
+        </button>
+
+
+        <button
+            class="filter-btn"
+            type="button"
+            data-filter="recamara"
+        >
+            Recámaras
+        </button>
+
+
+        <button
+            class="filter-btn"
+            type="button"
+            data-filter="negocios"
+        >
+            Negocios
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CATÁLOGO DINÁMICO
+===================================================== -->
+
+<section class="professional-products">
+
+    <!--
+    IMPORTANTE:
+
+    Ya NO escribimos los productos manualmente aquí.
+
+    catalogo.js consulta:
+
+    /.netlify/functions/products
+
+    y genera automáticamente las tarjetas.
+    -->
+
+    <div
+        class="professional-products-grid"
+        id="product-grid"
+        aria-live="polite"
+    >
+
+        <!--
+        Mensaje inicial.
+
+        catalogo.js lo sustituirá automáticamente
+        cuando reciba los productos.
+        -->
+
+        <div class="catalog-loading">
+
+            <span>
+                MADERÓH
+            </span>
+
+            <p>
+                Cargando productos...
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SIN RESULTADOS
+
+     JavaScript podrá mostrarlo cuando ningún producto
+     coincida con la búsqueda o filtros.
+===================================================== -->
+
+<section
+    id="no-products-message"
+    class="catalog-custom-cta"
+    hidden
+>
+
+    <span class="eyebrow">
+        SIN RESULTADOS
+    </span>
+
+    <h2>
+        No encontramos ese producto.
+    </h2>
+
+    <p>
+        Podemos diseñarlo especialmente para ti.
+    </p>
+
+    <a
+        href="personaliza.html"
+        class="btn btn-primary"
+    >
+        Crear proyecto personalizado
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     MADERÓH PARA NEGOCIOS
+===================================================== -->
+
+<section class="business-project-banner">
+
+    <div class="business-project-content">
+
+        <span class="eyebrow eyebrow-light">
+            MADERÓH PARA NEGOCIOS
+        </span>
+
+        <h2>
+            ¿Necesitas más
+            <br>
+            que un mueble?
+        </h2>
+
+        <p>
+            Podemos desarrollar el mobiliario completo
+            de cafeterías, restaurantes, oficinas y
+            espacios comerciales.
+        </p>
+
+
+        <a
+            href="personaliza.html"
+            class="btn btn-light"
+            data-track="productos_negocio"
+        >
+            Cotizar proyecto completo
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROYECTO PERSONALIZADO
+===================================================== -->
+
+<section class="catalog-custom-cta">
+
+    <span class="eyebrow">
+        HECHO A TU MEDIDA
+    </span>
+
+    <h2>
+        ¿No encontraste exactamente
+        lo que necesitas?
+    </h2>
+
+    <p>
+        Cuéntanos tu idea, define medidas,
+        acabados y cantidad.
+    </p>
+
+
+    <a
+        href="personaliza.html"
+        class="btn btn-primary"
+        data-track="productos_personalizar"
+    >
+        Personalizar proyecto
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACTO
+===================================================== -->
+
+<section
+    class="contact-section"
+    id="contacto"
+>
+
+    <div>
+
+        <span class="eyebrow eyebrow-light">
+            ¿TIENES DUDAS?
+        </span>
+
+        <h2>
+            Hablemos de tu proyecto.
+        </h2>
+
+        <p>
+            Escríbenos y te ayudamos a elegir
+            la mejor opción.
+        </p>
+
+    </div>
+
+
+    <a
+        href="#"
+        class="btn btn-light whatsapp-general"
+        data-track="whatsapp_productos"
+    >
+        Contactar por WhatsApp
+    </a>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     MODAL VISTA RÁPIDA
+===================================================== -->
+
+<div
+    class="product-modal"
+    id="product-modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="product-modal-backdrop"
+        id="modal-backdrop"
+    >
+    </div>
+
+
+    <div
+        class="product-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-product-name"
+    >
+
+
+        <!-- CERRAR -->
+
+        <button
+            class="modal-close"
+            id="modal-close"
+            type="button"
+            aria-label="Cerrar vista rápida"
+        >
+            ×
+        </button>
+
+
+
+        <!-- IMAGEN -->
+
+        <div
+            class="modal-product-image"
+            id="modal-product-image"
+        >
+
+            <span id="modal-image-name">
+                MADERÓH
+            </span>
+
+        </div>
+
+
+
+        <!-- INFORMACIÓN -->
+
+        <div class="modal-product-information">
+
+            <span
+                class="product-type"
+                id="modal-product-category"
+            >
+                PRODUCTO
+            </span>
+
+
+            <h2 id="modal-product-name">
+                Producto
+            </h2>
+
+
+            <p
+                class="featured-description"
+                id="modal-product-description"
+            >
+            </p>
+
+
+
+            <div class="featured-specs">
+
+                <div>
+
+                    <span>
+                        MEDIDAS
+                    </span>
+
+                    <strong id="modal-product-size">
+                        Por definir
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        PRECIO
+                    </span>
+
+                    <strong id="modal-product-price">
+                        Cotizar
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="featured-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="modal-whatsapp"
+                >
+                    Cotizar por WhatsApp
+                </button>
+
+
+                <a
+                    href="personaliza.html"
+                    class="btn btn-secondary"
+                >
+                    Personalizar
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     WHATSAPP FLOTANTE
+===================================================== -->
+
+<a
+    href="#"
+    class="whatsapp-floating whatsapp-general"
+    aria-label="Contactar Maderóh por WhatsApp"
+    data-track="whatsapp_flotante"
+>
+    WhatsApp
+</a>
+
+
+
+<!-- =====================================================
+     FOOTER COMERCIAL / LEGAL
+===================================================== -->
+
+<footer class="commercial-footer">
+
+    <div class="commercial-footer-main">
+
+
+        <!-- MARCA -->
+
+        <div class="footer-brand-column">
+
+            <strong class="footer-logo">
+                MADERÓH
+            </strong>
+
+            <p>
+                Diseño y fabricación de mobiliario
+                para hogar y negocios.
+            </p>
+
+            <span>
+                CDMX · Hecho con madera y metal.
+            </span>
+
+        </div>
+
+
+
+        <!-- POLÍTICAS -->
+
+        <div class="footer-column">
+
+            <h3>
+                POLÍTICAS DE COMPRA
+            </h3>
+
+            <a href="#">
+                Preguntas frecuentes
+            </a>
+
+            <a href="#">
+                Servicio de envío
+            </a>
+
+            <a href="#">
+                Términos de promociones
+            </a>
+
+        </div>
+
+
+
+        <!-- FACTURACIÓN -->
+
+        <div class="footer-column">
+
+            <h3>
+                FACTURACIÓN ELECTRÓNICA
+            </h3>
+
+            <p>
+                Solicítala al momento de tu compra
+                o dentro de los 7 días naturales
+                con tu RFC y datos fiscales.
+            </p>
+
+        </div>
+
+
+
+        <!-- PAGOS -->
+
+        <div class="footer-column">
+
+            <h3>
+                FORMAS DE PAGO
+            </h3>
+
+
+            <div class="payment-methods">
+
+                <span>
+                    VISA
+                </span>
+
+                <span>
+                    Mastercard
+                </span>
+
+                <span>
+                    PayPal
+                </span>
+
+                <span>
+                    Mercado Pago
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="commercial-footer-bottom">
+
+        <p>
+            ©
+            <span id="current-year"></span>
+            Maderóh. Todos los derechos reservados.
+        </p>
+
+        <p>
+            CDMX · Hecho con madera y metal.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+
+     El orden importa:
+     1. Analytics
+     2. Funciones generales
+     3. Catálogo dinámico
+===================================================== -->
+
+<script src="js/analytics.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/catalogo.js"></script>
+
+
+</body>
+
+</html>

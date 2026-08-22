@@ -1,0 +1,9 @@
+{
+  "name": "maderoh-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pagina web oficial de Maderoh",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.0"
+  }
+}
