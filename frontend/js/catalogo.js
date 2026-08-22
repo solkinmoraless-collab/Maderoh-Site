@@ -700,6 +700,16 @@ function crearTarjeta(
         );
 
 
+    /* =====================================================
+       URL PÁGINA INDIVIDUAL
+    ===================================================== */
+
+    const urlProducto =
+        `producto.html?id=${encodeURIComponent(
+            producto.id
+        )}`;
+
+
     const contenidoImagen =
         imagen
 
@@ -824,25 +834,45 @@ function crearTarjeta(
                 </p>
 
 
-                <button
-                    type="button"
-                    class="
-                        product-text-whatsapp
-                        dynamic-whatsapp
-                    "
-                    data-id="${id}"
-                >
+                <!-- =====================================
+                     ACCIONES DEL PRODUCTO
+                ====================================== -->
 
-                    ${
-                        categoria ===
-                        "negocios"
+                <div class="catalog-product-links">
 
-                        ? "Cotizar proyecto →"
 
-                        : "Cotizar →"
-                    }
+                    <a
+                        href="${escaparAtributo(
+                            urlProducto
+                        )}"
+                        class="product-detail-link"
+                    >
+                        Ver producto →
+                    </a>
 
-                </button>
+
+                    <button
+                        type="button"
+                        class="
+                            product-text-whatsapp
+                            dynamic-whatsapp
+                        "
+                        data-id="${id}"
+                    >
+
+                        ${
+                            categoria ===
+                            "negocios"
+
+                            ? "Cotizar proyecto →"
+
+                            : "Cotizar →"
+                        }
+
+                    </button>
+
+
+                </div>
 
             </div>
 

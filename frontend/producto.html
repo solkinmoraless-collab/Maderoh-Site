@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Conoce los detalles de este producto Maderóh."
+        id="product-meta-description"
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <title id="product-page-title">
+        Producto | Maderóh
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/styles.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/responsive.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="nav-container">
+
+        <a
+            href="index.html"
+            class="logo"
+            aria-label="Maderóh - Inicio"
+        >
+            MADERÓH
+        </a>
+
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+        <nav
+            class="main-nav"
+            id="main-nav"
+            aria-label="Navegación principal"
+        >
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a
+                href="productos.html"
+                class="active"
+            >
+                Productos
+            </a>
+
+            <a href="personaliza.html">
+                Personaliza
+            </a>
+
+            <a
+                href="#contacto"
+                class="btn-cotizar"
+            >
+                Cotizar
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =====================================================
+     MIGAS / REGRESAR
+===================================================== -->
+
+<section class="product-detail-navigation">
+
+    <a
+        href="productos.html"
+        class="product-back-link"
+    >
+        ← Volver a productos
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     ESTADO DE CARGA
+===================================================== -->
+
+<section
+    class="product-detail-loading"
+    id="product-detail-loading"
+>
+
+    <span class="eyebrow">
+        MADERÓH
+    </span>
+
+    <p>
+        Cargando producto...
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCTO
+===================================================== -->
+
+<section
+    class="product-detail"
+    id="product-detail"
+    hidden
+>
+
+
+    <!-- =================================================
+         GALERÍA
+    ================================================== -->
+
+    <div class="product-detail-gallery">
+
+
+        <div
+            class="product-detail-main-image"
+            id="product-detail-main-image"
+        >
+
+            <span>
+                MADERÓH
+            </span>
+
+        </div>
+
+
+        <div
+            class="product-detail-thumbnails"
+            id="product-detail-thumbnails"
+            hidden
+        >
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         INFORMACIÓN
+    ================================================== -->
+
+    <div class="product-detail-information">
+
+
+        <span
+            class="product-type"
+            id="product-detail-category"
+        >
+            PRODUCTO
+        </span>
+
+
+        <h1 id="product-detail-name">
+            Producto Maderóh
+        </h1>
+
+
+        <p
+            class="product-detail-description"
+            id="product-detail-description"
+        >
+        </p>
+
+
+
+        <!-- =============================================
+             PRECIO
+        ============================================== -->
+
+        <div class="product-detail-price">
+
+            <span>
+                PRECIO
+            </span>
+
+            <strong id="product-detail-price">
+                Cotizar
+            </strong>
+
+        </div>
+
+
+
+        <!-- =============================================
+             ESPECIFICACIONES
+        ============================================== -->
+
+        <div class="product-detail-specifications">
+
+
+            <div>
+
+                <span>
+                    MEDIDAS
+                </span>
+
+                <strong id="product-detail-measurements">
+                    Consultar
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    ANCHO
+                </span>
+
+                <strong id="product-detail-width">
+                    Consultar
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    PROFUNDIDAD
+                </span>
+
+                <strong id="product-detail-depth">
+                    Consultar
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    ALTO
+                </span>
+
+                <strong id="product-detail-height">
+                    Consultar
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    ACABADO
+                </span>
+
+                <strong id="product-detail-finish">
+                    Consultar
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =============================================
+             ACCIONES
+        ============================================== -->
+
+        <div class="product-detail-actions">
+
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="product-detail-whatsapp"
+            >
+                Cotizar por WhatsApp
+            </button>
+
+
+            <a
+                href="personaliza.html"
+                class="btn btn-secondary"
+            >
+                Personalizar
+            </a>
+
+
+        </div>
+
+
+        <p class="product-detail-note">
+
+            Las características, acabados y medidas
+            pueden personalizarse de acuerdo con
+            las necesidades del proyecto.
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ERROR
+===================================================== -->
+
+<section
+    class="catalog-custom-cta"
+    id="product-detail-error"
+    hidden
+>
+
+    <span class="eyebrow">
+        PRODUCTO NO DISPONIBLE
+    </span>
+
+    <h2>
+        No encontramos este producto.
+    </h2>
+
+    <p>
+        Puede haber sido retirado o el enlace
+        ya no está disponible.
+    </p>
+
+    <a
+        href="productos.html"
+        class="btn btn-primary"
+    >
+        Ver catálogo
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     PERSONALIZACIÓN
+===================================================== -->
+
+<section class="catalog-custom-cta">
+
+    <span class="eyebrow">
+        HECHO A TU MEDIDA
+    </span>
+
+    <h2>
+        ¿Te gusta este diseño pero
+        necesitas algo diferente?
+    </h2>
+
+    <p>
+        Podemos modificar dimensiones, acabados
+        y características para adaptarlo a tu espacio.
+    </p>
+
+    <a
+        href="personaliza.html"
+        class="btn btn-primary"
+    >
+        Personalizar proyecto
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACTO
+===================================================== -->
+
+<section
+    class="contact-section"
+    id="contacto"
+>
+
+    <div>
+
+        <span class="eyebrow eyebrow-light">
+            ¿TIENES DUDAS?
+        </span>
+
+        <h2>
+            Hablemos de tu proyecto.
+        </h2>
+
+        <p>
+            Escríbenos y te ayudamos a elegir
+            la mejor opción.
+        </p>
+
+    </div>
+
+
+    <a
+        href="#"
+        class="btn btn-light whatsapp-general"
+        data-track="whatsapp_producto"
+    >
+        Contactar por WhatsApp
+    </a>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     WHATSAPP FLOTANTE
+===================================================== -->
+
+<a
+    href="#"
+    class="whatsapp-floating whatsapp-general"
+    aria-label="Contactar Maderóh por WhatsApp"
+    data-track="whatsapp_flotante"
+>
+    WhatsApp
+</a>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="commercial-footer">
+
+
+    <div class="commercial-footer-main">
+
+
+        <div class="footer-brand-column">
+
+            <strong class="footer-logo">
+                MADERÓH
+            </strong>
+
+            <p>
+                Diseño y fabricación de mobiliario
+                para hogar y negocios.
+            </p>
+
+            <span>
+                CDMX · Hecho con madera y metal.
+            </span>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                POLÍTICAS DE COMPRA
+            </h3>
+
+            <a href="#">
+                Preguntas frecuentes
+            </a>
+
+            <a href="#">
+                Servicio de envío
+            </a>
+
+            <a href="#">
+                Términos de promociones
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                FACTURACIÓN ELECTRÓNICA
+            </h3>
+
+            <p>
+                Solicítala al momento de tu compra
+                o dentro de los 7 días naturales
+                con tu RFC y datos fiscales.
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                FORMAS DE PAGO
+            </h3>
+
+            <div class="payment-methods">
+
+                <span>
+                    VISA
+                </span>
+
+                <span>
+                    Mastercard
+                </span>
+
+                <span>
+                    PayPal
+                </span>
+
+                <span>
+                    Mercado Pago
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="commercial-footer-bottom">
+
+        <p>
+
+            ©
+            <span id="current-year"></span>
+            Maderóh. Todos los derechos reservados.
+
+        </p>
+
+        <p>
+            CDMX · Hecho con madera y metal.
+        </p>
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="js/analytics.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/producto.js"></script>
+
+
+</body>
+
+</html>
