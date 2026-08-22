@@ -5486,3 +5486,358 @@ span {
     }
 
 }
+/* =========================================================
+   MADERÓH
+   CONFIGURADOR - DATOS DEL CLIENTE Y PRIVACIDAD
+========================================================= */
+
+
+/* =========================================================
+   DATOS DEL CLIENTE
+========================================================= */
+
+.customer-data-section {
+    position: relative;
+}
+
+
+.customer-data-section .two-column-form {
+    align-items: start;
+}
+
+
+.customer-data-section input[type="text"],
+.customer-data-section input[type="tel"],
+.customer-data-section input[type="email"] {
+    width: 100%;
+}
+
+
+/* =========================================================
+   PRIVACIDAD
+========================================================= */
+
+.privacy-form-section {
+    position: relative;
+}
+
+
+.privacy-consent-option {
+    display: grid;
+
+    grid-template-columns:
+        22px
+        minmax(0, 1fr);
+
+    align-items: start;
+
+    gap: 14px;
+
+    padding:
+        20px
+        0;
+
+    cursor: pointer;
+
+    border-bottom:
+        1px solid
+        var(--border);
+}
+
+
+.privacy-consent-option:first-of-type {
+    border-top:
+        1px solid
+        var(--border);
+}
+
+
+.privacy-consent-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+
+    margin:
+        3px 0
+        0;
+
+    cursor: pointer;
+
+    accent-color:
+        var(--business-accent);
+}
+
+
+.privacy-consent-option span {
+    font-size:
+        0.92rem;
+
+    line-height:
+        1.65;
+
+    opacity:
+        0.82;
+}
+
+
+.privacy-consent-option a {
+    color:
+        var(--business-accent);
+
+    text-decoration:
+        underline;
+
+    text-underline-offset:
+        3px;
+
+    transition:
+        opacity 0.2s ease;
+}
+
+
+.privacy-consent-option a:hover {
+    opacity:
+        0.72;
+}
+
+
+.privacy-consent-optional {
+    opacity:
+        0.88;
+}
+
+
+.privacy-version-note {
+    margin:
+        18px 0
+        0;
+
+    font-size:
+        0.75rem;
+
+    line-height:
+        1.5;
+
+    opacity:
+        0.48;
+}
+
+
+/* =========================================================
+   MENSAJE DE SEGURIDAD
+========================================================= */
+
+.form-security-message {
+    margin:
+        18px 0
+        0;
+
+    font-size:
+        0.82rem;
+
+    line-height:
+        1.6;
+
+    opacity:
+        0.62;
+}
+
+
+.form-security-message a {
+    color:
+        inherit;
+
+    text-decoration:
+        underline;
+
+    text-underline-offset:
+        3px;
+}
+
+
+/* =========================================================
+   MENSAJE DE ERROR
+========================================================= */
+
+.form-error {
+    margin-top:
+        22px;
+
+    padding:
+        18px
+        20px;
+
+    border:
+        1px solid
+        rgba(
+            220,
+            95,
+            95,
+            0.55
+        );
+
+    background:
+        rgba(
+            220,
+            95,
+            95,
+            0.07
+        );
+
+    font-size:
+        0.9rem;
+
+    line-height:
+        1.6;
+}
+
+
+/* =========================================================
+   MENSAJE DE ÉXITO
+========================================================= */
+
+.form-success {
+    margin-top:
+        22px;
+
+    padding:
+        18px
+        20px;
+
+    border:
+        1px solid
+        rgba(
+            202,
+            169,
+            107,
+            0.65
+        );
+
+    background:
+        rgba(
+            202,
+            169,
+            107,
+            0.08
+        );
+
+    color:
+        var(--text);
+
+    font-size:
+        0.9rem;
+
+    line-height:
+        1.6;
+}
+
+
+/* =========================================================
+   BOTÓN DURANTE EL REGISTRO
+========================================================= */
+
+.configurator-submit:disabled {
+    cursor:
+        wait;
+
+    opacity:
+        0.58;
+
+    pointer-events:
+        none;
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD DE CAMPOS
+========================================================= */
+
+.premium-configurator-form input:focus,
+.premium-configurator-form select:focus,
+.premium-configurator-form textarea:focus {
+    outline:
+        1px solid
+        var(--business-accent);
+
+    outline-offset:
+        2px;
+}
+
+
+.privacy-consent-option input[type="checkbox"]:focus-visible {
+    outline:
+        2px solid
+        var(--business-accent);
+
+    outline-offset:
+        3px;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+@media (hover: hover) {
+
+    .privacy-consent-option:hover span {
+        opacity:
+            1;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (
+    max-width:
+        700px
+) {
+
+    .privacy-consent-option {
+        grid-template-columns:
+            20px
+            minmax(0, 1fr);
+
+        gap:
+            12px;
+
+        padding:
+            18px
+            0;
+    }
+
+
+    .privacy-consent-option input[type="checkbox"] {
+        width:
+            17px;
+
+        height:
+            17px;
+    }
+
+
+    .privacy-consent-option span {
+        font-size:
+            0.88rem;
+    }
+
+
+    .form-error,
+    .form-success {
+        padding:
+            16px;
+
+        font-size:
+            0.86rem;
+    }
+
+
+    .form-security-message {
+        font-size:
+            0.78rem;
+    }
+
+}

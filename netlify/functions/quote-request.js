@@ -38,6 +38,22 @@ const MAX_LOCATION_LENGTH =
     180;
 
 
+const MAX_PRODUCT_LENGTH =
+    160;
+
+
+/*
+ * Esta versión debe coincidir con la utilizada
+ * por frontend/js/configurador.js.
+ *
+ * Cuando publiquemos el Aviso de Privacidad
+ * definitivo cambiaremos ambos valores.
+ */
+
+const CURRENT_PRIVACY_VERSION =
+    "2026-08-preliminar";
+
+
 /* =========================================================
    HANDLER
 ========================================================= */
@@ -145,6 +161,23 @@ async function handler(event) {
         }
 
 
+        /* =================================================
+           FECHA DE CONSENTIMIENTO
+
+           Se genera en servidor.
+           No confiamos en una fecha enviada
+           desde el navegador.
+        ================================================= */
+
+        const fechaConsentimiento =
+            new Date()
+                .toISOString();
+
+
+        /* =================================================
+           SUPABASE
+        ================================================= */
+
         const supabase =
             obtenerSupabase();
 
@@ -165,6 +198,10 @@ async function handler(event) {
 
                 .insert(
                     {
+
+                        /* =================================
+                           PROYECTO
+                        ================================= */
 
                         project_type:
                             datos.tipoProyecto,
@@ -190,14 +227,39 @@ async function handler(event) {
                         quantity:
                             datos.cantidad,
 
+
+                        /* =================================
+                           NEGOCIO
+                        ================================= */
+
                         business_type:
-                            datos.tipoNegocio,
+                            datos.tipoProyecto ===
+                            "Negocio"
+
+                                ? datos.tipoNegocio
+
+                                : null,
 
                         space_size_m2:
-                            datos.tamanoEspacio,
+                            datos.tipoProyecto ===
+                            "Negocio"
+
+                                ? datos.tamanoEspacio
+
+                                : null,
+
+
+                        /* =================================
+                           COMENTARIOS
+                        ================================= */
 
                         comments:
                             datos.comentarios,
+
+
+                        /* =================================
+                           CLIENTE
+                        ================================= */
 
                         customer_name:
                             datos.nombre,
@@ -211,11 +273,37 @@ async function handler(event) {
                         customer_location:
                             datos.ubicacion,
 
+
+                        /* =================================
+                           PRIVACIDAD
+                        ================================= */
+
+                        privacy_accepted:
+                            true,
+
+                        privacy_accepted_at:
+                            fechaConsentimiento,
+
+                        privacy_version:
+                            CURRENT_PRIVACY_VERSION,
+
+                        marketing_consent:
+                            datos.marketingConsent ===
+                            true,
+
+
+                        /* =================================
+                           SISTEMA
+                        ================================= */
+
                         source:
                             "website",
 
                         status:
-                            "new"
+                            "new",
+
+                        updated_at:
+                            fechaConsentimiento
 
                     }
                 )
@@ -325,7 +413,10 @@ async function handler(event) {
                 folio,
 
                 createdAt:
-                    cotizacion.created_at
+                    cotizacion.created_at,
+
+                privacyVersion:
+                    CURRENT_PRIVACY_VERSION
 
             },
             {
@@ -342,7 +433,7 @@ async function handler(event) {
 
         console.error(
             "Maderóh quote request error:",
-            error.message
+            error
         );
 
 
@@ -354,6 +445,12 @@ async function handler(event) {
 
                 error:
                     "No fue posible registrar la cotización."
+            },
+            {
+
+                "Cache-Control":
+                    "no-store"
+
             }
         );
 
@@ -363,7 +460,7 @@ async function handler(event) {
 
 
 /* =========================================================
-   NORMALIZAR
+   NORMALIZAR SOLICITUD
 ========================================================= */
 
 function normalizarSolicitud(
@@ -371,6 +468,11 @@ function normalizarSolicitud(
 ) {
 
     return {
+
+
+        /* =================================================
+           PROYECTO
+        ================================================= */
 
         tipoProyecto:
             limpiarTexto(
@@ -381,7 +483,7 @@ function normalizarSolicitud(
         producto:
             limpiarTexto(
                 body.producto,
-                160
+                MAX_PRODUCT_LENGTH
             ),
 
         ancho:
@@ -424,6 +526,11 @@ function normalizarSolicitud(
                 500
             ),
 
+
+        /* =================================================
+           NEGOCIO
+        ================================================= */
+
         tipoNegocio:
             limpiarTexto(
                 body.tipoNegocio,
@@ -437,11 +544,21 @@ function normalizarSolicitud(
                 10000
             ),
 
+
+        /* =================================================
+           COMENTARIOS
+        ================================================= */
+
         comentarios:
             limpiarTexto(
                 body.comentarios,
                 MAX_COMMENTS_LENGTH
             ),
+
+
+        /* =================================================
+           CLIENTE
+        ================================================= */
 
         nombre:
             limpiarTexto(
@@ -465,7 +582,26 @@ function normalizarSolicitud(
             limpiarTexto(
                 body.ubicacion,
                 MAX_LOCATION_LENGTH
-            )
+            ),
+
+
+        /* =================================================
+           PRIVACIDAD
+        ================================================= */
+
+        privacyAccepted:
+            body.privacyAccepted ===
+            true,
+
+        privacyVersion:
+            limpiarTexto(
+                body.privacyVersion,
+                80
+            ),
+
+        marketingConsent:
+            body.marketingConsent ===
+            true
 
     };
 
@@ -473,12 +609,17 @@ function normalizarSolicitud(
 
 
 /* =========================================================
-   VALIDAR
+   VALIDAR SOLICITUD
 ========================================================= */
 
 function validarSolicitud(
     datos
 ) {
+
+
+    /* =====================================================
+       TIPO DE PROYECTO
+    ===================================================== */
 
     if (
         datos.tipoProyecto !== "Hogar" &&
@@ -490,6 +631,10 @@ function validarSolicitud(
     }
 
 
+    /* =====================================================
+       PRODUCTO
+    ===================================================== */
+
     if (
         !datos.producto
     ) {
@@ -498,6 +643,10 @@ function validarSolicitud(
 
     }
 
+
+    /* =====================================================
+       CANTIDAD
+    ===================================================== */
 
     if (
         !datos.cantidad ||
@@ -510,6 +659,10 @@ function validarSolicitud(
     }
 
 
+    /* =====================================================
+       NOMBRE
+    ===================================================== */
+
     if (
         !datos.nombre
     ) {
@@ -518,6 +671,10 @@ function validarSolicitud(
 
     }
 
+
+    /* =====================================================
+       TELÉFONO
+    ===================================================== */
 
     if (
         !datos.telefono
@@ -529,6 +686,21 @@ function validarSolicitud(
 
 
     if (
+        !validarTelefono(
+            datos.telefono
+        )
+    ) {
+
+        return "El teléfono proporcionado no es válido.";
+
+    }
+
+
+    /* =====================================================
+       CORREO
+    ===================================================== */
+
+    if (
         datos.correo &&
         !validarCorreo(
             datos.correo
@@ -536,6 +708,38 @@ function validarSolicitud(
     ) {
 
         return "El correo electrónico no es válido.";
+
+    }
+
+
+    /* =====================================================
+       PRIVACIDAD
+    ===================================================== */
+
+    if (
+        datos.privacyAccepted !==
+        true
+    ) {
+
+        return "Debes aceptar el Aviso de Privacidad para registrar tu solicitud.";
+
+    }
+
+
+    /*
+     * También verificamos que el navegador
+     * haya enviado la versión esperada.
+     *
+     * El servidor sigue utilizando su propia
+     * constante al guardar la evidencia.
+     */
+
+    if (
+        datos.privacyVersion !==
+        CURRENT_PRIVACY_VERSION
+    ) {
+
+        return "La versión del Aviso de Privacidad no es válida. Actualiza la página e inténtalo nuevamente.";
 
     }
 
@@ -569,7 +773,7 @@ function generarFolio(
 
 
 /* =========================================================
-   TEXTO
+   LIMPIAR TEXTO
 ========================================================= */
 
 function limpiarTexto(
@@ -609,7 +813,7 @@ function limpiarTexto(
 
 
 /* =========================================================
-   NÚMERO
+   LIMPIAR NÚMERO
 ========================================================= */
 
 function limpiarNumero(
@@ -654,7 +858,7 @@ function limpiarNumero(
 
 
 /* =========================================================
-   ENTERO
+   LIMPIAR ENTERO
 ========================================================= */
 
 function limpiarEntero(
@@ -688,7 +892,7 @@ function limpiarEntero(
 
 
 /* =========================================================
-   CORREO
+   VALIDAR CORREO
 ========================================================= */
 
 function validarCorreo(
@@ -699,6 +903,33 @@ function validarCorreo(
         .test(
             correo
         );
+
+}
+
+
+/* =========================================================
+   VALIDAR TELÉFONO
+========================================================= */
+
+function validarTelefono(
+    telefono
+) {
+
+    const numeros =
+        String(
+            telefono ||
+            ""
+        )
+        .replace(
+            /\D/g,
+            ""
+        );
+
+
+    return (
+        numeros.length >= 8 &&
+        numeros.length <= 15
+    );
 
 }
 
@@ -724,6 +955,9 @@ function responder(
 
             "X-Content-Type-Options":
                 "nosniff",
+
+            "Cache-Control":
+                "no-store",
 
             ...headersExtra
 

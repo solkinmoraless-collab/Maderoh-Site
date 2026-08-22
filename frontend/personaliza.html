@@ -301,7 +301,7 @@
                 </span>
 
                 <p>
-                    Envía todo por WhatsApp.
+                    Registra tu solicitud y continúa por WhatsApp.
                 </p>
 
             </div>
@@ -801,6 +801,180 @@
 
 
 
+        <!-- =================================================
+             DATOS DEL CLIENTE
+        ================================================== -->
+
+        <fieldset class="form-section customer-data-section">
+
+            <legend>
+                08 · Tus datos
+            </legend>
+
+
+            <p class="form-section-description">
+                Utilizaremos estos datos para identificar tu
+                solicitud y poder dar seguimiento a tu proyecto.
+            </p>
+
+
+            <div class="two-column-form">
+
+
+                <div class="form-group">
+
+                    <label for="nombre">
+                        Nombre *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        maxlength="120"
+                        autocomplete="name"
+                        placeholder="Tu nombre"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="telefono">
+                        Teléfono *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="telefono"
+                        name="telefono"
+                        maxlength="30"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        placeholder="55 1234 5678"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="correo">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        type="email"
+                        id="correo"
+                        name="correo"
+                        maxlength="180"
+                        autocomplete="email"
+                        placeholder="nombre@correo.com"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="ubicacion">
+                        Ciudad o ubicación
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ubicacion"
+                        name="ubicacion"
+                        maxlength="180"
+                        autocomplete="address-level2"
+                        placeholder="Ej. Xochimilco, CDMX"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </fieldset>
+
+
+
+        <!-- =================================================
+             PRIVACIDAD
+        ================================================== -->
+
+        <fieldset class="form-section privacy-form-section">
+
+            <legend>
+                09 · Privacidad
+            </legend>
+
+
+            <p class="form-section-description">
+                Antes de registrar tu solicitud necesitamos
+                informarte sobre el tratamiento de tus datos.
+            </p>
+
+
+            <label class="privacy-consent-option">
+
+                <input
+                    type="checkbox"
+                    id="privacy-accepted"
+                    name="privacyAccepted"
+                    required
+                >
+
+                <span>
+
+                    He leído y acepto el
+
+                    <a
+                        href="aviso-privacidad.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Aviso de Privacidad
+                    </a>
+
+                    para que Maderóh trate mis datos con la
+                    finalidad de atender y dar seguimiento
+                    a esta solicitud. *
+
+                </span>
+
+            </label>
+
+
+            <label class="privacy-consent-option privacy-consent-optional">
+
+                <input
+                    type="checkbox"
+                    id="marketing-consent"
+                    name="marketingConsent"
+                >
+
+                <span>
+                    Deseo recibir ocasionalmente información,
+                    novedades o promociones de Maderóh.
+                    (Opcional)
+                </span>
+
+            </label>
+
+
+            <p class="privacy-version-note">
+                Aviso de Privacidad:
+                versión agosto 2026.
+            </p>
+
+        </fieldset>
+
+
+
         <!-- RESUMEN -->
 
         <div class="configuration-summary">
@@ -865,14 +1039,18 @@
         <button
             type="submit"
             class="btn btn-primary configurator-submit"
+            id="configurator-submit"
         >
-            Enviar especificaciones por WhatsApp →
+            Registrar solicitud y continuar por WhatsApp →
         </button>
 
 
         <p class="form-security-message">
-            Solo se enviarán las especificaciones comerciales
-            de tu proyecto.
+            Tus datos se utilizarán para registrar y dar
+            seguimiento a esta solicitud conforme a nuestro
+            <a href="aviso-privacidad.html">
+                Aviso de Privacidad
+            </a>.
         </p>
 
 
@@ -880,6 +1058,17 @@
             class="form-error"
             id="form-error"
             role="alert"
+            aria-live="polite"
+            hidden
+        >
+        </div>
+
+
+        <div
+            class="form-success"
+            id="form-success"
+            role="status"
+            aria-live="polite"
             hidden
         >
         </div>
@@ -961,7 +1150,7 @@
 
 
 <!-- =====================================================
-     CONTACTO
+     CONTACTO DIRECTO
 ===================================================== -->
 
 <section
@@ -986,6 +1175,12 @@
     </div>
 
 
+    <!--
+        IMPORTANTE:
+        Este botón conserva WhatsApp directo.
+        NO registra una cotización en Supabase.
+    -->
+
     <a
         href="#"
         class="btn btn-light whatsapp-general"
@@ -1002,6 +1197,8 @@
 
 <!-- =====================================================
      WHATSAPP FLOTANTE
+
+     También continúa siendo WhatsApp directo.
 ===================================================== -->
 
 <a
