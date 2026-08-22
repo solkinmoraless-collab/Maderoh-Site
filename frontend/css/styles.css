@@ -3548,3 +3548,44 @@ span {
 .modal-product-image.has-image {
     padding: 0;
 }
+
+/* =========================================================
+   PRODUCTO DESTACADO - IMAGEN REAL
+========================================================= */
+
+.product-placeholder-large {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-placeholder-large.has-image {
+    padding: 0;
+}
+
+.featured-product-photo {
+    width: 100%;
+    height: 100%;
+
+    min-height: 620px;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 900px) {
+
+    .featured-product-photo {
+        min-height: 480px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .featured-product-photo {
+        min-height: 360px;
+    }
+
+}

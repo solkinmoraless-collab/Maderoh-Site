@@ -3,7 +3,7 @@
 
 /* =========================================================
    MADERÓH
-   CATÁLOGO PÚBLICO
+   CATÁLOGO PÚBLICO DINÁMICO
 ========================================================= */
 
 
@@ -80,7 +80,7 @@ async function iniciarCatalogo() {
 
 
 /* =========================================================
-   CARGAR PRODUCTOS DESDE NETLIFY / SUPABASE
+   CARGAR PRODUCTOS
 ========================================================= */
 
 async function cargarProductos() {
@@ -148,6 +148,8 @@ async function cargarProductos() {
             );
 
 
+        renderizarProductoDestacado();
+
         renderizarCatalogo();
 
 
@@ -163,6 +165,8 @@ async function cargarProductos() {
 
 
         mostrarErrorCatalogo();
+
+        ocultarProductoDestacado();
 
     }
 
@@ -266,7 +270,243 @@ function mostrarErrorCatalogo() {
 
 
 /* =========================================================
-   RENDERIZAR
+   PRODUCTO DESTACADO
+========================================================= */
+
+function renderizarProductoDestacado() {
+
+    const seccion =
+        document.getElementById(
+            "featured-product-section"
+        );
+
+
+    if (!seccion) {
+        return;
+    }
+
+
+    if (
+        productosActuales.length === 0
+    ) {
+
+        seccion.hidden = true;
+
+        return;
+
+    }
+
+
+    seccion.hidden = false;
+
+
+    /*
+     * Primero buscamos un producto
+     * marcado como destacado.
+     */
+
+    let producto =
+        productosActuales.find(
+            function (item) {
+
+                return (
+                    item.destacado === true
+                );
+
+            }
+        );
+
+
+    /*
+     * Si no existe ninguno destacado,
+     * usamos el primer producto activo.
+     */
+
+    if (!producto) {
+
+        producto =
+            productosActuales[0];
+
+    }
+
+
+    /* =====================================================
+       INFORMACIÓN
+    ===================================================== */
+
+    cambiarTexto(
+        "featured-product-category",
+        producto.categoriaNombre ||
+        "Producto"
+    );
+
+
+    cambiarTexto(
+        "featured-product-name",
+        producto.nombre ||
+        "Producto Maderóh"
+    );
+
+
+    cambiarTexto(
+        "featured-product-description",
+        producto.descripcion ||
+        ""
+    );
+
+
+    cambiarTexto(
+        "featured-product-size",
+        producto.medidas ||
+        "Consultar"
+    );
+
+
+    cambiarTexto(
+        "featured-product-finish",
+        producto.acabado ||
+        "Consultar"
+    );
+
+
+    cambiarTexto(
+        "featured-product-price",
+        formatearPrecio(
+            producto.precio
+        )
+    );
+
+
+    /* =====================================================
+       IMAGEN
+    ===================================================== */
+
+    const contenedorImagen =
+        document.getElementById(
+            "featured-product-image"
+        );
+
+
+    if (contenedorImagen) {
+
+        const imagen =
+            normalizarURLImagen(
+                producto.imagen
+            );
+
+
+        if (imagen) {
+
+            contenedorImagen.innerHTML = `
+
+                <img
+                    src="${escaparAtributo(imagen)}"
+                    alt="${escaparHTML(
+                        producto.nombre ||
+                        "Producto Maderóh"
+                    )}"
+                    class="featured-product-photo"
+                    loading="eager"
+                    decoding="async"
+                >
+
+            `;
+
+
+            contenedorImagen.classList.add(
+                "has-image"
+            );
+
+        } else {
+
+            contenedorImagen.innerHTML = `
+
+                <span id="featured-image-name">
+                    ${escaparHTML(
+                        producto.nombre ||
+                        "MADERÓH"
+                    )}
+                </span>
+
+            `;
+
+
+            contenedorImagen.classList.remove(
+                "has-image"
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       WHATSAPP
+    ===================================================== */
+
+    const botonWhatsApp =
+        document.getElementById(
+            "featured-product-whatsapp"
+        );
+
+
+    if (botonWhatsApp) {
+
+        /*
+         * Clonamos el botón para evitar
+         * listeners duplicados.
+         */
+
+        const nuevoBoton =
+            botonWhatsApp.cloneNode(
+                true
+            );
+
+
+        botonWhatsApp.replaceWith(
+            nuevoBoton
+        );
+
+
+        nuevoBoton.addEventListener(
+            "click",
+            function () {
+
+                abrirWhatsAppProducto(
+                    producto
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OCULTAR DESTACADO
+========================================================= */
+
+function ocultarProductoDestacado() {
+
+    const seccion =
+        document.getElementById(
+            "featured-product-section"
+        );
+
+
+    if (seccion) {
+
+        seccion.hidden = true;
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDERIZAR CATÁLOGO
 ========================================================= */
 
 function renderizarCatalogo() {
@@ -1039,15 +1279,20 @@ function actualizarImagenModal(
 
             <img
                 src="${escaparAtributo(imagen)}"
-                alt="${escaparHTML(producto.nombre || "Producto Maderóh")}"
+                alt="${escaparHTML(
+                    producto.nombre ||
+                    "Producto Maderóh"
+                )}"
                 class="modal-product-photo"
             >
 
         `;
 
+
         contenedor.classList.add(
             "has-image"
         );
+
 
         return;
 
@@ -1062,7 +1307,10 @@ function actualizarImagenModal(
     contenedor.innerHTML = `
 
         <span id="modal-image-name">
-            ${escaparHTML(producto.nombre || "MADERÓH")}
+            ${escaparHTML(
+                producto.nombre ||
+                "MADERÓH"
+            )}
         </span>
 
     `;
@@ -1280,7 +1528,7 @@ function normalizarURLImagen(url) {
 
 
 /* =========================================================
-   TEXTO
+   NORMALIZAR TEXTO
 ========================================================= */
 
 function normalizarTexto(texto) {
@@ -1357,7 +1605,9 @@ function cambiarTexto(
 ) {
 
     const elemento =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
 
 
     if (elemento) {

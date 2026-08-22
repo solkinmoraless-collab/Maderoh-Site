@@ -132,17 +132,21 @@
 
 
 <!-- =====================================================
-     PRODUCTO DESTACADO
-     
-     Más adelante también lo conectaremos a la base de datos.
+     PRODUCTO DESTACADO DINÁMICO
 ===================================================== -->
 
-<section class="catalog-featured">
+<section
+    class="catalog-featured"
+    id="featured-product-section"
+>
 
-    <div class="product-placeholder-large">
+    <div
+        class="product-placeholder-large"
+        id="featured-product-image"
+    >
 
-        <span>
-            Berenice XL
+        <span id="featured-image-name">
+            MADERÓH
         </span>
 
     </div>
@@ -154,21 +158,23 @@
             DESTACADO
         </span>
 
-        <span class="product-type">
-            ESCRITORIO
+        <span
+            class="product-type"
+            id="featured-product-category"
+        >
+            PRODUCTO
         </span>
 
-        <h2>
-            Berenice XL
+        <h2 id="featured-product-name">
+            Cargando...
         </h2>
 
-
-        <p class="featured-description">
-            Escritorio de gran formato pensado para espacios
-            de trabajo amplios. Disponible con acabados
-            y medidas personalizables.
+        <p
+            class="featured-description"
+            id="featured-product-description"
+        >
+            Cargando información del producto.
         </p>
-
 
         <div class="featured-specs">
 
@@ -178,12 +184,11 @@
                     MEDIDAS
                 </span>
 
-                <strong>
-                    Personalizables
+                <strong id="featured-product-size">
+                    Consultar
                 </strong>
 
             </div>
-
 
             <div>
 
@@ -191,41 +196,36 @@
                     ACABADO
                 </span>
 
-                <strong>
-                    A elegir
+                <strong id="featured-product-finish">
+                    Consultar
                 </strong>
 
             </div>
 
-
             <div>
 
                 <span>
-                    ESTRUCTURA
+                    PRECIO
                 </span>
 
-                <strong>
-                    Metal
+                <strong id="featured-product-price">
+                    Cotizar
                 </strong>
 
             </div>
 
         </div>
 
-
         <div class="featured-actions">
 
             <button
-                class="btn btn-primary product-whatsapp"
+                class="btn btn-primary"
                 type="button"
-                data-product="Berenice XL"
-                data-size="Medidas personalizables"
-                data-finish="Acabado personalizable"
+                id="featured-product-whatsapp"
                 data-track="producto_destacado_whatsapp"
             >
                 Cotizar por WhatsApp
             </button>
-
 
             <a
                 href="personaliza.html"
@@ -239,7 +239,6 @@
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
