@@ -31,12 +31,6 @@ let busquedaActual = "";
 
 let productoModalActual = null;
 
-
-/*
- * Estado independiente de la galería
- * del producto que se está visualizando.
- */
-
 let galeriaModalActual = [];
 
 let indiceGaleriaActual = 0;
@@ -308,7 +302,8 @@ function renderizarProductoDestacado() {
         productosActuales.length === 0
     ) {
 
-        seccion.hidden = true;
+        seccion.hidden =
+            true;
 
         return;
 
@@ -388,9 +383,7 @@ function renderizarProductoDestacado() {
         );
 
 
-    if (
-        contenedorImagen
-    ) {
+    if (contenedorImagen) {
 
         const imagen =
             normalizarURLImagen(
@@ -453,9 +446,7 @@ function renderizarProductoDestacado() {
         );
 
 
-    if (
-        botonWhatsApp
-    ) {
+    if (botonWhatsApp) {
 
         const nuevoBoton =
             botonWhatsApp.cloneNode(
@@ -970,11 +961,15 @@ function aplicarFiltroURL() {
     }
 
 
+    const selector =
+        `.catalog-filters [data-filter="${CSS.escape(
+            categoria
+        )}"]`;
+
+
     const boton =
         document.querySelector(
-            `.catalog-filters [data-filter="${CSS.escape(
-                categoria
-            )}"]`
+            selector
         );
 
 
@@ -1131,27 +1126,37 @@ function iniciarModal() {
         );
 
 
-    const anterior =
+    const contenedorImagen =
         document.getElementById(
-            "modal-gallery-prev"
+            "modal-product-image"
         );
 
 
-    const siguiente =
-        document.getElementById(
-            "modal-gallery-next"
-        );
-
+    /* =====================================================
+       BOTÓN CERRAR
+    ===================================================== */
 
     if (cerrar) {
 
         cerrar.addEventListener(
             "click",
-            cerrarModal
+            function (evento) {
+
+                evento.preventDefault();
+
+                evento.stopPropagation();
+
+                cerrarModal();
+
+            }
         );
 
     }
 
+
+    /* =====================================================
+       FONDO
+    ===================================================== */
 
     if (fondo) {
 
@@ -1162,6 +1167,10 @@ function iniciarModal() {
 
     }
 
+
+    /* =====================================================
+       WHATSAPP
+    ===================================================== */
 
     if (whatsapp) {
 
@@ -1185,15 +1194,76 @@ function iniciarModal() {
     }
 
 
-    if (anterior) {
+    /* =====================================================
+       FLECHAS DE GALERÍA
 
-        anterior.addEventListener(
+       Usamos delegación de eventos.
+       Así funcionan aunque cambie la imagen.
+    ===================================================== */
+
+    if (contenedorImagen) {
+
+        contenedorImagen.addEventListener(
             "click",
-            function () {
+            function (evento) {
 
-                cambiarImagenGaleria(
-                    -1
-                );
+                const objetivo =
+                    evento.target;
+
+
+                if (
+                    !(objetivo instanceof Element)
+                ) {
+
+                    return;
+
+                }
+
+
+                const botonAnterior =
+                    objetivo.closest(
+                        "#modal-gallery-prev"
+                    );
+
+
+                const botonSiguiente =
+                    objetivo.closest(
+                        "#modal-gallery-next"
+                    );
+
+
+                if (botonAnterior) {
+
+                    evento.preventDefault();
+
+                    evento.stopPropagation();
+
+
+                    cambiarImagenGaleria(
+                        -1
+                    );
+
+
+                    return;
+
+                }
+
+
+                if (botonSiguiente) {
+
+                    evento.preventDefault();
+
+                    evento.stopPropagation();
+
+
+                    cambiarImagenGaleria(
+                        1
+                    );
+
+
+                    return;
+
+                }
 
             }
         );
@@ -1201,21 +1271,9 @@ function iniciarModal() {
     }
 
 
-    if (siguiente) {
-
-        siguiente.addEventListener(
-            "click",
-            function () {
-
-                cambiarImagenGaleria(
-                    1
-                );
-
-            }
-        );
-
-    }
-
+    /* =====================================================
+       TECLADO
+    ===================================================== */
 
     document.addEventListener(
         "keydown",
@@ -1244,6 +1302,8 @@ function iniciarModal() {
                 "Escape"
             ) {
 
+                evento.preventDefault();
+
                 cerrarModal();
 
                 return;
@@ -1256,9 +1316,13 @@ function iniciarModal() {
                 "ArrowLeft"
             ) {
 
+                evento.preventDefault();
+
+
                 cambiarImagenGaleria(
                     -1
                 );
+
 
                 return;
 
@@ -1269,6 +1333,9 @@ function iniciarModal() {
                 evento.key ===
                 "ArrowRight"
             ) {
+
+                evento.preventDefault();
+
 
                 cambiarImagenGaleria(
                     1
@@ -1375,9 +1442,7 @@ async function abrirModal(
 /* =========================================================
    LIMPIAR CONTENIDO VISUAL DEL MODAL
 
-   IMPORTANTE:
-   No usamos innerHTML sobre todo el contenedor porque
-   ahí viven también las flechas y el contador.
+   No eliminamos contador ni flechas.
 ========================================================= */
 
 function limpiarContenidoImagenModal() {
@@ -1585,9 +1650,8 @@ async function cargarGaleriaProducto(
 
 
         /*
-         * El usuario pudo cerrar la ventana
-         * o abrir otro producto mientras
-         * cargábamos la galería.
+         * Evita que una respuesta tardía
+         * modifique otro producto.
          */
 
         if (
@@ -1656,13 +1720,8 @@ async function cargarGaleriaProducto(
         );
 
 
-        /*
-         * Si falla la consulta de las imágenes
-         * adicionales, mantenemos la imagen
-         * principal del producto.
-         */
-
         limpiarMiniaturasModal();
+
 
         actualizarImagenModal(
             producto
@@ -1701,12 +1760,8 @@ function construirGaleriaProducto(
             );
 
 
-        if (
-            !urlNormalizada
-        ) {
-
+        if (!urlNormalizada) {
             return;
-
         }
 
 
@@ -1741,9 +1796,7 @@ function construirGaleriaProducto(
     }
 
 
-    /*
-     * Imagen principal siempre primero.
-     */
+    /* Imagen principal primero */
 
     agregarImagen(
 
@@ -1759,9 +1812,7 @@ function construirGaleriaProducto(
     );
 
 
-    /*
-     * Fotografías adicionales.
-     */
+    /* Fotografías adicionales */
 
     if (
         resultado &&
@@ -1789,10 +1840,7 @@ function construirGaleriaProducto(
     }
 
 
-    /*
-     * Respaldo por si la imagen principal
-     * no estaba incluida en product_images.
-     */
+    /* Respaldo */
 
     agregarImagen(
         producto.imagen,
@@ -1886,10 +1934,8 @@ function renderizarMiniaturasModal(
         Array.isArray(
             imagenes
         )
-
-        ? imagenes
-
-        : [];
+            ? imagenes
+            : [];
 
 
     indiceGaleriaActual =
@@ -1904,11 +1950,6 @@ function renderizarMiniaturasModal(
 
     }
 
-
-    /*
-     * Si existe una sola fotografía,
-     * no necesitamos las miniaturas.
-     */
 
     if (
         galeriaModalActual.length <= 1
@@ -2092,11 +2133,6 @@ function cambiarImagenGaleria(
         direccion;
 
 
-    /*
-     * Si estamos en la primera foto
-     * y retrocedemos, vamos a la última.
-     */
-
     if (
         nuevoIndice < 0
     ) {
@@ -2107,11 +2143,6 @@ function cambiarImagenGaleria(
 
     }
 
-
-    /*
-     * Si estamos en la última foto
-     * y avanzamos, regresamos a la primera.
-     */
 
     if (
         nuevoIndice >=
@@ -2160,22 +2191,18 @@ function actualizarMiniaturaActiva() {
             indice
         ) {
 
+            const activa =
+                indice ===
+                indiceGaleriaActual;
+
+
             boton.classList.toggle(
                 "active",
-                indice ===
-                indiceGaleriaActual
+                activa
             );
 
 
-            /*
-             * Mantener visible la miniatura
-             * seleccionada cuando existen muchas.
-             */
-
-            if (
-                indice ===
-                indiceGaleriaActual
-            ) {
+            if (activa) {
 
                 boton.scrollIntoView({
 
@@ -2225,11 +2252,6 @@ function actualizarControlesGaleria() {
     const cantidad =
         galeriaModalActual.length;
 
-
-    /*
-     * Una sola fotografía:
-     * ocultamos flechas y contador.
-     */
 
     if (
         cantidad <= 1
@@ -2622,6 +2644,10 @@ function escaparHTML(
 
 }
 
+
+/* =========================================================
+   ESCAPAR ATRIBUTO
+========================================================= */
 
 function escaparAtributo(
     valor
