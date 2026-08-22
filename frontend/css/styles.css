@@ -4019,3 +4019,324 @@ span {
     }
 
 }
+/* =========================================================
+   CONTROLES PROFESIONALES DE GALERÍA
+========================================================= */
+
+.modal-gallery-counter {
+
+    position:
+        absolute;
+
+    top:
+        18px;
+
+    left:
+        18px;
+
+    z-index:
+        10;
+
+    padding:
+        7px
+        11px;
+
+    border-radius:
+        30px;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.68
+        );
+
+    color:
+        var(--white);
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.08em;
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+}
+
+
+/* =========================================================
+   FLECHAS
+========================================================= */
+
+.modal-gallery-arrow {
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    z-index:
+        10;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    transform:
+        translateY(-50%);
+
+    padding:
+        0;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.58
+        );
+
+    color:
+        var(--white);
+
+    font-size:
+        2rem;
+
+    font-weight:
+        400;
+
+    line-height:
+        1;
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    transition:
+        background
+        0.2s ease,
+        color
+        0.2s ease,
+        border-color
+        0.2s ease;
+}
+
+
+.modal-gallery-arrow:hover {
+
+    background:
+        var(--business-accent);
+
+    color:
+        var(--black);
+
+    border-color:
+        var(--business-accent);
+}
+
+
+.modal-gallery-arrow:focus-visible {
+
+    outline:
+        2px solid
+        var(--business-accent);
+
+    outline-offset:
+        3px;
+}
+
+
+/* =========================================================
+   POSICIÓN FLECHAS
+========================================================= */
+
+.modal-gallery-arrow-prev {
+
+    left:
+        18px;
+}
+
+
+.modal-gallery-arrow-next {
+
+    right:
+        18px;
+}
+
+
+/* =========================================================
+   ELEMENTOS OCULTOS
+========================================================= */
+
+.modal-gallery-arrow[hidden],
+.modal-gallery-counter[hidden] {
+
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   MINIATURA ACTIVA
+========================================================= */
+
+.modal-gallery-thumbnail.active {
+
+    opacity:
+        1;
+
+    border-color:
+        var(--business-accent);
+
+    box-shadow:
+        0 0 0 1px
+        var(--business-accent);
+}
+
+
+/* =========================================================
+   TRANSICIÓN DE IMAGEN
+========================================================= */
+
+.modal-gallery
+.modal-product-photo {
+
+    animation:
+        maderoh-gallery-image-in
+        0.22s ease;
+}
+
+
+@keyframes maderoh-gallery-image-in {
+
+    from {
+
+        opacity:
+            0.72;
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE CONTROLES GALERÍA
+========================================================= */
+
+@media (
+    max-width:
+        600px
+) {
+
+    .modal-gallery-arrow {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        font-size:
+            1.6rem;
+    }
+
+
+    .modal-gallery-arrow-prev {
+
+        left:
+            10px;
+    }
+
+
+    .modal-gallery-arrow-next {
+
+        right:
+            10px;
+    }
+
+
+    .modal-gallery-counter {
+
+        top:
+            10px;
+
+        left:
+            10px;
+
+        padding:
+            6px
+            9px;
+
+        font-size:
+            0.68rem;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+========================================================= */
+
+@media (
+    prefers-reduced-motion:
+        reduce
+) {
+
+    .modal-gallery
+    .modal-product-photo {
+
+        animation:
+            none;
+    }
+
+
+    .modal-gallery-arrow,
+    .modal-gallery-thumbnail {
+
+        transition:
+            none;
+    }
+
+}

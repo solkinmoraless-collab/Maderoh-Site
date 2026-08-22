@@ -32,6 +32,16 @@ let busquedaActual = "";
 let productoModalActual = null;
 
 
+/*
+ * Estado independiente de la galería
+ * del producto que se está visualizando.
+ */
+
+let galeriaModalActual = [];
+
+let indiceGaleriaActual = 0;
+
+
 /* =========================================================
    INICIO
 ========================================================= */
@@ -1121,6 +1131,18 @@ function iniciarModal() {
         );
 
 
+    const anterior =
+        document.getElementById(
+            "modal-gallery-prev"
+        );
+
+
+    const siguiente =
+        document.getElementById(
+            "modal-gallery-next"
+        );
+
+
     if (cerrar) {
 
         cerrar.addEventListener(
@@ -1163,9 +1185,59 @@ function iniciarModal() {
     }
 
 
+    if (anterior) {
+
+        anterior.addEventListener(
+            "click",
+            function () {
+
+                cambiarImagenGaleria(
+                    -1
+                );
+
+            }
+        );
+
+    }
+
+
+    if (siguiente) {
+
+        siguiente.addEventListener(
+            "click",
+            function () {
+
+                cambiarImagenGaleria(
+                    1
+                );
+
+            }
+        );
+
+    }
+
+
     document.addEventListener(
         "keydown",
         function (evento) {
+
+            const modal =
+                document.getElementById(
+                    "product-modal"
+                );
+
+
+            if (
+                !modal ||
+                !modal.classList.contains(
+                    "active"
+                )
+            ) {
+
+                return;
+
+            }
+
 
             if (
                 evento.key ===
@@ -1173,6 +1245,34 @@ function iniciarModal() {
             ) {
 
                 cerrarModal();
+
+                return;
+
+            }
+
+
+            if (
+                evento.key ===
+                "ArrowLeft"
+            ) {
+
+                cambiarImagenGaleria(
+                    -1
+                );
+
+                return;
+
+            }
+
+
+            if (
+                evento.key ===
+                "ArrowRight"
+            ) {
+
+                cambiarImagenGaleria(
+                    1
+                );
 
             }
 
@@ -1241,12 +1341,12 @@ async function abrirModal(
     );
 
 
+    limpiarMiniaturasModal();
+
+
     actualizarImagenModal(
         producto
     );
-
-
-    limpiarMiniaturasModal();
 
 
     modal.classList.add(
@@ -1273,6 +1373,55 @@ async function abrirModal(
 
 
 /* =========================================================
+   LIMPIAR CONTENIDO VISUAL DEL MODAL
+
+   IMPORTANTE:
+   No usamos innerHTML sobre todo el contenedor porque
+   ahí viven también las flechas y el contador.
+========================================================= */
+
+function limpiarContenidoImagenModal() {
+
+    const contenedor =
+        document.getElementById(
+            "modal-product-image"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    const imagenActual =
+        contenedor.querySelector(
+            ".modal-product-photo"
+        );
+
+
+    if (imagenActual) {
+
+        imagenActual.remove();
+
+    }
+
+
+    const nombreActual =
+        contenedor.querySelector(
+            "#modal-image-name"
+        );
+
+
+    if (nombreActual) {
+
+        nombreActual.remove();
+
+    }
+
+}
+
+
+/* =========================================================
    IMAGEN MODAL INICIAL
 ========================================================= */
 
@@ -1291,6 +1440,9 @@ function actualizarImagenModal(
     }
 
 
+    limpiarContenidoImagenModal();
+
+
     const imagen =
         normalizarURLImagen(
             producto.imagen
@@ -1299,20 +1451,29 @@ function actualizarImagenModal(
 
     if (imagen) {
 
-        contenedor.innerHTML = `
+        const elementoImagen =
+            document.createElement(
+                "img"
+            );
 
-            <img
-                src="${escaparAtributo(
-                    imagen
-                )}"
-                alt="${escaparHTML(
-                    producto.nombre ||
-                    "Producto Maderóh"
-                )}"
-                class="modal-product-photo"
-            >
 
-        `;
+        elementoImagen.src =
+            imagen;
+
+
+        elementoImagen.alt =
+            producto.nombre ||
+            "Producto Maderóh";
+
+
+        elementoImagen.className =
+            "modal-product-photo";
+
+
+        contenedor.insertBefore(
+            elementoImagen,
+            contenedor.firstChild
+        );
 
 
         contenedor.classList.add(
@@ -1325,23 +1486,30 @@ function actualizarImagenModal(
     }
 
 
-    contenedor.classList.remove(
-        "has-image"
+    const nombre =
+        document.createElement(
+            "span"
+        );
+
+
+    nombre.id =
+        "modal-image-name";
+
+
+    nombre.textContent =
+        producto.nombre ||
+        "MADERÓH";
+
+
+    contenedor.insertBefore(
+        nombre,
+        contenedor.firstChild
     );
 
 
-    contenedor.innerHTML = `
-
-        <span id="modal-image-name">
-
-            ${escaparHTML(
-                producto.nombre ||
-                "MADERÓH"
-            )}
-
-        </span>
-
-    `;
+    contenedor.classList.remove(
+        "has-image"
+    );
 
 }
 
@@ -1417,9 +1585,9 @@ async function cargarGaleriaProducto(
 
 
         /*
-         * Si mientras cargaba la galería
-         * el usuario abrió otro producto
-         * o cerró el modal, detenemos.
+         * El usuario pudo cerrar la ventana
+         * o abrir otro producto mientras
+         * cargábamos la galería.
          */
 
         if (
@@ -1448,21 +1616,36 @@ async function cargarGaleriaProducto(
 
             limpiarMiniaturasModal();
 
+            actualizarImagenModal(
+                producto
+            );
+
             return;
 
         }
 
 
+        galeriaModalActual =
+            imagenes;
+
+
+        indiceGaleriaActual =
+            0;
+
+
         mostrarImagenGaleria(
-            imagenes[0],
+            galeriaModalActual[0],
             producto
         );
 
 
         renderizarMiniaturasModal(
-            imagenes,
+            galeriaModalActual,
             producto
         );
+
+
+        actualizarControlesGaleria();
 
 
     } catch (error) {
@@ -1474,11 +1657,16 @@ async function cargarGaleriaProducto(
 
 
         /*
-         * No rompemos Vista rápida.
-         * La imagen principal ya quedó visible.
+         * Si falla la consulta de las imágenes
+         * adicionales, mantenemos la imagen
+         * principal del producto.
          */
 
         limpiarMiniaturasModal();
+
+        actualizarImagenModal(
+            producto
+        );
 
     }
 
@@ -1554,7 +1742,7 @@ function construirGaleriaProducto(
 
 
     /*
-     * Imagen principal primero.
+     * Imagen principal siempre primero.
      */
 
     agregarImagen(
@@ -1572,7 +1760,7 @@ function construirGaleriaProducto(
 
 
     /*
-     * Resto de fotografías.
+     * Fotografías adicionales.
      */
 
     if (
@@ -1602,7 +1790,8 @@ function construirGaleriaProducto(
 
 
     /*
-     * Respaldo.
+     * Respaldo por si la imagen principal
+     * no estaba incluida en product_images.
      */
 
     agregarImagen(
@@ -1642,21 +1831,33 @@ function mostrarImagenGaleria(
     }
 
 
-    contenedor.innerHTML = `
+    limpiarContenidoImagenModal();
 
-        <img
-            src="${escaparAtributo(
-                imagen.url
-            )}"
-            alt="${escaparHTML(
-                imagen.alt ||
-                producto.nombre ||
-                "Producto Maderóh"
-            )}"
-            class="modal-product-photo"
-        >
 
-    `;
+    const elementoImagen =
+        document.createElement(
+            "img"
+        );
+
+
+    elementoImagen.src =
+        imagen.url;
+
+
+    elementoImagen.alt =
+        imagen.alt ||
+        producto.nombre ||
+        "Producto Maderóh";
+
+
+    elementoImagen.className =
+        "modal-product-photo";
+
+
+    contenedor.insertBefore(
+        elementoImagen,
+        contenedor.firstChild
+    );
 
 
     contenedor.classList.add(
@@ -1667,7 +1868,7 @@ function mostrarImagenGaleria(
 
 
 /* =========================================================
-   MINIATURAS
+   RENDER MINIATURAS
 ========================================================= */
 
 function renderizarMiniaturasModal(
@@ -1681,16 +1882,48 @@ function renderizarMiniaturasModal(
         );
 
 
+    galeriaModalActual =
+        Array.isArray(
+            imagenes
+        )
+
+        ? imagenes
+
+        : [];
+
+
+    indiceGaleriaActual =
+        0;
+
+
     if (!contenedor) {
+
+        actualizarControlesGaleria();
+
         return;
+
     }
 
 
+    /*
+     * Si existe una sola fotografía,
+     * no necesitamos las miniaturas.
+     */
+
     if (
-        imagenes.length <= 1
+        galeriaModalActual.length <= 1
     ) {
 
-        limpiarMiniaturasModal();
+        contenedor.innerHTML =
+            "";
+
+
+        contenedor.hidden =
+            true;
+
+
+        actualizarControlesGaleria();
+
 
         return;
 
@@ -1698,7 +1931,7 @@ function renderizarMiniaturasModal(
 
 
     contenedor.innerHTML =
-        imagenes
+        galeriaModalActual
             .map(
                 function (
                     imagen,
@@ -1763,40 +1996,8 @@ function renderizarMiniaturasModal(
                             );
 
 
-                        const imagen =
-                            imagenes[
-                                indice
-                            ];
-
-
-                        if (!imagen) {
-                            return;
-                        }
-
-
-                        mostrarImagenGaleria(
-                            imagen,
-                            producto
-                        );
-
-
-                        contenedor
-                            .querySelectorAll(
-                                ".modal-gallery-thumbnail"
-                            )
-                            .forEach(
-                                function (item) {
-
-                                    item.classList.remove(
-                                        "active"
-                                    );
-
-                                }
-                            );
-
-
-                        boton.classList.add(
-                            "active"
+                        seleccionarImagenGaleria(
+                            indice
                         );
 
                     }
@@ -1804,6 +2005,291 @@ function renderizarMiniaturasModal(
 
             }
         );
+
+
+    actualizarControlesGaleria();
+
+}
+
+
+/* =========================================================
+   SELECCIONAR IMAGEN
+========================================================= */
+
+function seleccionarImagenGaleria(
+    indice
+) {
+
+    if (
+        galeriaModalActual.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        indice < 0 ||
+        indice >=
+        galeriaModalActual.length
+    ) {
+
+        return;
+
+    }
+
+
+    indiceGaleriaActual =
+        indice;
+
+
+    const imagen =
+        galeriaModalActual[
+            indiceGaleriaActual
+        ];
+
+
+    if (
+        imagen &&
+        productoModalActual
+    ) {
+
+        mostrarImagenGaleria(
+            imagen,
+            productoModalActual
+        );
+
+    }
+
+
+    actualizarMiniaturaActiva();
+
+    actualizarControlesGaleria();
+
+}
+
+
+/* =========================================================
+   IMAGEN ANTERIOR / SIGUIENTE
+========================================================= */
+
+function cambiarImagenGaleria(
+    direccion
+) {
+
+    if (
+        galeriaModalActual.length <= 1
+    ) {
+
+        return;
+
+    }
+
+
+    let nuevoIndice =
+        indiceGaleriaActual +
+        direccion;
+
+
+    /*
+     * Si estamos en la primera foto
+     * y retrocedemos, vamos a la última.
+     */
+
+    if (
+        nuevoIndice < 0
+    ) {
+
+        nuevoIndice =
+            galeriaModalActual.length -
+            1;
+
+    }
+
+
+    /*
+     * Si estamos en la última foto
+     * y avanzamos, regresamos a la primera.
+     */
+
+    if (
+        nuevoIndice >=
+        galeriaModalActual.length
+    ) {
+
+        nuevoIndice =
+            0;
+
+    }
+
+
+    seleccionarImagenGaleria(
+        nuevoIndice
+    );
+
+}
+
+
+/* =========================================================
+   MINIATURA ACTIVA
+========================================================= */
+
+function actualizarMiniaturaActiva() {
+
+    const contenedor =
+        document.getElementById(
+            "modal-gallery-thumbnails"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    const botones =
+        contenedor.querySelectorAll(
+            ".modal-gallery-thumbnail"
+        );
+
+
+    botones.forEach(
+        function (
+            boton,
+            indice
+        ) {
+
+            boton.classList.toggle(
+                "active",
+                indice ===
+                indiceGaleriaActual
+            );
+
+
+            /*
+             * Mantener visible la miniatura
+             * seleccionada cuando existen muchas.
+             */
+
+            if (
+                indice ===
+                indiceGaleriaActual
+            ) {
+
+                boton.scrollIntoView({
+
+                    behavior:
+                        "smooth",
+
+                    block:
+                        "nearest",
+
+                    inline:
+                        "nearest"
+
+                });
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CONTROLES DE GALERÍA
+========================================================= */
+
+function actualizarControlesGaleria() {
+
+    const contador =
+        document.getElementById(
+            "modal-gallery-counter"
+        );
+
+
+    const anterior =
+        document.getElementById(
+            "modal-gallery-prev"
+        );
+
+
+    const siguiente =
+        document.getElementById(
+            "modal-gallery-next"
+        );
+
+
+    const cantidad =
+        galeriaModalActual.length;
+
+
+    /*
+     * Una sola fotografía:
+     * ocultamos flechas y contador.
+     */
+
+    if (
+        cantidad <= 1
+    ) {
+
+        if (contador) {
+
+            contador.hidden =
+                true;
+
+        }
+
+
+        if (anterior) {
+
+            anterior.hidden =
+                true;
+
+        }
+
+
+        if (siguiente) {
+
+            siguiente.hidden =
+                true;
+
+        }
+
+
+        return;
+
+    }
+
+
+    if (contador) {
+
+        contador.hidden =
+            false;
+
+
+        contador.textContent =
+            `${indiceGaleriaActual + 1} / ${cantidad}`;
+
+    }
+
+
+    if (anterior) {
+
+        anterior.hidden =
+            false;
+
+    }
+
+
+    if (siguiente) {
+
+        siguiente.hidden =
+            false;
+
+    }
 
 }
 
@@ -1820,17 +2306,27 @@ function limpiarMiniaturasModal() {
         );
 
 
-    if (!contenedor) {
-        return;
+    galeriaModalActual =
+        [];
+
+
+    indiceGaleriaActual =
+        0;
+
+
+    if (contenedor) {
+
+        contenedor.innerHTML =
+            "";
+
+
+        contenedor.hidden =
+            true;
+
     }
 
 
-    contenedor.innerHTML =
-        "";
-
-
-    contenedor.hidden =
-        true;
+    actualizarControlesGaleria();
 
 }
 
