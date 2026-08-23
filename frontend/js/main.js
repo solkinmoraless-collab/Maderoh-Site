@@ -15,7 +15,7 @@ const MADEROH = {
     525512345678
     */
 
-    whatsapp: "NUMERO_MADEROH"
+    whatsapp: "525577265340"
 
 };
 
