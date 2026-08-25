@@ -212,7 +212,6 @@ async function (event) {
 /* =========================================================
    RESPUESTA
 ========================================================= */
-
 function responder(
     statusCode,
     contenido,
@@ -230,6 +229,14 @@ function responder(
 
             "X-Content-Type-Options":
                 "nosniff",
+
+            /*
+             * Las funciones son APIs.
+             * Los motores de búsqueda no deben
+             * indexar directamente sus respuestas JSON.
+             */
+            "X-Robots-Tag":
+                "noindex, nofollow",
 
             ...headersExtra
 
