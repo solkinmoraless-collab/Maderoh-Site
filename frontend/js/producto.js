@@ -19,12 +19,12 @@ const IMAGENES_ENDPOINT =
     "/.netlify/functions/product-images";
 
 
-const WHATSAPP_NUMBER =
-    "525577265340";
+const SITE_URL =
+    "https://maderoh.store";
 
 
 /* =========================================================
-   ELEMENTOS
+   ELEMENTOS DE PRODUCTO
 ========================================================= */
 
 const loadingElement =
@@ -87,6 +87,16 @@ const measurementsElement =
     );
 
 
+/*
+ * IMPORTANTE:
+ *
+ * No cambiamos la API.
+ *
+ * anchoCm       → width_cm
+ * profundidadCm → depth_cm
+ * alturaCm      → height_cm
+ */
+
 const widthElement =
     document.getElementById(
         "product-detail-width"
@@ -117,9 +127,73 @@ const whatsappButton =
     );
 
 
+/* =========================================================
+   ELEMENTOS SEO
+========================================================= */
+
 const metaDescription =
     document.getElementById(
         "product-meta-description"
+    );
+
+
+const canonicalElement =
+    document.getElementById(
+        "product-canonical"
+    );
+
+
+const ogTitleElement =
+    document.getElementById(
+        "product-og-title"
+    );
+
+
+const ogDescriptionElement =
+    document.getElementById(
+        "product-og-description"
+    );
+
+
+const ogUrlElement =
+    document.getElementById(
+        "product-og-url"
+    );
+
+
+const ogImageElement =
+    document.getElementById(
+        "product-og-image"
+    );
+
+
+const twitterCardElement =
+    document.getElementById(
+        "product-twitter-card"
+    );
+
+
+const twitterTitleElement =
+    document.getElementById(
+        "product-twitter-title"
+    );
+
+
+const twitterDescriptionElement =
+    document.getElementById(
+        "product-twitter-description"
+    );
+
+
+const twitterImageElement =
+    document.getElementById(
+        "product-twitter-image"
+    );
+
+
+const structuredDataElement =
+    document.getElementById(
+        "product-structured-data"
     );
 
 
@@ -202,7 +276,8 @@ async function iniciarPaginaProducto() {
 
 
         actualizarSEO(
-            producto
+            producto,
+            productId
         );
 
 
@@ -256,7 +331,9 @@ function obtenerProductId() {
 
 
     if (
-        !Number.isInteger(id) ||
+        !Number.isInteger(
+            id
+        ) ||
         id <= 0
     ) {
 
@@ -282,13 +359,20 @@ async function obtenerProducto(
         await fetch(
             PRODUCTOS_ENDPOINT,
             {
+
                 method:
                     "GET",
 
                 headers: {
+
                     Accept:
                         "application/json"
-                }
+
+                },
+
+                cache:
+                    "no-store"
+
             }
         );
 
@@ -310,7 +394,9 @@ async function obtenerProducto(
         Array.isArray(
             contenido.productos
         )
+
             ? contenido.productos
+
             : [];
 
 
@@ -319,7 +405,8 @@ async function obtenerProducto(
             producto =>
                 Number(
                     producto.id
-                ) === productId
+                ) ===
+                productId
         ) ||
         null
     );
@@ -385,11 +472,23 @@ function renderizarProducto(
     }
 
 
-    if (widthElement) {
+    /* =====================================================
+       DIMENSIONES
 
-        widthElement.textContent =
+       Visual:
+       Alto  → alturaCm
+       Largo → profundidadCm
+       Ancho → anchoCm
+
+       Internamente NO cambia la API.
+    ===================================================== */
+
+
+    if (heightElement) {
+
+        heightElement.textContent =
             formatearCentimetros(
-                producto.anchoCm
+                producto.alturaCm
             );
 
     }
@@ -405,11 +504,11 @@ function renderizarProducto(
     }
 
 
-    if (heightElement) {
+    if (widthElement) {
 
-        heightElement.textContent =
+        widthElement.textContent =
             formatearCentimetros(
-                producto.alturaCm
+                producto.anchoCm
             );
 
     }
@@ -432,7 +531,9 @@ function renderizarProducto(
      * ya viene desde products.js.
      */
 
-    if (producto.imagen) {
+    if (
+        producto.imagen
+    ) {
 
         mostrarImagenPrincipal(
             producto.imagen,
@@ -461,15 +562,24 @@ async function cargarGaleria(
 
         const respuesta =
             await fetch(
-                `${IMAGENES_ENDPOINT}?productId=${encodeURIComponent(productId)}`,
+                `${IMAGENES_ENDPOINT}?productId=${encodeURIComponent(
+                    productId
+                )}`,
                 {
+
                     method:
                         "GET",
 
                     headers: {
+
                         Accept:
                             "application/json"
-                    }
+
+                    },
+
+                    cache:
+                        "no-store"
+
                 }
             );
 
@@ -491,13 +601,15 @@ async function cargarGaleria(
             Array.isArray(
                 contenido.imagenes
             )
+
                 ? contenido.imagenes
+
                 : [];
 
 
-        /*
-         * Eliminamos registros sin URL.
-         */
+        /* =================================================
+           ELIMINAR REGISTROS SIN URL
+        ================================================= */
 
         imagenes =
             imagenes.filter(
@@ -509,11 +621,9 @@ async function cargarGaleria(
             );
 
 
-        /*
-         * Si main_image_url no aparece en
-         * product_images, la agregamos para
-         * evitar perder la foto principal.
-         */
+        /* =================================================
+           INCLUIR IMAGEN PRINCIPAL
+        ================================================= */
 
         if (
             producto.imagen &&
@@ -524,30 +634,34 @@ async function cargarGaleria(
             )
         ) {
 
-            imagenes.unshift({
-                id:
-                    "principal",
+            imagenes.unshift(
+                {
 
-                url:
-                    producto.imagen,
+                    id:
+                        "principal",
 
-                alt:
-                    producto.nombre ||
-                    "Producto Maderóh",
+                    url:
+                        producto.imagen,
 
-                posicion:
-                    0,
+                    alt:
+                        producto.nombre ||
+                        "Producto Maderóh",
 
-                principal:
-                    true
-            });
+                    posicion:
+                        0,
+
+                    principal:
+                        true
+
+                }
+            );
 
         }
 
 
-        /*
-         * Evitamos URLs duplicadas.
-         */
+        /* =================================================
+           ELIMINAR DUPLICADOS
+        ================================================= */
 
         const urls =
             new Set();
@@ -587,7 +701,9 @@ async function cargarGaleria(
             galeriaActual.length === 0
         ) {
 
-            if (producto.imagen) {
+            if (
+                producto.imagen
+            ) {
 
                 mostrarImagenPrincipal(
                     producto.imagen,
@@ -608,10 +724,9 @@ async function cargarGaleria(
         }
 
 
-        /*
-         * Si Supabase marca una imagen como
-         * principal, la mostramos primero.
-         */
+        /* =================================================
+           IMAGEN PRINCIPAL PRIMERO
+        ================================================= */
 
         const indicePrincipal =
             galeriaActual.findIndex(
@@ -643,6 +758,7 @@ async function cargarGaleria(
 
         renderizarGaleria();
 
+
     } catch (error) {
 
         /*
@@ -656,12 +772,18 @@ async function cargarGaleria(
         );
 
 
-        if (producto.imagen) {
+        if (
+            producto.imagen
+        ) {
 
             mostrarImagenPrincipal(
                 producto.imagen,
                 producto.nombre
             );
+
+        } else {
+
+            mostrarPlaceholder();
 
         }
 
@@ -711,7 +833,9 @@ function seleccionarImagen(
 ) {
 
     if (
-        !Number.isInteger(indice) ||
+        !Number.isInteger(
+            indice
+        ) ||
         indice < 0 ||
         indice >=
             galeriaActual.length
@@ -754,7 +878,9 @@ function mostrarImagenPrincipal(
     alt
 ) {
 
-    if (!mainImageElement) {
+    if (
+        !mainImageElement
+    ) {
 
         return;
 
@@ -805,7 +931,9 @@ function mostrarImagenPrincipal(
 
 function mostrarPlaceholder() {
 
-    if (!mainImageElement) {
+    if (
+        !mainImageElement
+    ) {
 
         return;
 
@@ -840,7 +968,9 @@ function mostrarPlaceholder() {
 
 function renderizarMiniaturas() {
 
-    if (!thumbnailsElement) {
+    if (
+        !thumbnailsElement
+    ) {
 
         return;
 
@@ -963,7 +1093,9 @@ function renderizarMiniaturas() {
 
 function actualizarMiniaturaActiva() {
 
-    if (!thumbnailsElement) {
+    if (
+        !thumbnailsElement
+    ) {
 
         return;
 
@@ -1012,7 +1144,9 @@ function actualizarMiniaturaActiva() {
 
 function ocultarMiniaturas() {
 
-    if (!thumbnailsElement) {
+    if (
+        !thumbnailsElement
+    ) {
 
         return;
 
@@ -1037,7 +1171,9 @@ function configurarWhatsApp(
     producto
 ) {
 
-    if (!whatsappButton) {
+    if (
+        !whatsappButton
+    ) {
 
         return;
 
@@ -1054,8 +1190,30 @@ function configurarWhatsApp(
                 );
 
 
+            /*
+             * El número de WhatsApp vive
+             * únicamente en main.js.
+             */
+
+            if (
+                typeof crearWhatsAppURL !==
+                "function"
+            ) {
+
+                console.error(
+                    "Maderóh: crearWhatsAppURL no está disponible."
+                );
+
+
+                return;
+
+            }
+
+
             const url =
-                `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+                crearWhatsAppURL(
+                    mensaje
+                );
 
 
             window.open(
@@ -1079,10 +1237,14 @@ function construirMensajeWhatsApp(
 ) {
 
     const partes = [
+
         "Hola Maderóh, me interesa este producto:",
+
         "",
+
         producto.nombre ||
-            "Producto Maderóh"
+        "Producto Maderóh"
+
     ];
 
 
@@ -1101,16 +1263,71 @@ function construirMensajeWhatsApp(
     }
 
 
-    if (producto.medidas) {
+    /* =====================================================
+       DIMENSIONES
+
+       Mostramos las nuevas etiquetas,
+       pero mantenemos los campos internos.
+    ===================================================== */
+
+    if (
+        producto.alturaCm
+    ) {
 
         partes.push(
-            `Medidas: ${producto.medidas}`
+            `Alto: ${formatearCentimetros(
+                producto.alturaCm
+            )}`
         );
 
     }
 
 
-    if (producto.acabado) {
+    if (
+        producto.profundidadCm
+    ) {
+
+        partes.push(
+            `Largo: ${formatearCentimetros(
+                producto.profundidadCm
+            )}`
+        );
+
+    }
+
+
+    if (
+        producto.anchoCm
+    ) {
+
+        partes.push(
+            `Ancho: ${formatearCentimetros(
+                producto.anchoCm
+            )}`
+        );
+
+    }
+
+
+    /*
+     * Conservamos medidas generales
+     * si existen.
+     */
+
+    if (
+        producto.medidas
+    ) {
+
+        partes.push(
+            `Referencia de medidas: ${producto.medidas}`
+        );
+
+    }
+
+
+    if (
+        producto.acabado
+    ) {
 
         partes.push(
             `Acabado: ${producto.acabado}`
@@ -1120,10 +1337,15 @@ function construirMensajeWhatsApp(
 
 
     partes.push(
+
         "",
+
         "¿Me pueden dar más información y ayudarme con una cotización?",
+
         "",
+
         `Producto: ${window.location.href}`
+
     );
 
 
@@ -1135,39 +1357,505 @@ function construirMensajeWhatsApp(
 
 
 /* =========================================================
-   SEO
+   SEO DINÁMICO
 ========================================================= */
 
 function actualizarSEO(
-    producto
+    producto,
+    productId
 ) {
 
     const nombre =
-        producto.nombre ||
-        "Producto";
+        textoSeguro(
+            producto.nombre,
+            "Producto"
+        );
 
+
+    const categoria =
+        textoSeguro(
+            producto.categoriaNombre ||
+            producto.categoria,
+            "Mobiliario"
+        );
+
+
+    const descripcionBase =
+        producto.descripcion
+
+            ? `${nombre}. ${producto.descripcion}`
+
+            : `${nombre}, ${categoria.toLowerCase()} diseñado y fabricado por Maderóh.`;
+
+
+    const descripcion =
+        limitarTexto(
+            descripcionBase,
+            155
+        );
+
+
+    const titulo =
+        limitarTexto(
+            `${nombre} | Maderóh`,
+            60
+        );
+
+
+    const urlProducto =
+        `${SITE_URL}/producto.html?id=${encodeURIComponent(
+            productId
+        )}`;
+
+
+    const imagen =
+        obtenerURLSEOImagen(
+            producto.imagen
+        );
+
+
+    /* =====================================================
+       TITLE
+    ===================================================== */
 
     document.title =
-        `${nombre} | Maderóh`;
+        titulo;
 
 
-    if (metaDescription) {
+    /* =====================================================
+       DESCRIPTION
+    ===================================================== */
 
-        const descripcion =
-            producto.descripcion
-                ? `${nombre}. ${producto.descripcion}`
-                : `${nombre}, mobiliario diseñado y fabricado por Maderóh.`;
+    establecerContenidoMeta(
+        metaDescription,
+        descripcion
+    );
 
 
-        metaDescription.setAttribute(
-            "content",
-            limitarTexto(
-                descripcion,
-                155
-            )
+    /* =====================================================
+       CANONICAL
+    ===================================================== */
+
+    if (
+        canonicalElement
+    ) {
+
+        canonicalElement.setAttribute(
+            "href",
+            urlProducto
         );
 
     }
+
+
+    /* =====================================================
+       OPEN GRAPH
+    ===================================================== */
+
+    establecerContenidoMeta(
+        ogTitleElement,
+        titulo
+    );
+
+
+    establecerContenidoMeta(
+        ogDescriptionElement,
+        descripcion
+    );
+
+
+    establecerContenidoMeta(
+        ogUrlElement,
+        urlProducto
+    );
+
+
+    if (
+        imagen
+    ) {
+
+        establecerContenidoMeta(
+            ogImageElement,
+            imagen
+        );
+
+    } else {
+
+        eliminarMetaSiVacio(
+            ogImageElement
+        );
+
+    }
+
+
+    /* =====================================================
+       TWITTER / X
+    ===================================================== */
+
+    establecerContenidoMeta(
+        twitterTitleElement,
+        titulo
+    );
+
+
+    establecerContenidoMeta(
+        twitterDescriptionElement,
+        descripcion
+    );
+
+
+    if (
+        imagen
+    ) {
+
+        establecerContenidoMeta(
+            twitterImageElement,
+            imagen
+        );
+
+
+        establecerContenidoMeta(
+            twitterCardElement,
+            "summary_large_image"
+        );
+
+    } else {
+
+        eliminarMetaSiVacio(
+            twitterImageElement
+        );
+
+
+        establecerContenidoMeta(
+            twitterCardElement,
+            "summary"
+        );
+
+    }
+
+
+    /* =====================================================
+       JSON-LD
+    ===================================================== */
+
+    actualizarDatosEstructurados(
+        producto,
+        productId,
+        urlProducto,
+        imagen,
+        descripcion
+    );
+
+}
+
+
+/* =========================================================
+   JSON-LD PRODUCT
+========================================================= */
+
+function actualizarDatosEstructurados(
+    producto,
+    productId,
+    urlProducto,
+    imagen,
+    descripcion
+) {
+
+    if (
+        !structuredDataElement
+    ) {
+
+        return;
+
+    }
+
+
+    const datos =
+        {
+
+            "@context":
+                "https://schema.org",
+
+            "@type":
+                "Product",
+
+            "@id":
+                `${urlProducto}#product`,
+
+            "url":
+                urlProducto,
+
+            "name":
+                textoSeguro(
+                    producto.nombre,
+                    "Producto Maderóh"
+                ),
+
+            "description":
+                descripcion,
+
+            "brand":
+                {
+
+                    "@type":
+                        "Brand",
+
+                    "name":
+                        "Maderóh"
+
+                },
+
+            "sku":
+                `MADEROH-${productId}`
+
+        };
+
+
+    if (
+        producto.categoriaNombre ||
+        producto.categoria
+    ) {
+
+        datos.category =
+            producto.categoriaNombre ||
+            producto.categoria;
+
+    }
+
+
+    if (
+        imagen
+    ) {
+
+        datos.image =
+            [
+                imagen
+            ];
+
+    }
+
+
+    /* =====================================================
+       DIMENSIONES
+    ===================================================== */
+
+    if (
+        producto.alturaCm
+    ) {
+
+        datos.height =
+            {
+
+                "@type":
+                    "QuantitativeValue",
+
+                "value":
+                    Number(
+                        producto.alturaCm
+                    ),
+
+                "unitCode":
+                    "CMT"
+
+            };
+
+    }
+
+
+    if (
+        producto.profundidadCm
+    ) {
+
+        /*
+         * La API conserva depth_cm.
+         * Visualmente Maderóh lo muestra como Largo.
+         */
+
+        datos.depth =
+            {
+
+                "@type":
+                    "QuantitativeValue",
+
+                "value":
+                    Number(
+                        producto.profundidadCm
+                    ),
+
+                "unitCode":
+                    "CMT"
+
+            };
+
+    }
+
+
+    if (
+        producto.anchoCm
+    ) {
+
+        datos.width =
+            {
+
+                "@type":
+                    "QuantitativeValue",
+
+                "value":
+                    Number(
+                        producto.anchoCm
+                    ),
+
+                "unitCode":
+                    "CMT"
+
+            };
+
+    }
+
+
+    /* =====================================================
+       OFERTA / PRECIO
+    ===================================================== */
+
+    const precio =
+        Number(
+            producto.precio
+        );
+
+
+    if (
+        Number.isFinite(
+            precio
+        ) &&
+        precio >= 0
+    ) {
+
+        datos.offers =
+            {
+
+                "@type":
+                    "Offer",
+
+                "url":
+                    urlProducto,
+
+                "priceCurrency":
+                    producto.moneda ||
+                    "MXN",
+
+                "price":
+                    String(
+                        precio
+                    ),
+
+                "availability":
+                    "https://schema.org/InStock"
+
+            };
+
+    }
+
+
+    structuredDataElement.textContent =
+        JSON.stringify(
+            datos
+        );
+
+}
+
+
+/* =========================================================
+   META HELPERS
+========================================================= */
+
+function establecerContenidoMeta(
+    elemento,
+    contenido
+) {
+
+    if (
+        !elemento
+    ) {
+
+        return;
+
+    }
+
+
+    elemento.setAttribute(
+        "content",
+        String(
+            contenido ||
+            ""
+        )
+    );
+
+}
+
+
+/* =========================================================
+   ELIMINAR META VACÍA
+========================================================= */
+
+function eliminarMetaSiVacio(
+    elemento
+) {
+
+    if (
+        !elemento
+    ) {
+
+        return;
+
+    }
+
+
+    elemento.removeAttribute(
+        "content"
+    );
+
+}
+
+
+/* =========================================================
+   URL DE IMAGEN PARA SEO
+========================================================= */
+
+function obtenerURLSEOImagen(
+    url
+) {
+
+    if (
+        !url
+    ) {
+
+        return "";
+
+    }
+
+
+    const valor =
+        String(
+            url
+        )
+        .trim();
+
+
+    if (
+        valor.startsWith(
+            "https://"
+        ) ||
+        valor.startsWith(
+            "http://"
+        )
+    ) {
+
+        return valor;
+
+    }
+
+
+    return "";
 
 }
 
@@ -1178,7 +1866,9 @@ function actualizarSEO(
 
 function mostrarProducto() {
 
-    if (loadingElement) {
+    if (
+        loadingElement
+    ) {
 
         loadingElement.hidden =
             true;
@@ -1186,7 +1876,9 @@ function mostrarProducto() {
     }
 
 
-    if (errorElement) {
+    if (
+        errorElement
+    ) {
 
         errorElement.hidden =
             true;
@@ -1194,7 +1886,9 @@ function mostrarProducto() {
     }
 
 
-    if (productElement) {
+    if (
+        productElement
+    ) {
 
         productElement.hidden =
             false;
@@ -1210,7 +1904,9 @@ function mostrarProducto() {
 
 function mostrarError() {
 
-    if (loadingElement) {
+    if (
+        loadingElement
+    ) {
 
         loadingElement.hidden =
             true;
@@ -1218,7 +1914,9 @@ function mostrarError() {
     }
 
 
-    if (productElement) {
+    if (
+        productElement
+    ) {
 
         productElement.hidden =
             true;
@@ -1226,7 +1924,9 @@ function mostrarError() {
     }
 
 
-    if (errorElement) {
+    if (
+        errorElement
+    ) {
 
         errorElement.hidden =
             false;
@@ -1263,7 +1963,9 @@ function formatearPrecio(
 
 
     if (
-        !Number.isFinite(numero)
+        !Number.isFinite(
+            numero
+        )
     ) {
 
         return "Cotizar";
@@ -1276,6 +1978,7 @@ function formatearPrecio(
         return new Intl.NumberFormat(
             "es-MX",
             {
+
                 style:
                     "currency",
 
@@ -1285,10 +1988,13 @@ function formatearPrecio(
 
                 maximumFractionDigits:
                     0
+
             }
-        ).format(
+        )
+        .format(
             numero
         );
+
 
     } catch {
 
@@ -1327,7 +2033,9 @@ function formatearCentimetros(
 
 
     if (
-        Number.isFinite(numero)
+        Number.isFinite(
+            numero
+        )
     ) {
 
         return `${numero} cm`;
@@ -1362,7 +2070,8 @@ function textoSeguro(
     const texto =
         String(
             valor
-        ).trim();
+        )
+        .trim();
 
 
     return texto ||
@@ -1385,11 +2094,11 @@ function limitarTexto(
             texto ||
             ""
         )
-            .replace(
-                /\s+/g,
-                " "
-            )
-            .trim();
+        .replace(
+            /\s+/g,
+            " "
+        )
+        .trim();
 
 
     if (
@@ -1408,7 +2117,8 @@ function limitarTexto(
                 0,
                 limite - 1
             )
-            .trim() +
+            .trim()
+        +
         "…"
     );
 

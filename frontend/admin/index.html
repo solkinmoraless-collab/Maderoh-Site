@@ -581,23 +581,26 @@
                         id="productMeasurements"
                         type="text"
                         maxlength="150"
-                        placeholder="Ej. 180 × 70 × 75 cm"
+                        placeholder="Ej. 75 × 180 × 70 cm (Alto × Largo × Ancho)"
                     >
 
                 </div>
 
 
 
-                <!-- ANCHO -->
+                <!-- =================================================
+                     ALTO
+                     Internamente conserva productHeight / height_cm
+                ================================================== -->
 
                 <div class="field">
 
-                    <label for="productWidth">
-                        Ancho cm
+                    <label for="productHeight">
+                        Alto cm
                     </label>
 
                     <input
-                        id="productWidth"
+                        id="productHeight"
                         type="number"
                         min="0"
                         step="0.01"
@@ -607,12 +610,15 @@
 
 
 
-                <!-- PROFUNDIDAD -->
+                <!-- =================================================
+                     LARGO
+                     Internamente conserva productDepth / depth_cm
+                ================================================== -->
 
                 <div class="field">
 
                     <label for="productDepth">
-                        Profundidad cm
+                        Largo cm
                     </label>
 
                     <input
@@ -626,16 +632,19 @@
 
 
 
-                <!-- ALTO -->
+                <!-- =================================================
+                     ANCHO
+                     Internamente conserva productWidth / width_cm
+                ================================================== -->
 
                 <div class="field">
 
-                    <label for="productHeight">
-                        Alto cm
+                    <label for="productWidth">
+                        Ancho cm
                     </label>
 
                     <input
-                        id="productHeight"
+                        id="productWidth"
                         type="number"
                         min="0"
                         step="0.01"
