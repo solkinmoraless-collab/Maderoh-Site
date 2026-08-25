@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- =====================================================
+         MADERÓH
+         SITEMAP PÚBLICO
+    ====================================================== -->
+
+
+    <!-- =====================================================
+         INICIO
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/</loc>
+
+        <changefreq>weekly</changefreq>
+
+        <priority>1.0</priority>
+
+    </url>
+
+
+    <!-- =====================================================
+         PRODUCTOS
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/productos.html</loc>
+
+        <changefreq>weekly</changefreq>
+
+        <priority>0.9</priority>
+
+    </url>
+
+
+    <!-- =====================================================
+         PERSONALIZA
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/personaliza.html</loc>
+
+        <changefreq>monthly</changefreq>
+
+        <priority>0.9</priority>
+
+    </url>
+
+
+    <!-- =====================================================
+         PREGUNTAS FRECUENTES
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/preguntas-frecuentes.html</loc>
+
+        <changefreq>monthly</changefreq>
+
+        <priority>0.6</priority>
+
+    </url>
+
+
+    <!-- =====================================================
+         ENVÍOS Y ENTREGAS
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/envios.html</loc>
+
+        <changefreq>monthly</changefreq>
+
+        <priority>0.5</priority>
+
+    </url>
+
+
+    <!-- =====================================================
+         FACTURACIÓN
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/facturacion.html</loc>
+
+        <changefreq>monthly</changefreq>
+
+        <priority>0.5</priority>
+
+    </url>
+
+
+    <!-- =====================================================
+         TÉRMINOS Y CONDICIONES
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/terminos-condiciones.html</loc>
+
+        <changefreq>yearly</changefreq>
+
+        <priority>0.3</priority>
+
+    </url>
+
+</urlset>

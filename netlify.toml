@@ -1,31 +1,142 @@
+# =========================================================
+# MADERÓH
+# CONFIGURACIÓN NETLIFY
+# =========================================================
+
+
+# =========================================================
+# BUILD
+# =========================================================
+
 [build]
   publish = "frontend"
   functions = "netlify/functions"
 
 
+# =========================================================
+# FUNCTIONS
+# =========================================================
+
 [functions]
   node_bundler = "esbuild"
 
+
+# =========================================================
+# SEGURIDAD GLOBAL
+# =========================================================
 
 [[headers]]
   for = "/*"
 
   [headers.values]
 
+    # Evita interpretación incorrecta de tipos MIME
     X-Content-Type-Options = "nosniff"
 
+    # Impide cargar Maderóh dentro de iframes externos
     X-Frame-Options = "DENY"
 
+    # Reduce información enviada en el Referer
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+    # Deshabilita APIs del navegador que actualmente
+    # no utiliza la página pública
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+    # Fuerza HTTPS una vez que el navegador
+    # ha visitado correctamente el dominio
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
 
+    # Reduce ciertos riesgos de aislamiento entre ventanas
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
+
+
+# =========================================================
+# FUNCIONES SERVERLESS
+# =========================================================
 
 [[headers]]
   for = "/.netlify/functions/*"
 
   [headers.values]
 
+    # Las respuestas de funciones dinámicas
+    # no deben quedar almacenadas por navegador/proxy
     Cache-Control = "no-store"
+
+    # Evita que motores de búsqueda intenten
+    # indexar endpoints internos
+    X-Robots-Tag = "noindex, nofollow"
+
+
+# =========================================================
+# PANEL ADMINISTRATIVO
+# =========================================================
+
+[[headers]]
+  for = "/admin/*"
+
+  [headers.values]
+
+    # No almacenar páginas administrativas
+    Cache-Control = "no-store"
+
+    # Segunda capa contra indexación.
+    # index.html ya tiene también meta robots.
+    X-Robots-Tag = "noindex, nofollow"
+
+
+# =========================================================
+# ROBOTS.TXT
+# =========================================================
+
+[[headers]]
+  for = "/robots.txt"
+
+  [headers.values]
+
+    Content-Type = "text/plain; charset=UTF-8"
+
+    Cache-Control = "public, max-age=3600"
+
+
+# =========================================================
+# SITEMAP
+# =========================================================
+
+[[headers]]
+  for = "/sitemap.xml"
+
+  [headers.values]
+
+    Content-Type = "application/xml; charset=UTF-8"
+
+    Cache-Control = "public, max-age=3600"
+
+
+# =========================================================
+# ARCHIVOS ESTÁTICOS
+# =========================================================
+
+[[headers]]
+  for = "/css/*"
+
+  [headers.values]
+
+    Cache-Control = "public, max-age=3600"
+
+
+[[headers]]
+  for = "/js/*"
+
+  [headers.values]
+
+    Cache-Control = "public, max-age=3600"
+
+
+[[headers]]
+  for = "/assets/*"
+
+  [headers.values]
+
+    Cache-Control = "public, max-age=86400"
