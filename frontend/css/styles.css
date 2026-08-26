@@ -934,7 +934,102 @@ p {
     color:
         var(--white);
 }
+/* =========================================================
+   MADERÓH
+   CARRUSEL DE CATEGORÍAS CON FOTOGRAFÍA
+========================================================= */
 
+.carousel-image {
+
+    overflow:
+        hidden;
+}
+
+
+.category-photo {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    object-position:
+        center;
+
+    transition:
+        transform 0.45s ease,
+        filter 0.45s ease;
+}
+
+
+.carousel-card:hover
+.category-photo {
+
+    transform:
+        scale(1.035);
+
+    filter:
+        brightness(1.05);
+}
+
+
+.category-image-overlay {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    z-index:
+        1;
+
+    pointer-events:
+        none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.03),
+            rgba(0, 0, 0, 0.18)
+        );
+}
+
+
+.category-number {
+
+    z-index:
+        2;
+}
+
+
+.category-link {
+
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease;
+
+    opacity:
+        0.92;
+}
+
+
+.carousel-card:hover
+.category-link {
+
+    color:
+        var(--wood-light);
+
+    opacity:
+        1;
+}
 
 /* =========================================================
    DESTACADOS INICIO
@@ -6129,4 +6224,213 @@ span {
 
     }
 
+}
+/* =========================================================
+   MADERÓH
+   PRODUCTOS DESTACADOS DINÁMICOS - INICIO
+========================================================= */
+
+.home-featured-product {
+
+    min-width:
+        0;
+}
+
+
+.home-featured-image-link {
+
+    display:
+        block;
+
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+}
+
+
+.home-featured-image {
+
+    position:
+        relative;
+
+    aspect-ratio:
+        4 / 5;
+
+    overflow:
+        hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #292824,
+            #575046
+        );
+
+    border:
+        1px solid
+        var(--border);
+}
+
+
+.home-featured-photo {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    object-position:
+        center;
+
+    transition:
+        transform
+        0.45s ease,
+        filter
+        0.45s ease;
+}
+
+
+.home-featured-product:hover
+.home-featured-photo {
+
+    transform:
+        scale(1.035);
+
+    filter:
+        brightness(1.04);
+}
+
+
+.home-featured-placeholder {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        30px;
+
+    text-align:
+        center;
+}
+
+
+.home-featured-placeholder span {
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.22em;
+
+    opacity:
+        0.42;
+}
+
+
+.home-featured-arrow {
+
+    color:
+        var(--business-accent);
+
+    text-decoration:
+        none;
+
+    font-size:
+        1.35rem;
+
+    transition:
+        transform
+        0.2s ease,
+        color
+        0.2s ease;
+}
+
+
+.home-featured-product:hover
+.home-featured-arrow {
+
+    transform:
+        translateX(4px);
+
+    color:
+        var(--wood-light);
+}
+
+
+.home-featured-loading,
+.home-featured-empty {
+
+    grid-column:
+        1 / -1;
+
+    min-height:
+        320px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+
+    padding:
+        40px;
+
+    text-align:
+        center;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        var(--surface);
+}
+
+
+.home-featured-loading span {
+
+    color:
+        var(--business-accent);
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.18em;
 }
