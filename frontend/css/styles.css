@@ -6434,3 +6434,16 @@ span {
     letter-spacing:
         0.18em;
 }
+/* =========================================================
+   MADERÓH
+   RESPETAR ESTADOS HIDDEN - DETALLE DE PRODUCTO
+========================================================= */
+
+.product-detail-loading[hidden],
+.product-detail[hidden],
+.product-detail-error[hidden],
+.product-detail-thumbnails[hidden] {
+
+    display:
+        none !important;
+}

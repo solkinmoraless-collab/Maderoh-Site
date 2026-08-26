@@ -217,10 +217,36 @@ let imagenActual =
    INICIO
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    iniciarPaginaProducto
-);
+/*
+ * Arranque robusto.
+ *
+ * Si el DOM todavía está cargando,
+ * esperamos DOMContentLoaded.
+ *
+ * Si el archivo JavaScript se ejecuta
+ * cuando el DOM ya terminó de cargar,
+ * iniciamos inmediatamente.
+ */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        iniciarPaginaProducto,
+        {
+            once:
+                true
+        }
+    );
+
+} else {
+
+    iniciarPaginaProducto();
+
+}
 
 
 async function iniciarPaginaProducto() {

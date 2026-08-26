@@ -377,6 +377,26 @@ function renderizarProductoDestacado() {
     );
 
 
+    /* =====================================================
+       ENLACE DIRECTO AL PRODUCTO DESTACADO
+    ===================================================== */
+
+    const enlaceProducto =
+        document.getElementById(
+            "featured-product-link"
+        );
+
+
+    if (enlaceProducto) {
+
+        enlaceProducto.href =
+            `producto.html?id=${encodeURIComponent(
+                producto.id
+            )}`;
+
+    }
+
+
     const contenedorImagen =
         document.getElementById(
             "featured-product-image"
@@ -1226,9 +1246,6 @@ function iniciarModal() {
 
     /* =====================================================
        FLECHAS DE GALERÍA
-
-       Usamos delegación de eventos.
-       Así funcionan aunque cambie la imagen.
     ===================================================== */
 
     if (contenedorImagen) {
@@ -1471,8 +1488,6 @@ async function abrirModal(
 
 /* =========================================================
    LIMPIAR CONTENIDO VISUAL DEL MODAL
-
-   No eliminamos contador ni flechas.
 ========================================================= */
 
 function limpiarContenidoImagenModal() {
@@ -1679,11 +1694,6 @@ async function cargarGaleriaProducto(
             await respuesta.json();
 
 
-        /*
-         * Evita que una respuesta tardía
-         * modifique otro producto.
-         */
-
         if (
             !productoModalActual ||
             String(
@@ -1826,8 +1836,6 @@ function construirGaleriaProducto(
     }
 
 
-    /* Imagen principal primero */
-
     agregarImagen(
 
         resultado &&
@@ -1841,8 +1849,6 @@ function construirGaleriaProducto(
 
     );
 
-
-    /* Fotografías adicionales */
 
     if (
         resultado &&
@@ -1869,8 +1875,6 @@ function construirGaleriaProducto(
 
     }
 
-
-    /* Respaldo */
 
     agregarImagen(
         producto.imagen,
