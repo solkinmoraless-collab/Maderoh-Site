@@ -69,7 +69,7 @@
 
 
     <!-- =====================================================
-         ENVÍOS Y ENTREGAS
+         ENVÍOS
     ====================================================== -->
 
     <url>
@@ -94,6 +94,21 @@
         <changefreq>monthly</changefreq>
 
         <priority>0.5</priority>
+
+    </url>
+
+
+    <!-- =====================================================
+         AVISO DE PRIVACIDAD
+    ====================================================== -->
+
+    <url>
+
+        <loc>https://maderoh.store/aviso-privacidad.html</loc>
+
+        <changefreq>yearly</changefreq>
+
+        <priority>0.3</priority>
 
     </url>
 
