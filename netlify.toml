@@ -140,3 +140,11 @@
   [headers.values]
 
     Cache-Control = "public, max-age=86400"
+# =========================================================
+# REDIRECCIÓN DE LA PÁGINA PRINCIPAL
+# =========================================================
+
+[[redirects]]
+  from = "/"
+  to = "/productos.html"
+  status = 301
