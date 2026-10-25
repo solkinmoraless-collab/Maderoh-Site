@@ -1,0 +1,16 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-L1Uj4Ryv9hngW3tlz9PT7gxi+7TtQO1tYOhmhW38RVY=' 'sha256-ckQmu/xBbsxBXufO9023XiWX4+6olR9KEFCM/dSZaIs=' 'sha256-fX2wcz4dJHMto6SU8J++SqnZLdks5ZuAH3Zbkwyv8lA=' 'sha256-raAIjsaeHeNsNj7k/IkS2SJPvDuagWICyIHDNTNELH0='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+/assets/catalogo.json
+  Cache-Control: public, max-age=0, must-revalidate
+/assets/images/*
+  Cache-Control: public, max-age=86400

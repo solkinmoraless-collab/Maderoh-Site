@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /administracion.html
+Disallow: /estadisticas.html
+Disallow: /acceso.html
+Disallow: /cotizaciones.html
+Disallow: /cotizacion.html
+Disallow: /guia-fotografica.html
+Disallow: /api/
+Disallow: /.netlify/
+
+Sitemap: https://maderoh.store/sitemap.xml
