@@ -20,7 +20,7 @@
 /guia-fotografica.html /404.html 404!
 /guia-fotografica/* /404.html 404!
 /api/* /404.html 404!
-/.netlify/functions/* /404.html 404!
+
 /aviso-privacidad /aviso-privacidad.html 200
 /envios /envios.html 200
 /facturacion /facturacion.html 200
