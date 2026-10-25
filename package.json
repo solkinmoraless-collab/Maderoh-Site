@@ -1,9 +1,12 @@
 {
-  "name": "maderoh-web",
+  "name": "maderoh-web-visual",
   "version": "1.0.0",
   "private": true,
-  "description": "Pagina web oficial de Maderoh",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.57.0"
+  "description": "Publicación visual de Maderóh, catálogo y WhatsApp sin servidor de datos",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node comprobar-publicacion.cjs"
   }
 }
