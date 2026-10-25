@@ -4,6 +4,7 @@
   "private": true,
   "description": "Pagina web oficial de Maderoh",
   "dependencies": {
+    "@netlify/database": "2.0.1",
     "@supabase/supabase-js": "^2.57.0"
   }
 }
