@@ -1,0 +1,20 @@
+/* El PNG original se conserva. La variante clara es únicamente de presentación. */
+.logo,.footer-logo{display:inline-flex;align-items:center;line-height:1;flex-shrink:0}
+.maderoh-brand-image{display:block;width:180px;height:auto;max-width:100%;max-height:56px;object-fit:contain;filter:brightness(0) invert(1)}
+.footer-logo .maderoh-brand-image{width:210px;max-height:66px}
+.quote-brand{display:flex;justify-content:space-between;align-items:center;gap:22px;background:#f3eddf;border-bottom:2px solid #b28e56;padding:22px 26px;margin-bottom:28px;color:#24231d;break-inside:avoid}
+.quote-brand>img{display:block;width:210px;height:auto;max-width:55%;object-fit:contain;filter:none}
+.quote-brand>div{text-align:right;min-width:0}.quote-brand strong{display:block;color:#24231d;font:600 19px/1.4 "Segoe UI",Arial,sans-serif;letter-spacing:0}.quote-brand span{display:block;color:#615945;font-size:12px;margin-top:4px}
+@media screen{.quote-brand-print{display:none}}
+@media(max-width:600px){.maderoh-brand-image{width:152px;max-height:47px}.footer-logo .maderoh-brand-image{width:190px;max-height:59px}.quote-brand{padding:17px;gap:12px}.quote-brand>img{width:160px}.quote-brand strong{font-size:15px}.quote-brand span{font-size:11px}}
+@media print{
+ .maderoh-brand-image{filter:none!important}
+ .quote-brand-print{display:block!important}
+ .quote-brand{padding:0 0 14px!important;margin:0 0 20px!important;background:#fff!important;color:#111!important;border-bottom:1px solid #444;break-inside:avoid;break-after:avoid}
+ .quote-brand>img{width:180px;max-width:55%;filter:none!important}
+ .quote-brand strong,.quote-brand span{color:#111!important}
+}
+
+.commercial-footer-secondary{width:min(1240px,92%);margin:0 auto;padding:24px 0 34px;border-top:1px solid #34362e;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}.commercial-footer-secondary strong{font-size:12px;color:#e4dfcf;letter-spacing:.08em}.commercial-footer-secondary p{font-size:14px;line-height:1.7;color:#b6b5aa;margin:10px 0}.commercial-footer-secondary a{color:#d7b67c;font-size:14px}@media(max-width:700px){.commercial-footer-secondary{grid-template-columns:1fr;gap:22px}}
+
+@media print{#customer-destination-field{display:none!important}.sales-help-link{display:none!important}}

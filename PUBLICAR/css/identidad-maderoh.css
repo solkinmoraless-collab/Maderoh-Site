@@ -1,0 +1,190 @@
+/* Identidad Maderóh: fotografía real, carbón, lino y tonos de madera.
+   Sólo presentación: conserva datos, precios y comportamiento del catálogo. */
+@media screen {
+:root{--background:#191916;--surface:#25251f;--surface-dark:#303027;--surface-soft:#38352d;--border:#444239;--white:#f3efdf;--gray:#c5c1b3;--business-accent:#d8b278;--wood-light:#e4c392}
+body.maderoh-editorial{background:#191916;color:#f3efdf;font-family:"Segoe UI",Arial,sans-serif;background-image:radial-gradient(ellipse at 100% 0,#7960441c,transparent 48%)}
+.maderoh-editorial h1,.maderoh-editorial h2{font-weight:600;letter-spacing:-.045em;text-wrap:balance}
+.maderoh-editorial h1 em,.maderoh-editorial h2 em{font-family:Georgia,serif;font-weight:400;color:#dfb681}
+.maderoh-editorial .eyebrow{font-size:11px;letter-spacing:.18em;color:#d8b278}
+.maderoh-editorial .site-header{background:#191916f5;border-bottom:1px solid #d3b37b38}
+.maderoh-editorial .logo{letter-spacing:.08em}
+.maderoh-editorial .nav-container{min-height:80px}
+.maderoh-editorial .btn,.maderoh-editorial .btn-cotizar{border-radius:2px;font-size:14px;font-weight:650;min-height:46px}
+.maderoh-editorial .btn-primary,.maderoh-editorial .btn-light,.maderoh-editorial .btn-cotizar{background:#d8b278;color:#1b1b17!important;border-color:#d8b278}
+.maderoh-editorial .btn-primary:hover,.maderoh-editorial .btn-light:hover,.maderoh-editorial .btn-cotizar:hover{background:#f0d0a1;border-color:#f0d0a1}
+.maderoh-editorial .btn-secondary,.maderoh-editorial .btn-outline-light{background:transparent;border-color:#93836a;color:#f3efdf}
+.maderoh-editorial .btn-secondary:hover,.maderoh-editorial .btn-outline-light:hover{background:#363127;color:#f3efdf}
+.maderoh-editorial a:focus-visible,.maderoh-editorial button:focus-visible{outline:2px solid #f0d0a1;outline-offset:4px}
+.maderoh-editorial .hero.hero-with-product{background:linear-gradient(110deg,#22231d,#191916 65%);border-bottom:1px solid #444239}
+.maderoh-editorial .hero-with-product .hero-layout{padding:52px 0 42px;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:42px}
+.maderoh-editorial .hero-with-product h1{font-size:clamp(40px,5.1vw,72px);line-height:1.02;margin:24px 0}
+.maderoh-editorial .hero-with-product p{max-width:440px;font-size:17px;color:#cbc5b5}
+.maderoh-editorial .hero-actions{gap:12px;margin-top:30px}
+.editorial-composition{position:relative;min-width:0;padding:0 0 44px 36px}
+.editorial-main-photo{position:relative;margin:0 0 0 20px;overflow:hidden;background:#302d26;border:1px solid #a18e6955}
+.editorial-main-photo>img{display:block;width:100%;height:460px;object-fit:cover;object-position:50% 55%}
+.editorial-main-photo figcaption{display:grid;gap:6px;padding:18px 22px 18px 110px;min-height:106px;background:#ede5d3;color:#25251f}
+.editorial-main-photo figcaption>span{font-size:9px;letter-spacing:.16em}
+.editorial-main-photo figcaption strong{font-size:18px;font-weight:600}
+.editorial-main-photo figcaption a{font-size:12px;text-underline-offset:4px}
+.editorial-detail-photo{position:absolute;bottom:12px;left:0;width:148px;margin:0;border:6px solid #191916;background:#191916;box-shadow:0 12px 30px #0004}
+.editorial-detail-photo img{width:100%;height:166px;object-fit:cover;display:block}
+.editorial-detail-photo figcaption{font-size:10px;padding:8px 4px;color:#e7d1a9;text-align:center;letter-spacing:.06em}
+.editorial-photo-label{position:absolute;right:0;bottom:12px;color:#bbb39e;font-size:9px;letter-spacing:.2em}
+.editorial-service-strip{width:min(1240px,92%);margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid #514b3d;padding:22px 0;gap:20px}
+.editorial-service-strip span{font-size:13px;color:#d6ceba;display:flex;gap:14px;align-items:center}
+.editorial-service-strip b{color:#d8b278;font-size:10px;font-weight:400;border:1px solid #746447;border-radius:50%;padding:5px 7px}
+.maderoh-editorial .search-section,.maderoh-editorial .featured-section,.maderoh-editorial .project-type-section,.maderoh-editorial .process-section{padding-top:66px;padding-bottom:66px}
+.maderoh-editorial .section-top{margin-bottom:28px}
+.maderoh-editorial .section-top h2,.maderoh-editorial .section-heading h2{font-size:clamp(30px,3.3vw,46px)}
+.maderoh-editorial .carousel-card{background:#24241f;border:1px solid #444239;overflow:hidden}
+.maderoh-editorial .carousel-card-content{padding:20px}
+.maderoh-editorial .carousel-card-content h3{font-size:21px}
+.maderoh-editorial .carousel-image{aspect-ratio:4/3;min-height:0}
+.maderoh-editorial .carousel-card .category-photo{transition:transform .3s ease}
+.maderoh-editorial .carousel-card:hover .category-photo{transform:scale(1.025)}
+.maderoh-editorial .carousel-card-content p{font-size:13px;margin-top:10px}
+.maderoh-editorial .featured-grid{gap:24px}
+.maderoh-editorial .home-featured-image{aspect-ratio:4/4.3;border:1px solid #63563f}
+.maderoh-editorial .home-featured-photo,.maderoh-editorial .catalog-product-photo{object-fit:contain;background:#24251f}
+.maderoh-editorial .home-featured-product,.maderoh-editorial .catalog-product-card{min-width:0;background:#24241e;border:1px solid #474337;transition:border-color .2s ease,box-shadow .2s ease}
+.maderoh-editorial .home-featured-product:hover,.maderoh-editorial .catalog-product-card:hover{border-color:#b79a69;box-shadow:0 12px 28px #0003}
+.maderoh-editorial .home-featured-product>.featured-info,.maderoh-editorial .catalog-product-info{padding:22px}
+.maderoh-editorial .home-featured-product .product-title-row{padding:0 18px}
+.maderoh-editorial .home-featured-product .product-type,.maderoh-editorial .home-featured-product .home-price{margin-left:18px;margin-right:18px}
+.maderoh-editorial .home-featured-product .home-price{margin-left:0;margin-right:0;padding-bottom:0}
+.editorial-materials{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);width:min(1240px,92%);margin:20px auto 74px;background:#e8e1d1;color:#27271f}
+.editorial-materials>figure{margin:0;min-width:0;position:relative}
+.editorial-materials>figure img{width:100%;height:100%;min-height:610px;object-fit:cover;display:block}
+.editorial-materials figcaption{position:absolute;bottom:0;left:0;right:0;padding:30px 22px 18px;background:linear-gradient(transparent,#000b);color:#fff1d9;font-size:11px}
+.editorial-materials-copy{padding:clamp(28px,4vw,60px)}
+.maderoh-editorial .editorial-materials h2{color:#26261f;font-size:clamp(32px,3.5vw,48px)}
+.maderoh-editorial .editorial-materials h2 em{color:#80552e}
+.maderoh-editorial .editorial-materials .eyebrow{color:#795330}
+.maderoh-editorial .editorial-materials p,.editorial-materials dd{color:#545247;font-size:14px;line-height:1.7}
+.editorial-materials-copy>p{margin-top:22px}
+.editorial-materials dl{margin:24px 0}
+.editorial-materials dl>div{padding:17px 0;border-top:1px solid #b4ab98}
+.editorial-materials dt{font-size:16px;font-weight:600;margin-bottom:7px}
+.editorial-materials dt span{font-size:10px;color:#80552e;margin-right:14px}
+.maderoh-editorial .editorial-materials .text-link{color:#644626}
+.maderoh-editorial .project-type-card{min-height:300px;background:linear-gradient(140deg,#303027,#23231d);border-top:2px solid #b08d5a}
+.maderoh-editorial .project-type-business{background:linear-gradient(140deg,#3c3023,#23231d)}
+.maderoh-editorial .project-card-number{font-family:Georgia,serif;color:#d8b278;opacity:.7}
+.maderoh-editorial .business-project-banner{position:relative;isolation:isolate;min-height:490px;padding-top:70px;padding-bottom:70px;background:linear-gradient(90deg,#121510fa 0%,#121510eb 38%,#12151040 100%),url('../assets/images/productos/barra-sicaru-1.webp') center 55%/cover}
+.maderoh-editorial .business-project-content{max-width:610px}
+.maderoh-editorial .business-project-content p{color:#d6d1c4}
+.maderoh-editorial .custom-section{margin:74px auto;min-height:0}
+.maderoh-editorial .custom-visual{position:relative;isolation:isolate;min-height:480px;overflow:hidden;background:#292b23;padding:32px}
+.editorial-custom-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.maderoh-editorial .custom-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,#10130cd9);z-index:-1}
+.maderoh-editorial .custom-visual>span{font-size:clamp(30px,4vw,48px);line-height:1.05;color:#fff1d8}
+.maderoh-editorial .custom-content{padding:clamp(28px,4vw,60px)}
+.maderoh-editorial .process-grid article{border-top:1px solid #b08d5a;padding-top:24px}
+.maderoh-editorial .contact-section{background:#d8b278;color:#23241c;padding-top:55px;padding-bottom:55px}
+.maderoh-editorial .contact-section h2,.maderoh-editorial .contact-section p,.maderoh-editorial .contact-section .eyebrow{color:#25251f}
+.maderoh-editorial .contact-section .btn{background:#23251e;color:#fff0d3!important;border-color:#23251e}
+/* Catálogo: entrada fotográfica y densidad útil sin ocultar el mueble. */
+.maderoh-editorial .editorial-catalog-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);padding:34px 0 38px;gap:48px;align-items:center}
+.editorial-catalog-copy{padding:20px 0}
+.maderoh-editorial .catalog-hero h1{font-size:clamp(34px,4vw,58px)}
+.maderoh-editorial .catalog-hero p{font-size:15px;max-width:540px;line-height:1.7}
+.editorial-catalog-copy .text-link{display:inline-block;margin-top:22px}
+.editorial-catalog-photo{position:relative;margin:0;border:1px solid #716146;min-width:0}
+.editorial-catalog-photo img{width:100%;height:320px;object-fit:cover;display:block;object-position:50% 55%}
+.editorial-catalog-photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:32px 20px 16px;background:linear-gradient(transparent,#000b);color:#fff4e0;font-size:12px}
+.maderoh-editorial .catalog-featured{margin-bottom:65px;border:1px solid #66583f;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.maderoh-editorial .catalog-featured-content{padding:34px}
+.maderoh-editorial .catalog-featured-content h2{font-size:clamp(30px,3vw,42px)}
+.maderoh-editorial .catalog-tools{padding-top:20px}.maderoh-editorial .professional-products-grid{gap:28px 24px}
+.maderoh-editorial .catalog-product-image{aspect-ratio:1/1.08;border:0;border-bottom:1px solid #484437}
+.maderoh-editorial .filter-btn{border-radius:2px}
+.maderoh-editorial .filter-btn.active{background:#d8b278;color:#202119;border-color:#d8b278}
+.maderoh-editorial .catalog-search input{background:#24241f;border-color:#6d604b}
+.maderoh-editorial .product-title-row h3{font-size:21px;line-height:1.2}
+/* Personaliza y ficha: la misma identidad, controles conservados. */
+.maderoh-editorial .customizer-hero{border:1px solid #514b3d;background:#24251e;margin-bottom:48px}
+.maderoh-editorial .customizer-hero-visual{position:relative;overflow:hidden;isolation:isolate;min-height:410px;justify-content:flex-end;align-items:flex-start}
+.editorial-customizer-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.maderoh-editorial .customizer-hero-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,#10130ce0);z-index:-1}
+.maderoh-editorial .customizer-hero-visual span{font-size:24px;color:#fff2d9}
+.maderoh-editorial .customizer-hero-visual small{color:#f4e8ce}
+.maderoh-editorial .variant-specs{background:#24241f;border:1px solid #4e493b;padding:28px}
+.maderoh-editorial .quote-summary{background:linear-gradient(135deg,#393226,#24251d);border-color:#ac8e5e}
+.maderoh-editorial .mp-panel{border-radius:2px;border-color:#786143;background:#22231d}
+.maderoh-editorial .mp-card{border-radius:2px;background:#2b2a22;border-color:#534934}
+.maderoh-editorial .mp-summary{color:#e7c38d}
+.maderoh-editorial .mp-title{color:#f5ebd6}
+.maderoh-editorial .mp-action{border-radius:2px}
+@media(min-width:1780px){.maderoh-editorial .hero-with-product .hero-layout{gap:36px}.maderoh-editorial .hero-with-product h1{font-size:68px}}
+@media(max-width:1000px){.editorial-main-photo>img{height:390px}.editorial-detail-photo{width:120px}.editorial-detail-photo img{height:140px}.editorial-main-photo figcaption{padding-left:78px}.editorial-composition{padding-left:14px}.maderoh-editorial .hero-with-product .hero-layout{gap:22px}.editorial-materials-copy{padding:30px}.editorial-materials>figure img{min-height:580px}.maderoh-editorial .catalog-featured{grid-template-columns:1fr 1fr}.maderoh-editorial .catalog-featured-content{padding:24px}}
+@media(max-width:700px){.maderoh-editorial .nav-container{min-height:70px}.maderoh-editorial .hero-with-product .hero-layout{grid-template-columns:1fr;padding:28px 0 24px;gap:28px}.maderoh-editorial .hero-with-product h1{font-size:clamp(39px,10.5vw,64px)}.maderoh-editorial .hero-with-product p{font-size:16px}.editorial-composition{width:100%;max-width:520px;justify-self:center;padding-left:12px}.editorial-main-photo>img{height:350px}.editorial-detail-photo{width:116px}.editorial-detail-photo img{height:128px}.editorial-main-photo figcaption{padding:16px 12px 16px 78px}.editorial-main-photo figcaption strong{font-size:16px}.editorial-photo-label{font-size:8px}.editorial-service-strip{grid-template-columns:1fr;gap:12px;padding:20px 0}.editorial-service-strip span{font-size:12px}.maderoh-editorial .search-section,.maderoh-editorial .featured-section,.maderoh-editorial .project-type-section,.maderoh-editorial .process-section{padding-top:40px;padding-bottom:40px}.editorial-materials{grid-template-columns:1fr;margin:16px auto 44px}.editorial-materials>figure img{height:330px;min-height:0}.editorial-materials-copy{padding:28px 24px}.maderoh-editorial .business-project-banner{min-height:430px;background-position:center;padding-top:48px;padding-bottom:48px;background-image:linear-gradient(90deg,#121510ed,#121510a0),url('../assets/images/productos/barra-sicaru-1.webp')}.maderoh-editorial .custom-section{margin:44px auto}.maderoh-editorial .custom-visual{min-height:350px}.maderoh-editorial .editorial-catalog-hero{grid-template-columns:1fr;gap:20px;padding-top:20px}.editorial-catalog-photo img{height:250px}.maderoh-editorial .catalog-featured{grid-template-columns:1fr;margin-bottom:40px}.maderoh-editorial .customizer-hero-visual{min-height:290px}.maderoh-editorial .customizer-hero{grid-template-columns:1fr}.maderoh-editorial .variant-specs{padding:22px}.maderoh-editorial .contact-section{padding-top:40px;padding-bottom:40px}}
+@media(prefers-reduced-motion:reduce){.maderoh-editorial *{scroll-behavior:auto!important;transition:none!important}}
+}
+
+/* Pantallas amplias: reservar columnas reales para los paneles fijos.
+   Los fondos y fotografías de ancho completo quedan dentro del centro. */
+@media screen and (min-width:1780px) {
+  body.maderoh-editorial > main,
+  body.maderoh-editorial > #site-footer,
+  body.maderoh-editorial > .variant-contact {
+    width:min(1240px,calc(100% - 548px));
+    max-width:min(1240px,calc(100% - 548px));
+    min-width:0;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  body.maderoh-editorial > main {
+    border-left:1px solid #444239;
+    border-right:1px solid #444239;
+  }
+  body.maderoh-editorial > main > section {
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+  }
+  body.maderoh-editorial .business-project-banner {
+    padding-left:40px;
+    padding-right:40px;
+  }
+  body.maderoh-editorial .custom-section {
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  }
+  body.maderoh-editorial .custom-content,
+  body.maderoh-editorial .business-project-content {
+    min-width:0;
+    overflow-wrap:break-word;
+  }
+}
+
+/* Carrusel de categorías: fotografías reales y nombre de cada modelo. */
+@media screen {
+  .maderoh-editorial .search-section .carousel-image {
+    aspect-ratio:4/3;
+    background:#24251f;
+  }
+  .maderoh-editorial .search-section .category-photo {
+    object-fit:contain;
+    object-position:center;
+    background:#24251f;
+  }
+  .maderoh-editorial .search-section .category-image-overlay {display:none;}
+  .maderoh-editorial .search-section .carousel-card:hover .category-photo {transform:none;}
+  .maderoh-editorial .category-real-label {
+    display:block;
+    color:#d8b278;
+    font-size:10px;
+    font-weight:600;
+    line-height:1.5;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin-bottom:9px;
+  }
+  .maderoh-editorial .search-section .carousel-card-content h3 {
+    font-size:21px;
+    line-height:1.2;
+    overflow-wrap:break-word;
+  }
+}
+
+@media screen{.personal-request-actions{margin-top:22px;border:1px solid #aa8b59;padding:22px;background:#292c21}.personal-request-actions p{margin-bottom:18px;font-size:14px}.personal-request-actions .btn{margin:0 10px 10px 0}@media(max-width:650px){.personal-request-actions .btn{width:100%;margin-right:0}}}

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Producto | Maderóh</title>
+  <meta name="description" content="Muebles industriales Maderóh. Consulta medidas, materiales, acabados, fabricación y cotización con IVA.">
+  <link rel="icon" href="assets/icons/favicon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <link rel="stylesheet" href="css/ajustes-paso-02.css">
+  <link rel="stylesheet" href="css/producto-variantes.css">
+<link rel="stylesheet" href="css/marketing-panels.css">
+    <link rel="stylesheet" href="css/identidad-maderoh.css">
+<link rel="stylesheet" href="css/ventas.css">
+<link rel="stylesheet" href="css/marca-maderoh.css">
+
+</head>
+<body class="maderoh-editorial">
+<header class="site-header">
+
+    <div class="nav-container">
+
+        <a
+            href="index.html"
+            class="logo"
+            aria-label="Maderóh - Inicio"
+        ><img class="maderoh-brand-image" src="assets/images/brand/maderoh-logo-original.png" alt="Maderóh" width="907" height="275" decoding="async"></a>
+
+
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+
+        <nav
+            class="main-nav"
+            id="main-nav"
+            aria-label="Navegación principal"
+        >
+
+            <a
+                href="index.html"
+                
+            >
+                Inicio
+            </a>
+
+
+            <a href="productos.html">
+                Productos
+            </a>
+
+
+            <a href="personaliza.html">
+                Personaliza
+            </a>
+
+
+            <a
+                href="#contacto"
+                class="btn-cotizar"
+            >
+                Cotizar
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+<main class="variant-page">
+  <a class="back-catalog" href="productos.html">← Volver al catálogo</a>
+  <p id="product-loading" role="status">Cargando producto…</p>
+  <p id="product-error" role="alert" hidden></p>
+  <div id="variant-product" class="variant-grid" hidden>
+    <section class="variant-visual" aria-label="Fotografía y especificaciones">
+      <figure><button class="sales-photo-open" id="sales-photo-open" type="button" aria-label="Ampliar fotografía del mueble"><img id="variant-photo" alt="" width="1200" height="1600"></button><figcaption><span id="sales-photo-caption">Fotografía real del modelo.</span> Toca la imagen para ampliarla. Acabados y configuración se confirman en la cotización.</figcaption></figure><div id="product-gallery" class="product-gallery" aria-label="Fotografías del modelo"></div>
+      <div class="variant-specs"><h2>Materiales y fabricación</h2><p id="variant-description"></p>
+      <dl id="product-specs"></dl>
+      <p id="measure-note" class="variant-note"></p>
+      </div>
+    </section>
+    <section class="variant-config" aria-labelledby="variant-name">
+      <span class="eyebrow">RECÁMARAS · HECHO A PEDIDO</span>
+      <div class="quote-brand-print"><div class="quote-brand"><img src="assets/images/brand/maderoh-logo-original.png" alt="Maderóh" width="907" height="275"><div><strong>Presupuesto orientativo</strong><span>maderoh.store</span></div></div></div><h1 id="variant-name"></h1>
+      <p class="variant-intro">Elige tu medida y acabado para consultar el precio. Una modificación especial pasa a revisión con nuestro equipo.</p>
+      <div class="variant-fields">
+        <label for="variant-size">Medida / configuración</label><select id="variant-size"></select>
+        <label for="variant-quantity">Cantidad de piezas o conjuntos</label><input id="variant-quantity" type="number" min="1" max="1000" step="1" value="1"><p id="quantity-note" class="variant-note"></p><label for="variant-finish">Acabado</label>
+        <select id="variant-finish"><option value="mate">Mate · incluido</option><option value="brillante">Brillante · +$1,276 MXN, IVA incluido</option></select>
+        <div id="wood-color-field"><label for="variant-color">Color de madera que te gustaría</label><input id="variant-color" maxlength="80" placeholder="Indica el tono o lo definimos contigo"></div><div id="metal-field"><label for="variant-metal">Pintura del metal</label><select id="variant-metal"><option value="aceite">Negro mate al aceite · incluido</option><option value="electrostatica">Electrostática · por cotizar</option><option value="custom">Otro color o pintura · por cotizar</option></select></div><div id="feet-field"><label for="variant-feet">Apoyos incluidos</label><select id="variant-feet"><option value="niveladores">Niveladores</option><option value="ruedas">Ruedas</option></select></div>
+        <label for="variant-delivery">Lugar de entrega</label>
+        <select id="variant-delivery"><option value="cdmx">CDMX · entrega según condiciones del producto</option><option value="otro">Otro estado · envío por cotizar</option></select>
+        <label class="storage-option"><input id="variant-storage" type="checkbox"> <span id="modification-label">Quiero una modificación (cotización personalizada)</span></label>
+        <div id="custom-dimensions" hidden><p>Indica las medidas o describe la modificación que necesitas.</p>
+          <label id="custom-width-label" for="custom-width">Ancho del colchón en cm</label><input id="custom-width" type="number" min="1" max="2000" step="0.1">
+          <label id="custom-length-label" for="custom-length">Largo del colchón en cm</label><input id="custom-length" type="number" min="1" max="2000" step="0.1">
+          <label for="custom-comments">Comentarios</label><textarea id="custom-comments" maxlength="500" rows="3" placeholder="Medida especial, almacenamiento u otros cambios"></textarea>
+        </div>
+      </div>
+      <div id="quote-summary" class="quote-summary" aria-live="polite">
+        <span id="quote-label">Precio del mueble</span><strong id="quote-total"></strong><p id="quote-tax-note"></p>
+        <dl id="quote-breakdown"></dl><p id="quote-delivery-note"></p><p id="quote-error" role="alert" hidden></p>
+      </div>
+      <div id="sales-product-facts" class="sales-product-facts" hidden><h2>Antes de cotizar</h2><dl id="sales-facts-list"></dl></div>
+      <p class="sales-help-link"><a href="index.html#como-comprar">Cómo comprar: anticipo, revisión y entrega ↗</a></p><div class="variant-actions"><a id="quote-whatsapp" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-disabled="true">Continuar por WhatsApp</a>
+      <button id="quote-print" class="btn btn-outline-light" type="button" disabled>Imprimir / guardar PDF</button></div>
+      <div class="variant-fields"><div id="customer-destination-field" hidden><label for="customer-destination">Municipio y estado de entrega</label><input id="customer-destination" name="destino" maxlength="150" placeholder="Ejemplo: Toluca, Estado de México"></div></div>
+      <p class="variant-note" id="product-conditions"></p><p class="variant-note">Este presupuesto es orientativo y se calcula en tu navegador. No genera folio ni reserva agenda. Confirma el precio, los accesos y la entrega con Maderóh antes de realizar un anticipo.</p>
+    </section>
+  </div>
+</main>
+<div id="marketing-panels" class="marketing-panels" aria-label="Promociones y redes sociales de Maderóh"></div>
+
+<section id="contacto" class="variant-contact"><p>¿Necesitas ayuda para elegir?</p><a href="https://wa.me/525577265340" class="whatsapp-general">Hablar con Maderóh por WhatsApp</a></section>
+<div id="site-footer"></div>
+<script src="js/main.js"></script><script src="js/precios.js"></script><script src="js/configuracion-publica.js"></script><script src="js/producto-config.js"></script><script src="js/layout.js"></script>
+<script src="js/marketing-config.js"></script>
+<script src="js/marketing-panels.js"></script>
+<div class="sales-mobile-quote" id="sales-mobile-quote" hidden><div><span id="sales-mobile-name"></span><strong id="sales-mobile-price"></strong></div><a id="sales-mobile-action" class="btn btn-primary" aria-disabled="true" target="_blank" rel="noopener noreferrer">Cotizar este modelo</a></div>
+<dialog id="sales-photo-dialog" class="sales-photo-dialog" aria-labelledby="sales-photo-title"><div class="sales-dialog-head"><h2 id="sales-photo-title">Fotografía del modelo</h2><button id="sales-photo-close" type="button" aria-label="Cerrar fotografía">Cerrar ×</button></div><img id="sales-photo-large" alt=""><p id="sales-photo-detail"></p></dialog>
+<script src="js/ventas.js"></script></body></html>

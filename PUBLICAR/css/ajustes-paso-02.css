@@ -1,0 +1,125 @@
+/* Maderóh - Paso 02: portada fotográfica y distribución adaptable. */
+html { scroll-padding-top: 100px; }
+main section[id] { scroll-margin-top: 100px; }
+
+.hero.hero-with-product {
+  min-height: 0;
+  display: block;
+  background: #171715;
+}
+.hero.hero-with-product::before { display: none; }
+.hero-with-product .hero-layout {
+  width: min(1240px, 92%);
+  margin: 0 auto;
+  padding: 48px 0 56px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 76px);
+}
+.hero-with-product .hero-content {
+  width: 100%;
+  margin: 0;
+  padding: 32px 0;
+  min-width: 0;
+}
+.hero-with-product h1 {
+  font-size: clamp(38px, 4.4vw, 66px);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  margin-bottom: 24px;
+  overflow-wrap: break-word;
+}
+.hero-with-product p {
+  font-size: clamp(16px, 1.4vw, 18px);
+  line-height: 1.7;
+  max-width: 500px;
+}
+.hero-product-photo {
+  margin: 0;
+  width: 100%;
+  max-width: 450px;
+  justify-self: end;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border, #3c3b36);
+  border-radius: 8px;
+  background: #22221e;
+}
+.hero-product-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hero-product-photo figcaption {
+  padding: 13px 16px;
+  color: var(--white, #f4f1ea);
+  font-size: 13px;
+  letter-spacing: 0.025em;
+}
+.catalog-hero {
+  padding: clamp(52px, 6vw, 84px) 0 48px;
+  position: relative;
+}
+.catalog-hero h1 {
+  font-size: clamp(36px, 5vw, 66px);
+  line-height: 1.12;
+  max-width: 850px;
+}
+.customizer-hero {
+  min-height: 0;
+  margin: 44px auto 72px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+}
+.customizer-hero-content {
+  min-width: 0;
+  padding: clamp(28px, 4.5vw, 64px);
+}
+.customizer-hero-content h1 {
+  font-size: clamp(36px, 4.4vw, 62px);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  overflow-wrap: break-word;
+}
+.customizer-hero-visual {
+  min-width: 0;
+  min-height: 280px;
+  padding: clamp(24px, 3vw, 40px);
+}
+.customizer-hero-visual span {
+  font-size: clamp(30px, 4vw, 58px);
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 900px) {
+  .customizer-hero { grid-template-columns: minmax(0, 1fr); }
+  .customizer-hero-visual { min-height: 160px; }
+  .customizer-hero-visual span { font-size: clamp(32px, 7vw, 52px); }
+}
+
+@media (max-width: 700px) {
+  .hero-with-product .hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 32px 0 40px;
+    gap: 28px;
+  }
+  .hero-with-product .hero-content { padding: 12px 0 0; }
+  .hero-with-product h1 { font-size: clamp(36px, 9vw, 52px); }
+  .hero-with-product .hero-actions { gap: 12px; }
+  .hero-product-photo { max-width: 450px; justify-self: center; }
+  .catalog-hero { padding-top: 40px; padding-bottom: 36px; }
+  .catalog-hero h1 { font-size: clamp(34px, 9vw, 48px); }
+  .catalog-hero p { font-size: 16px; line-height: 1.65; }
+  .customizer-hero { margin-top: 28px; margin-bottom: 48px; }
+  .customizer-hero-content { padding: 32px 24px; }
+  .customizer-hero-content h1 { font-size: clamp(34px, 9vw, 46px); }
+}
+
+/* Precio aprobado del catálogo local. */
+.home-price { font-size: 14px; line-height: 1.6; color: #d9c598; margin-top: 10px; }
+.product-title-row { flex-wrap: wrap; row-gap: 10px; }
+.product-title-row > span { font-size: 14px; line-height: 1.5; }
+
+/* Show the whole furniture in catalog thumbnails. */
+.catalog-product-photo,.home-featured-photo{object-fit:contain;background:#171b15;transform:none;filter:none}
+.catalog-product-card:hover .catalog-product-photo,.home-featured-product:hover .home-featured-photo{transform:none;filter:none}
