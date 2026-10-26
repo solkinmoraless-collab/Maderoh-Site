@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="robots" content="noindex,nofollow,noarchive">
+ <meta name="referrer" content="no-referrer">
+ <title>Administración | Maderóh</title>
+ <link rel="stylesheet" href="/gestion/acceso.css">
+ <script src="/gestion/acceso.js" defer></script>
+</head>
+<body>
+ <header><a class="brand" href="/" aria-label="Maderóh, inicio"><img src="/assets/images/brand/maderoh-logo-original.png" alt="Maderóh" width="907" height="275"></a><a href="/">Ver sitio público ↗</a></header>
+ <main>
+  <section id="access" class="access-card" aria-labelledby="access-title">
+   <p class="eyebrow">TALLER · ADMINISTRACIÓN</p>
+   <h1 id="access-title">Acceso administrativo</h1>
+   <p class="intro">Ingresa con tu cuenta para consultar la base de tu catálogo.</p>
+   <p id="notice" role="status" aria-live="polite">Comprobando el acceso…</p>
+   <form id="login-form" hidden>
+    <label for="login-user">Usuario</label><input id="login-user" name="username" autocomplete="username" required maxlength="40" spellcheck="false" autocapitalize="none">
+    <label for="login-password">Contraseña</label><input id="login-password" name="password" type="password" autocomplete="current-password" required minlength="12" maxlength="128">
+    <button type="submit">Iniciar sesión</button>
+   </form>
+   <form id="setup-form" hidden>
+    <p class="helper">Esta es la activación de la primera cuenta. Necesitas la clave privada configurada por el propietario en Netlify.</p>
+    <label for="setup-token">Clave de activación</label><input id="setup-token" name="setupToken" type="password" autocomplete="off" required minlength="32" maxlength="256" spellcheck="false">
+    <label for="setup-user">Nuevo usuario</label><input id="setup-user" name="username" autocomplete="username" required minlength="3" maxlength="40" pattern="[a-z0-9._-]{3,40}" autocapitalize="none" spellcheck="false" aria-describedby="user-help">
+    <small id="user-help">De 3 a 40 caracteres: letras minúsculas, números, punto, guion o guion bajo.</small>
+    <label for="setup-password">Nueva contraseña</label><input id="setup-password" name="password" type="password" autocomplete="new-password" required minlength="12" maxlength="128" aria-describedby="password-help">
+    <small id="password-help">Mínimo 12 caracteres. Utiliza una contraseña exclusiva para tu administración.</small>
+    <label for="setup-confirm">Confirmar contraseña</label><input id="setup-confirm" type="password" autocomplete="new-password" required minlength="12" maxlength="128">
+    <button type="submit">Crear primera cuenta</button>
+   </form>
+   <p class="footnote">Sesión de hasta 8 horas. Al terminar, cierra sesión, especialmente si compartes el equipo.</p>
+  </section>
+  <section id="dashboard" hidden aria-labelledby="dashboard-title">
+   <div class="heading"><div><p class="eyebrow">MADERÓH · ADMINISTRACIÓN</p><h1 id="dashboard-title">Tu catálogo, conectado.</h1><p id="current-user"></p></div><button id="logout" class="secondary">Cerrar sesión</button></div>
+   <p id="panel-notice" role="status" aria-live="polite"></p>
+   <div class="stats" aria-label="Totales de la base"><article><span>Productos</span><strong id="count-products">—</strong></article><article><span>Galerías</span><strong id="count-galleries">—</strong></article><article><span>Administradores activos</span><strong id="count-admins">—</strong></article></div>
+   <section class="catalog-card"><h2>Productos registrados</h2><p>Consulta del catálogo en la base de datos. La edición de productos y la carga de imágenes se habilitarán en la siguiente etapa.</p><div class="table-wrap"><table><thead><tr><th scope="col">ID</th><th scope="col">Modelo</th><th scope="col">Categoría</th><th scope="col">Estado</th></tr></thead><tbody id="product-rows"></tbody></table></div></section>
+  </section>
+ </main>
+ <footer>Administración privada de Maderóh · CDMX</footer>
+</body>
+</html>
