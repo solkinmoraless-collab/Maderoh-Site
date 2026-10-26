@@ -81,7 +81,7 @@
    }
    whatsapp.addEventListener('click',e=>register('whatsapp',e));
    $('sales-mobile-action').addEventListener('click',e=>register('whatsapp',e));
-   printButton.addEventListener('click',e=>register('pdf',e));await update();
+   printButton.addEventListener('click',e=>register('pdf',e));await update();window.MaderohAnalytics?.productView?.(product.id);
   }catch(e){$('product-error').textContent=e.message;$('product-error').hidden=false;}finally{$('product-loading').hidden=true;}
  }
  start();
