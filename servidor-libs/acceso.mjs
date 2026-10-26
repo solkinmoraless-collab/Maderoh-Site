@@ -30,15 +30,24 @@ function sameOrigin(req){
  const site=req.headers.get('sec-fetch-site');
  if(site&&site!=='same-origin'&&site!=='none')throw new Failure(403,'Solicitud no autorizada.');
 }
-async function bodyFrom(req){
+async function bodyFrom(req,limit=4096){
  if(!/^application\/json(?:\s*;|$)/i.test(req.headers.get('content-type')||''))throw new Failure(415,'Se requiere una solicitud JSON.');
- if(Number(req.headers.get('content-length'))>4096)throw new Failure(413,'Solicitud demasiado grande.');
+ if(Number(req.headers.get('content-length'))>limit)throw new Failure(413,'Solicitud demasiado grande.');
  if(!req.body)throw new Failure(400,'Solicitud vacia.');
  const reader=req.body.getReader();let size=0;const chunks=[];
- while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>4096){await reader.cancel();throw new Failure(413,'Solicitud demasiado grande.');}chunks.push(value);}
+ while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>limit){await reader.cancel();throw new Failure(413,'Solicitud demasiado grande.');}chunks.push(value);}
  try{const b=JSON.parse(Buffer.concat(chunks).toString('utf8'));if(!b||typeof b!=='object'||Array.isArray(b))throw 0;return b;}
  catch{throw new Failure(400,'Solicitud invalida.');}
 }
+
+export async function requireAdmin(pool,req,write=false){
+ if(write)sameOrigin(req);
+ const s=await session(pool,req);
+ if(!s)throw new Failure(401,'Inicia sesion para continuar.');
+ if(write)verifyCsrf(req,s);
+ return s;
+}
+export {Failure,response,bodyFrom,transaction,quota};
 function credentials(body){
  if(typeof body.username!=='string'||typeof body.password!=='string')throw new Failure(400,'Completa usuario y contrasena.');
  const username=body.username.trim().toLowerCase();const password=body.password;

@@ -11,10 +11,6 @@
    CONFIGURACIÓN
 ========================================================= */
 
-const INICIO_PRODUCTS_ENDPOINT =
-    "assets/catalogo.json";
-
-
 const INICIO_MAX_DESTACADOS =
     3;
 
@@ -60,25 +56,7 @@ async function iniciarProductosDestacadosInicio() {
     try {
 
         const respuesta =
-            await fetch(
-                INICIO_PRODUCTS_ENDPOINT,
-                {
-
-                    method:
-                        "GET",
-
-                    headers: {
-
-                        Accept:
-                            "application/json"
-
-                    },
-
-                    cache:
-                        "no-store"
-
-                }
-            );
+            await window.MaderohCatalogo.respuesta();
 
 
         if (!respuesta.ok) {
