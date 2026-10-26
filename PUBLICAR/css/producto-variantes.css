@@ -66,3 +66,5 @@
 @media print{.product-gallery{display:none}}
 
 .quote-register{margin:28px 0;padding:24px;border:1px solid #605d4f;border-radius:8px;background:#1d201b}.quote-register h2{font-size:24px;margin-bottom:12px}.quote-register p{line-height:1.65;font-size:14px}.quote-register label:not(.storage-option){display:block;margin:16px 0 8px}.quote-register input:not([type=checkbox]){display:block;width:100%;min-width:0;padding:12px;color:#f4f1ea;background:#252520;border:1px solid #68685d;border-radius:4px;font:inherit}.quote-register .storage-option{display:block}.quote-register .storage-option input{vertical-align:middle;margin-right:8px}.quote-register .btn{margin:20px 0 10px;white-space:normal}.quote-register a{color:#dcc28f}#quote-save-status{overflow-wrap:anywhere}#quote-saved-link{display:block;margin:12px 0}.quote-register input:focus{outline:2px solid #c8aa73;outline-offset:2px}@media print{.quote-register{display:none!important}}
+
+@media print{.quote-registration-note,#quote-folio,#quote-open-ready{display:none!important}}
