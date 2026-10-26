@@ -1,12 +1,15 @@
 {
   "name": "maderoh-web-visual",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Publicación visual de Maderóh, catálogo y WhatsApp sin servidor de datos",
+  "description": "Maderoh: web visual y estructura inicial en Netlify Database",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
     "build": "node comprobar-publicacion.cjs"
+  },
+  "dependencies": {
+    "@netlify/database": "2.0.1"
   }
 }
