@@ -27,8 +27,8 @@
  async function load(){
   if(!$('sales-product-facts')&&!document.querySelector('[data-model-id]'))return;
   try{
-   const response=await fetch('assets/catalogo.json',{cache:'no-store'});if(!response.ok)return;const {productos}=await response.json();
-   for(const card of document.querySelectorAll('[data-model-id]')){const p=productos.find(p=>p.id===Number(card.dataset.modelId));if(!p)continue;card.querySelector('h3').textContent=p.nombre;const img=card.querySelector('img');img.src=p.imagen;img.alt=p.nombre;}
+   const response=await window.MaderohCatalogo.respuesta();if(!response.ok)return;const {productos}=await response.json();
+   for(const card of document.querySelectorAll('[data-model-id]')){const p=productos.find(p=>p.id===Number(card.dataset.modelId));if(!p){card.hidden=true;continue;}card.hidden=false;card.querySelector('h3').textContent=p.nombre;const img=card.querySelector('img');img.src=p.imagen;img.alt=p.nombre;const description=card.querySelector('p');if(description)description.textContent=p.madera||p.descripcion||'';}
    if(!$('sales-product-facts'))return;
    const p=productos.find(p=>String(p.id)===new URLSearchParams(location.search).get('id'));if(!p)return;
    for(const [label,value]of [['Medidas del modelo',p.medidas],['Madera',p.madera],['Estructura',p.estructura],['Fabricación',p.fabricacion],['Incluido',p.incluye],['Adicionales',p.exclusiones]]){

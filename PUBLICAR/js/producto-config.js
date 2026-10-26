@@ -5,7 +5,7 @@
  let product,quote,sequence=0,controller;
  const whatsapp=$('quote-whatsapp'),printButton=$('quote-print');
  const printSelection=document.createElement('p');printSelection.id='print-selection';$('quote-summary').before(printSelection);
- const custom=()=>!product.variantes.length||size.value==='custom'||mod.checked||finish.value==='custom'||metal.value!=='aceite';
+ const custom=()=>product.precioPendiente===true||!product.variantes.length||size.value==='custom'||mod.checked||finish.value==='custom'||metal.value!=='aceite';
  const color=()=>product.madera==='Sin madera.'?'No aplica':$('variant-color').value.trim()||'Por definir con el cliente';
  function row(label,value){const div=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;div.append(dt,dd);return div;}
  function option(select,value,label){const o=document.createElement('option');o.value=value;o.textContent=label;select.append(o);}
@@ -50,7 +50,7 @@
  }
  async function start(){
   try{
-   const id=new URLSearchParams(location.search).get('id');const r=await fetch('assets/catalogo.json',{cache:'no-store'});if(!r.ok)throw new Error('No fue posible cargar el catálogo.');product=(await r.json()).productos.find(p=>String(p.id)===id);if(!product)throw new Error('Producto no disponible.');
+   const id=new URLSearchParams(location.search).get('id');const r=await window.MaderohCatalogo.respuesta();if(!r.ok)throw new Error('No fue posible cargar el catálogo.');product=(await r.json()).productos.find(p=>String(p.id)===id);if(!product)throw new Error('Producto no disponible.');
    document.title=product.nombre+' | Maderóh';$('variant-name').textContent=product.nombre;document.querySelector('.eyebrow').textContent=product.categoriaNombre.toUpperCase()+' · '+product.subcategoria.toUpperCase();$('variant-description').textContent=product.descripcion;
    $('variant-photo').src=product.imagen;$('variant-photo').alt=product.nombre;
    for(const v of product.variantes)option(size,v.id,v.nombre+(v.colchonAnchoCm?` · colchón ${v.colchonAnchoCm} × ${v.colchonLargoCm} cm`:''));option(size,'custom',product.variantes.length?'Otra medida / configuración':'Combinación por cotizar');size.value=product.variantes.some(v=>v.id==='matrimonial')?'matrimonial':product.variantes[0]?.id||'custom';

@@ -12,14 +12,6 @@
    CONFIGURACIÓN
 ========================================================= */
 
-const PRODUCTS_ENDPOINT =
-    "assets/catalogo.json";
-
-
-const PRODUCT_IMAGES_ENDPOINT =
-    "assets/catalogo.json";
-
-
 /* =========================================================
    ESTADO
 ========================================================= */
@@ -100,25 +92,7 @@ async function cargarProductos() {
     try {
 
         const respuesta =
-            await fetch(
-                PRODUCTS_ENDPOINT,
-                {
-
-                    method:
-                        "GET",
-
-                    headers: {
-
-                        "Accept":
-                            "application/json"
-
-                    },
-
-                    cache:
-                        "no-store"
-
-                }
-            );
+            await window.MaderohCatalogo.respuesta();
 
 
         if (!respuesta.ok) {
@@ -1649,28 +1623,7 @@ async function cargarGaleriaProducto(
     try {
 
         const respuesta =
-            await fetch(
-
-                PRODUCT_IMAGES_ENDPOINT,
-
-                {
-
-                    method:
-                        "GET",
-
-                    headers: {
-
-                        "Accept":
-                            "application/json"
-
-                    },
-
-                    cache:
-                        "no-store"
-
-                }
-
-            );
+            await window.MaderohCatalogo.respuesta();
 
 
         if (!respuesta.ok) {

@@ -14,7 +14,7 @@
   <section id="access" class="access-card" aria-labelledby="access-title">
    <p class="eyebrow">TALLER · ADMINISTRACIÓN</p>
    <h1 id="access-title">Acceso administrativo</h1>
-   <p class="intro">Ingresa con tu cuenta para consultar la base de tu catálogo.</p>
+   <p class="intro">Ingresa con tu cuenta para gestionar modelos, precios y fotografías.</p>
    <p id="notice" role="status" aria-live="polite">Comprobando el acceso…</p>
    <form id="login-form" hidden>
     <label for="login-user">Usuario</label><input id="login-user" name="username" autocomplete="username" required maxlength="40" spellcheck="false" autocapitalize="none">
@@ -37,7 +37,38 @@
    <div class="heading"><div><p class="eyebrow">MADERÓH · ADMINISTRACIÓN</p><h1 id="dashboard-title">Tu catálogo, conectado.</h1><p id="current-user"></p></div><button id="logout" class="secondary">Cerrar sesión</button></div>
    <p id="panel-notice" role="status" aria-live="polite"></p>
    <div class="stats" aria-label="Totales de la base"><article><span>Productos</span><strong id="count-products">—</strong></article><article><span>Galerías</span><strong id="count-galleries">—</strong></article><article><span>Administradores activos</span><strong id="count-admins">—</strong></article></div>
-   <section class="catalog-card"><h2>Productos registrados</h2><p>Consulta del catálogo en la base de datos. La edición de productos y la carga de imágenes se habilitarán en la siguiente etapa.</p><div class="table-wrap"><table><thead><tr><th scope="col">ID</th><th scope="col">Modelo</th><th scope="col">Categoría</th><th scope="col">Estado</th></tr></thead><tbody id="product-rows"></tbody></table></div></section>
+   <section class="catalog-card" aria-labelledby="catalog-title"><div class="heading"><div><h2 id="catalog-title">Modelos del catálogo</h2><p id="list-count"></p></div><button id="new-product" type="button">Crear modelo nuevo</button></div>
+   <div class="list-tools"><label for="admin-search">Buscar modelo<input id="admin-search" type="search" placeholder="Nombre o categoría"></label><label for="admin-state">Mostrar<select id="admin-state"><option value="all">Todos</option><option value="active">Publicados</option><option value="draft">Borradores e inactivos</option></select></label><button id="refresh-list" class="secondary" type="button">Actualizar lista</button></div>
+   <div class="table-wrap"><table><thead><tr><th scope="col">ID</th><th scope="col">Modelo</th><th scope="col">Categoría</th><th scope="col">Estado</th><th scope="col">Acción</th></tr></thead><tbody id="product-rows"></tbody></table></div></section>
+   <section id="editor" class="catalog-card editor" hidden aria-labelledby="editor-title"><div class="heading"><div><p class="eyebrow">GESTIÓN DE MODELO</p><h2 id="editor-title">Editar modelo</h2><p id="editor-updated" class="helper"></p></div><button id="close-editor" type="button" class="secondary">Cerrar editor</button></div>
+    <p id="editor-notice" role="status" aria-live="polite"></p>
+    <div class="editor-actions"><button id="reload-product" type="button" class="secondary">Recargar modelo</button><a id="view-product" target="_blank" rel="noopener">Ver en el sitio ↗</a></div>
+    <form id="product-form"><fieldset id="editor-fields"><legend>Información del modelo</legend><div class="form-grid">
+     <label for="p-nombre">Nombre del modelo<input id="p-nombre" required maxlength="160" placeholder="Escribe un modelo nuevo o edita este nombre"></label>
+     <label for="p-categoria">Categoría<select id="p-categoria" required></select></label>
+     <label for="p-subcategoria">Subcategoría<input id="p-subcategoria" maxlength="160"></label>
+     <label for="p-descripcion" class="wide">Descripción<textarea id="p-descripcion" required maxlength="2500" rows="3"></textarea></label>
+     <label for="p-medidas" class="wide">Medidas generales<input id="p-medidas" required maxlength="1000" placeholder="Ej. 160 × 70 × 75 cm"></label>
+     <label for="p-madera">Madera y espesor<textarea id="p-madera" maxlength="2000" rows="3"></textarea></label>
+     <label for="p-estructura">Metal y calibre<textarea id="p-estructura" maxlength="2000" rows="3"></textarea></label>
+    </div>
+    <h3>Medidas, configuraciones y precios</h3><p class="helper">Precios por pieza en MXN, <strong>sin IVA</strong>. El sitio calcula IVA y anticipo. Puedes agregar medidas o configuraciones nuevas. Si un texto del modelo menciona importes, actualízalos también.</p>
+    <div class="checks"><label><input type="checkbox" id="p-precioPendiente">Precio únicamente por cotización personalizada</label></div><label for="p-tipoMedida">Referencia de las medidas<select id="p-tipoMedida"><option value="mueble">Medidas del mueble</option><option value="colchon">Medidas de colchón (camas y literas)</option></select></label>
+    <div id="variant-rows" class="price-rows"></div><button id="add-variant" type="button" class="secondary">Agregar configuración</button>
+    <h3>Acabados</h3><p class="helper">Importe adicional por pieza, sin IVA. Un acabado incluido lleva $0.</p><div id="finish-rows" class="price-rows"></div><button id="add-finish" type="button" class="secondary">Agregar acabado</button><label for="p-default-finish">Acabado predeterminado<select id="p-default-finish" required></select></label>
+    <div class="form-grid"><label for="p-cantidadMinima">Pedido mínimo (piezas)<input id="p-cantidadMinima" type="number" required min="1" max="1000" step="1"></label><label for="p-acabado">Descripción de los acabados<textarea id="p-acabado" maxlength="2000" rows="3"></textarea></label></div>
+    <details><summary>Precios por cantidad</summary><p class="helper">Precio neto de la pieza desde la cantidad indicada; el acabado se suma aparte. Deja vacío si no aplica.</p><div id="tier-rows" class="price-rows"></div><button id="add-tier" type="button" class="secondary">Agregar precio por cantidad</button></details>
+    <details><summary>Fabricación, entrega y condiciones</summary><div class="form-grid">
+     <label for="p-fabricacion">Plazo de fabricación<textarea id="p-fabricacion" maxlength="2000" rows="3"></textarea></label><label for="p-entrega">Condiciones de entrega<textarea id="p-entrega" maxlength="2500" rows="3"></textarea></label>
+     <label for="p-incluye">Qué incluye<textarea id="p-incluye" maxlength="2500" rows="3"></textarea></label><label for="p-exclusiones">Adicionales y exclusiones<textarea id="p-exclusiones" maxlength="2500" rows="3"></textarea></label>
+     <label for="p-construccion">Construcción<textarea id="p-construccion" maxlength="2000" rows="3"></textarea></label><label for="p-alturas">Alturas y detalles<input id="p-alturas" maxlength="1000"></label>
+     <label for="p-garantia" class="wide">Garantía<textarea id="p-garantia" maxlength="2500" rows="3"></textarea></label><label for="p-condiciones" class="wide">Condiciones de compra<textarea id="p-condiciones" maxlength="5000" rows="4"></textarea></label>
+     <label for="p-modificacionLabel" class="wide">Texto para solicitar modificaciones<input id="p-modificacionLabel" maxlength="300"></label>
+    </div><div class="checks"><label><input type="checkbox" id="p-apoyos">Incluye niveladores o ruedas a elección</label><label><input type="checkbox" id="p-esPedidoPequeno">Envío de piezas pequeñas: gratis desde 10 piezas</label><label><input type="checkbox" id="p-envioSiempreCotizar">Siempre cotizar el envío</label><label><input type="checkbox" id="p-cafeterias">Mostrar en Para cafeterías</label><label><input type="checkbox" id="p-tiendas">Mostrar en Para tiendas</label></div></details>
+    <div class="publish-options checks"><label><input id="p-activo" type="checkbox">Publicado en el catálogo</label><label><input id="p-destacado" type="checkbox">Producto destacado</label></div><p id="publish-help" class="helper"></p><p class="helper">El inicio muestra hasta 3 modelos destacados, según el orden del catálogo.</p>
+    </fieldset><div class="save-bar"><button id="save-product" type="submit">Guardar cambios</button><span id="dirty-label" role="status"></span></div></form>
+    <section class="photo-section" aria-labelledby="photo-title"><h3 id="photo-title">Fotografías del modelo</h3><p class="helper">Hasta 12 fotografías. JPG, PNG o WebP de hasta 20 MB; se preparan para la web antes de subirlas. Elige cuál será la portada.</p><div class="upload-tools"><input id="photo-files" type="file" multiple accept="image/jpeg,image/png,image/webp" aria-label="Seleccionar fotografías"><button id="upload-photos" type="button">Subir fotografías</button></div><div id="admin-gallery" class="admin-gallery"></div></section>
+   </section>
   </section>
  </main>
  <footer>Administración privada de Maderóh · CDMX</footer>

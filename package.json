@@ -1,15 +1,17 @@
 {
   "name": "maderoh-web-visual",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "Maderoh: web visual y estructura inicial en Netlify Database",
+  "description": "Maderoh: catalogo y administracion en Netlify",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "build": "node comprobar-publicacion.cjs"
   },
   "dependencies": {
-    "@netlify/database": "2.0.1"
+    "@netlify/database": "2.0.1",
+    "@netlify/blobs": "11.1.6",
+    "sharp": "0.35.5"
   }
 }
