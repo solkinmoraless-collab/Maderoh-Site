@@ -15,7 +15,7 @@
 
 
 const PRIVACY_VERSION =
-    "2026-08-preliminar";
+    "cotizaciones-v1";
 
 
 /* =========================================================
@@ -267,10 +267,12 @@ document.addEventListener(
 
 
                 try {
-                    const mensaje = crearMensajeWhatsApp(datos);
+                    const registro = await MaderohSolicitudes.guardar({kind:'personalizado',...datos},'whatsapp');
+                    if(JSON.stringify(datos)!==JSON.stringify(obtenerConfiguracion()))throw new Error('Cambiaste los datos durante el guardado. Prepara nuevamente la solicitud con los datos actuales.');
+                    const mensaje = crearMensajeWhatsApp(datos,registro.folio);
                     const url = crearWhatsAppURL(mensaje);
-                    prepararAccionesSolicitud(null,url);
-                    mostrarExito('Tu resumen está listo. Pulsa Continuar por WhatsApp para enviarlo a Maderóh. El mensaje se enviará solo cuando tú lo confirmes en WhatsApp.');
+                    prepararAccionesSolicitud(registro,url);
+                    mostrarExito('Solicitud guardada. Folio: '+registro.folio+'. Pulsa Continuar por WhatsApp para enviarlo a Maderóh. El mensaje se enviará solo cuando tú lo confirmes en WhatsApp.');
                     cambiarEstadoEnvio(false);
                     document.getElementById('personal-request-whatsapp').focus();
 
@@ -671,6 +673,7 @@ document.addEventListener(
             const lineas = [
 
                 "Hola, quiero cotizar este proyecto con Maderóh.",
+                ...(folio ? [`Folio: ${folio}`] : []),
 
                 "",
 
@@ -773,6 +776,7 @@ document.addEventListener(
         ================================================= */
 
         function actualizarResumen() {
+            ocultarExito();
 
             const tipo =
                 obtenerTipoProyecto();

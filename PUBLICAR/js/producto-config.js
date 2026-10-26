@@ -2,7 +2,7 @@
  'use strict';
  const $=id=>document.getElementById(id), money=MaderohPrecios.moneda;
  const size=$('variant-size'),finish=$('variant-finish'),delivery=$('variant-delivery'),mod=$('variant-storage'),qty=$('variant-quantity'),metal=$('variant-metal'),feet=$('variant-feet');
- let product,quote,sequence=0,controller;
+ let product,quote,sequence=0,controller,receipt=null,saving=false;
  const whatsapp=$('quote-whatsapp'),printButton=$('quote-print');
  const printSelection=document.createElement('p');printSelection.id='print-selection';$('quote-summary').before(printSelection);
  const custom=()=>product.precioPendiente===true||!product.variantes.length||size.value==='custom'||mod.checked||finish.value==='custom'||metal.value!=='aceite';
@@ -19,18 +19,18 @@
  }
  function contact(){
   if(!product)return;
-  const lines=['Hola, quiero confirmar este presupuesto orientativo de Maderóh:','',...selection()];
+  const lines=['Hola, quiero confirmar este presupuesto orientativo de Maderóh:',...(receipt?[`Folio: ${receipt.folio}`]:[]),'',...selection()];
   if(custom())lines.push('Precio y anticipo pendientes de cotización.');
   else if(quote){lines.push(`Total de productos con IVA: ${money(quote.totalCentavos)} MXN`,`Subtotal: ${money(quote.subtotalCentavos)} MXN`,`IVA: ${money(quote.ivaCentavos)} MXN`,
    `${quote.envioPendiente?'Referencia del 50% de productos':'Anticipo del 50%'}: ${money(quote.anticipoCentavos)} MXN`,quote.motivoEnvio||'Entrega por confirmar.');}
   else return;
   lines.push(product.fabricacion,product.condiciones,'Quiero confirmar la configuración, accesos y agenda.');
   whatsapp.href=crearWhatsAppURL(lines.join('\n'));whatsapp.setAttribute('aria-disabled','false');whatsapp.textContent=custom()?'Solicitar cotización personalizada':'Continuar por WhatsApp';
-  printSelection.textContent=[...selection(),product.fabricacion,product.garantia,product.condiciones].join('\n');
+  printSelection.textContent=[...(receipt?[`Folio: ${receipt.folio}`,`Registrado: ${new Date(receipt.createdAt).toLocaleString('es-MX',{timeZone:'America/Mexico_City'})}`]:[]),...selection(),product.fabricacion,product.garantia,product.condiciones,'Presupuesto orientativo. No acredita pago ni confirma pedido.'].join('\n');
  }
  function payload(){return {productId:product.id,variante:size.value,acabado:finish.value,cantidad:Number(qty.value),entrega:delivery.value,metal:metal.value,apoyos:product.apoyos?feet.value:'sin_apoyos',modificaciones:custom(),color:color(),
   anchoCm:custom()&&$('custom-width').value?Number($('custom-width').value):null,largoCm:custom()&&$('custom-length').value?Number($('custom-length').value):null,comentarios:custom()?$('custom-comments').value.trim():''};}
- function changed(){}
+ function changed(){receipt=null;$('quote-folio').textContent='';$('quote-open-ready').hidden=true;$('quote-open-ready').removeAttribute('href');}
  async function update(){
   changed();const id=++sequence;controller?.abort();controller=new AbortController();quote=null;
   $('custom-dimensions').hidden=!custom();$('customer-destination-field').hidden=delivery.value==='cdmx';$('customer-destination').required=delivery.value!=='cdmx';
@@ -65,7 +65,23 @@
    for(const [i,url]of(product.imagenes||[product.imagen]).entries()){const button=document.createElement('button'),img=document.createElement('img');button.type='button';button.setAttribute('aria-label',`Ver fotografía ${i+1} de ${product.nombre}`);img.src=url;img.alt='';button.append(img);button.addEventListener('click',()=>{$('variant-photo').src=url;});$('product-gallery').append(button);}
    $('variant-product').hidden=false;for(const e of [size,finish,delivery,mod,metal,feet])e.addEventListener('change',update);qty.addEventListener('input',update);
    for(const key of ['variant-color','custom-width','custom-length','custom-comments','customer-destination'])$(key).addEventListener('input',()=>{changed();contact();});
-   printButton.addEventListener('click',()=>{contact();window.print();});await update();
+   async function register(channel,event){
+    event.preventDefault();if(saving||whatsapp.getAttribute('aria-disabled')!=='false')return;
+    saving=true;printButton.disabled=true;const selectionKey=JSON.stringify(payload())+$('customer-destination').value;
+    let popup=null;if(channel==='whatsapp'){popup=window.open('about:blank','_blank');if(popup)popup.opener=null;}
+    $('quote-error').hidden=true;$('quote-folio').textContent='Guardando tu folio…';
+    try{
+     const result=await MaderohSolicitudes.guardar({kind:'producto',...payload(),referenciaCentavos:quote?.totalCentavos??null,destino:delivery.value==='cdmx'?'CDMX':$('customer-destination').value.trim()},channel);
+     if(selectionKey!==JSON.stringify(payload())+$('customer-destination').value)throw Error('Cambiaste la configuración durante el guardado. Vuelve a continuar con tu selección actual.');
+     if(!custom()&&result.estimate?.totals?.totalCentavos!==quote?.totalCentavos)throw Error('El precio del modelo cambió. Recarga la página para consultar el importe actualizado.');
+     receipt=result;contact();$('quote-folio').textContent='Folio: '+result.folio;
+     if(channel==='pdf')window.print();else if(popup)popup.location.replace(whatsapp.href);else{$('quote-error').hidden=false;$('quote-error').textContent='Folio guardado. Tu navegador bloqueó la ventana; pulsa Abrir WhatsApp.';$('quote-open-ready').href=whatsapp.href;$('quote-open-ready').hidden=false;}
+    }catch(e){if(popup)popup.close();$('quote-folio').textContent='';$('quote-error').textContent=e.message;$('quote-error').hidden=false;}
+    finally{saving=false;printButton.disabled=whatsapp.getAttribute('aria-disabled')!=='false';}
+   }
+   whatsapp.addEventListener('click',e=>register('whatsapp',e));
+   $('sales-mobile-action').addEventListener('click',e=>register('whatsapp',e));
+   printButton.addEventListener('click',e=>register('pdf',e));await update();
   }catch(e){$('product-error').textContent=e.message;$('product-error').hidden=false;}finally{$('product-loading').hidden=true;}
  }
  start();

@@ -1,13 +1,13 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path');
 const root=path.join(__dirname,'PUBLICAR');
-for(const name of ['index.html','productos.html','producto.html','personaliza.html','gestion/index.html','gestion/acceso.js','gestion/acceso.css','js/catalogo-remoto.js','_headers','_redirects'])if(!fs.existsSync(path.join(root,name)))throw Error('Falta '+name);
+for(const name of ['index.html','productos.html','producto.html','personaliza.html','gestion/index.html','gestion/acceso.js','gestion/acceso.css','gestion/cotizaciones.html','gestion/cotizaciones.js','gestion/cotizaciones.css','js/solicitudes.js','js/catalogo-remoto.js','_headers','_redirects'])if(!fs.existsSync(path.join(root,name)))throw Error('Falta '+name);
 for(const name of ['data','database','admin','acceso.html','administracion.html','estadisticas.html','cotizaciones.html','cotizacion.html'])if(fs.existsSync(path.join(root,name)))throw Error('No publicar archivos privados: '+name);
 const legacy=JSON.parse(fs.readFileSync(path.join(root,'assets/catalogo.json'),'utf8'));
 if(legacy.productos.length||legacy.origen!=='netlify-database')throw Error('El catalogo publico debe consultar la base de datos.');
-for(const name of ['maderoh-access.mjs','maderoh-products.mjs','maderoh-admin-products.mjs','maderoh-image.mjs'])if(!fs.existsSync(path.join(__dirname,'servidor-acceso',name)))throw Error('Falta funcion '+name);
+for(const name of ['maderoh-access.mjs','maderoh-products.mjs','maderoh-admin-products.mjs','maderoh-image.mjs','maderoh-quotes.mjs','maderoh-admin-quotes.mjs'])if(!fs.existsSync(path.join(__dirname,'servidor-acceso',name)))throw Error('Falta funcion '+name);
 const pkg=JSON.parse(fs.readFileSync(path.join(__dirname,'package.json'),'utf8'));
 for(const dependency of ['@netlify/database','@netlify/blobs','sharp'])if(!pkg.dependencies?.[dependency])throw Error('Falta dependencia '+dependency);
 for(const name of ['index.html','productos.html','producto.html'])if(!fs.readFileSync(path.join(root,name),'utf8').includes('js/catalogo-remoto.js'))throw Error('Falta conexion de catalogo en '+name);
 const redirects=fs.readFileSync(path.join(root,'_redirects'),'utf8');if(/^\s*\/\.netlify\//m.test(redirects))throw Error('No crear reglas para rutas reservadas de Netlify.');
-console.log('Publicacion comprobada: catalogo remoto, editor y cuatro funciones configuradas.');
+console.log('Publicacion comprobada: catalogo remoto, editor y seis funciones y seguimiento de cotizaciones configuradas.');

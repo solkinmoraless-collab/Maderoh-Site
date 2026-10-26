@@ -2377,65 +2377,10 @@ function cerrarModal() {
    WHATSAPP
 ========================================================= */
 
-function abrirWhatsAppProducto(
-    producto
-) {
-    if (Array.isArray(producto.variantes) && producto.variantes.length) {
-        globalThis.MaderohAnalytics?.productClick?.(producto.id);
-        window.location.href = "producto.html?id=" + encodeURIComponent(producto.id);
-        return;
-    }
-    globalThis.MaderohAnalytics?.quoteClick?.(producto.id);
-
-    const mensaje = [
-
-        "Hola, me interesa cotizar este producto de Maderóh:",
-
-        "",
-
-        `Producto: ${producto.nombre || ""}`,
-
-        `Categoría: ${producto.categoriaNombre || ""}`,
-
-        `Medidas: ${producto.medidas || "Consultar"}`,
-
-        `Acabado: ${producto.acabado || "Consultar"}`,
-
-        `Precio mostrado: ${formatearPrecio(
-            producto.precio, producto.precioDesde
-        )}`,
-
-        "",
-
-        "¿Me pueden apoyar con disponibilidad y cotización?"
-
-    ].join("\n");
-
-
-    if (
-        typeof crearWhatsAppURL !==
-        "function"
-    ) {
-
-        alert(
-            "WhatsApp todavía no está configurado."
-        );
-
-        return;
-
-    }
-
-
-    window.open(
-        crearWhatsAppURL(
-            mensaje
-        ),
-
-        "_blank",
-
-        "noopener,noreferrer"
-    );
-
+function abrirWhatsAppProducto(producto) {
+    if (!Number.isSafeInteger(producto?.id) || producto.id < 1) return;
+    globalThis.MaderohAnalytics?.productClick?.(producto.id);
+    window.location.href = "producto.html?id=" + encodeURIComponent(producto.id);
 }
 
 
