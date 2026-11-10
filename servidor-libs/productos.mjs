@@ -1,3 +1,4 @@
+import {leerMarketing,productoConOfertas} from './marketing.mjs';
 import {randomUUID} from 'node:crypto';
 import {Failure,response,bodyFrom,transaction,quota,requireAdmin} from './acceso.mjs';
 import {CATEGORIES,DEFAULTS,PLACEHOLDER,validId,validRevision,validateProduct,readProduct,checkRevision,persist} from './catalogo.mjs';
@@ -24,7 +25,8 @@ export function createProductsHandlers({getPool,getStore,processImage}){
    const rows=(await pool.query(`SELECT p.document,s.document AS gallery FROM public.maderoh_products p
     LEFT JOIN public.maderoh_settings s ON s.key='gallery:'||p.id::text
     WHERE p.document->'activo'='true'::jsonb ORDER BY p.id`)).rows;
-   return response(200,{productos:rows.map(r=>r.document),galerias:Object.fromEntries(rows.map(r=>[r.document.id,r.gallery||{productId:r.document.id,imagenPrincipal:r.document.imagen,imagenes:[]}]))});
+   const marketing=await leerMarketing(pool);const now=Date.now();
+   return response(200,{serverNow:new Date(now).toISOString(),productos:rows.map(r=>productoConOfertas(r.document,marketing.document,now)),galerias:Object.fromEntries(rows.map(r=>[r.document.id,r.gallery||{productId:r.document.id,imagenPrincipal:r.document.imagen,imagenes:[]}]))});
   }catch(e){return fail(e);}
  };
  const admin=async(req,context={})=>{

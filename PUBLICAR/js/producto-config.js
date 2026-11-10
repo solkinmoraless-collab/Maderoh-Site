@@ -4,6 +4,7 @@
  const size=$('variant-size'),finish=$('variant-finish'),delivery=$('variant-delivery'),mod=$('variant-storage'),qty=$('variant-quantity'),metal=$('variant-metal'),feet=$('variant-feet');
  let product,quote,sequence=0,controller,receipt=null,saving=false;
  const whatsapp=$('quote-whatsapp'),printButton=$('quote-print');
+ const offerBox=document.createElement('section');offerBox.className='product-offer';offerBox.hidden=true;offerBox.setAttribute('aria-label','Promoción de este modelo');$('quote-breakdown').before(offerBox);let expiryTimer;
  const printSelection=document.createElement('p');printSelection.id='print-selection';$('quote-summary').before(printSelection);
  const custom=()=>product.precioPendiente===true||!product.variantes.length||size.value==='custom'||mod.checked||finish.value==='custom'||metal.value!=='aceite';
  const color=()=>product.madera==='Sin madera.'?'No aplica':$('variant-color').value.trim()||'Por definir con el cliente';
@@ -15,6 +16,7 @@
    ...(product.apoyos?[`Apoyos: ${feet.value==='ruedas'?'Ruedas':'Niveladores'} · incluidos`]:[]),
    ...(metal.value!=='aceite'?[`Pintura metálica: ${metal.value==='electrostatica'?'Electrostática, por cotizar':'Otra, por cotizar'}`]:[]),
    `Entrega: ${delivery.value==='cdmx'?'CDMX':$('customer-destination').value.trim()||'Otro estado, por definir'}`,`Incluye: ${product.incluye}`,
+   ...(quote?.promocionAplicada?[`Promoción: ${quote.promocionAplicada.titulo}`,`Descuento en precio base: ${quote.promocionAplicada.porcentaje}% · hasta ${quote.promocionAplicada.fin}`,`Antes con IVA: ${money(quote.totalRegularCentavos)} MXN`,`Ahorro total con IVA: ${money(quote.ahorroTotalCentavos)} MXN`]:[]),
    ...(custom()?[`Ancho solicitado: ${$('custom-width').value||'Por confirmar'} cm`,`Largo solicitado: ${$('custom-length').value||'Por confirmar'} cm`,`Comentarios: ${$('custom-comments').value.trim()||'Por definir'}`]:[])];
  }
  function contact(){
@@ -34,7 +36,7 @@
  async function update(){
   changed();const id=++sequence;controller?.abort();controller=new AbortController();quote=null;
   $('custom-dimensions').hidden=!custom();$('customer-destination-field').hidden=delivery.value==='cdmx';$('customer-destination').required=delivery.value!=='cdmx';
-  $('quote-error').hidden=true;printButton.disabled=true;whatsapp.removeAttribute('href');whatsapp.setAttribute('aria-disabled','true');$('quote-breakdown').replaceChildren();
+  offerBox.hidden=true;offerBox.replaceChildren();$('quote-error').hidden=true;printButton.disabled=true;whatsapp.removeAttribute('href');whatsapp.setAttribute('aria-disabled','true');$('quote-breakdown').replaceChildren();
   $('quote-tax-note').textContent='';$('quote-delivery-note').textContent='';
   const quantity=Number(qty.value);
   if(!Number.isSafeInteger(quantity)||quantity<(product.cantidadMinima||1)||quantity>1000){$('quote-total').textContent='Revisa la cantidad';$('quote-error').hidden=false;$('quote-error').textContent=`Pedido permitido: ${product.cantidadMinima||1} a 1,000 piezas.`;return;}
@@ -42,7 +44,8 @@
   $('quote-label').textContent='Estimado de productos';$('quote-total').textContent='Calculando…';
   try{
    const q=MaderohEvaluar(product,payload());if(id!==sequence)return;quote=q;
-   $('quote-total').textContent=money(q.totalCentavos)+' MXN';$('quote-tax-note').textContent='IVA incluido. Solicitar factura no cambia el precio.';
+   $('quote-total').textContent=money(q.totalCentavos)+' MXN';
+   if(q.promocionAplicada){const o=q.promocionAplicada,b=document.createElement('span'),h=document.createElement('h3'),copy=document.createElement('p');b.className='offer-badge';b.textContent='Promoción aplicada';h.textContent=o.titulo;copy.textContent=o.porcentaje+'% sobre el precio base. Vigencia hasta '+o.fin+' (CDMX). Adicionales de acabado sin descuento. Se aplica el mejor precio entre promoción y volumen, sin acumular.';offerBox.append(b,h,copy);offerBox.hidden=false;$('quote-breakdown').append(row('Antes de promoción, con IVA',money(q.totalRegularCentavos)),row('Ahorro total, con IVA',money(q.ahorroTotalCentavos)));}$('quote-tax-note').textContent='IVA incluido. Solicitar factura no cambia el precio.';
    if(q.cantidad>1)$('quote-breakdown').append(row('Precio unitario con IVA',money(q.unitarioTotalCentavos)),row('Cantidad',String(q.cantidad)));
    $('quote-breakdown').append(row('Subtotal',money(q.subtotalCentavos)),row('IVA 16%',money(q.ivaCentavos)),row(q.envioPendiente?'50% de productos (referencia)':'Anticipo 50%',money(q.anticipoCentavos)),row('Saldo de productos',money(q.saldoCentavos)));
    $('quote-delivery-note').textContent=(q.motivoEnvio||'')+(q.envioPendiente?' Envío, total final y pago se confirman en la cotización.':' Saldo después del armado en CDMX, cuando aplique.');printButton.disabled=false;contact();
@@ -84,5 +87,16 @@
    printButton.addEventListener('click',e=>register('pdf',e));await update();window.MaderohAnalytics?.productView?.(product.id);
   }catch(e){$('product-error').textContent=e.message;$('product-error').hidden=false;}finally{$('product-loading').hidden=true;}
  }
- start();
+ function programarVigencia(){
+  clearTimeout(expiryTimer);const endings=(product?.ofertas||[]).map(o=>Date.parse(o.fin+'T23:59:59.999-06:00')+1).filter(t=>t>Date.now());
+  if(endings.length)expiryTimer=setTimeout(refrescarPromociones,Math.min(2147483647,Math.max(25,Math.min(...endings)-Date.now())));
+ }
+ async function refrescarPromociones(){
+  if(!product||saving||document.visibilityState==='hidden'){programarVigencia();return;}
+  try{const r=await MaderohCatalogo.respuesta(true),data=await r.json(),latest=data.productos.find(p=>p.id===product.id);if(latest&&JSON.stringify(latest.ofertas)!==JSON.stringify(product.ofertas)){product.ofertas=latest.ofertas;await update();}}
+  catch{/* Si venció una oferta, el cálculo local deja de aplicarla igualmente. */await update();}
+  programarVigencia();
+ }
+ document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&product)refrescarPromociones();});
+ start().then(programarVigencia);
 })();

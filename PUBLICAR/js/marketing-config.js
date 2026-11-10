@@ -3,8 +3,8 @@ globalThis.MADEROH_MARKETING = {
   whatsapp: '525577265340',
   redes: [
     { nombre:'Instagram', cuenta:'@maderoh_mx', url:'https://www.instagram.com/maderoh_mx/', descripcion:'Muebles, acabados y proyectos reales.' },
-    { nombre:'Facebook', cuenta:'Maderóh_mx', url:null, descripcion:'Solicita el enlace de nuestra página.' },
-    { nombre:'TikTok', cuenta:'Videos del taller', url:null, descripcion:'Solicita el enlace de nuestra cuenta.' }
+    { nombre:'Facebook', cuenta:'Maderóh', url:'https://www.facebook.com/profile.php?id=61574687565250', descripcion:'Modelos, novedades y atención directa.' },
+    { nombre:'TikTok', cuenta:'@maderoh_mx', url:'https://www.tiktok.com/@maderoh_mx', descripcion:'Conoce el trabajo y los detalles del taller.' }
   ],
   volumen: {
     titulo:'Salseros con tu logo',
@@ -25,3 +25,17 @@ globalThis.MADEROH_MARKETING = {
   // Las fechas deben ser ISO 8601 con zona horaria, por ejemplo: 2026-11-01T00:00:00-06:00.
   campanas: []
 };
+
+/* Una consulta compartida por paneles y pie de página. Los descuentos requieren el servidor. */
+(function(){
+ let promise;
+ globalThis.MaderohMarketing={cargar(){
+  if(!promise){
+   const c=new AbortController(),timer=setTimeout(()=>c.abort(),10000);
+   promise=fetch('/.netlify/functions/maderoh-marketing',{credentials:'same-origin',cache:'no-store',signal:c.signal})
+    .then(async r=>{if(!r.ok)throw Error('Promociones no disponibles');const data=await r.json();if(!data.marketing||!Array.isArray(data.marketing.redes)||!Array.isArray(data.marketing.campanas))throw Error('Promociones inválidas');return {...globalThis.MADEROH_MARKETING,...data.marketing};})
+    .catch(()=>({...globalThis.MADEROH_MARKETING,campanas:[]})).finally(()=>clearTimeout(timer));
+  }
+  return promise;
+ }};
+})();
