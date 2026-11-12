@@ -34,3 +34,7 @@ for(const [page,consumer]of [['index.html','js/inicio-productos.js'],['productos
  const provider=scripts.indexOf('js/ofertas.js'),client=scripts.indexOf(consumer);
  if(provider<0||client<0||provider>client)throw Error('Falta cargar js/ofertas.js antes de '+consumer+' en '+page);
 }
+
+for(const name of ['maderoh-marketing.mjs','maderoh-admin-marketing.mjs'])if(!fs.existsSync(path.join(__dirname,'servidor-acceso',name)))throw Error('Falta función de promociones: '+name);
+for(const name of ['netlify-marketing.mjs','marketing.mjs','precios.cjs','acceso.mjs'])if(!fs.existsSync(path.join(__dirname,'servidor-libs',name)))throw Error('Falta dependencia de promociones: '+name);
+console.log('Funciones públicas y privadas de promociones comprobadas.');
