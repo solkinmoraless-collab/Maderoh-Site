@@ -66,6 +66,8 @@ async function iniciarCatalogo() {
     }
 
 
+    const ofertas=document.getElementById('only-offers');
+    if(ofertas){ofertas.checked=new URLSearchParams(location.search).get('promociones')==='1';ofertas.addEventListener('change',()=>{renderizarCatalogo();const u=new URL(location.href);if(ofertas.checked)u.searchParams.set('promociones','1');else u.searchParams.delete('promociones');history.replaceState(null,'',u);});}
     iniciarFiltros();
 
     iniciarBuscador();
@@ -349,6 +351,7 @@ function renderizarProductoDestacado() {
             producto.precio, producto.precioDesde
         )
     );
+    MaderohOfertas.mostrar('featured-product-price',producto);
 
 
     /* =====================================================
@@ -569,7 +572,7 @@ function renderizarCatalogo() {
 
                 return (
                     coincideCategoria &&
-                    coincideBusqueda
+                    coincideBusqueda && (!document.getElementById('only-offers')?.checked || (producto.ofertas||[]).some(o=>MaderohOfertas.vigente(o)))
                 );
 
             }
@@ -644,7 +647,7 @@ function crearTarjeta(
     const precio =
         formatearPrecio(
             producto.precio, producto.precioDesde
-        ) + (producto.precioVolumen?.length ? " · por pieza desde 15 piezas" : "");
+        ) + (producto.precioVolumen?.length ? ` · por pieza; precio por volumen desde ${Math.min(...producto.precioVolumen.map(t=>t.desde))} piezas` : "");
 
 
     const tono =
@@ -816,7 +819,7 @@ function crearTarjeta(
                     </h3>
 
                     <span>
-                        ${precio}
+                        ${MaderohOfertas.precioHTML(producto,precio)}
                     </span>
 
                 </div>
@@ -1425,6 +1428,7 @@ async function abrirModal(
             producto.precio, producto.precioDesde
         )
     );
+    MaderohOfertas.mostrar('modal-product-price',producto);
 
 
     limpiarMiniaturasModal();
@@ -2461,7 +2465,7 @@ function formatearPrecio(
     )
     .format(
         numero
-    ) + " MXN · IVA incluido";
+    ) + " MXN · sin IVA";
 
 }
 

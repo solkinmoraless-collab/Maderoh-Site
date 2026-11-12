@@ -41,7 +41,7 @@
  async function refreshList(){const data=await adminApi();list=data.products;categories=data.categories;defaults=data.defaults;renderList();}
  async function dashboard(){
   const data=await api('dashboard');await refreshList();
-  $('access').hidden=true;$('dashboard').hidden=false;
+  $('access').hidden=true;$('dashboard').hidden=false;document.dispatchEvent(new Event('maderoh-session-ready'));
   $('current-user').textContent='Sesión de '+data.user.username;
   $('count-galleries').textContent=data.counts.galerias;$('count-admins').textContent=data.counts.administradores;
   notice('Catálogo conectado. Los cambios guardados se reflejan al recargar el sitio público.',false,true);
@@ -62,6 +62,7 @@
   if(kind==='variant'){const extra=node('div',undefined,'mattress-fields');for(const [key,label]of [['colchonAnchoCm','Ancho del colchón (cm)'],['colchonLargoCm','Largo del colchón (cm)']]){const input=rowInput(extra,label,item[key]??'','number',30,400);input.required=false;input.step='0.1';input.className=key;}row.append(extra);}
   const price=rowInput(row,kind==='finish'?'Adicional neto MXN':'Precio neto MXN',(Number(item.netoCentavos||0)/100).toFixed(2),'number',kind==='finish'?0:0.01,10000000);price.className='row-price';
   const remove=node('button','Quitar','secondary compact');remove.type='button';remove.setAttribute('aria-label','Quitar '+(kind==='variant'?'configuración':kind==='finish'?'acabado':'precio por cantidad'));remove.addEventListener('click',()=>{row.remove();if(kind==='finish')refreshFinishSelect();markDirty();});row.append(remove);container.append(row);
+  if(kind==='finish'&&item.id==='brillante'){price.readOnly=true;name.readOnly=true;remove.disabled=true;remove.title='Tarifa general de alto brillo: $999 por pieza.';}
   if(kind==='finish')name.addEventListener('input',refreshFinishSelect);
   updateConfigurationControls();return row;
  }
@@ -81,7 +82,7 @@
   $('editor').hidden=false;$('editor-title').textContent=isNew?'Crear modelo nuevo':p.nombre;
   $('editor-updated').textContent=isNew?'Se guardará primero como borrador.':'Modelo #'+p.id+(record.updatedAt?' · Actualizado '+new Date(record.updatedAt).toLocaleString('es-MX'):'');
   for(const field of textFields)$('p-'+field).value=p[field]||'';
-  $('p-categoria').replaceChildren();const prompt=node('option','Selecciona una categoría');prompt.value='';$('p-categoria').append(prompt);for(const [key,name]of Object.entries(categories)){const option=node('option',name);option.value=key;$('p-categoria').append(option);}$('p-categoria').value=p.categoria||'';
+  $('p-categoria').replaceChildren();const prompt=node('option','Selecciona una categoría');prompt.value='';$('p-categoria').append(prompt);for(const [key,name]of Object.entries(categories)){const option=node('option',name);option.value=key;$('p-categoria').append(option);}$('p-categoria').value=p.categoria||'';$('p-grupoElectrostatica').value=p.grupoElectrostatica||'pequeno';
   $('p-cantidadMinima').value=p.cantidadMinima||1;$('p-tipoMedida').value=p.tipoMedida||'mueble';
   for(const field of boolFields)$('p-'+field).checked=p[field]===true;
   for(const collection of ['cafeterias','tiendas'])$('p-'+collection).checked=(p.colecciones||[]).includes(collection);
@@ -104,7 +105,7 @@
   updateConfigurationControls();markDirty(false);updatePhotoControls();
  }
  async function openProduct(id){if(busy||!canLeave())return;try{setBusy(true);const record=await request(productsEndpoint+'?id='+encodeURIComponent(id));renderEditor(record);message('');$('editor').scrollIntoView({behavior:'smooth',block:'start'});$('p-nombre').focus({preventScroll:true});}catch(error){notice(error.message,true,true);if(error.status===401)await access();}finally{setBusy(false);}}
- $('new-product').addEventListener('click',()=>{if(busy||!canLeave())return;renderEditor({product:{...defaults,nombre:'',categoria:'',descripcion:'',medidas:'',madera:'',estructura:'',activo:false,destacado:false,apoyos:true,cantidadMinima:1,variantes:[{id:'estandar',nombre:'',netoCentavos:0}],acabados:[{id:'mate',nombre:'Mate',netoCentavos:0},{id:'brillante',nombre:'Alto brillo',netoCentavos:50000}],acabadoPredeterminado:'mate',acabado:'Mate incluido. Alto brillo con costo adicional.',colecciones:[]},gallery:{imagenes:[]},revision:0});message('Completa el modelo y guárdalo como borrador.');$('editor').scrollIntoView({behavior:'smooth'});$('p-nombre').focus({preventScroll:true});});
+ $('new-product').addEventListener('click',()=>{if(busy||!canLeave())return;renderEditor({product:{...defaults,nombre:'',categoria:'',descripcion:'',medidas:'',madera:'',estructura:'',activo:false,destacado:false,apoyos:true,cantidadMinima:1,variantes:[{id:'estandar',nombre:'',netoCentavos:0}],acabados:[{id:'mate',nombre:'Mate',netoCentavos:0},{id:'brillante',nombre:'Alto brillo',netoCentavos:99900}],acabadoPredeterminado:'mate',acabado:'Mate incluido. Alto brillo con costo adicional.',colecciones:[]},gallery:{imagenes:[]},revision:0});message('Completa el modelo y guárdalo como borrador.');$('editor').scrollIntoView({behavior:'smooth'});$('p-nombre').focus({preventScroll:true});});
  $('close-editor').addEventListener('click',()=>{if(!canLeave())return;markDirty(false);current=null;$('editor').hidden=true;});
  $('reload-product').addEventListener('click',()=>{if(current?.product?.id)openProduct(current.product.id);});
  $('product-form').addEventListener('input',()=>markDirty());$('product-form').addEventListener('change',()=>markDirty());
@@ -115,7 +116,7 @@
   try{
    const product={};for(const field of textFields)product[field]=$('p-'+field).value;
    for(const field of boolFields)product[field]=$('p-'+field).checked;
-   product.categoria=$('p-categoria').value;product.cantidadMinima=Number($('p-cantidadMinima').value);product.colecciones=['cafeterias','tiendas'].filter(c=>$('p-'+c).checked);
+   product.grupoElectrostatica=$('p-grupoElectrostatica').value;product.categoria=$('p-categoria').value;product.cantidadMinima=Number($('p-cantidadMinima').value);product.colecciones=['cafeterias','tiendas'].filter(c=>$('p-'+c).checked);
    product.tipoMedida=$('p-tipoMedida').value;product.variantes=product.precioPendiente?(current.product.id?current.product.variantes:[]):priceRows('variant');product.acabados=priceRows('finish');product.precioVolumen=priceRows('tier');product.acabadoPredeterminado=$('p-default-finish').value;
    const isNew=!current.product.id;
    const record=await adminApi({action:'save',id:current.product.id||null,revision:current.revision,product});renderEditor(record);

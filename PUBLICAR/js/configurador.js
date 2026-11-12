@@ -764,6 +764,7 @@ document.addEventListener(
             );
 
 
+            lineas.push("", window.MaderohPrecios.AVISO);
             return lineas.join(
                 "\n"
             );

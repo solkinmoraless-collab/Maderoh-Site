@@ -7,7 +7,7 @@
  <title>Administración | Maderóh</title>
  <link rel="stylesheet" href="/gestion/acceso.css">
  <script src="/gestion/acceso.js" defer></script>
-</head>
+<script src="/gestion/avisos.js" defer></script></head>
 <body>
  <header><a class="brand" href="/" aria-label="Maderóh, inicio"><img src="/assets/images/brand/maderoh-logo-original.png" alt="Maderóh" width="907" height="275"></a><a href="/">Ver sitio público ↗</a></header>
  <main>
@@ -35,7 +35,7 @@
   </section>
   <section id="dashboard" hidden aria-labelledby="dashboard-title">
    <div class="heading"><div><p class="eyebrow">MADERÓH · ADMINISTRACIÓN</p><h1 id="dashboard-title">Tu catálogo, conectado.</h1><p id="current-user"></p></div><button id="logout" class="secondary">Cerrar sesión</button></div>
-   <nav aria-label="Administración" class="admin-nav"><a href="/gestion/" aria-current="page">Productos</a><a href="/gestion/cotizaciones.html">Cotizaciones</a><a href="/gestion/estadisticas.html">Estadísticas</a></nav>
+   <nav aria-label="Administración" class="admin-nav"><a href="/gestion/" aria-current="page">Productos</a><a href="/gestion/cotizaciones.html">Cotizaciones</a><a href="/gestion/estadisticas.html">Estadísticas</a><a href="/gestion/comercial.html">Clientes y pedidos</a><a href="/gestion/promociones.html">Promociones y redes</a></nav>
    <p id="panel-notice" role="status" aria-live="polite"></p>
    <div class="stats" aria-label="Totales de la base"><article><span>Productos</span><strong id="count-products">—</strong></article><article><span>Galerías</span><strong id="count-galleries">—</strong></article><article><span>Administradores activos</span><strong id="count-admins">—</strong></article></div>
    <section class="catalog-card" aria-labelledby="catalog-title"><div class="heading"><div><h2 id="catalog-title">Modelos del catálogo</h2><p id="list-count"></p></div><button id="new-product" type="button">Crear modelo nuevo</button></div>
@@ -53,10 +53,10 @@
      <label for="p-madera">Madera y espesor<textarea id="p-madera" maxlength="2000" rows="3"></textarea></label>
      <label for="p-estructura">Metal y calibre<textarea id="p-estructura" maxlength="2000" rows="3"></textarea></label>
     </div>
-    <h3>Medidas, configuraciones y precios</h3><p class="helper">Precios por pieza en MXN, <strong>sin IVA</strong>. El sitio calcula IVA y anticipo. Puedes agregar medidas o configuraciones nuevas. Si un texto del modelo menciona importes, actualízalos también.</p>
+    <h3>Medidas, configuraciones y precios</h3><p class="helper">Precios por pieza en MXN, <strong>sin IVA</strong>. El sitio calcula el anticipo y no añade IVA automáticamente. Puedes agregar medidas o configuraciones nuevas. Si un texto del modelo menciona importes, actualízalos también.</p>
     <div class="checks"><label><input type="checkbox" id="p-precioPendiente">Precio únicamente por cotización personalizada</label></div><label for="p-tipoMedida">Referencia de las medidas<select id="p-tipoMedida"><option value="mueble">Medidas del mueble</option><option value="colchon">Medidas de colchón (camas y literas)</option></select></label>
     <div id="variant-rows" class="price-rows"></div><button id="add-variant" type="button" class="secondary">Agregar configuración</button>
-    <h3>Acabados</h3><p class="helper">Importe adicional por pieza, sin IVA. Un acabado incluido lleva $0.</p><div id="finish-rows" class="price-rows"></div><button id="add-finish" type="button" class="secondary">Agregar acabado</button><label for="p-default-finish">Acabado predeterminado<select id="p-default-finish" required></select></label>
+    <h3>Pintura electrostática</h3><label for="p-grupoElectrostatica">Clasificación por pieza<select id="p-grupoElectrostatica"><option value="pequeno">Volumen pequeño · +$1,000</option><option value="escritorio">Escritorio · +$2,000</option><option value="grande">Volumen grande · +$3,500</option><option value="no_aplica">Sin metal · no aplica</option></select></label><p class="helper">Tarifa adicional por pieza. Revisa la clasificación según el volumen real del modelo.</p><h3>Acabados</h3><p class="helper">Importe adicional por pieza, sin IVA. Un acabado incluido lleva $0. Poliuretano de alto brillo: tarifa general de $999 por pieza.</p><div id="finish-rows" class="price-rows"></div><button id="add-finish" type="button" class="secondary">Agregar acabado</button><label for="p-default-finish">Acabado predeterminado<select id="p-default-finish" required></select></label>
     <div class="form-grid"><label for="p-cantidadMinima">Pedido mínimo (piezas)<input id="p-cantidadMinima" type="number" required min="1" max="1000" step="1"></label><label for="p-acabado">Descripción de los acabados<textarea id="p-acabado" maxlength="2000" rows="3"></textarea></label></div>
     <details><summary>Precios por cantidad</summary><p class="helper">Precio neto de la pieza desde la cantidad indicada; el acabado se suma aparte. Deja vacío si no aplica.</p><div id="tier-rows" class="price-rows"></div><button id="add-tier" type="button" class="secondary">Agregar precio por cantidad</button></details>
     <details><summary>Fabricación, entrega y condiciones</summary><div class="form-grid">

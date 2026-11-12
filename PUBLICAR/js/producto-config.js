@@ -4,8 +4,9 @@
  const size=$('variant-size'),finish=$('variant-finish'),delivery=$('variant-delivery'),mod=$('variant-storage'),qty=$('variant-quantity'),metal=$('variant-metal'),feet=$('variant-feet');
  let product,quote,sequence=0,controller,receipt=null,saving=false;
  const whatsapp=$('quote-whatsapp'),printButton=$('quote-print');
+ const offerBox=document.createElement('section');offerBox.className='product-offer';offerBox.hidden=true;offerBox.setAttribute('aria-label','Promoción de este modelo');$('quote-breakdown').before(offerBox);let expiryTimer;
  const printSelection=document.createElement('p');printSelection.id='print-selection';$('quote-summary').before(printSelection);
- const custom=()=>product.precioPendiente===true||!product.variantes.length||size.value==='custom'||mod.checked||finish.value==='custom'||metal.value!=='aceite';
+ const custom=()=>product.precioPendiente===true||!product.variantes.length||size.value==='custom'||mod.checked||finish.value==='custom'||metal.value==='custom';
  const color=()=>product.madera==='Sin madera.'?'No aplica':$('variant-color').value.trim()||'Por definir con el cliente';
  function row(label,value){const div=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;div.append(dt,dd);return div;}
  function option(select,value,label){const o=document.createElement('option');o.value=value;o.textContent=label;select.append(o);}
@@ -13,20 +14,21 @@
   const v=product.variantes.find(v=>v.id===size.value), f=MaderohPrecios.acabados(product).find(a=>a.id===finish.value);
   return [`Producto: ${product.nombre}`,`Configuración: ${v?.nombre||'Medida o combinación personalizada'}`,`Cantidad: ${qty.value}`,`Acabado: ${f?.nombre||'Otro, por cotizar'}`,`Color: ${color()}`,
    ...(product.apoyos?[`Apoyos: ${feet.value==='ruedas'?'Ruedas':'Niveladores'} · incluidos`]:[]),
-   ...(metal.value!=='aceite'?[`Pintura metálica: ${metal.value==='electrostatica'?'Electrostática, por cotizar':'Otra, por cotizar'}`]:[]),
+   ...(metal.value!=='aceite'?[`Pintura metálica: ${metal.value==='electrostatica'?'Electrostática · +'+money(MaderohPrecios.electrostatica(product))+' por pieza':'Otra, por cotizar'}`]:[]),
    `Entrega: ${delivery.value==='cdmx'?'CDMX':$('customer-destination').value.trim()||'Otro estado, por definir'}`,`Incluye: ${product.incluye}`,
+   ...(quote?.promocionAplicada?[`Promoción: ${quote.promocionAplicada.titulo}`,`Descuento en precio base: ${quote.promocionAplicada.porcentaje}% · hasta ${quote.promocionAplicada.fin}`,`Antes: ${money(quote.totalRegularCentavos)} MXN`,`Ahorro total: ${money(quote.ahorroTotalCentavos)} MXN`]:[]),
    ...(custom()?[`Ancho solicitado: ${$('custom-width').value||'Por confirmar'} cm`,`Largo solicitado: ${$('custom-length').value||'Por confirmar'} cm`,`Comentarios: ${$('custom-comments').value.trim()||'Por definir'}`]:[])];
  }
  function contact(){
   if(!product)return;
   const lines=['Hola, quiero confirmar este presupuesto orientativo de Maderóh:',...(receipt?[`Folio: ${receipt.folio}`]:[]),'',...selection()];
   if(custom())lines.push('Precio y anticipo pendientes de cotización.');
-  else if(quote){lines.push(`Total de productos con IVA: ${money(quote.totalCentavos)} MXN`,`Subtotal: ${money(quote.subtotalCentavos)} MXN`,`IVA: ${money(quote.ivaCentavos)} MXN`,
+  else if(quote){lines.push(`Total de productos sin IVA: ${money(quote.totalCentavos)} MXN`,`Subtotal: ${money(quote.subtotalCentavos)} MXN`,
    `${quote.envioPendiente?'Referencia del 50% de productos':'Anticipo del 50%'}: ${money(quote.anticipoCentavos)} MXN`,quote.motivoEnvio||'Entrega por confirmar.');}
   else return;
-  lines.push(product.fabricacion,product.condiciones,'Quiero confirmar la configuración, accesos y agenda.');
+  lines.push(product.fabricacion,product.condiciones,MaderohPrecios.AVISO,'Quiero confirmar la configuración, accesos y agenda.');
   whatsapp.href=crearWhatsAppURL(lines.join('\n'));whatsapp.setAttribute('aria-disabled','false');whatsapp.textContent=custom()?'Solicitar cotización personalizada':'Continuar por WhatsApp';
-  printSelection.textContent=[...(receipt?[`Folio: ${receipt.folio}`,`Registrado: ${new Date(receipt.createdAt).toLocaleString('es-MX',{timeZone:'America/Mexico_City'})}`]:[]),...selection(),product.fabricacion,product.garantia,product.condiciones,'Presupuesto orientativo. No acredita pago ni confirma pedido.'].join('\n');
+  printSelection.textContent=['COTIZACIÓN · MADERÓH',MaderohPrecios.AVISO,'Importes sin IVA automático. Impuestos aplicables y total final se confirman antes del pago.',...(receipt?[`Folio: ${receipt.folio}`,`Registrado: ${new Date(receipt.createdAt).toLocaleString('es-MX',{timeZone:'America/Mexico_City'})}`]:[]),...selection(),product.fabricacion,product.garantia,product.condiciones].join('\n');
  }
  function payload(){return {productId:product.id,variante:size.value,acabado:finish.value,cantidad:Number(qty.value),entrega:delivery.value,metal:metal.value,apoyos:product.apoyos?feet.value:'sin_apoyos',modificaciones:custom(),color:color(),
   anchoCm:custom()&&$('custom-width').value?Number($('custom-width').value):null,largoCm:custom()&&$('custom-length').value?Number($('custom-length').value):null,comentarios:custom()?$('custom-comments').value.trim():''};}
@@ -34,7 +36,7 @@
  async function update(){
   changed();const id=++sequence;controller?.abort();controller=new AbortController();quote=null;
   $('custom-dimensions').hidden=!custom();$('customer-destination-field').hidden=delivery.value==='cdmx';$('customer-destination').required=delivery.value!=='cdmx';
-  $('quote-error').hidden=true;printButton.disabled=true;whatsapp.removeAttribute('href');whatsapp.setAttribute('aria-disabled','true');$('quote-breakdown').replaceChildren();
+  offerBox.hidden=true;offerBox.replaceChildren();$('quote-error').hidden=true;printButton.disabled=true;whatsapp.removeAttribute('href');whatsapp.setAttribute('aria-disabled','true');$('quote-breakdown').replaceChildren();
   $('quote-tax-note').textContent='';$('quote-delivery-note').textContent='';
   const quantity=Number(qty.value);
   if(!Number.isSafeInteger(quantity)||quantity<(product.cantidadMinima||1)||quantity>1000){$('quote-total').textContent='Revisa la cantidad';$('quote-error').hidden=false;$('quote-error').textContent=`Pedido permitido: ${product.cantidadMinima||1} a 1,000 piezas.`;return;}
@@ -42,9 +44,12 @@
   $('quote-label').textContent='Estimado de productos';$('quote-total').textContent='Calculando…';
   try{
    const q=MaderohEvaluar(product,payload());if(id!==sequence)return;quote=q;
-   $('quote-total').textContent=money(q.totalCentavos)+' MXN';$('quote-tax-note').textContent='IVA incluido. Solicitar factura no cambia el precio.';
-   if(q.cantidad>1)$('quote-breakdown').append(row('Precio unitario con IVA',money(q.unitarioTotalCentavos)),row('Cantidad',String(q.cantidad)));
-   $('quote-breakdown').append(row('Subtotal',money(q.subtotalCentavos)),row('IVA 16%',money(q.ivaCentavos)),row(q.envioPendiente?'50% de productos (referencia)':'Anticipo 50%',money(q.anticipoCentavos)),row('Saldo de productos',money(q.saldoCentavos)));
+   $('quote-total').textContent=money(q.totalCentavos)+' MXN';
+   if(q.promocionAplicada){const o=q.promocionAplicada,b=document.createElement('span'),h=document.createElement('h3'),copy=document.createElement('p');b.className='offer-badge';b.textContent='Promoción aplicada';h.textContent=o.titulo;copy.textContent=o.porcentaje+'% sobre el precio base. Vigencia hasta '+o.fin+' (CDMX). Adicionales de acabado sin descuento. Se aplica el mejor precio entre promoción y volumen, sin acumular.';offerBox.append(b,h,copy);offerBox.hidden=false;$('quote-breakdown').append(row('Antes de promoción',money(q.totalRegularCentavos)),row('Ahorro total',money(q.ahorroTotalCentavos)));}$('quote-tax-note').textContent='Importes sin IVA automático. Impuestos aplicables y total final se confirman antes del pago.';
+   if(q.cantidad>1)$('quote-breakdown').append(row('Precio unitario sin IVA',money(q.unitarioTotalCentavos)),row('Cantidad',String(q.cantidad)));
+   $('quote-breakdown').append(row('Total de productos sin IVA',money(q.subtotalCentavos)),row(q.envioPendiente?'50% de productos (referencia)':'Anticipo 50%',money(q.anticipoCentavos)),row('Saldo de productos',money(q.saldoCentavos)));
+   if(q.adicionalMaderaUnitarioCentavos)$('quote-breakdown').append(row('Alto brillo por pieza (incluido en total)',money(q.adicionalMaderaUnitarioCentavos)));
+   if(q.adicionalMetalUnitarioCentavos)$('quote-breakdown').append(row('Electrostática por pieza (incluida en total)',money(q.adicionalMetalUnitarioCentavos)));
    $('quote-delivery-note').textContent=(q.motivoEnvio||'')+(q.envioPendiente?' Envío, total final y pago se confirman en la cotización.':' Saldo después del armado en CDMX, cuando aplique.');printButton.disabled=false;contact();
   }catch(e){if(e.name==='AbortError'||id!==sequence)return;$('quote-total').textContent='Precio no disponible';$('quote-error').textContent=e.message;$('quote-error').hidden=false;}
  }
@@ -54,9 +59,9 @@
    document.title=product.nombre+' | Maderóh';$('variant-name').textContent=product.nombre;document.querySelector('.eyebrow').textContent=product.categoriaNombre.toUpperCase()+' · '+product.subcategoria.toUpperCase();$('variant-description').textContent=product.descripcion;
    $('variant-photo').src=product.imagen;$('variant-photo').alt=product.nombre;
    for(const v of product.variantes)option(size,v.id,v.nombre+(v.colchonAnchoCm?` · colchón ${v.colchonAnchoCm} × ${v.colchonLargoCm} cm`:''));option(size,'custom',product.variantes.length?'Otra medida / configuración':'Combinación por cotizar');size.value=product.variantes.some(v=>v.id==='matrimonial')?'matrimonial':product.variantes[0]?.id||'custom';
-   finish.replaceChildren();for(const a of MaderohPrecios.acabados(product))option(finish,a.id,a.nombre+(a.netoCentavos?' · +'+money(a.netoCentavos+Math.round(a.netoCentavos*product.ivaPorcentaje/100))+' con IVA por pieza':' · incluido'));option(finish,'custom','Otro acabado · por cotizar');finish.value=product.acabadoPredeterminado||'mate';
-   qty.min=String(product.cantidadMinima||1);qty.value=String(product.cantidadMinima||1);$('quantity-note').textContent=product.precioVolumen?.length?`Pedido mínimo de ${product.cantidadMinima} piezas. ${product.precioVolumen.map(t=>`Desde ${t.desde} piezas del mismo diseño y logo: ${money(t.netoCentavos+Math.round(t.netoCentavos*product.ivaPorcentaje/100))} por pieza con IVA.`).join(' ')}`:product.esPedidoPequeno?'Envío gratuito en CDMX desde 10 piezas. Menor cantidad: envío por cotizar.':'';
-   $('feet-field').hidden=!product.apoyos;feet.value=[19,30,33].includes(product.id)?'ruedas':'niveladores';metal.value='aceite';$('metal-field').hidden=product.id===21||product.id===22;
+   finish.replaceChildren();for(const a of MaderohPrecios.acabados(product))option(finish,a.id,a.nombre+(a.netoCentavos?' · +'+money(a.netoCentavos)+' por pieza':' · incluido'));option(finish,'custom','Otro acabado · por cotizar');finish.value=product.acabadoPredeterminado||'mate';
+   qty.min=String(product.cantidadMinima||1);qty.value=String(product.cantidadMinima||1);$('quantity-note').textContent=product.precioVolumen?.length?`Pedido mínimo de ${product.cantidadMinima} piezas. ${product.precioVolumen.map(t=>`Desde ${t.desde} piezas del mismo diseño y logo: ${money(t.netoCentavos)} por pieza sin IVA.`).join(' ')}`:product.esPedidoPequeno?'Envío gratuito en CDMX desde 10 piezas. Menor cantidad: envío por cotizar.':'';
+   $('feet-field').hidden=!product.apoyos;feet.value=[19,30,33].includes(product.id)?'ruedas':'niveladores';metal.value='aceite';$('metal-field').hidden=MaderohPrecios.grupoMetal(product)==='no_aplica';metal.querySelector('[value=electrostatica]').textContent='Electrostática · +'+money(MaderohPrecios.electrostatica(product))+' MXN por pieza';
    $('wood-color-field').hidden=product.madera==='Sin madera.';
    $('modification-label').textContent=product.modificacionLabel;$('product-conditions').textContent=product.condiciones;
    $('measure-note').textContent=product.tipoMedida==='colchon'?'Las medidas corresponden al colchón. Se confirman medidas reales, dimensiones exteriores y accesos antes de fabricar.':'Las medidas exteriores y los accesos se confirman antes de fabricar. Cualquier cambio de medida requiere cotización personalizada.';
@@ -84,5 +89,16 @@
    printButton.addEventListener('click',e=>register('pdf',e));await update();window.MaderohAnalytics?.productView?.(product.id);
   }catch(e){$('product-error').textContent=e.message;$('product-error').hidden=false;}finally{$('product-loading').hidden=true;}
  }
- start();
+ function programarVigencia(){
+  clearTimeout(expiryTimer);const endings=(product?.ofertas||[]).map(o=>Date.parse(o.fin+'T23:59:59.999-06:00')+1).filter(t=>t>Date.now());
+  if(endings.length)expiryTimer=setTimeout(refrescarPromociones,Math.min(2147483647,Math.max(25,Math.min(...endings)-Date.now())));
+ }
+ async function refrescarPromociones(){
+  if(!product||saving||document.visibilityState==='hidden'){programarVigencia();return;}
+  try{const r=await MaderohCatalogo.respuesta(true),data=await r.json(),latest=data.productos.find(p=>p.id===product.id);if(latest&&JSON.stringify(latest.ofertas)!==JSON.stringify(product.ofertas)){product.ofertas=latest.ofertas;await update();}}
+  catch{/* Si venció una oferta, el cálculo local deja de aplicarla igualmente. */await update();}
+  programarVigencia();
+ }
+ document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&product)refrescarPromociones();});
+ start().then(programarVigencia);
 })();

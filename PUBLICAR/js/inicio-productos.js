@@ -365,7 +365,7 @@ function crearTarjetaDestacada(
                     <h3>
                         ${nombre}
                     </h3>
-                    <p class="home-price">${producto.precio == null ? "Solicitar cotización" : (producto.precioDesde ? "Desde " : "") + new Intl.NumberFormat("es-MX", {style:"currency", currency:"MXN", minimumFractionDigits:0, maximumFractionDigits:2}).format(producto.precio) + " MXN · IVA incluido"}</p>
+                    <p class="home-price">${MaderohOfertas.precioHTML(producto,producto.precio == null ? "Solicitar cotización" : (producto.precioDesde ? "Desde " : "") + new Intl.NumberFormat("es-MX", {style:"currency", currency:"MXN", minimumFractionDigits:0, maximumFractionDigits:2}).format(producto.precio) + " MXN · sin IVA")}</p>
 
                 </div>
 

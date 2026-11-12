@@ -1,0 +1,154 @@
+MADERÓH · ACTUALIZACIÓN 12 DE NOVIEMBRE DE 2026
+Precios, Academy y avisos de cotizaciones
+
+QUÉ CONTIENE
+1. Catálogo y nuevas cotizaciones sin sumar IVA automáticamente. Se conserva
+   el precio base guardado de cada modelo. Ejemplo César XS: $5,500 base;
+   $6,499 con alto brillo; $8,499 con alto brillo y pintura electrostática.
+2. Poliuretano de alto brillo: adicional general de $999 por pieza, también
+   en los modelos que anteriormente lo anunciaban incluido. Las opciones
+   especiales sin madera o con otro acabado se conservan según el modelo.
+3. Pintura electrostática: $1,000 pequeño, $2,000 escritorio, $3,500 grande.
+   Se suma por pieza o conjunto vendido, sobre la configuración elegida.
+   No recibe el descuento de las campañas; los descuentos afectan la base.
+   El selector muestra el adicional y el total se valida de nuevo en servidor.
+4. /academy.html: Flash $2,800 por dos días; Jepeto $4,900 mensuales por ocho
+   clases de tres horas (24 horas al mes). Incluye acceso desde menú, portada
+   y pie de página. No cobra ni confirma inscripciones automáticamente.
+5. PDF: título COTIZACIÓN PRELIMINAR, folio, fecha, condiciones de revisión
+   del taller y ajustes acordados antes del pago. Usa la impresión existente
+   del navegador. Todos los nuevos folios conservan ese aviso en servidor.
+6. Gestión > Avisos: un registro por folio nuevo de PDF, WhatsApp o Personaliza.
+   Contador, lectura compartida del equipo, enlace directo al seguimiento.
+7. Integración de avisos de WhatsApp Business preparada, pendiente de activar
+   con tu cuenta de Meta, plantilla y destinatario. No envía desde previews.
+8. Conserva las correcciones de promociones dentro de la página y las redes
+   oficiales. Consultar promociones abre la sección web, no WhatsApp.
+
+ANTES DE SUBIR
+Este ZIP es una actualización del repositorio existente, no un sitio desde
+cero. No borres el repositorio ni las fotos. Contiene archivos completos para
+sustituir las rutas correspondientes y archivos nuevos. No incluye secretos,
+base de clientes, fotos duplicadas ni migraciones SQL antiguas.
+
+PASO A PASO EN GITHUB Y NETLIFY
+1. Descomprime el ZIP.
+2. En GitHub abre Maderoh-Site y selecciona promociones-redes-servicios
+   (la rama del PR #8, si continúa abierta). Si ya la fusionaste, crea una
+   rama nueva desde main: academy-precios-avisos.
+3. Add file > Upload files. Arrastra el CONTENIDO descomprimido: PUBLICAR,
+   servidor-libs, servidor-acceso, netlify y los archivos de raíz.
+   No arrastres una carpeta extra que encierre todo. Conserva las subcarpetas.
+4. Confirma que aparecen rutas como PUBLICAR/academy.html y
+   servidor-libs/precios.cjs. Guarda los cambios en la rama elegida.
+5. Abre el nuevo Deploy Preview de Netlify de esa rama/PR y espera su estado
+   correcto. No uses un enlace antiguo de Cloudflare para esta prueba.
+6. Netlify aplicará la NUEVA migración:
+   netlify/database/migrations/20261112120000_maderoh_avisos_academy.sql
+   No ejecutes el esquema inicial otra vez ni cambies migraciones aplicadas.
+7. En la vista previa confirma:
+   - César XS: $5,500 en mate, $6,499 brillante, $8,499 brillante + electro.
+   - No aparece IVA sumado al total.
+   - Academy muestra ambos planes y lleva a consultas de WhatsApp.
+   - Guardar PDF registra un folio, luego Gestión > Avisos lo muestra.
+   - Abrir el aviso lleva al detalle del mismo folio.
+   - Marcarlo visto no modifica su estado comercial.
+   - Promociones y redes conservan los cambios anteriores.
+8. Revisa la clasificación de pintura en Gestión > Productos > Editar.
+9. Fusiona el PR con main y espera el despliegue de producción en Netlify.
+   Confirma que el deploy publicado corresponde a ese nuevo commit.
+10. Repite una prueba en maderoh.store. Los folios de preview pertenecen a
+    su entorno de prueba; no se deben interpretar como clientes de producción.
+
+CLASIFICACIÓN INICIAL DE PINTURA (EDITABLE)
+Escritorio ($2,000): los nueve modelos de la categoría Escritorios.
+Grande ($3,500): Base Trujillo; Litera Trujillo; Jean Paul con escritorio;
+Jean Paul Goliat; Banca Grande Cafetería; Mesa Mogal; TV Omar Reygadas;
+Barra Sicarú; Mesa Brasil; TV Said; TV Santa Fe; Base de cama sencilla;
+Copetes Roma Norte.
+Pequeño ($1,000): Banca Morelos; Cubre bote; Logos en lámina; Banca David;
+Banca Otilia; Recibidor Castle; Mesa de centro Díaz; Cajonera Said;
+Mesa de centro Said; Rack Gallo Azul.
+No aplica: Salseros, porque no tienen estructura metálica.
+La clasificación es operativa, inferida del catálogo actual. Confirma los
+modelos por su volumen real antes de publicar; puedes cambiar cada uno.
+No se añade alto brillo de madera a la base exclusivamente metálica.
+
+QUÉ FALTA DE ACADEMY
+Las tres opciones Flash que nos vas a proporcionar. No se inventaron.
+Confirmar con el taller: horarios y fechas, horas de cada jornada Flash,
+materiales incluidos, proyecto y condiciones de participación. La web explica
+que se confirman antes de inscribirse o pagar.
+
+ACTIVAR WHATSAPP PARA AVISAR AL TALLER
+Gestión funciona sin este paso. Los avisos se guardan aunque no haya token.
+Para enviar automáticamente necesitas WhatsApp Business Platform de Meta,
+un número remitente habilitado y un destinatario autorizado. Tener la app
+WhatsApp Business o el botón wa.me de la web no activa la API por sí solo.
+El servicio de Meta puede tener cargos propios; no depende de contratar
+Personal en Netlify. Confirma sus condiciones en tu cuenta antes de activarlo.
+
+No envíes contraseñas ni tokens por chat ni los subas a GitHub. Configúralos
+como variables de entorno del sitio en Netlify, ámbito Functions y únicamente
+contexto Production (si tu plan permite elegir ámbitos; en otro caso,
+variables del sitio). Después publica un despliegue nuevo. No se requieren
+variables en netlify.toml. El comprobador guarda únicamente el contexto no
+secreto de compilación en servidor-libs/entorno.json para bloquear previews.
+
+Variables que lee el servidor:
+MADEROH_WA_TOKEN              Token de acceso autorizado para mensajes.
+MADEROH_WA_PHONE_NUMBER_ID    ID numérico del número remitente en Meta.
+MADEROH_WA_TO                 Destinatario autorizado en formato internacional,
+                             solo dígitos, sin +. Confirmar con el propietario;
+                             no se presupone que sea el teléfono comercial.
+MADEROH_WA_TEMPLATE           Nombre de la plantilla aprobada en Meta.
+MADEROH_WA_LANGUAGE           Idioma exacto aprobado, por ejemplo es_MX o es.
+MADEROH_WA_API_VERSION        Versión vigente autorizada en tu app (vXX.0).
+
+Plantilla sugerida: nueva_cotizacion_maderoh, cuerpo con cuatro variables
+posicionales y sin cabecera ni botones dinámicos:
+
+Se registró una nueva cotización en Maderóh.
+Folio: {{1}}.
+Modelo o proyecto: {{2}}.
+Importe preliminar: {{3}}.
+Revisa el detalle y dale seguimiento en Gestión: {{4}}.
+Este aviso es interno y no confirma una venta.
+
+La plantilla debe ser aprobada por Meta en tu cuenta y con ese idioma exacto.
+Los valores son folio, modelo, importe y enlace privado. No incluyen nombre,
+teléfono, correo ni comentarios del cliente. El enlace requiere sesión admin.
+
+El programador revisa la cola cada cinco minutos en producción y procesa hasta
+tres avisos por ejecución. No crea una compra ni envía mensajes al cliente.
+En Gestión, “Aceptado por Meta” significa que Meta recibió la solicitud; NO
+confirma entrega. No hay webhook de entrega en esta actualización. Si hay
+timeout o un resultado incierto, el aviso queda para revisión manual para no
+repetir a ciegas un mensaje que posiblemente ya llegó. Reintentar requiere
+confirmarlo en Gestión. Los rechazos temporales 429 se reprograman cada 15
+minutos, máximo cinco intentos por ciclo. Los pendientes acumulados podrán
+salir al activar la integración; revisa la bandeja antes de habilitarla.
+
+IMPORTES Y DATOS ANTERIORES
+Las cotizaciones ya emitidas y sus importes originales no se recalculan.
+Las nuevas usan la política de precios actual. Los impuestos aplicables y el
+importe final se confirman antes del pago. El PDF no acredita pago ni pedido.
+Los pedidos existentes, pagos, usuarios, fotos y estadísticas se conservan.
+Los avisos comienzan con folios nuevos; no reenvían el historial anterior.
+El modelo de lectura compartida permite que tú o tu hermano marquen un aviso
+como visto. Eso no sustituye el seguimiento de Cotizaciones.
+
+VERIFICACIÓN REALIZADA
+41 pruebas automáticas aprobadas: 33 modelos y sus variantes, volumen,
+promociones, precios de acabados, equivalencia navegador/servidor, histórico,
+idempotencia de avisos, autenticación, CSRF y errores del proveedor.
+Sintaxis de los archivos JavaScript modificados y comprobador de publicación.
+Navegador: Academy, selector, folio PDF, bandeja y apertura del detalle.
+No se conectó la base de producción ni se enviaron avisos reales por WhatsApp.
+La migración se revisó en código; su aplicación real se valida en el deploy.
+
+FUENTES TÉCNICAS
+Netlify, Scheduled Functions:
+https://docs.netlify.com/build/functions/scheduled-functions/
+Meta, colección oficial WhatsApp Business Platform:
+https://www.postman.com/meta/whatsapp-business-platform/request/o65u5m5/send-message-template-text

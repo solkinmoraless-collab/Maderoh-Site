@@ -1,7 +1,7 @@
 (function(){
  'use strict';
- const allowedPages=['index.html','productos.html','producto.html','personaliza.html','preguntas-frecuentes.html','envios.html','facturacion.html','aviso-privacidad.html','terminos-condiciones.html'];
- const names={index:'index.html',productos:'productos.html',producto:'producto.html',personaliza:'personaliza.html','preguntas-frecuentes':'preguntas-frecuentes.html',envios:'envios.html',facturacion:'facturacion.html','aviso-privacidad':'aviso-privacidad.html','terminos-condiciones':'terminos-condiciones.html'};
+ const allowedPages=['academy.html','index.html','productos.html','producto.html','personaliza.html','preguntas-frecuentes.html','envios.html','facturacion.html','aviso-privacidad.html','terminos-condiciones.html'];
+ const names={academy:'academy.html','maderoh-academy':'academy.html',index:'index.html',productos:'productos.html',producto:'producto.html',personaliza:'personaliza.html','preguntas-frecuentes':'preguntas-frecuentes.html',envios:'envios.html',facturacion:'facturacion.html','aviso-privacidad':'aviso-privacidad.html','terminos-condiciones':'terminos-condiciones.html'};
  const path=location.pathname.split('/').filter(Boolean).at(-1)||'index.html',page=names[path]||path;
  if(!allowedPages.includes(page))return;
  const key='maderoh-measure-choice-v1',visitorKey='maderoh-measure-visitor-v1',sessionKey='maderoh-measure-session-v1';

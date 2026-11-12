@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import {Failure,response,bodyFrom,transaction,quota,requireAdmin} from './acceso.mjs';
 const sha=s=>createHash('sha256').update(s).digest('hex');
 const HEX=/^[a-f0-9]{32}$/;
-const PAGES=['index.html','productos.html','producto.html','personaliza.html','preguntas-frecuentes.html','envios.html','facturacion.html','aviso-privacidad.html','terminos-condiciones.html'];
+const PAGES=['academy.html','index.html','productos.html','producto.html','personaliza.html','preguntas-frecuentes.html','envios.html','facturacion.html','aviso-privacidad.html','terminos-condiciones.html'];
 const TYPES=['page_view','product_view','product_click','quote_click','whatsapp_click'];
 const SOURCES=['direct','facebook','instagram','tiktok','youtube','google','whatsapp','other'];
 const DAY=86400000;
