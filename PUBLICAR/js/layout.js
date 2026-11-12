@@ -16,6 +16,8 @@ document.addEventListener(
     function () {
 
         renderizarFooter();
+        agregarEnlaceServicios();
+        renderizarRedesOficiales();
 
     }
 );
@@ -112,6 +114,9 @@ function renderizarFooter() {
                         Personaliza
                     </a>
 
+
+                    <a href="/index.html#muebles-con-cristal">Muebles con cristal</a>
+                    <a href="/index.html#fabricacion-por-volumen">Constructoras e inmobiliarias</a>
 
                     <a
                         href="/personaliza.html#configurador-section"
@@ -356,7 +361,7 @@ function renderizarFooter() {
 
 
                 <p>
-                    Diseño · Madera · Metal
+                    Diseño · Madera · Metal · Cristal
                 </p>
 
 
@@ -540,4 +545,27 @@ function marcarPaginaActualFooter() {
         }
     );
 
+}
+/* Acceso común a los servicios públicos, sin alterar los enlaces existentes. */
+function agregarEnlaceServicios() {
+    const nav = document.getElementById("main-nav");
+    if (!nav || nav.querySelector('[data-maderoh-servicios]')) return;
+    const link = document.createElement("a");
+    link.href = "/index.html#servicios";
+    link.textContent = "Servicios";
+    link.setAttribute("data-maderoh-servicios", "");
+    link.addEventListener("click", function () {
+        nav.classList.remove("active");
+        document.getElementById("menu-toggle")?.setAttribute("aria-expanded", "false");
+    });
+    const cotizar = nav.querySelector(".btn-cotizar");
+    nav.insertBefore(link, cotizar || null);
+}
+
+async function renderizarRedesOficiales(){
+ const host=document.querySelector('#site-footer .footer-brand-column');if(!host)return;
+ const links=document.createElement('nav');links.className='footer-social-links';links.setAttribute('aria-label','Redes sociales de Maderóh');host.append(links);
+ function render(config){links.replaceChildren();for(const r of config?.redes||[]){if(!r.url)continue;let u;try{u=new URL(r.url);}catch{continue;}if(u.protocol!=='https:')continue;const a=document.createElement('a');a.textContent=r.nombre;a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';links.append(a);}}
+ render(globalThis.MADEROH_MARKETING);
+ if(globalThis.MaderohMarketing)render(await globalThis.MaderohMarketing.cargar());
 }

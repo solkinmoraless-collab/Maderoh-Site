@@ -1,8 +1,8 @@
 (function(){
  'use strict';
  let pending=null,until=0;
- window.MaderohCatalogo={async respuesta(){
-  if(!pending||Date.now()>until){
+ window.MaderohCatalogo={async respuesta(force=false){
+  if(force||!pending||Date.now()>until){
    until=Date.now()+30000;
    const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),20000);
    pending=fetch('/.netlify/functions/maderoh-products',{cache:'no-store',credentials:'same-origin',headers:{Accept:'application/json'},signal:controller.signal})

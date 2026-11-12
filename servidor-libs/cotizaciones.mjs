@@ -1,3 +1,4 @@
+import {leerMarketing,productoConOfertas} from './marketing.mjs';
 import {createHash} from 'node:crypto';
 import prices from './precios.cjs';
 import {Failure,response,bodyFrom,transaction,quota,requireAdmin} from './acceso.mjs';
@@ -60,7 +61,8 @@ export function createQuoteHandlers({getPool}){
     if(s.kind==='producto'){
      const r=(await c.query('SELECT document,revision FROM public.maderoh_products WHERE id=$1 FOR SHARE',[s.productId])).rows[0];
      if(!r||r.document.activo!==true)throw new Failure(404,'El modelo ya no está disponible.');
-     const p=r.document;calc=estimate(p,s);product={id:p.id,nombre:p.nombre,revision:Number(r.revision),medidas:p.medidas,madera:p.madera,estructura:p.estructura,fabricacion:p.fabricacion,entrega:p.entrega,incluye:p.incluye,garantia:p.garantia,condiciones:p.condiciones};
+     const marketing=await leerMarketing(c);const p=productoConOfertas(r.document,marketing.document);calc=estimate(p,s);
+     if(s.referenciaCentavos!==null&&calc.totals&&s.referenciaCentavos!==calc.totals.totalCentavos)throw new Failure(409,'El precio o la promoción cambió. Recarga el modelo para consultar el importe actualizado antes de guardar tu folio.');product={id:p.id,nombre:p.nombre,revision:Number(r.revision),medidas:p.medidas,madera:p.madera,estructura:p.estructura,fabricacion:p.fabricacion,entrega:p.entrega,incluye:p.incluye,garantia:p.garantia,condiciones:p.condiciones};
     }
     const createdAt=new Date().toISOString(),day=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(createdAt)).replaceAll('-',''),folio='MDH-'+day+'-'+input.id.toUpperCase();
     const snapshot={id:input.id,folio,createdAt,origen:input.channel,producto:product?.nombre||s.producto,product,selection:s,estimate:calc,aviso:'Presupuesto orientativo. Precio, accesos, envío y agenda sujetos a confirmación del taller. No acredita pago ni confirma pedido.'};

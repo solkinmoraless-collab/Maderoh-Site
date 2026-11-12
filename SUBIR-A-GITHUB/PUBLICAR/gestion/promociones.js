@@ -1,0 +1,69 @@
+(function(){
+ 'use strict';
+ const $=id=>document.getElementById(id),endpoint='/.netlify/functions/maderoh-admin-marketing',access='/.netlify/functions/maderoh-access';
+ $('marketing-form').noValidate=true;
+ const socialNames=['Instagram','TikTok','Facebook'];let csrf='',documento=null,savedDocument=null,publicSeq=0,revision=0,productos=[],editing=null,dirty=false,busy=false;
+ const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
+ const notice=(m,error=false)=>{$('promo-notice').textContent=m;$('promo-notice').classList.toggle('error',error);};
+ function mark(){dirty=true;$('promo-dirty').textContent='Cambios pendientes de guardar';}
+ function today(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
+ function expire(){csrf='';documento=null;editing=null;dirty=false;$('promo-panel').hidden=true;$('promo-access').hidden=false;$('campaign-list').replaceChildren();$('social-fields').replaceChildren();$('promo-models').replaceChildren();$('campaign-editor').hidden=true;}
+ async function json(url,body){
+  const c=new AbortController(),timer=setTimeout(()=>c.abort(),30000);
+  try{const r=await fetch(url,{credentials:'same-origin',cache:'no-store',signal:c.signal,...(body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-Maderoh-CSRF':csrf},body:JSON.stringify(body)})});let d;try{d=await r.json();}catch{throw Error('El servidor no devolvió una respuesta válida.');}if(!r.ok){if(r.status===401)expire();throw Error(d.error||'No fue posible completar la operación.');}return d;}
+  catch(e){if(e.name==='AbortError')throw Error('La conexión tardó demasiado. Revisa la versión guardada antes de repetir el cambio.');throw e;}finally{clearTimeout(timer);}
+ }
+ function state(c){const t=today();return !c.activo?'Pausada':c.fin<t?'Finalizada':c.inicio>t?'Programada':'Vigente';}
+ function list(){
+  $('campaign-list').replaceChildren();if(!documento.campanas.length){$('campaign-list').append(node('p','No hay promociones. Crea una cuando tengas definidos el beneficio, los modelos y la vigencia.','helper'));return;}
+  for(const c of documento.campanas){const card=node('article',undefined,'campaign-item'),copy=node('div');copy.append(node('h3',c.titulo||'Promoción sin título'),node('p',pendiente(c)?'Pendiente de guardar · '+state(c)+' al guardar':state(c),'campaign-state'),node('p',(c.tipo==='descuento'?c.porcentaje+'% sobre precio base · '+c.productos.length+(c.productos.length===1?' modelo':' modelos'):'Anuncio sin cambio de precio')+' · '+(c.inicio||'Inicio pendiente')+' al '+(c.fin||'Fin pendiente')));const b=node('button','Editar','secondary');b.type='button';b.setAttribute('aria-label','Editar '+(c.titulo||'promoción sin título'));b.addEventListener('click',()=>{stash();open(c.id);});card.append(copy,b);$('campaign-list').append(card);}
+ }
+ function pendiente(c){return JSON.stringify(c)!==JSON.stringify(savedDocument?.campanas.find(x=>x.id===c.id));}
+ function current(){return documento?.campanas.find(c=>c.id===editing);}
+ function stash(){const c=current();if(!c)return;c.titulo=$('campaign-title').value.trim();c.tipo=$('campaign-type').value;c.inicio=$('campaign-start').value;c.fin=$('campaign-end').value;c.porcentaje=c.tipo==='descuento'?Number($('campaign-percent').value):0;c.texto=$('campaign-copy').value.trim();c.activo=$('campaign-active').checked;}
+ function editorEnabled(enabled){for(const field of $('campaign-editor').querySelectorAll('input,select,textarea'))field.disabled=!enabled;}
+ function validarCampos(){
+  const form=$('marketing-form');if(form.checkValidity())return true;
+  const field=[...form.elements].find(f=>f.willValidate&&!f.validity.valid);
+  const label=field?.labels?.[0]?.textContent.trim()||'el campo señalado';
+  notice('No se guardó: revisa '+label+'. '+(field?.validationMessage||'Completa el dato solicitado.'),true);
+  if(field){field.focus({preventScroll:true});field.scrollIntoView({block:'center',behavior:'auto'});field.reportValidity();}
+  return false;
+ }
+ function preview(){const c=current();if(!c)return;$('preview-title').textContent=c.titulo||'Título de la promoción';$('preview-copy').textContent=c.texto||'Descripción y condiciones de la promoción.';$('preview-conditions').textContent=(c.tipo==='descuento'?c.porcentaje+'% sobre precio base · Modelos seleccionados · ':'Anuncio · ')+(c.inicio||'Inicio por definir')+' al '+(c.fin||'Fin por definir')+' · CDMX';$('percent-field').hidden=c.tipo!=='descuento';$('campaign-percent').required=c.tipo==='descuento';$('campaign-percent').disabled=c.tipo!=='descuento';}
+ function models(){const c=current();if(!c)return;const q=$('model-search').value.trim().toLowerCase();$('promo-models').replaceChildren();for(const p of productos){if(q&&!String(p.id+' '+p.nombre).toLowerCase().includes(q))continue;const label=node('label'),input=node('input');input.type='checkbox';input.checked=c.productos.includes(p.id);input.setAttribute('aria-label','Incluir '+p.nombre);input.addEventListener('change',()=>{c.productos=input.checked?[...new Set([...c.productos,p.id])]:c.productos.filter(id=>id!==p.id);mark();selected();list();});label.append(input,node('span','#'+p.id+' · '+p.nombre+(p.activo?'':' · Inactivo')));$('promo-models').append(label);}selected();}
+ function selected(){$('models-selected').textContent=(current()?.productos.length||0)+((current()?.productos.length||0)===1?' modelo seleccionado.':' modelos seleccionados.')+' Los modelos inactivos no se publican.';}
+ function open(id){editorEnabled(true);editing=id;const c=current();$('campaign-editor').hidden=false;$('campaign-editor-title').textContent=c.titulo||'Nueva promoción';for(const [id,key]of [['campaign-title','titulo'],['campaign-start','inicio'],['campaign-end','fin'],['campaign-percent','porcentaje'],['campaign-copy','texto'],['campaign-type','tipo']])$(id).value=c[key];$('campaign-active').checked=c.activo;for(const id of ['campaign-title','campaign-start','campaign-end'])$(id).required=true;$('model-search').value='';models();preview();list();$('campaign-editor').scrollIntoView({behavior:'smooth',block:'start'});}
+ function social(){
+  $('social-fields').replaceChildren();for(const [i,name]of socialNames.entries()){const r=documento.redes.find(r=>r.nombre===name),section=node('section');section.append(node('h3',name));for(const [key,label,type]of [['cuenta','Nombre de la cuenta','text'],['url','Enlace oficial (HTTPS)','url']]){const l=node('label',label),input=node('input');input.id='social-'+i+'-'+key;input.type=type;input.value=r[key]||'';input.maxLength=key==='url'?500:100;l.htmlFor=input.id;l.append(input);section.append(l);input.addEventListener('input',()=>{r[key]=input.value;mark();});}$('social-fields').append(section);}
+ }
+ async function load(){const d=await json(endpoint);documento=d.document;savedDocument=structuredClone(d.document);revision=d.revision;productos=d.productos;editing=null;dirty=false;for(const id of ['campaign-title','campaign-start','campaign-end','campaign-percent'])$(id).required=false;$('promo-dirty').textContent='';$('campaign-editor').hidden=true;editorEnabled(false);list();social();$('promo-updated').textContent=d.updatedAt?'Guardado: '+new Date(d.updatedAt).toLocaleString('es-MX',{timeZone:'America/Mexico_City'}):'Todavía no hay promociones guardadas. Las redes oficiales ya están configuradas.';}
+ async function comprobarPublicacion(){
+  const label=$('promo-public-state');if(!label)return;const seq=++publicSeq;
+  $('promo-scope').textContent=location.hostname.startsWith('deploy-preview-')?'Estás editando una vista de prueba. Comprueba las promociones con el enlace de esta misma vista; el sitio definitivo puede seguir en otra versión.':'La configuración guardada corresponde a esta dirección del sitio.';
+  label.textContent='Comprobando las promociones que recibe el sitio público…';
+  try{
+   const d=await json('/.netlify/functions/maderoh-marketing');if(seq!==publicSeq)return;
+   if(!Array.isArray(d.marketing?.campanas))throw Error('Lectura pública no válida.');
+   const date=Date.parse(d.serverNow);if(!Number.isFinite(date))throw Error('No se pudo confirmar la hora del servidor.');
+   const expected=(savedDocument?.campanas||[]).filter(c=>c.activo&&date>=Date.parse(c.inicio+'T00:00:00-06:00')&&date<=Date.parse(c.fin+'T23:59:59.999-06:00'));
+   const actual=d.marketing.campanas;
+   const matches=actual.length===expected.length&&expected.every(c=>actual.some(a=>['id','titulo','texto','tipo','inicio','fin','porcentaje'].every(k=>a[k]===c[k])));
+   label.textContent=matches?(actual.length?'Confirmado: el sitio público de esta vista recibe '+actual.length+' promoción(es) vigente(s).':'La configuración guardada no tiene promociones vigentes publicadas. Los cambios pendientes del editor aún no se muestran al público.'):'La configuración guardada y la lectura pública no coinciden todavía. Revisa que guardaste los cambios y vuelve a consultar esta misma vista.';
+   label.classList.toggle('error',!matches);
+  }catch(e){if(seq!==publicSeq)return;label.textContent='No se pudo comprobar la lectura pública. '+e.message;label.classList.add('error');}
+ }
+ $('new-campaign').addEventListener('click',()=>{if(busy)return;stash();if(documento.campanas.length>=30){notice('Se admiten hasta 30 promociones. Elimina las que ya no necesites.',true);return;}const c={id:crypto.randomUUID(),titulo:'',texto:'',tipo:'descuento',activo:false,inicio:today(),fin:today(),porcentaje:10,productos:[]};documento.campanas.push(c);mark();open(c.id);$('campaign-title').focus();});
+ $('campaign-editor').addEventListener('input',e=>{if(e.target.id==='model-search')return;stash();preview();list();mark();});$('campaign-editor').addEventListener('change',()=>{stash();preview();list();mark();});
+ $('model-search').addEventListener('input',models);$('select-models').addEventListener('click',()=>{current().productos=productos.map(p=>p.id);models();list();mark();});$('clear-models').addEventListener('click',()=>{current().productos=[];models();list();mark();});
+ $('remove-campaign').addEventListener('click',()=>{if(!current()||!confirm('¿Quitar esta promoción? Se aplicará al guardar. Los folios anteriores conservan sus importes.'))return;documento.campanas=documento.campanas.filter(c=>c.id!==editing);editing=null;$('campaign-editor').hidden=true;for(const id of ['campaign-title','campaign-start','campaign-end','campaign-percent'])$(id).required=false;editorEnabled(false);list();mark();});
+ $('marketing-form').addEventListener('submit',async e=>{
+  e.preventDefault();if(busy||!documento)return;stash();if(!validarCampos())return;busy=true;$('marketing-fields').disabled=true;notice('Guardando promociones y redes…');
+  try{const d=await json(endpoint,{revision,document:documento});documento=d.document;savedDocument=structuredClone(d.document);revision=d.revision;dirty=false;$('promo-dirty').textContent='';list();social();$('promo-updated').textContent='Guardado: '+new Date(d.updatedAt).toLocaleString('es-MX',{timeZone:'America/Mexico_City'});notice('Cambios guardados. Recarga el sitio público para ver las promociones y enlaces actualizados.');await comprobarPublicacion();}
+  catch(e){notice(e.message,true);}finally{busy=false;$('marketing-fields').disabled=false;}
+ });
+ $('reload-marketing').addEventListener('click',async()=>{if(busy||dirty&&!confirm('¿Descartar los cambios locales y recargar la versión guardada?'))return;try{busy=true;$('marketing-fields').disabled=true;await load();await comprobarPublicacion();notice('Versión guardada cargada.');}catch(e){notice(e.message,true);}finally{busy=false;$('marketing-fields').disabled=false;}});
+ $('promo-logout').addEventListener('click',async()=>{if(busy||dirty&&!confirm('Hay cambios sin guardar. ¿Cerrar sesión y descartarlos?'))return;try{await json(access+'?action=logout',{});dirty=false;location.replace('/gestion/');}catch(e){notice(e.message,true);}});
+ window.addEventListener('beforeunload',e=>{if(dirty||busy){e.preventDefault();e.returnValue='';}});
+ (async()=>{try{const s=await json(access+'?action=session');csrf=s.csrf;$('promo-user').textContent='Sesión de '+s.user.username;await load();$('promo-panel').hidden=false;await comprobarPublicacion();notice('Selecciona una promoción o crea una nueva.');}catch(e){$('promo-access').hidden=true;$('promo-error').textContent=e.message;if(!csrf)$('promo-access').hidden=false;}})();
+})();
