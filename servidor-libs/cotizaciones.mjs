@@ -1,3 +1,5 @@
+import {enqueueQuoteNotice} from './avisos.mjs';
+import {leerMarketing,productoConOfertas} from './marketing.mjs';
 import {createHash} from 'node:crypto';
 import prices from './precios.cjs';
 import {Failure,response,bodyFrom,transaction,quota,requireAdmin} from './acceso.mjs';
@@ -29,12 +31,12 @@ function validate(b){
 function estimate(p,s){
  const v=p.variantes.find(v=>v.id===s.variante),a=prices.acabados(p).find(a=>a.id===s.acabado);
  if((!v&&s.variante!=='custom')||(!a&&s.acabado!=='custom')||s.cantidad<(p.cantidadMinima||1))throw new Failure(400,'La configuración cambió. Recarga el modelo para revisar sus opciones.');
- const revision=p.precioPendiente===true||!v||s.modificaciones||!a||s.metal!=='aceite'||s.anchoCm!==null||s.largoCm!==null||!!s.comentarios;
+ const revision=p.precioPendiente===true||!v||s.modificaciones||!a||s.metal==='custom'||s.anchoCm!==null||s.largoCm!==null||!!s.comentarios;
  const envioPendiente=p.envioSiempreCotizar===true||s.entrega!=='cdmx'||!!(p.esPedidoPequeno&&s.cantidad<10);
- let totals=null;try{if(!revision)totals=prices.calcular(p,s.variante,s.acabado,s.cantidad);}catch{throw new Failure(400,'El precio necesita revisión del taller.');}
+ let totals=null;try{if(!revision)totals=prices.calcular(p,s.variante,s.acabado,s.cantidad,Date.now(),s.metal);}catch{throw new Failure(400,'El precio necesita revisión del taller.');}
  return {revision,envioPendiente,envioCentavos:envioPendiente?null:0,totals,variante:v?.nombre||'Medida personalizada',acabado:a?.nombre||'Acabado por definir'};
 }
-function receipt(row){const s=row.snapshot;return {id:s.id,folio:s.folio,createdAt:s.createdAt,producto:s.producto,estimate:s.estimate,canales:row.followup.canales||[],registrado:true};}
+function receipt(row){const s=row.snapshot;return {id:s.id,folio:s.folio,createdAt:s.createdAt,producto:s.producto,estimate:s.estimate,canales:row.followup.canales||[],aviso:s.aviso,registrado:true};}
 function rowJSON(row){return {id:row.id,folio:row.folio,snapshot:row.snapshot,followup:row.followup,revision:Number(row.revision),createdAt:row.created_at};}
 function sameOrigin(req){if(req.headers.get('origin')!==new URL(req.url).origin||!['same-origin','none',null].includes(req.headers.get('sec-fetch-site')))throw new Failure(403,'Solicitud no autorizada.');}
 function fail(e){if(e instanceof Failure)return response(e.status,{error:e.message},e.status===429?{'Retry-After':'900'}:{});console.error('Maderoh cotizaciones: operación no disponible.');return response(503,{error:'No se pudo guardar la solicitud. Intenta de nuevo; el mismo intento conservará su folio.'});}
@@ -60,12 +62,14 @@ export function createQuoteHandlers({getPool}){
     if(s.kind==='producto'){
      const r=(await c.query('SELECT document,revision FROM public.maderoh_products WHERE id=$1 FOR SHARE',[s.productId])).rows[0];
      if(!r||r.document.activo!==true)throw new Failure(404,'El modelo ya no está disponible.');
-     const p=r.document;calc=estimate(p,s);product={id:p.id,nombre:p.nombre,revision:Number(r.revision),medidas:p.medidas,madera:p.madera,estructura:p.estructura,fabricacion:p.fabricacion,entrega:p.entrega,incluye:p.incluye,garantia:p.garantia,condiciones:p.condiciones};
+     const marketing=await leerMarketing(c);const p=productoConOfertas(r.document,marketing.document);calc=estimate(p,s);
+     if(s.referenciaCentavos!==null&&calc.totals&&s.referenciaCentavos!==calc.totals.totalCentavos)throw new Failure(409,'El precio o la promoción cambió. Recarga el modelo para consultar el importe actualizado antes de guardar tu folio.');product={id:p.id,nombre:p.nombre,revision:Number(r.revision),medidas:p.medidas,madera:p.madera,estructura:p.estructura,fabricacion:p.fabricacion,entrega:p.entrega,incluye:p.incluye,garantia:p.garantia,condiciones:p.condiciones};
     }
     const createdAt=new Date().toISOString(),day=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(createdAt)).replaceAll('-',''),folio='MDH-'+day+'-'+input.id.toUpperCase();
-    const snapshot={id:input.id,folio,createdAt,origen:input.channel,producto:product?.nombre||s.producto,product,selection:s,estimate:calc,aviso:'Presupuesto orientativo. Precio, accesos, envío y agenda sujetos a confirmación del taller. No acredita pago ni confirma pedido.'};
+    const snapshot={id:input.id,folio,createdAt,origen:input.channel,producto:product?.nombre||s.producto,product,selection:s,estimate:calc,aviso:prices.AVISO};
     const followup={estado:'nueva',notas:'',canales:[input.channel]};
     await c.query('INSERT INTO public.maderoh_quotes(id,folio,fingerprint,snapshot,followup) VALUES($1,$2,$3,$4,$5)',[input.id,folio,fingerprint,JSON.stringify(snapshot),JSON.stringify(followup)]);
+    await enqueueQuoteNotice(c,input.id);
     return {created:true,data:receipt({snapshot,followup})};
    });return response(result.created?201:200,result.data);
   }catch(e){return fail(e);}

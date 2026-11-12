@@ -1,0 +1,27 @@
+MADERÓH · RESTAURAR FUNCIONES DE PROMOCIONES
+
+Diagnóstico en Deploy Preview #9:
+/.netlify/functions/maderoh-admin-marketing devuelve 404 HTML.
+/.netlify/functions/maderoh-marketing devuelve 404 HTML.
+El panel necesita una respuesta JSON y por eso muestra el error.
+La función de sesión sí responde JSON y mantiene el acceso protegido.
+
+Este complemento agrega ambas funciones y sus dependencias completas.
+No modifica datos ni ejecuta SQL. Conserva la validación de sesión y CSRF.
+El comprobador también conserva la corrección anterior del catálogo.
+
+1. Descomprime el ZIP.
+2. GitHub > Maderoh-Site > selecciona academy-precios-avisos.
+3. En la raíz, Add file > Upload files.
+4. Arrastra servidor-acceso, servidor-libs y comprobar-publicacion.cjs.
+5. Guarda: Restaurar funciones de promociones.
+6. Espera el nuevo deploy del mismo PR y abre su vista previa de Netlify.
+7. Entra con tu cuenta de Gestión y abre Promociones y redes.
+8. Comprueba cargar, guardar y recargar una promoción de prueba; comprueba
+   su publicación en la portada de esa misma vista previa.
+9. No hagas Merge hasta terminar la prueba.
+
+Verificado localmente: sintaxis de los módulos, comprobador detecta las
+funciones omitidas y pasa al reponerlas. Pruebas del módulo de promociones
+cubren lectura, guardado, autenticación, CSRF, revisiones y promociones.
+La publicación real depende de subir este complemento y del nuevo deploy.

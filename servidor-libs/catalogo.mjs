@@ -36,7 +36,7 @@ export function validateProduct(input,old,id){
  }
  p.cantidadMinima=input.cantidadMinima??old?.cantidadMinima??1;
  if(!Number.isSafeInteger(p.cantidadMinima)||p.cantidadMinima<1||p.cantidadMinima>1000)throw new Failure(400,'Cantidad minima: de 1 a 1000.');
- p.ivaPorcentaje=old?.ivaPorcentaje??16;p.anticipoPorcentaje=old?.anticipoPorcentaje??50;
+ p.ivaPorcentaje=0;p.anticipoPorcentaje=old?.anticipoPorcentaje??50;
  for(const [key,max]of [['variantes',20],['acabados',10]]){
   const list=input[key]??old?.[key];if(!Array.isArray(list)||(!list.length&&!(key==='variantes'&&p.precioPendiente))||list.length>max)throw new Failure(400,'Agrega al menos una '+(key==='variantes'?'configuracion':'opcion de acabado')+'.');
   const seen=new Set();
@@ -66,6 +66,9 @@ export function validateProduct(input,old,id){
  const collections=input.colecciones??old?.colecciones??[];
  if(!Array.isArray(collections)||collections.some(x=>!['cafeterias','tiendas'].includes(x)))throw new Failure(400,'Coleccion invalida.');p.colecciones=[...new Set(collections)];
  p.tipoMedida=input.tipoMedida??old?.tipoMedida??'mueble';if(!['mueble','colchon'].includes(p.tipoMedida))throw new Failure(400,'Tipo de medida invalido.');
+ if(input.grupoElectrostatica!==undefined&&!Object.hasOwn(precios.TARIFAS,input.grupoElectrostatica))throw new Failure(400,'Selecciona la tarifa de pintura electrostática.');
+ p.grupoElectrostatica=input.grupoElectrostatica??precios.grupoMetal(p);
+ Object.assign(p,precios.normalizar(p));
  p.brillanteNetoCentavos=p.acabados.find(a=>a.id==='brillante')?.netoCentavos??0;
  p.precioDesde=!p.precioPendiente&&(p.variantes.length>1||p.precioVolumen.length>0);
  const quantities=[p.cantidadMinima,...p.precioVolumen.map(t=>t.desde)];
@@ -76,7 +79,7 @@ export async function readProduct(client,id,lock=false){
  const row=(await client.query(`SELECT id,document,revision,updated_at FROM public.maderoh_products WHERE id=$1${lock?' FOR UPDATE':''}`,[id])).rows[0];
  if(!row)throw new Failure(404,'Producto no encontrado.');
  const setting=(await client.query('SELECT document FROM public.maderoh_settings WHERE key=$1',['gallery:'+id])).rows[0];
- return {product:row.document,revision:Number(row.revision),updatedAt:row.updated_at,gallery:galleryFor(row.document,setting?.document)};
+ return {product:precios.normalizar(row.document),revision:Number(row.revision),updatedAt:row.updated_at,gallery:galleryFor(row.document,setting?.document)};
 }
 export function checkRevision(current,expected){if(current!==validRevision(expected))throw new Failure(409,'Este modelo cambio desde que lo abriste. Tus cambios no se guardaron. Recarga el modelo para revisar la version mas reciente.');}
 export async function persist(client,product,gallery,revision,actor,action){

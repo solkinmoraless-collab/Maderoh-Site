@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Producto | Maderóh</title>
-  <meta name="description" content="Muebles industriales Maderóh. Consulta medidas, materiales, acabados, fabricación y cotización con IVA.">
+  <meta name="description" content="Muebles industriales Maderóh. Consulta medidas, materiales, acabados, fabricación y cotización sin IVA automático.">
   <link rel="icon" href="assets/icons/favicon.png">
   <link rel="stylesheet" href="css/styles.css">
   
@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="/css/medicion.css">
 <script src="/js/medicion.js" defer></script>
+<link rel="stylesheet" href="/css/promociones.css">
 </head>
 <body class="maderoh-editorial">
 <header class="site-header">
@@ -91,13 +92,13 @@
     </section>
     <section class="variant-config" aria-labelledby="variant-name">
       <span class="eyebrow">RECÁMARAS · HECHO A PEDIDO</span>
-      <div class="quote-brand-print"><div class="quote-brand"><img src="assets/images/brand/maderoh-logo-original.png" alt="Maderóh" width="907" height="275"><div><strong>Presupuesto orientativo</strong><span>maderoh.store</span></div></div></div><h1 id="variant-name"></h1>
+      <div class="quote-brand-print"><div class="quote-brand"><img src="assets/images/brand/maderoh-logo-original.png" alt="Maderóh" width="907" height="275"><div><strong>COTIZACIÓN PRELIMINAR</strong><span>maderoh.store</span></div></div></div><h1 id="variant-name"></h1>
       <p class="variant-intro">Elige tu medida y acabado para consultar el precio. Una modificación especial pasa a revisión con nuestro equipo.</p>
       <div class="variant-fields">
         <label for="variant-size">Medida / configuración</label><select id="variant-size"></select>
         <label for="variant-quantity">Cantidad de piezas o conjuntos</label><input id="variant-quantity" type="number" min="1" max="1000" step="1" value="1"><p id="quantity-note" class="variant-note"></p><label for="variant-finish">Acabado</label>
-        <select id="variant-finish"><option value="mate">Mate · incluido</option><option value="brillante">Brillante · +$1,276 MXN, IVA incluido</option></select>
-        <div id="wood-color-field"><label for="variant-color">Color de madera que te gustaría</label><input id="variant-color" maxlength="80" placeholder="Indica el tono o lo definimos contigo"></div><div id="metal-field"><label for="variant-metal">Pintura del metal</label><select id="variant-metal"><option value="aceite">Negro mate al aceite · incluido</option><option value="electrostatica">Electrostática · por cotizar</option><option value="custom">Otro color o pintura · por cotizar</option></select></div><div id="feet-field"><label for="variant-feet">Apoyos incluidos</label><select id="variant-feet"><option value="niveladores">Niveladores</option><option value="ruedas">Ruedas</option></select></div>
+        <select id="variant-finish"><option value="mate">Mate · incluido</option><option value="brillante">Poliuretano de alto brillo · +$999 MXN</option></select>
+        <div id="wood-color-field"><label for="variant-color">Color de madera que te gustaría</label><input id="variant-color" maxlength="80" placeholder="Indica el tono o lo definimos contigo"></div><div id="metal-field"><label for="variant-metal">Pintura del metal</label><select id="variant-metal"><option value="aceite">Negro mate al aceite · incluido</option><option value="electrostatica">Electrostática · tarifa según modelo</option><option value="custom">Otro color o pintura · por cotizar</option></select></div><div id="feet-field"><label for="variant-feet">Apoyos incluidos</label><select id="variant-feet"><option value="niveladores">Niveladores</option><option value="ruedas">Ruedas</option></select></div>
         <label for="variant-delivery">Lugar de entrega</label>
         <select id="variant-delivery"><option value="cdmx">CDMX · entrega según condiciones del producto</option><option value="otro">Otro estado · envío por cotizar</option></select>
         <label class="storage-option"><input id="variant-storage" type="checkbox"> <span id="modification-label">Quiero una modificación (cotización personalizada)</span></label>
@@ -123,6 +124,7 @@
 
 <section id="contacto" class="variant-contact"><p>¿Necesitas ayuda para elegir?</p><a href="https://wa.me/525577265340" class="whatsapp-general">Hablar con Maderóh por WhatsApp</a></section>
 <div id="site-footer"></div>
+<script src="/js/ofertas.js"></script>
 <script src="/js/catalogo-remoto.js"></script>
 <script src="js/main.js"></script><script src="js/precios.js"></script><script src="js/configuracion-publica.js"></script><script src="js/solicitudes.js"></script>
 <script src="js/producto-config.js"></script><script src="js/layout.js"></script>

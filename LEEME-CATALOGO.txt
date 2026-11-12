@@ -1,0 +1,23 @@
+MADERÓH · CORRECCIÓN DE VISUALIZACIÓN DEL CATÁLOGO
+
+Diagnóstico verificado en Deploy Preview #9: el endpoint responde HTTP 200
+con 33 productos, incluidos 9 escritorios. El archivo ofertas.js existe,
+pero productos.html no lo carga. catalogo.js utiliza MaderohOfertas y no
+puede completar la presentación del catálogo sin esa dependencia.
+
+Este complemento actualiza PUBLICAR/productos.html con la referencia al
+script antes de catalogo.js. Incluye un comprobador que detecta esa omisión
+en futuros despliegues. No cambia productos, fotos, usuarios ni migraciones.
+
+1. Descomprime el ZIP.
+2. En GitHub selecciona la rama academy-precios-avisos de Maderoh-Site.
+3. Desde la raíz: Add file > Upload files.
+4. Arrastra PUBLICAR y comprobar-publicacion.cjs. No subas la carpeta
+   exterior ni el ZIP. Guarda: Corregir carga del catálogo.
+5. Espera el nuevo despliegue del mismo PR.
+6. Abre el nuevo Deploy Preview de Netlify, entra a Productos y recarga.
+7. Comprueba Todos, Escritorios y los precios antes de fusionar con main.
+
+Pruebas locales: orden de scripts correcto, comprobador aprobado; al quitar
+la referencia como en la versión publicada, el comprobador la detecta.
+La publicación real queda pendiente de la nueva carga a GitHub.

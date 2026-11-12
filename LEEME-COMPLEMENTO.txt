@@ -1,0 +1,27 @@
+MADERÓH · COMPLEMENTO PARA LA RAMA academy-precios-avisos
+
+El registro adjunto confirma que falta PUBLICAR/gestion/comercial.js.
+También falta la migración de clientes y pedidos en la lista de Netlify.
+Este paquete agrega el módulo completo y sus dependencias, sin cambiar
+la validación de publicación. Complementa el ZIP de Academy ya subido.
+
+1. Descomprime este ZIP.
+2. GitHub > Maderoh-Site > selecciona academy-precios-avisos.
+3. Desde la raíz del repositorio pulsa Add file > Upload files.
+4. Arrastra PUBLICAR, servidor-libs, servidor-acceso y netlify desde el
+   contenido descomprimido. No subas el ZIP ni una carpeta exterior.
+5. Guarda con el mensaje: Completar módulo de clientes y pedidos.
+6. El mismo PR se actualizará. Espera el nuevo deploy de Netlify.
+7. No crees otro PR ni pulses Merge hasta revisar el resultado.
+
+Se incluye PUBLICAR/_headers íntegro porque el registro mostraba la política
+de seguridad dividida en líneas que Netlify interpretó como otras cabeceras.
+No se quitan las restricciones: se restaura el formato del archivo preparado.
+
+La migración 20261026150000_maderoh_clientes_pedidos.sql se incluye idéntica
+a la versión original del proyecto. No edites las migraciones ya aplicadas.
+Netlify ejecutará la que falte. No necesitas pegar SQL manualmente.
+
+Validación local: se reprodujo el error al retirar el módulo; al agregar
+estos archivos, el comprobador pasó. Los JavaScript incluidos pasaron la
+revisión de sintaxis. La ejecución SQL y el despliegue real se validan en Netlify.
