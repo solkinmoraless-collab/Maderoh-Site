@@ -26,3 +26,11 @@ console.log('Actualización comprobada: Academy, precios sin IVA automático y a
 // Solo se empaqueta este nombre no secreto para bloquear envíos en previews.
 const deployContext=['production','deploy-preview','branch-deploy'].includes(process.env.CONTEXT)?process.env.CONTEXT:'local';
 fs.writeFileSync(path.join(__dirname,'servidor-libs/entorno.json'),JSON.stringify({context:deployContext})+'\n');
+
+// La página debe cargar las dependencias antes del código que las utiliza.
+for(const [page,consumer]of [['index.html','js/inicio-productos.js'],['productos.html','js/catalogo.js'],['producto.html','js/producto-config.js']]){
+ const html=fs.readFileSync(path.join(root,page),'utf8');
+ const scripts=[...html.matchAll(/<script[^>]*src=["']([^"']+)["']/g)].map(m=>m[1].replace(/^\//,''));
+ const provider=scripts.indexOf('js/ofertas.js'),client=scripts.indexOf(consumer);
+ if(provider<0||client<0||provider>client)throw Error('Falta cargar js/ofertas.js antes de '+consumer+' en '+page);
+}
